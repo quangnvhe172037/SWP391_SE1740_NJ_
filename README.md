@@ -1,7 +1,7 @@
 # SWP391_SE1740_NJ
 ## Quiz Practice 
-* [This project is aimed at developing an quiz practice system which supports for the
-organization/expert to build up & sell the quiz practice services, supports the user to searchregister-and-access online subjects for practicing.]
+* This project is aimed at developing an quiz practice system which supports for the
+organization/expert to build up & sell the quiz practice services, supports the user to searchregister-and-access online subjects for practicing.
 
 ## Team
 * Our team consits of 4 peoples:
