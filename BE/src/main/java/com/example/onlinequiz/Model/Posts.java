@@ -45,5 +45,7 @@ public class Posts {
 
     @Column(name = "title", length = 256, columnDefinition = "VARCHAR(256) CHARACTER SET utf8mb4")
     private String title;
-
+    @ManyToOne
+    @JoinColumn(name = "users_id")
+    private Users users;
 }

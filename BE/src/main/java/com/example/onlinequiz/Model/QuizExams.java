@@ -32,4 +32,5 @@ public class QuizExams {
     @ManyToOne
     @JoinColumn(name = "subjectID")
     private Subjects subject;
+
 }

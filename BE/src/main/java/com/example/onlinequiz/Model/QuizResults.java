@@ -34,4 +34,7 @@ public class QuizResults {
 
     @Column(name = "correctAnswer")
     private int correctAnswer;
+    @ManyToOne
+    @JoinColumn(name = "users_id")
+    private Users users;
 }
