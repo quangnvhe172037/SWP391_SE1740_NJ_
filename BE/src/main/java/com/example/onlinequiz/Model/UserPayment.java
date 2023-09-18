@@ -17,11 +17,8 @@ public class UserPayment {
     @Id
     @Column(name = "billID")
     private Long billID;
-
-    @ManyToOne
-    @JoinColumn(name = "userID")
-    private Users user;
-
+    @Column(name = "account")
+    private String account;
     @ManyToOne
     @JoinColumn(name = "preID")
     private SubjectPrice subjectPrice;
@@ -41,4 +38,8 @@ public class UserPayment {
     @ManyToOne
     @JoinColumn(name = "subjectID")
     private Subjects subject;
+
+    @ManyToOne
+    @JoinColumn(name = "users_id")
+    private Users users;
 }

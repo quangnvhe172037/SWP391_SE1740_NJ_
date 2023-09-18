@@ -1,12 +1,14 @@
 package com.example.onlinequiz.Model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.NaturalId;
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,38 +16,26 @@ import java.util.Set;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "User")
+@Table(name = "users")
 public class Users {
     @Id
-    @Column(name = "userID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "firstName", length = 256, columnDefinition = "VARCHAR(256) CHARACTER SET utf8mb4")
+    @NotEmpty
+    @Size(max = 20)
     private String firstName;
-
-    @Column(name = "lastName", length = 256, columnDefinition = "VARCHAR(256) CHARACTER SET utf8mb4")
+    @NotEmpty
+    @Size(max = 20)
     private String lastName;
 
     @NaturalId(mutable = true)
+    @Email
     private String email;
-
-    private int mobile;
-
-    private boolean gender;
-
-    private Date createDate;
-
-    private String image;
 
     private String password;
 
-    @ManyToOne
-    @JoinColumn(name = "roleID")
-    private Roles role;
+    private String role;
 
-    @Column(name = "status")
-    private boolean status;
-
-
+    private boolean isEnabled = false;
 }
