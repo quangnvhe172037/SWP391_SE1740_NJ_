@@ -1,0 +1,65 @@
+package com.example.onlinequiz.Event.Listener;
+
+import com.example.onlinequiz.Event.RegistrationCompleteEvent;
+import com.example.onlinequiz.Model.Users;
+import com.example.onlinequiz.Services.Impl.UserServiceImpl;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationListener;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.stereotype.Component;
+
+import java.io.UnsupportedEncodingException;
+import java.util.UUID;
+@Slf4j
+@Component
+@RequiredArgsConstructor
+public class RegistrationCompleteEventListener implements ApplicationListener<RegistrationCompleteEvent> {
+    @Autowired
+    private final UserServiceImpl userService;
+
+    @Autowired
+    private final JavaMailSender mailSender;
+
+    private Users theUser;
+    @Override
+    public void onApplicationEvent(RegistrationCompleteEvent event) {
+        theUser = event.getUsers();
+
+        String verificationToken = UUID.randomUUID().toString();
+
+        userService.saveUserVerificationToken(theUser, verificationToken);
+
+        String url = event.getApplicationUrl()+"/register/verifyEmail?token="+verificationToken;
+
+        try {
+            sendVerificationEmail(url);
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+        log.info("Click the link to verify your registration: {}", url);
+    }
+
+    public void sendVerificationEmail(String url) throws MessagingException, UnsupportedEncodingException {
+        String subject = "Email Verification";
+        String senderName = "User Registration";
+        String mailContent = "<p> Hi, "+ theUser.getFirstName()+ ", </p>"+
+                "<p>Thank you for registering with us,"+"" +
+                "Please, follow the link below to complete your registration.</p>"+
+                "<a href=\"" +url+ "\">Verify your email to activate your account</a>"+
+                "<p> Thank you <br> Quizzi";
+        MimeMessage message = mailSender.createMimeMessage();
+        var messageHelper = new MimeMessageHelper(message);
+        messageHelper.setFrom("quanpdhe170415@fpt.edu.vn", senderName);
+        messageHelper.setTo(theUser.getEmail());
+        messageHelper.setSubject(subject);
+        messageHelper.setText(mailContent, true);
+        mailSender.send(message);
+    }
+}
