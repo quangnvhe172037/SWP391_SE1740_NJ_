@@ -8,6 +8,7 @@ const Registration = () => {
         email: '',
         password: '',
         confirmPassword: '',
+        role: 'CUSTOMER',
     });
 
     const handleInputChange = (event) => {
@@ -97,6 +98,16 @@ const Registration = () => {
                         name="confirmPassword"
                         value={formData.confirmPassword}
                         onChange={handleInputChange}
+                    />
+                </div>
+                <div className="form-group">
+                    <label>Role:</label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        name="role"
+                        value={formData.role} // Giá trị role mặc định là "customer" và chỉ đọc
+                        readOnly // Làm cho input chỉ đọc
                     />
                 </div>
                 <button type="submit" className="btn btn-primary">Register</button>
