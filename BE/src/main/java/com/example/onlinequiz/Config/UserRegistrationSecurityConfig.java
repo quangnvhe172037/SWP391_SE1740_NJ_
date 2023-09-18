@@ -2,7 +2,6 @@ package com.example.onlinequiz.Config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,15 +18,20 @@ public class UserRegistrationSecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.cors()
-                .and().csrf().disable()
+        return http
+                .cors() // Cấu hình CORS
+                .and().csrf().disable() // Tắt CSRF
                 .authorizeHttpRequests()
                 .requestMatchers("/register/**")
-                .permitAll()
+                .permitAll() // Cho phép tất cả truy cập /register/**
                 .and()
                 .authorizeHttpRequests()
                 .requestMatchers("/users/**")
-                .hasAnyAuthority("USER", "ADMIN")
-                .and().formLogin().and().build();
+                .hasAnyAuthority("CUSTOMER", "ADMIN", "EXPERT") // Yêu cầu quyền USER hoặc ADMIN cho /users/**
+                .and()
+                .formLogin() // Cho phép xác thực bằng form đăng nhập mặc định
+                .and()
+                .build(); // Xây dựng SecurityFilterChain
     }
 }
+

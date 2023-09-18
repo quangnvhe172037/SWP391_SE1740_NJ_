@@ -15,44 +15,45 @@ import org.springframework.stereotype.Component;
 
 import java.io.UnsupportedEncodingException;
 import java.util.UUID;
-@Slf4j
-@Component
-@RequiredArgsConstructor
+@Slf4j // Sử dụng Lombok để tạo logger với tên là "log"
+@Component // Đánh dấu đây là một Spring Component, để Spring quản lý và có thể tiêm vào các bean khác
+@RequiredArgsConstructor // Tự động tạo constructor với tham số cho các trường được đánh dấu là final
 public class RegistrationCompleteEventListener implements ApplicationListener<RegistrationCompleteEvent> {
     @Autowired
-    private final UserServiceImpl userService;
+    private final UserServiceImpl userService; // Sử dụng Spring để tiêm UserServiceImpl vào Event Listener
 
     @Autowired
-    private final JavaMailSender mailSender;
+    private final JavaMailSender mailSender; // Sử dụng Spring để tiêm JavaMailSender vào Event Listener
 
-    private Users theUser;
+    private Users theUser; // Biến để lưu trữ người dùng
+
     @Override
     public void onApplicationEvent(RegistrationCompleteEvent event) {
-        theUser = event.getUsers();
+        theUser = event.getUsers(); // Lấy thông tin người dùng từ sự kiện
 
-        String verificationToken = UUID.randomUUID().toString();
+        String verificationToken = UUID.randomUUID().toString(); // Tạo mã xác thực ngẫu nhiên
 
-        userService.saveUserVerificationToken(theUser, verificationToken);
+        userService.saveUserVerificationToken(theUser, verificationToken); // Lưu mã xác thực vào cơ sở dữ liệu
 
-        String url = event.getApplicationUrl()+"/register/verifyEmail?token="+verificationToken;
+        String url = event.getApplicationUrl() + "/register/verifyEmail?token=" + verificationToken; // Tạo URL xác thực
 
         try {
-            sendVerificationEmail(url);
+            sendVerificationEmail(url); // Gửi email xác thực
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }
-        log.info("Click the link to verify your registration: {}", url);
+        log.info("Click the link to verify your registration: {}", url); // Ghi log về URL xác thực
     }
 
     public void sendVerificationEmail(String url) throws MessagingException, UnsupportedEncodingException {
         String subject = "Email Verification";
         String senderName = "User Registration";
-        String mailContent = "<p> Hi, "+ theUser.getFirstName()+ ", </p>"+
-                "<p>Thank you for registering with us,"+"" +
-                "Please, follow the link below to complete your registration.</p>"+
-                "<a href=\"" +url+ "\">Verify your email to activate your account</a>"+
+        String mailContent = "<p> Hi, "+ theUser.getFirstName() + ", </p>" +
+                "<p>Thank you for registering with us," +
+                "Please, follow the link below to complete your registration.</p>" +
+                "<a href=\"" + url + "\">Verify your email to activate your account</a>" +
                 "<p> Thank you <br> Quizzi";
         MimeMessage message = mailSender.createMimeMessage();
         var messageHelper = new MimeMessageHelper(message);
@@ -60,6 +61,6 @@ public class RegistrationCompleteEventListener implements ApplicationListener<Re
         messageHelper.setTo(theUser.getEmail());
         messageHelper.setSubject(subject);
         messageHelper.setText(mailContent, true);
-        mailSender.send(message);
+        mailSender.send(message); // Gửi email xác thực
     }
 }

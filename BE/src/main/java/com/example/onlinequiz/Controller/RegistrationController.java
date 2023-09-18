@@ -18,23 +18,26 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 
-@CrossOrigin("*")
-@RestController
-@RequestMapping("/register")
-@RequiredArgsConstructor
+@CrossOrigin("*") // Cho phép CORS từ mọi nguồn
+@RestController // Đánh dấu đây là một Controller
+@RequestMapping("/register") // Định nghĩa đường dẫn cơ sở cho Controller
+@RequiredArgsConstructor // Tự động tạo constructor với tham số cho các trường được đánh dấu là final
 public class RegistrationController {
     @Autowired
-    private final UserServiceImpl userService;
+    private final UserServiceImpl userService; // Sử dụng Spring để tiêm UserServiceImpl vào Controller
     @Autowired
-    private final ApplicationEventPublisher publisher;
+    private final ApplicationEventPublisher publisher; // Sử dụng Spring để tiêm ApplicationEventPublisher vào Controller
 
     @Autowired
-    private final VerificationTokenRepository tokenRepository;
-    @PostMapping
+    private final VerificationTokenRepository tokenRepository; // Sử dụng Spring để tiêm VerificationTokenRepository vào Controller
+
+    @PostMapping // Xử lý các yêu cầu POST
     public ResponseEntity<?> registerUser(@RequestBody RegistrationRequest request, final HttpServletRequest httpServletRequest){
         Map<String, Object> response = new HashMap<>();
         try {
+            // Gọi UserService để đăng ký người dùng
             Users user = userService.registerUser(request);
+            // Gửi sự kiện đăng ký hoàn thành
             publisher.publishEvent(new RegistrationCompleteEvent(user, applicatioUrl(httpServletRequest)));
 
             response.put("success", true);
@@ -47,7 +50,7 @@ public class RegistrationController {
         }
     }
 
-    @GetMapping("/verifyEmail")
+    @GetMapping("/verifyEmail") // Xử lý các yêu cầu GET đến /register/verifyEmail
     public String verifyEmail(@RequestParam("token") String token){
         VerificationToken theToken = tokenRepository.findByToken(token);
         if(theToken.getUser().isEnabled()){
@@ -59,8 +62,10 @@ public class RegistrationController {
         }
         return "Invalid verification token";
     }
+
+    // Phương thức để xây dựng URL ứng dụng dựa trên yêu cầu HTTP
     private String applicatioUrl(HttpServletRequest httpServletRequest) {
         return "http://"+httpServletRequest.getServerName()+":"+httpServletRequest.getServerPort()+httpServletRequest.getContextPath();
     }
-
 }
+
