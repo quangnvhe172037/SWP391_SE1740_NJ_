@@ -40,7 +40,7 @@ DEFAULT CHARACTER SET = utf8mb4;
 -- Table `quizpractice`.`user`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `quizpractice`.`users` (
-  `usersid` BIGINT NOT NULL,
+  `usersid` BIGINT NOT NULL AUTO_INCREMENT,
   `password` VARCHAR(256) NOT NULL,
   `first_name` VARCHAR(256) CHARACTER SET 'utf8mb4' ,
   `last_name` VARCHAR(256) CHARACTER SET 'utf8mb4',
@@ -65,7 +65,7 @@ DEFAULT CHARACTER SET = utf8mb4;
 -- Table `quizpractice`.`subjectcategory`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `quizpractice`.`subjectcategory` (
-  `cateid` INT NOT NULL,
+  `cateid` INT NOT NULL AUTO_INCREMENT,
   `catename` VARCHAR(256) CHARACTER SET 'utf8mb4'  NULL DEFAULT NULL,
   PRIMARY KEY (`cateID`))
 ENGINE = InnoDB
@@ -77,7 +77,7 @@ DEFAULT CHARACTER SET = utf8mb4;
 -- Table `quizpractice`.`subject`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `quizpractice`.`subject` (
-  `subjectid` BIGINT NOT NULL,
+  `subjectid` BIGINT NOT NULL AUTO_INCREMENT,
   `subjectname` VARCHAR(256) CHARACTER SET 'utf8mb4'  NULL DEFAULT NULL,
   `cateid` INT NULL DEFAULT NULL,
   `status` BIT NULL DEFAULT NULL,
@@ -96,7 +96,7 @@ DEFAULT CHARACTER SET = utf8mb4;
 -- Table `quizpractice`.`subjecttopic`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `quizpractice`.`subjecttopic` (
-  `topicid` BIGINT NOT NULL,
+  `topicid` BIGINT NOT NULL AUTO_INCREMENT,
   `topicname` VARCHAR(256) CHARACTER SET 'utf8mb4'  NULL DEFAULT NULL,
   `subjectid` BIGINT NULL DEFAULT NULL,
   PRIMARY KEY (`topicid`),
@@ -113,7 +113,7 @@ DEFAULT CHARACTER SET = utf8mb4;
 -- Table `quizpractice`.`lessontype`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `quizpractice`.`lessonType` (
-  `lessontypeid` INT NOT NULL,
+  `lessontypeid` INT NOT NULL AUTO_INCREMENT,
   `lessontypename` VARCHAR(256) CHARACTER SET 'utf8mb4' NULL DEFAULT NULL,
   PRIMARY KEY (`lessonTypeID`))
 ENGINE = InnoDB
@@ -125,7 +125,7 @@ DEFAULT CHARACTER SET = utf8mb4;
 -- Table `quizpractice`.`lesson`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `quizpractice`.`lesson` (
-  `lessonid` BIGINT NOT NULL,
+  `lessonid` BIGINT NOT NULL AUTO_INCREMENT,
   `lessonname` VARCHAR(256) CHARACTER SET 'utf8mb4'  NULL DEFAULT NULL,
   `status` bit,
   `order` INT NULL DEFAULT NULL,
@@ -150,7 +150,7 @@ DEFAULT CHARACTER SET = utf8mb4;
 -- Table `quizpractice`.`postcategory`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `quizpractice`.`postcategory` (
-  `postcateid` INT NOT NULL,
+  `postcateid` INT NOT NULL AUTO_INCREMENT,
   `postcatename` VARCHAR(256) CHARACTER SET 'utf8mb4' NULL DEFAULT NULL,
   PRIMARY KEY (`postcateid`))
 ENGINE = InnoDB
@@ -162,7 +162,7 @@ DEFAULT CHARACTER SET = utf8mb4;
 -- Table `quizpractice`.`post`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `quizpractice`.`post` (
-  `postid` BIGINT NOT NULL,
+  `postid` BIGINT NOT NULL AUTO_INCREMENT,
   `postdata` TEXT NULL DEFAULT NULL,
   `postcateid` INT NULL DEFAULT NULL,
   `usersid` BIGINT NULL DEFAULT NULL,
@@ -190,7 +190,7 @@ DEFAULT CHARACTER SET = utf8mb4;
 -- Table `quizpractice`.`questionlevel`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `quizpractice`.`questionLevel` (
-  `levelid` INT NOT NULL,
+  `levelid` INT NOT NULL AUTO_INCREMENT,
   `levelname` VARCHAR(256) CHARACTER SET 'utf8mb4'  NULL DEFAULT NULL,
   PRIMARY KEY (`levelid`))
 ENGINE = InnoDB
@@ -202,7 +202,7 @@ DEFAULT CHARACTER SET = utf8mb4;
 -- Table `quizpractice`.`quiz`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `quizpractice`.`quiz` (
-  `quizid` BIGINT NOT NULL,
+  `quizid` BIGINT NOT NULL AUTO_INCREMENT,
   `quizname` VARCHAR(256) CHARACTER SET 'utf8mb4'  NULL DEFAULT NULL,
   `status` BIT NULL DEFAULT NULL,
   `description` VARCHAR(256) CHARACTER SET 'utf8mb4'  NULL DEFAULT NULL,
@@ -221,7 +221,7 @@ DEFAULT CHARACTER SET = utf8mb4;
 -- Table `quizpractice`.`quizdata`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `quizpractice`.`quizdata` (
-  `sentenceid` BIGINT NOT NULL,
+  `sentenceid` BIGINT NOT NULL AUTO_INCREMENT,
   `quizid` BIGINT NULL DEFAULT NULL,
   PRIMARY KEY (`sentenceid`),
   INDEX `quizid` (`quizid` ASC) VISIBLE,
@@ -237,7 +237,7 @@ DEFAULT CHARACTER SET = utf8mb4;
 -- Table `quizpractice`.`quizanswer`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `quizpractice`.`quizanswer` (
-  `answerid` BIGINT NOT NULL,
+  `answerid` BIGINT NOT NULL AUTO_INCREMENT,
   `answerdata` VARCHAR(256) CHARACTER SET 'utf8mb4'  NULL DEFAULT NULL,
   `sentenceid` BIGINT NULL DEFAULT NULL,
   `istrueanswer` BIT(1) NULL DEFAULT NULL,
@@ -255,7 +255,7 @@ DEFAULT CHARACTER SET = utf8mb4;
 -- Table `quizpractice`.`quizexam`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `quizpractice`.`quizexam` (
-  `quizid` BIGINT NOT NULL,
+  `quizid` BIGINT NOT NULL AUTO_INCREMENT,
   `quizname` VARCHAR(256) CHARACTER SET 'utf8mb4'  NULL DEFAULT NULL,
   `datecreate` DATETIME NULL DEFAULT NULL,
   `durationtime` DATETIME NULL DEFAULT NULL,
@@ -275,7 +275,7 @@ DEFAULT CHARACTER SET = utf8mb4;
 -- Table `quizpractice`.`quizquestion`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `quizpractice`.`quizquestion` (
-  `questionid` BIGINT NOT NULL,
+  `questionid` BIGINT NOT NULL AUTO_INCREMENT,
   `questiondata` VARCHAR(256) CHARACTER SET 'utf8mb4'  NULL DEFAULT NULL,
   `sentenceid` BIGINT NULL DEFAULT NULL,
   PRIMARY KEY (`questionid`),
@@ -292,7 +292,7 @@ DEFAULT CHARACTER SET = utf8mb4;
 -- Table `quizpractice`.`quizresult`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `quizpractice`.`quizresult` (
-  `resultid` BIGINT NOT NULL,
+  `resultid` BIGINT NOT NULL AUTO_INCREMENT,
   `score` INT NULL DEFAULT NULL,
   `usersid` BIGINT NULL DEFAULT NULL,
   `datetaken` DATETIME NULL DEFAULT NULL,
@@ -316,7 +316,7 @@ DEFAULT CHARACTER SET = utf8mb4;
 -- Table `quizpractice`.`quizresultdetail`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `quizpractice`.`quizresultdetail` (
-  `quizexamdetail` BIGINT NOT NULL,
+  `quizexamdetail` BIGINT NOT NULL AUTO_INCREMENT,
   `resultid` BIGINT NULL DEFAULT NULL,
   `useranswer` BIGINT NULL DEFAULT NULL,
   `sentenceid` BIGINT NULL DEFAULT NULL,
@@ -342,7 +342,7 @@ DEFAULT CHARACTER SET = utf8mb4;
 -- Table `quizpractice`.`slider`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `quizpractice`.`slider` (
-  `sliderid` BIGINT NOT NULL,
+  `sliderid` BIGINT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(256) CHARACTER SET 'utf8mb4'  NULL DEFAULT NULL,
   `image` VARCHAR(256) NULL DEFAULT NULL,
   `subjectid` BIGINT NULL DEFAULT NULL,
@@ -362,7 +362,7 @@ DEFAULT CHARACTER SET = utf8mb4;
 -- Table `quizpractice`.`subjectjoin`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `quizpractice`.`subjectjoin` (
-  `subjectid` BIGINT NOT NULL,
+  `subjectid` BIGINT NOT NULL ,
   `usersid` BIGINT NOT NULL,
   PRIMARY KEY (`subjectid`, `usersid`),
   INDEX `usersid` (`usersid` ASC) VISIBLE,
@@ -381,7 +381,7 @@ DEFAULT CHARACTER SET = utf8mb4;
 -- Table `quizpractice`.`subjectprice`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `quizpractice`.`subjectprice` (
-  `preid` BIGINT NOT NULL,
+  `preid` BIGINT NOT NULL AUTO_INCREMENT,
   `price` BIGINT NULL DEFAULT NULL,
   `subjectid` BIGINT NULL DEFAULT NULL,
   `duration` DATETIME NULL DEFAULT NULL,
@@ -420,7 +420,7 @@ DEFAULT CHARACTER SET = utf8mb4;
 -- Table `quizpractice`.`userpayment`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `quizpractice`.`userpayment` (
-  `billid` BIGINT NOT NULL,
+  `billid` BIGINT NOT NULL AUTO_INCREMENT,
   `usersid` BIGINT NULL DEFAULT NULL,
   `preid` BIGINT NULL DEFAULT NULL,
   `timestart` DATETIME NULL DEFAULT NULL,

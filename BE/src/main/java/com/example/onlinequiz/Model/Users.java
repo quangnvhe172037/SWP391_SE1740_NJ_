@@ -3,6 +3,7 @@ package com.example.onlinequiz.Model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Null;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -38,11 +39,14 @@ public class Users {
 
     private String mobile;
 
+    @Null
     private boolean gender;
+
 
     private LocalDate createdate;
 
     private String image;
+
 
     private String password;
 

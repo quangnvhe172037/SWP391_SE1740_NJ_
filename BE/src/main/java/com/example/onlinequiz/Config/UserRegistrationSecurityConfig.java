@@ -22,13 +22,13 @@ public class UserRegistrationSecurityConfig {
                 .cors() // Cấu hình CORS
                 .and().csrf().disable() // Tắt CSRF
                 .authorizeHttpRequests()
-                .requestMatchers("/register/**")
+                .requestMatchers("/home/**", "/register/**","")
                 .permitAll() // Cho phép tất cả truy cập /register/**
                 .and()
-                .authorizeHttpRequests()
-                .requestMatchers("/users/**")
-                .hasAnyAuthority("CUSTOMER", "ADMIN", "EXPERT") // Yêu cầu quyền USER hoặc ADMIN cho /users/**
-                .and()
+//                .authorizeHttpRequests()
+//                .requestMatchers("/users/**")
+//                .hasAnyAuthority("CUSTOMER", "ADMIN", "EXPERT") // Yêu cầu quyền USER hoặc ADMIN cho /users/**
+//                .and()
                 .formLogin() // Cho phép xác thực bằng form đăng nhập mặc định
                 .and()
                 .build(); // Xây dựng SecurityFilterChain

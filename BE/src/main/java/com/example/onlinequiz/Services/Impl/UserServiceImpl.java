@@ -38,12 +38,14 @@ public class UserServiceImpl implements UserService {
         if(user.isPresent()){
             throw new UserAlreadyExistException("User with email " + request.email() + " already exists!"); // Nếu người dùng đã tồn tại, ném ngoại lệ UserAlreadyExistException
         }
+
         var newUser = new Users(); // Tạo một đối tượng người dùng mới
         newUser.setFirstName(request.firstName());
         newUser.setLastName(request.lastName());
         newUser.setEmail(request.email());
         newUser.setPassword(passwordEncoder.encode(request.password())); // Mã hóa mật khẩu trước khi lưu vào cơ sở dữ liệu
         newUser.setRole(request.role());
+
         return userRepository.save(newUser); // Lưu người dùng mới vào cơ sở dữ liệu và trả về đối tượng người dùng đã lưu
     }
 
