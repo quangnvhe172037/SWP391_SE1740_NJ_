@@ -5,7 +5,7 @@ const BoardAdmin = () => {
     const [content, setContent] = useState("");
 
     useEffect(() => {
-        userapi.getModeratorBoard().then(
+        userapi.getAdminBoard().then(
             (response) => {
                 setContent(response.data);
             },

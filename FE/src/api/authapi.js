@@ -26,46 +26,22 @@ Hỗ trợ hủy: Axios hỗ trợ việc hủy yêu cầu HTTP, điều này r�
  */
 import axios from "axios";
 // Địa chỉ API của máy chủ dùng để gọi các yêu cầu đăng ký
-const API_URL = "http://localhost:8080/api/auth/";
-
-// Hàm đăng ký người dùng, gửi yêu cầu POST đến máy chủ
-const register = (username, email, password) => {
-    // Gửi yêu cầu POST đến API đăng ký với thông tin người dùng
-    return axios.post(API_URL + "signup", {
-        username, email, password
-    });
-};
-
-// Hàm thực hiện đăng nhập người dùng
-const login = (username, password) => {
-    // Gửi yêu cầu POST đến API đăng nhập với tên đăng nhập và mật khẩu
-    return axios.post(API_URL + "signin", {
-        username, password
-    }).then((response) => {
-        // Kiểm tra nếu nhận được mã thông báo truy cập (accessToken) từ phản hồi
-        if (response.data.accessToken) {
-            // Lưu thông tin người dùng và mã thông báo vào localStorage
-            localStorage.setItem("user", JSON.stringify(response.data));
-        }
-        // Trả về dữ liệu phản hồi
-        return response.data;
-    });
-};
+const API_URL = "http://localhost:8080/api/test/";
 
 //Hàm thực hiện đăng xuất người dùng
 const logout = () => {
     //Lấy thông tin người dùng từ localStorage sau đó xóa đi
-    localStorage.removeItem("user");
+    localStorage.removeItem("token");
 };
 
 // Hàm lấy thông tin người dùng hiện tại từ localStorage
 const getCurrentUser = () => {
-    // Lấy dữ liệu người dùng từ localStorage và chuyển đổi nó từ chuỗi JSON sang đối tượng JavaScript
-    return JSON.parse(localStorage.getItem("user"));
+    return localStorage.getItem("role");
 };
 
+
 const authapi = {
-    register, login, logout, getCurrentUser
+    logout, getCurrentUser
 };
 
 export default authapi;
