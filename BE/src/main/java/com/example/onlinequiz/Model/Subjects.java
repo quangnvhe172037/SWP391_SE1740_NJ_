@@ -11,18 +11,18 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "Subject")
+@Table(name = "subject")
 public class Subjects {
     @Id
-    @Column(name = "subjectID")
+    @Column(name = "subjectid")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long subjectID;
 
-    @Column(name = "subjectName", length = 256, columnDefinition = "VARCHAR(256) CHARACTER SET utf8mb4")
+    @Column(name = "subjectname", length = 256, columnDefinition = "VARCHAR(256) CHARACTER SET utf8mb4")
     private String subjectName;
 
     @ManyToOne
-    @JoinColumn(name = "cateID")
+    @JoinColumn(name = "cateid")
     private SubjectCategories subjectCategory;
 
     @Column(name = "status")

@@ -11,22 +11,22 @@ import java.util.Date;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "UserPayment")
+@Table(name = "userpayment")
 public class UserPayment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "billID")
+    @Column(name = "billid")
     private Long billID;
     @Column(name = "account")
     private String account;
     @ManyToOne
-    @JoinColumn(name = "preID")
+    @JoinColumn(name = "preid")
     private SubjectPrice subjectPrice;
 
-    @Column(name = "timeStart")
+    @Column(name = "timestart")
     private Date timeStart;
 
-    @Column(name = "timeEnd")
+    @Column(name = "timeend")
     private Date timeEnd;
 
     @Column(name = "status")
@@ -36,10 +36,10 @@ public class UserPayment {
     private String notify;
 
     @ManyToOne
-    @JoinColumn(name = "subjectID")
+    @JoinColumn(name = "subjectid")
     private Subjects subject;
 
     @ManyToOne
-    @JoinColumn(name = "users_id")
+    @JoinColumn(name = "usersid")
     private Users users;
 }

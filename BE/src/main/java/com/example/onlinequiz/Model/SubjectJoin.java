@@ -11,17 +11,17 @@ import javax.security.auth.Subject;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "SubjectJoin")
+@Table(name = "subjectjoin")
 public class SubjectJoin {
     @EmbeddedId
     private SubjectJoinId id;
 
     @ManyToOne
-    @MapsId("subjectID")
-    @JoinColumn(name = "subjectID")
+    @MapsId("subjectid")
+    @JoinColumn(name = "subjectid")
     private Subjects subject;
 
     @ManyToOne
-    @JoinColumn(name = "users_id")
+    @JoinColumn(name = "usersid")
     private Users user;
 }

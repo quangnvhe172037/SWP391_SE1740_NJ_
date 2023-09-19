@@ -6,16 +6,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.List;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class SubjectJoinId {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+@Embeddable
+public class SubjectJoinId implements Serializable {
+
     @JoinColumn(name = "subjectID")
     private Long subjectID;
-    @ManyToOne
+
     @JoinColumn(name = "users_id")
     private Long userID;
 }

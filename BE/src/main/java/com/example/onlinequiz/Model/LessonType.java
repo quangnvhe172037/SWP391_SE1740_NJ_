@@ -9,13 +9,13 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "LessonType")
+@Table(name = "Lessontype")
 public class LessonType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "lessonTypeID")
+    @Column(name = "lessontypeid")
     private int lessonTypeID;
 
-    @Column(name = "lessonTypeName", length = 256, columnDefinition = "VARCHAR(256) CHARACTER SET utf8mb4")
+    @Column(name = "lessontypename", length = 256, columnDefinition = "VARCHAR(256) CHARACTER SET utf8mb4")
     private String lessonTypeName;
 }

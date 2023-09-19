@@ -1,10 +1,10 @@
 import axios from "axios";
 import authHeader from "./authheader";
 
-const API_URL = "http://localhost:8080/api/test";
+const API_URL = "http://localhost:8080/home";
 
 const getPublishContent = () => {
-    return axios.get(API_URL + "/all", {
+    return axios.get(API_URL + "/", {
 
     });
 };

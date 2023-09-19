@@ -11,18 +11,18 @@ import java.util.Date;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "SubjectPrice")
+@Table(name = "subjectprice")
 public class SubjectPrice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "preID")
+    @Column(name = "preid")
     private Long preID;
 
     @Column(name = "price")
     private Long price;
 
     @ManyToOne
-    @JoinColumn(name = "subjectID")
+    @JoinColumn(name = "subjectid")
     private Subjects subject;
 
     @Column(name = "duration")

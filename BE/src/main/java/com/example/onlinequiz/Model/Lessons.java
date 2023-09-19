@@ -9,14 +9,14 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "Lesson")
+@Table(name = "lesson")
 public class Lessons {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "lessonID")
+    @Column(name = "lessonid")
     private Long lessonID;
 
-    @Column(name = "lessonName", length = 256, columnDefinition = "VARCHAR(256) CHARACTER SET utf8mb4")
+    @Column(name = "lessonname", length = 256, columnDefinition = "VARCHAR(256) CHARACTER SET utf8mb4")
     private String lessonName;
 
     @Column(name = "status", length = 256)
@@ -25,14 +25,14 @@ public class Lessons {
     @Column(name = "order")
     private int order;
 
-    @Column(name = "videoLink", length = 256)
+    @Column(name = "videolink", length = 256)
     private String videoLink;
 
     @ManyToOne
-    @JoinColumn(name = "topicID")
+    @JoinColumn(name = "topicid")
     private SubjectTopics topic;
 
     @ManyToOne
-    @JoinColumn(name = "lessonTypeID")
+    @JoinColumn(name = "lessontypeid")
     private LessonType lessonType;
 }

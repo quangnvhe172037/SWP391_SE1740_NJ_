@@ -11,41 +11,39 @@ import java.util.Date;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "Post")
+@Table(name = "post")
 public class Posts {
     @Id
-    @Column(name = "postID")
+    @Column(name = "postid")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long postID;
 
-    @Column(name = "postData", columnDefinition = "TEXT")
+    @Column(name = "postdata", columnDefinition = "TEXT")
     private String postData;
 
     @ManyToOne
-    @JoinColumn(name = "postCateID")
+    @JoinColumn(name = "postcateid")
     private PostCategories postCategory;
 
     @ManyToOne
-    @JoinColumn(name = "userID")
+    @JoinColumn(name = "usersid")
     private Users user;
 
     @Column(name = "image", length = 256)
     private String image;
 
-    @Column(name = "dateCreate")
+    @Column(name = "datecreate")
     private Date dateCreate;
 
     private boolean status;
 
-    @Column(name = "updateDate")
+    @Column(name = "updatedate")
     private Date updateDate;
 
-    @Column(name = "briefInfor", length = 256, columnDefinition = "VARCHAR(256) CHARACTER SET utf8mb4")
+    @Column(name = "briefinfor", length = 256, columnDefinition = "VARCHAR(256) CHARACTER SET utf8mb4")
     private String briefInfor;
 
     @Column(name = "title", length = 256, columnDefinition = "VARCHAR(256) CHARACTER SET utf8mb4")
     private String title;
-    @ManyToOne
-    @JoinColumn(name = "users_id")
-    private Users users;
+
 }

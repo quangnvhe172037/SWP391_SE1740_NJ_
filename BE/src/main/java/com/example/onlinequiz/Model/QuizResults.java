@@ -11,30 +11,28 @@ import java.util.Date;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "QuizResult")
+@Table(name = "quizresult")
 public class QuizResults {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "resultID")
+    @Column(name = "resultid")
     private Long resultID;
 
     @Column(name = "score")
     private int score;
 
     @ManyToOne
-    @JoinColumn(name = "userID")
+    @JoinColumn(name = "usersid")
     private Users user;
 
-    @Column(name = "dateTaken")
+    @Column(name = "datetaken")
     private Date dateTaken;
 
     @ManyToOne
-    @JoinColumn(name = "quizID")
+    @JoinColumn(name = "quizid")
     private QuizExams quizExam;
 
-    @Column(name = "correctAnswer")
+    @Column(name = "correctanswer")
     private int correctAnswer;
-    @ManyToOne
-    @JoinColumn(name = "users_id")
-    private Users users;
+
 }
