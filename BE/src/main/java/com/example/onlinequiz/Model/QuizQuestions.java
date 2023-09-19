@@ -9,17 +9,17 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "QuizQuestion")
+@Table(name = "quizquestion")
 public class QuizQuestions {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "questionID")
+    @Column(name = "questionid")
     private Long questionID;
 
-    @Column(name = "questionData", length = 256, columnDefinition = "VARCHAR(256) CHARACTER SET utf8mb4")
+    @Column(name = "questiondata", length = 256, columnDefinition = "VARCHAR(256) CHARACTER SET utf8mb4")
     private String questionData;
 
     @ManyToOne
-    @JoinColumn(name = "sentenceID")
+    @JoinColumn(name = "sentenceid")
     private QuizData quizData;
 }

@@ -9,6 +9,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.NaturalId;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,6 +21,7 @@ import java.util.Set;
 @Table(name = "users")
 public class Users {
     @Id
+    @Column(name = "usersid")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -32,6 +35,14 @@ public class Users {
     @NaturalId(mutable = true)
     @Email
     private String email;
+
+    private String mobile;
+
+    private boolean gender;
+
+    private LocalDate createdate;
+
+    private String image;
 
     private String password;
 

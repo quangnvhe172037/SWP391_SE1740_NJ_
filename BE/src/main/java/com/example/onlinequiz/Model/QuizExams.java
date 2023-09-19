@@ -11,26 +11,26 @@ import java.util.Date;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "QuizExam")
+@Table(name = "quizexam")
 public class QuizExams {
     @Id
-    @Column(name = "quizID")
+    @Column(name = "quizid")
     private Long quizID;
 
-    @Column(name = "quizName", length = 256, columnDefinition = "VARCHAR(256) CHARACTER SET utf8mb4")
+    @Column(name = "quizname", length = 256, columnDefinition = "VARCHAR(256) CHARACTER SET utf8mb4")
     private String quizName;
 
-    @Column(name = "dateCreate")
+    @Column(name = "datecreate")
     private Date dateCreate;
 
-    @Column(name = "durationTime")
+    @Column(name = "durationtime")
     private Date durationTime;
 
-    @Column(name = "passRate")
+    @Column(name = "passrate")
     private int passRate;
 
     @ManyToOne
-    @JoinColumn(name = "subjectID")
+    @JoinColumn(name = "subjectid")
     private Subjects subject;
 
 }

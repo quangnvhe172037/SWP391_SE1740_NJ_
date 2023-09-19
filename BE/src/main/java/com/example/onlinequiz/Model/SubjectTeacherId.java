@@ -6,6 +6,6 @@ import java.io.Serializable;
 
 @Embeddable
 public class SubjectTeacherId implements Serializable {
-    private Long subjectID;
-    private Long userID;
+    private Long subjectid;
+    private Long usersid;
 }

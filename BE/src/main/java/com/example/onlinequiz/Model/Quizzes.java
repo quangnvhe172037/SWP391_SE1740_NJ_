@@ -9,14 +9,14 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "Quiz")
+@Table(name = "quiz")
 public class Quizzes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "quizID")
+    @Column(name = "quizid")
     private Long quizID;
 
-    @Column(name = "quizName", length = 256, columnDefinition = "VARCHAR(256) CHARACTER SET utf8mb4")
+    @Column(name = "quizname", length = 256, columnDefinition = "VARCHAR(256) CHARACTER SET utf8mb4")
     private String quizName;
 
     @Column(name = "status", length = 256)
@@ -26,6 +26,6 @@ public class Quizzes {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "lessonID")
+    @JoinColumn(name = "lessonid")
     private Lessons lesson;
 }

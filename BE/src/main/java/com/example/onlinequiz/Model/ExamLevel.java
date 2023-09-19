@@ -18,6 +18,6 @@ public class ExamLevel {
 
     private int numQuest;
 
-    @JoinColumn(name = "quizID")
+    @JoinColumn(name = "quizid")
     private QuizExams quizExams;
 }

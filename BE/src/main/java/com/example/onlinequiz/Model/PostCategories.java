@@ -9,14 +9,14 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "PostCategory")
+@Table(name = "postcategory")
 public class PostCategories {
     @Id
-    @Column(name = "postCateID")
+    @Column(name = "postcateid")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "postCateName")
+    @Column(name = "postcatename")
     private String name;
 
 }

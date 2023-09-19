@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class Sliders {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "sliderID")
+    @Column(name = "sliderid")
     private Long sliderID;
 
     @Column(name = "title", length = 256, columnDefinition = "VARCHAR(256) CHARACTER SET utf8mb4")
@@ -22,7 +22,7 @@ public class Sliders {
     private String image;
 
     @ManyToOne
-    @JoinColumn(name = "subjectID")
+    @JoinColumn(name = "subjectid")
     private Subjects subject;
 
     @Column(name = "status", length = 256)
