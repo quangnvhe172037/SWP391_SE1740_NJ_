@@ -50,7 +50,6 @@ CREATE TABLE IF NOT EXISTS `quizpractice`.`users` (
   `createdate` DATE  DEFAULT NULL,
   `image` VARCHAR(256)  DEFAULT NULL,
   `is_enabled` BIT  DEFAULT NULL,
-  `roleid` INT  ,
   PRIMARY KEY (`usersid`),
   INDEX `roleid` (`roleid` ASC) VISIBLE,
   CONSTRAINT `user_ibfk_1`
