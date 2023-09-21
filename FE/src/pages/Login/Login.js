@@ -1,38 +1,33 @@
-import React, { useState, useRef } from "react";
-import { useNavigate } from 'react-router-dom';
+import React, {useRef, useState} from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
-import CheckButton from "react-validation/build/button";
-import authapi from "../../api/authapi";
+import CkeckButton from "react-validation/build/button";
+import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
-// Hàm kiểm tra yêu cầu cho một trường dữ liệu
 const required = (value) => {
-    // Kiểm tra nếu giá trị không tồn tại hoặc rỗng
     if (!value) {
-        // Trả về một thông báo lỗi dưới dạng một phần tử JSX
         return (
             <div className="alert alert-danger" role="alert">
-                This field is required
+                This field is required!
             </div>
         );
     }
-    // Nếu giá trị tồn tại và không rỗng, hàm không trả về gì (undefined).
 };
 
 const Login = () => {
-    let navigate = useNavigate();
-
+    const navigate = useNavigate();
     const form = useRef();
     const checkBtn = useRef();
 
-    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState("");
 
-    const onChangeUsername = (e) => {
-        const username = e.target.value;
-        setUsername(username);
+    const onChangeEmail = (e) => {
+        const email = e.target.value;
+        setEmail(email);
     };
 
     const onChangePassword = (e) => {
@@ -41,35 +36,53 @@ const Login = () => {
     };
 
     const handleLogin = (e) => {
-        e.preventDefault();
+            e.preventDefault();
 
-        setMessage("");
-        setLoading(true);
+            setLoading(true);
 
-        form.current.validateAll();
+            form.current.validateAll();
 
-        if (checkBtn.current.context._errors.length === 0) {
-            authapi.login(username, password).then(
-                () => {
-                    navigate("/profile");
-                    window.location.reload();
-                },
-                (error) => {
-                    const resMessage =
-                        (error.response &&
-                            error.response.data &&
-                            error.response.data.message) ||
-                        error.message ||
-                        error.toString();
+            if (checkBtn.current.context._errors.length === 0) {
+                axios
+                    .post("http://localhost:8080/api/test/login", {
+                            email,
+                            password,
+                        }
+                    )
+                    .then((response) => {
+                        const {email, role, token} = response.data;
 
-                    setLoading(false);
-                    setMessage(resMessage);
-                }
-            );
-        } else {
-            setLoading(false);
+                        // Lưu thông tin vào localStorage
+                        if (localStorage.getItem("email") !== null || localStorage.getItem("role") !== null || localStorage.getItem("token") !== null) {
+                            localStorage.removeItem("email");
+                            localStorage.removeItem("role");
+                            localStorage.removeItem("token");
+                        }
+
+                        localStorage.setItem("email", email);
+                        localStorage.setItem("role", role);
+                        localStorage.setItem("token", token);
+                        navigate('/home')
+                        console.log('login thanh cong');
+                    })
+                    .catch((error) => {
+                        const resMessage =
+                            (error.response &&
+                                error.response.data &&
+                                error.response.data.message) ||
+                            error.message ||
+                            error.toString();
+
+                        setMessage(resMessage);
+                    })
+                    .finally(() => {
+                        setLoading(false);
+                    });
+            } else {
+                setLoading(false);
+            }
         }
-    };
+    ;
 
     return (
         <div className="col-md-12">
@@ -82,13 +95,13 @@ const Login = () => {
 
                 <Form onSubmit={handleLogin} ref={form}>
                     <div className="form-group">
-                        <label htmlFor="username">Username</label>
+                        <label htmlFor="username">Email</label>
                         <Input
                             type="text"
                             className="form-control"
                             name="username"
-                            value={username}
-                            onChange={onChangeUsername}
+                            value={email}
+                            onChange={onChangeEmail}
                             validations={[required]}
                         />
                     </div>
@@ -121,7 +134,7 @@ const Login = () => {
                             </div>
                         </div>
                     )}
-                    <CheckButton style={{ display: "none" }} ref={checkBtn} />
+                    <CkeckButton style={{display: "none"}} ref={checkBtn}/>
                 </Form>
             </div>
         </div>

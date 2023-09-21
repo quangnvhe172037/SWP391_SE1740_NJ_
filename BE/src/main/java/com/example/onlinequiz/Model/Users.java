@@ -10,8 +10,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.NaturalId;
 
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -37,19 +35,7 @@ public class Users {
     @Email
     private String email;
 
-    private String mobile;
-
-    @Null
-    private boolean gender;
-
-
-    private LocalDate createdate;
-
-    private String image;
-
-
     private String password;
-
     private String role;
 
     private boolean isEnabled = false;

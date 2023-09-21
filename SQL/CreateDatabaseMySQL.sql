@@ -50,6 +50,7 @@ CREATE TABLE IF NOT EXISTS `quizpractice`.`users` (
   `createdate` DATE  DEFAULT NULL,
   `image` VARCHAR(256)  DEFAULT NULL,
   `is_enabled` BIT  DEFAULT NULL,
+  `roleid` INT ,
   PRIMARY KEY (`usersid`),
   INDEX `roleid` (`roleid` ASC) VISIBLE,
   CONSTRAINT `user_ibfk_1`
@@ -340,7 +341,7 @@ DEFAULT CHARACTER SET = utf8mb4;
 -- -----------------------------------------------------
 -- Table `quizpractice`.`slider`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `quizpractice`.`slider` (
+CREATE TABLE IF NOT EXISTS `quizpractice`.`sliders` (
   `sliderid` BIGINT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(256) CHARACTER SET 'utf8mb4'  NULL DEFAULT NULL,
   `image` VARCHAR(256) NULL DEFAULT NULL,

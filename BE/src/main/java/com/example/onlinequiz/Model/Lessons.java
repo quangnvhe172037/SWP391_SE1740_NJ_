@@ -19,8 +19,8 @@ public class Lessons {
     @Column(name = "lessonname", length = 256, columnDefinition = "VARCHAR(256) CHARACTER SET utf8mb4")
     private String lessonName;
 
-    @Column(name = "status", length = 256)
-    private String status;
+    @Column(name = "status")
+    private boolean status;
 
     @Column(name = "order")
     private int order;

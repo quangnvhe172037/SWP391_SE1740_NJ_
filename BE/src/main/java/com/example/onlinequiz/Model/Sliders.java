@@ -26,7 +26,7 @@ public class Sliders {
     private Subjects subject;
 
     @Column(name = "status", length = 256)
-    private String status;
+    private boolean status;
 
     @Column(name = "note", length = 256, columnDefinition = "VARCHAR(256) CHARACTER SET utf8mb4")
     private String note;
