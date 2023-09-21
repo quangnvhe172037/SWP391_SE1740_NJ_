@@ -20,6 +20,7 @@ import java.util.Set;
 @Table(name = "users")
 public class Users {
     @Id
+    @Column(name = "usersid")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

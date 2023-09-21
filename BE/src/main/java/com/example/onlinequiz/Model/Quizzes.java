@@ -19,8 +19,8 @@ public class Quizzes {
     @Column(name = "quizname", length = 256, columnDefinition = "VARCHAR(256) CHARACTER SET utf8mb4")
     private String quizName;
 
-    @Column(name = "status", length = 256)
-    private String status;
+    @Column(name = "status")
+    private boolean status;
 
     @Column(name = "description", length = 256, columnDefinition = "VARCHAR(256) CHARACTER SET utf8mb4")
     private String description;

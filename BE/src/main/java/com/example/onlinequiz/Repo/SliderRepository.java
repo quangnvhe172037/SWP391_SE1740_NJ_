@@ -9,5 +9,9 @@ import java.util.Optional;
 
 @Repository
 public interface SliderRepository extends JpaRepository<Sliders, Long> {
-    Optional<Sliders> deleteBySliderID(String id);
+
+
+    Sliders findBySliderID(int id);
+
+    void deleteBySliderID(int id);
 }

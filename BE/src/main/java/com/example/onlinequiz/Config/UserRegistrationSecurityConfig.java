@@ -47,6 +47,8 @@ public class UserRegistrationSecurityConfig {
                 .cors() // Cấu hình CORS
                 .and().csrf().disable() // Tắt CSRF
                 .authorizeHttpRequests()
+                .requestMatchers("/sliders", "/sliders/**", "sliders/edit/**", "/sliders/edit")
+                .permitAll() // Cho phép tất cả truy cập /register/**
                 .requestMatchers("/register/**", "/api/test/all", "/api/test/login")
                 .permitAll() // Cho phép tất cả truy cập /register/**
                 .and()
