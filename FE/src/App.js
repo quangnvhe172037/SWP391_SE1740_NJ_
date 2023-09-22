@@ -13,6 +13,7 @@ import BoardAdmin from "./components/BoardAdmin/BoardAdmin";
 import BoardExpert from "./components/BoardExpert/BoardExpert";
 import SliderList from "./pages/Sliders/Sliders";
 import SliderDetail from "./pages/SliderDetail/SliderDetail";
+import PostList from "./pages/Posts/PostList";
 
 const App = () => {
     const [showExpertBoard, setShowExpertBoard] = useState(false);
@@ -53,7 +54,11 @@ const App = () => {
                 Sliders
               </Link>
             </li>
-
+              <li className="nav-item">
+                  <Link to={"/posts"} className="nav-link">
+                      Post
+                  </Link>
+              </li>
             {setShowExpertBoard && (
               <li className="nav-item">
                 <Link to={"/customer"} className="nav-link">
@@ -120,6 +125,7 @@ const App = () => {
             <Route path="/expert" element={<BoardExpert />} />
             <Route path="/admin" element={<BoardAdmin />} />
             <Route path="/sliders" element={<SliderList />} />
+              <Route path="/posts" element={<PostList />} />
             <Route path="/sliders/edit/:sliderId" element={<SliderDetail/>} />
           </Routes>
         </div>
