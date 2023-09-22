@@ -30,41 +30,49 @@ public class SecurityConfig {
 
     private final UserRegistrationService userDetailsService;
 
+    // Danh sách các URL không yêu cầu xác thực
     private static final String[] UNSECURED_URLs = {
             "/authenticate/**",
             "/register",
             "/api/test/all",
-            "/register",
+            "/register/**",
             "/home"
     };
 
-
+    // Cấu hình bộ lọc bảo mật
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .cors().and().csrf()
                 .disable()
+                // Cho phép truy cập các URL không yêu cầu xác thực
                 .authorizeHttpRequests().requestMatchers(UNSECURED_URLs).permitAll().and()
+                // Cấu hình quyền truy cập dựa trên vai trò (authorities)
                 .authorizeHttpRequests().requestMatchers("api/test/admin").hasAuthority("ADMIN").and()
                 .authorizeHttpRequests().requestMatchers("api/test/expert").hasAuthority("EXPERT").and()
                 .authorizeHttpRequests().requestMatchers("api/test/customer").hasAuthority("CUSTOMER")
                 .anyRequest().authenticated().and()
+                // Quản lý phiên làm việc (session)
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+                // Cấu hình AuthenticationProvider
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 
+    // Cấu hình quản lý xác thực
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
     }
 
+    // Cấu hình mã hóa mật khẩu
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    // Cấu hình AuthenticationProvider
     public AuthenticationProvider authenticationProvider(){
         var authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setUserDetailsService(userDetailsService);
@@ -72,4 +80,3 @@ public class SecurityConfig {
         return authenticationProvider;
     }
 }
-
