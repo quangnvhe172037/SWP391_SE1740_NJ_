@@ -3,6 +3,7 @@ package com.example.onlinequiz.Controller;
 import com.example.onlinequiz.Model.Sliders;
 import com.example.onlinequiz.Model.Users;
 import com.example.onlinequiz.Services.SliderService;
+import jakarta.servlet.annotation.MultipartConfig;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @CrossOrigin(value = "*")
 @RequestMapping("/sliders")
+@MultipartConfig
 public class SliderController {
 
     @Autowired
@@ -31,6 +33,7 @@ public class SliderController {
         return ResponseEntity.ok(listSliders);
     }
 
+//    Lấy dữ liệu của 1 slider
     @GetMapping("/edit/{sliderid}")
     @ResponseBody
     public ResponseEntity<Sliders> getSlider(
@@ -51,20 +54,43 @@ public class SliderController {
         }
     }
 
-//    @DeleteMapping
-//    public ResponseEntity<Sliders>
+    // Thay đổi giá trị của image của slider
+    @PutMapping("/edit/image/{sliderId}")
+    @ResponseBody
+    public ResponseEntity<Sliders> updateSliderImage(
+            @PathVariable Integer sliderId,
+            @RequestParam(name = "image",required = false) MultipartFile file
+    ) {
+
+        try {
+            Sliders sliderChange = sliderService.findSlider(sliderId);
+            if (sliderChange != null) {
+                // Cập nhật dữ liệu của slider từ updatedSliderData
+                sliderChange.setImage(sliderService.storeImage(file, sliderId));
+                // Lưu slider đã cập nhật vào cơ sở dữ liệu
+                sliderService.save(sliderChange);
+
+                return ResponseEntity.ok(sliderChange);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 
 
     // Thay đổi dữ liệu của 1 slider
-        @PutMapping("/edit/{sliderId}")
+        @PutMapping("/edit/data/{sliderId}")
         @ResponseBody
         public ResponseEntity<Sliders> updateSliderData(
                 @PathVariable Integer sliderId,
-                @RequestParam("image") MultipartFile file,
-                @RequestParam("title") String title,
-                @RequestParam("note") String note,
-                @RequestParam("status") boolean status
+                @RequestParam(name = "title") String title,
+                @RequestParam(name = "note") String note,
+                @RequestParam(name = "status") boolean status
         ) {
+            System.out.println(title);
             try {
                 Sliders sliderChange = sliderService.findSlider(sliderId);
 
@@ -74,7 +100,6 @@ public class SliderController {
                     sliderChange.setStatus(status);
                     sliderChange.setNote(note);
                     sliderChange.setTitle(title);
-                    sliderChange.setImage(sliderService.storeImage(file));
                     // Lưu slider đã cập nhật vào cơ sở dữ liệu
                     sliderService.save(sliderChange);
 
@@ -87,6 +112,7 @@ public class SliderController {
             }
         }
 
+        // Thay đổi giá trị status của slider
     @PutMapping("/{sliderid}")
     @ResponseBody
     public ResponseEntity<Sliders> updateSliderStatus(
@@ -114,6 +140,24 @@ public class SliderController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
 
+    }
+
+    @DeleteMapping ("/delete/{sliderId}")
+    @ResponseBody
+    public ResponseEntity<String> DeleteSlider(
+            @PathVariable Long sliderId
+    ){
+        System.out.println("delete");
+
+        try {
+            System.out.println("test 1");
+            sliderService.delete(sliderId);
+            System.out.println("test 2");
+            return ResponseEntity.ok("Work");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
 }

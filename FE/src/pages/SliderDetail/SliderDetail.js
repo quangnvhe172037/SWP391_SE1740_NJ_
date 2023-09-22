@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import SliderImage from "./SliderImage";
+import SlidersData from "./SlidersData";
 
 const SliderDetail = () => {
   const { sliderId } = useParams();
@@ -9,10 +11,8 @@ const SliderDetail = () => {
   const [updatedImage, setUpdatedImage] = useState("");
   const [updatedNote, setUpdatedNote] = useState("");
   const [updatedStatus, setUpdatedStatus] = useState(0); // Sử dụng giá trị mặc định
-  const imageGet = "";
   const navigate = useNavigate();
   const baseURL = "http://localhost:8081/";
-
   useEffect(() => {
     fetch(`http://localhost:8080/sliders/edit/${sliderId}`)
       .then((response) => {
@@ -25,7 +25,6 @@ const SliderDetail = () => {
         setSliderData(data);
         setUpdatedTitle(data.title);
         setUpdatedImage(data.image);
-
         setUpdatedNote(data.note);
         setUpdatedStatus(data.status);
       })
@@ -34,30 +33,55 @@ const SliderDetail = () => {
       });
   }, [sliderId]);
 
-  const handleEditClick = () => {
+  const handleEditClick = (e) => {
+    e.preventDefault();
     setEditing(true);
   };
 
-  const handleSaveClick = () => {
+  const handleSaveDataClick = (e) => {
+    e.preventDefault();
     // Tạo một đối tượng mới chứa thông tin đã cập nhật
 
-    const formData = {
-      image: updatedImage,
-      title: updatedTitle,
-      id: sliderId,
-      note: updatedNote,
-      status: updatedStatus,
-    };
+    const formData = new FormData();
+    formData.append("title", updatedTitle);
+    formData.append("id", sliderId);
+    formData.append("note", updatedNote);
+    formData.append("status", updatedStatus);
 
-    // Gửi yêu cầu PUT với đối tượng updatedSliderData
-    fetch(`http://localhost:8080/sliders/edit/${sliderId}`, {
+    // Gửi yêu cầu PUT để cập nhật dữ liệu
+    fetch(`http://localhost:8080/sliders/edit/data/${sliderId}`, {
       method: "PUT",
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-      body: JSON.stringify(formData),
+      body: formData,
     })
       .then((response) => {
+        if (!response.ok) {
+          throw new Error(response.data.status);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        navigate("/sliders");
+      })
+      .catch((error) => {
+        console.error("Error updating slider data:", error);
+      });
+  };
+  const handleSaveImageClick = (e) => {
+    // Tạo một đối tượng mới chứa thông tin đã cập nhật
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("image", updatedImage);
+
+    console.log(formData.image)
+
+    // Gửi yêu cầu PUT để cập nhật ảnh
+    fetch(`http://localhost:8080/sliders/edit/image/${sliderId}`, {
+      method: "PUT",
+      
+      body: formData,
+    })
+      .then((response) => {
+        console.log("test");
         if (!response.ok) {
           throw new Error(response.data.status);
         }
@@ -74,60 +98,28 @@ const SliderDetail = () => {
   return (
     <div>
       <div>
-        Slider ID:
-        <input type="text" value={sliderData.sliderID} readOnly />
-      </div>
-
-      <div>
-        Slider titile
-        <input
-          type="text"
-          value={updatedTitle}
-          onChange={(e) => setUpdatedTitle(e.target.value)}
-          readOnly={!editing}
+        <SlidersData
+          sliderData={sliderData}
+          updatedTitle={updatedTitle}
+          updatedNote={updatedNote}
+          updatedStatus={updatedStatus}
+          editing={editing}
+          setUpdatedTitle={setUpdatedTitle}
+          setUpdatedNote={setUpdatedNote}
+          setUpdatedStatus={setUpdatedStatus}
+          handleSaveDataClick={handleSaveDataClick}
+          handleEditClick={handleEditClick}
         />
       </div>
 
       <div>
-        Slider image
-        <img src={baseURL + updatedImage} alt="something" />
-        <input
-          type="file"
-          accept="image/*"
-          enctype="multipart/form-data"
-          onChange={(e) => setUpdatedImage(e.target.files[0])}
-          readOnly={!editing}
+        <SliderImage
+          baseURL={baseURL}
+          updatedImage={updatedImage}
+          editing={editing}
+          setUpdatedImage={setUpdatedImage}
+          handleSaveImageClick={handleSaveImageClick}
         />
-      </div>
-
-      <div>
-        Slider note
-        <input
-          type="text"
-          value={updatedNote}
-          onChange={(e) => setUpdatedNote(e.target.value)}
-          readOnly={!editing}
-        />
-      </div>
-
-      <div>
-        Slider status:
-        <select
-          value={updatedStatus}
-          onChange={(e) => setUpdatedStatus(e.target.value)}
-          readOnly={!editing}
-        >
-          <option value="1">Active</option>
-          <option value="0">Inactive</option>
-        </select>
-      </div>
-
-      <div>
-        {editing ? (
-          <button onClick={handleSaveClick}>Save</button>
-        ) : (
-          <button onClick={handleEditClick}>Edit</button>
-        )}
       </div>
     </div>
   );

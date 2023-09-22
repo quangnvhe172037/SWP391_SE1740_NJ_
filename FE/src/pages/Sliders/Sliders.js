@@ -111,6 +111,26 @@ const SliderList = () => {
       });
   };
 
+  const handleDelete = (sliderId) => {
+    // Gửi yêu cầu DELETE để xóa slider dựa trên sliderId
+    fetch(`http://localhost:8080/sliders/delete/${sliderId}`, {
+      method: "DELETE",
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(response.status);
+        }
+        // Nếu xóa thành công, cập nhật lại danh sách sliders
+        const updatedSliders = sliders.filter(
+          (slider) => slider.sliderID !== sliderId
+        );
+        setSliders(updatedSliders);
+      })
+      .catch((error) => {
+        console.error("Error deleting slider:", error);
+      });
+  };
+
   return (
     <div>
       <div>
@@ -163,6 +183,10 @@ const SliderList = () => {
 
                 <button>
                   <Link to={`/sliders/edit/${slider.sliderID}`}>Edit</Link>
+                </button>
+
+                <button onClick={() => handleDelete(slider.sliderID)}>
+                  Delete
                 </button>
               </td>
             </tr>

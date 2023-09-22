@@ -3,7 +3,9 @@ package com.example.onlinequiz.Services.Impl;
 import com.example.onlinequiz.Model.Sliders;
 import com.example.onlinequiz.Repo.SliderRepository;
 import com.example.onlinequiz.Services.SliderService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class SliderServiceImpl implements SliderService {
     @Autowired
@@ -42,17 +45,18 @@ public class SliderServiceImpl implements SliderService {
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(long id) {
         sliderRepository.deleteBySliderID(id);
     }
 
     // Lưu ảnh vào project
     @Override
-    public String storeImage( MultipartFile file) {
+    public String storeImage( MultipartFile file, int id) {
         String imageUrl = "";
         try {
             // Tạo đường dẫn đến thư mục lưu trữ tệp ảnh
-            Path targetPath = Paths.get(uploadDir + "/sliders", file.getOriginalFilename());
+            String fileName = "image sliders " +String.valueOf(id) + FilenameUtils.getExtension(file.getOriginalFilename());
+            Path targetPath = Paths.get(uploadDir + "/sliders", fileName);
 
             // Lưu tệp ảnh vào thư mục lưu trữ
             Files.copy(file.getInputStream(), targetPath, StandardCopyOption.REPLACE_EXISTING);
@@ -60,7 +64,7 @@ public class SliderServiceImpl implements SliderService {
             // Trả về đường dẫn tới tệp ảnh vừa tải lên
             imageUrl = uploadDir + "/" + file.getOriginalFilename();
 
-            return imageUrl;
+            return "img/sliders/" + fileName;
         } catch (IOException e) {
             e.printStackTrace();
 
