@@ -12,6 +12,7 @@ import Profile from "./components/Profile/Profile";
 import BoardCustomer from "./components/BoardCustomer/BoardCustomer";
 import BoardAdmin from "./components/BoardAdmin/BoardAdmin";
 import BoardExpert from "./components/BoardExpert/BoardExpert";
+import ChangePassword from "./components/ChangePassword/ChangePassword";
 
 const App = () => {
     const [currentUser, setCurrentUser] = useState(undefined);
@@ -114,7 +115,7 @@ const App = () => {
                         <Route path="/home" element={<Home />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
-                        <Route path="/profile" element={<Profile />} />
+                        <Route path="/profile" element={<ChangePassword />} />
                         {isAuthenticated ? (
                             <>
                                 <Route path="/customer" element={<BoardCustomer />} />

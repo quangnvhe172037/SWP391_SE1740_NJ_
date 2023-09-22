@@ -1,7 +1,6 @@
 package com.example.onlinequiz.Jwt;
 
-import com.example.onlinequiz.Security.UserRegistrationDetails;
-import com.example.onlinequiz.Security.UserRegistrationService;
+import com.example.onlinequiz.Security.UserDetailsServiceImpl;
 import com.example.onlinequiz.Services.Impl.JWTService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -22,10 +21,14 @@ import java.io.IOException;
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
+
+    // Tiêm JWTService vào Filter
     @Autowired
     private final JWTService jwtService;
+
+    // Tiêm UserRegistrationService vào Filter
     @Autowired
-    private final UserRegistrationService userDetailsService;
+    private final UserDetailsServiceImpl userDetailsService;
 
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
@@ -35,19 +38,28 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String token = null;
         String userName = null;
         String authHeader = request.getHeader("Authorization");
+
+        // Kiểm tra header Authorization để lấy token
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             token = authHeader.substring(7);
             userName = jwtService.extractUsernameFromToken(token);
         }
+
+        // Kiểm tra xem người dùng đã xác thực chưa và có token không
         if (userName != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            // Lấy thông tin người dùng từ UserDetailsService
             UserDetails userDetails = userDetailsService.loadUserByUsername(userName);
+
+            // Kiểm tra tính hợp lệ của token
             if (jwtService.validateToken(token, userDetails)){
+                // Tạo đối tượng Authentication và đặt nó trong SecurityContextHolder
                 var authToken = new UsernamePasswordAuthenticationToken(token, null, userDetails.getAuthorities());
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }
-
         }
+
+        // Chuyển tiếp yêu cầu đến Filter tiếp theo
         filterChain.doFilter(request, response);
     }
 }

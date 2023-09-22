@@ -23,49 +23,56 @@ import java.util.Map;
 @RequestMapping("/register") // Định nghĩa đường dẫn cơ sở cho Controller
 @RequiredArgsConstructor // Tự động tạo constructor với tham số cho các trường được đánh dấu là final
 public class RegistrationController {
-    @Autowired
-    private final UserServiceImpl userService; // Sử dụng Spring để tiêm UserServiceImpl vào Controller
-    @Autowired
-    private final ApplicationEventPublisher publisher; // Sử dụng Spring để tiêm ApplicationEventPublisher vào Controller
 
+    // Tiêm UserServiceImpl vào Controller
     @Autowired
-    private final VerificationTokenRepository tokenRepository; // Sử dụng Spring để tiêm VerificationTokenRepository vào Controller
+    private final UserServiceImpl userService;
 
-    @PostMapping // Xử lý các yêu cầu POST
-    public ResponseEntity<?> registerUser(@RequestBody RegistrationRequest request, final HttpServletRequest httpServletRequest){
+    // Tiêm ApplicationEventPublisher vào Controller để gửi sự kiện
+    @Autowired
+    private final ApplicationEventPublisher publisher;
+
+    // Tiêm VerificationTokenRepository vào Controller
+    @Autowired
+    private final VerificationTokenRepository tokenRepository;
+
+    // Xử lý các yêu cầu POST
+    @PostMapping
+    public ResponseEntity<?> registerUser(@RequestBody RegistrationRequest request, final HttpServletRequest httpServletRequest) {
         Map<String, Object> response = new HashMap<>();
         try {
             // Gọi UserService để đăng ký người dùng
             Users user = userService.registerUser(request);
+
             // Gửi sự kiện đăng ký hoàn thành
-            publisher.publishEvent(new RegistrationCompleteEvent(user, applicatioUrl(httpServletRequest)));
+            publisher.publishEvent(new RegistrationCompleteEvent(user, applicationUrl(httpServletRequest)));
 
             response.put("success", true);
             response.put("message", "Register success! Please check your email for registration");
             return ResponseEntity.ok(response);
-        } catch (UserAlreadyExistException e){
+        } catch (UserAlreadyExistException e) {
             response.put("success", false);
             response.put("message", e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new UserAlreadyExistException(e.getMessage()));
         }
     }
 
-    @GetMapping("/verifyEmail") // Xử lý các yêu cầu GET đến /register/verifyEmail
-    public String verifyEmail(@RequestParam("token") String token){
+    // Xử lý các yêu cầu GET đến /register/verifyEmail
+    @GetMapping("/verifyEmail")
+    public String verifyEmail(@RequestParam("token") String token) {
         VerificationToken theToken = tokenRepository.findByToken(token);
-        if(theToken.getUser().isEnabled()){
+        if (theToken.getUser().isEnabled()) {
             return "This account has already been verified, please login";
         }
         String verificationResult = userService.validateaToken(token);
-        if(verificationResult.equalsIgnoreCase("valid")){
+        if (verificationResult.equalsIgnoreCase("valid")) {
             return "Email verified successfully. Now you can login to your account";
         }
         return "Invalid verification token";
     }
 
     // Phương thức để xây dựng URL ứng dụng dựa trên yêu cầu HTTP
-    private String applicatioUrl(HttpServletRequest httpServletRequest) {
-        return "http://"+httpServletRequest.getServerName()+":"+httpServletRequest.getServerPort()+httpServletRequest.getContextPath();
+    private String applicationUrl(HttpServletRequest httpServletRequest) {
+        return "http://" + httpServletRequest.getServerName() + ":" + httpServletRequest.getServerPort() + httpServletRequest.getContextPath();
     }
 }
-

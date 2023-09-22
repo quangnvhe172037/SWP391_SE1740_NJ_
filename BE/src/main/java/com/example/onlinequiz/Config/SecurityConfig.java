@@ -1,26 +1,21 @@
 package com.example.onlinequiz.Config;
 
 import com.example.onlinequiz.Jwt.JwtAuthenticationFilter;
-import com.example.onlinequiz.Security.UserRegistrationService;
+import com.example.onlinequiz.Security.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
-import java.util.Collections;
 
 @Configuration
 @EnableWebSecurity
@@ -28,7 +23,7 @@ import java.util.Collections;
 public class SecurityConfig {
     private final JwtAuthenticationFilter authenticationFilter;
 
-    private final UserRegistrationService userDetailsService;
+    private final UserDetailsServiceImpl userDetailsService;
 
     // Danh sách các URL không yêu cầu xác thực
     private static final String[] UNSECURED_URLs = {
@@ -36,7 +31,8 @@ public class SecurityConfig {
             "/register",
             "/api/test/all",
             "/register/**",
-            "/home"
+            "/home",
+            "/change-password"
     };
 
     // Cấu hình bộ lọc bảo mật
