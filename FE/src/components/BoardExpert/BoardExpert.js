@@ -10,14 +10,18 @@ const BoardExpert = () => {
                 setContent(response.data);
             },
             (error) => {
-                const _content =
-                    (error.response &&
-                        error.response.data &&
-                        error.response.data.message) ||
-                    error.message ||
-                    error.toString();
+                if (error.response && error.response.status === 403) {
+                    setContent("Bạn không có quyền truy cập trang này");
+                } else {
+                    const _content =
+                        (error.response &&
+                            error.response.data &&
+                            error.response.data.message) ||
+                        error.message ||
+                        error.toString();
 
-                setContent(_content);
+                    setContent(_content);
+                }
             }
         );
     }, []);

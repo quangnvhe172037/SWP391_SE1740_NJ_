@@ -36,7 +36,7 @@ const logout = () => {
 
 // Hàm lấy thông tin người dùng hiện tại từ localStorage
 const getCurrentUser = () => {
-    return localStorage.getItem("role");
+    return localStorage.getItem("token");
 };
 
 
