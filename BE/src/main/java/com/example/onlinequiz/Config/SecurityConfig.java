@@ -33,19 +33,25 @@ public class SecurityConfig {
             "/register/**",
             "/home",
             "/change-password",
-            "/forgot-password"
+            "/forgot-password",
+            "/sliders"
     };
     // Danh sách các URL cho customer
     private static final String[] CUSTOMER_URL = {
-            "api/test/customer",
+            "/api/test/customer",
     };
     // Danh sách các URL cho expert
     private static final String[] EXPERT_URL = {
-            "api/test/expert",
+            "/api/test/expert",
     };
     // Danh sách các URL cho admin
     private static final String[] ADMIN_URL = {
-            "api/test/admin"
+            "/api/test/admin",
+            "/sliders/edit/**",
+            "/sliders/edit/image/**",
+            "/sliders/edit/data/**",
+            "/sliders/edit/**",
+            "/sliders/delete/**"
     };
     // Cấu hình bộ lọc bảo mật
     @Bean
