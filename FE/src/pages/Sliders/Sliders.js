@@ -5,12 +5,18 @@ const SliderList = () => {
   const [filteredSliders, setFilteredSliders] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
-
+  const token = localStorage.getItem("token");
+  
   // Xử lí api
   const api = "http://localhost:8080/sliders";
 
   useEffect(() => {
-    fetch(api)
+    fetch(api, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -89,8 +95,9 @@ const SliderList = () => {
     fetch(`http://localhost:8080/sliders/${sliderId}`, {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json",
-      },
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
       body: JSON.stringify({ status: updateStatus }),
     })
       .then((response) => {

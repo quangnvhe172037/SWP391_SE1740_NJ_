@@ -13,8 +13,13 @@ const SliderDetail = () => {
   const [updatedStatus, setUpdatedStatus] = useState(0); // Sử dụng giá trị mặc định
   const navigate = useNavigate();
   const baseURL = "http://localhost:8081/";
+  const token = localStorage.getItem("token");
   useEffect(() => {
-    fetch(`http://localhost:8080/sliders/edit/${sliderId}`)
+    fetch(`http://localhost:8080/sliders/edit/${sliderId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -51,6 +56,9 @@ const SliderDetail = () => {
     // Gửi yêu cầu PUT để cập nhật dữ liệu
     fetch(`http://localhost:8080/sliders/edit/data/${sliderId}`, {
       method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
       body: formData,
     })
       .then((response) => {
@@ -72,12 +80,14 @@ const SliderDetail = () => {
     const formData = new FormData();
     formData.append("image", updatedImage);
 
-    console.log(formData.image)
+    console.log(formData.image);
 
     // Gửi yêu cầu PUT để cập nhật ảnh
     fetch(`http://localhost:8080/sliders/edit/image/${sliderId}`, {
       method: "PUT",
-      
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
       body: formData,
     })
       .then((response) => {
