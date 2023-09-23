@@ -3,6 +3,7 @@ import Sidebar from "./Sidebar";
 import { format } from 'date-fns';
 import './style.css'
 import axios from 'axios';
+import {Link} from "react-router-dom";
 
 const API_URL = "http://localhost:8080/posts";
 class PostList extends Component {
@@ -36,15 +37,16 @@ class PostList extends Component {
                                 {posts.map((post) => (
                                     <div key={post.id} className="col-md-4">
                                         <div className="blog-entry">
-                                            <a href="single.html" className="img-link">
-                                                <img src={post.image} alt="Image" className="img-fluid" />
-                                            </a>
-                                            <span className="date">
-                        {format(new Date(post.dateCreate), 'dd-MM-yyyy')}
-                      </span>
-                                            <h2 className='post-title'><a href="single.html">{post.title}</a></h2>
+                                            <Link to={`/posts/${post.postID}`} className="img-link">
+                                                <img src={post.image} alt={post.title} className="img-fluid" />
+                                                <h2 className='post-title'>{post.title}</h2>
+                                            </Link>
+
                                             <p>{post.briefInfor}</p>
-                                            <p><a href="#" className="read-more">Continue Reading</a></p>
+                                                <span className="date">
+                                                    {format(new Date(post.dateCreate), 'dd-MM-yyyy')}
+                                                </span>
+                                            <p>Author: {post.user.lastName + ' ' + post.user.firstName}</p>
                                         </div>
                                     </div>
                                 ))}
