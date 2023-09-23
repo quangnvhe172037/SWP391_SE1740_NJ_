@@ -32,9 +32,21 @@ public class SecurityConfig {
             "/api/test/all",
             "/register/**",
             "/home",
-            "/change-password"
+            "/change-password",
+            "/forgot-password"
     };
-
+    // Danh sách các URL cho customer
+    private static final String[] CUSTOMER_URL = {
+            "api/test/customer",
+    };
+    // Danh sách các URL cho expert
+    private static final String[] EXPERT_URL = {
+            "api/test/expert",
+    };
+    // Danh sách các URL cho admin
+    private static final String[] ADMIN_URL = {
+            "api/test/admin"
+    };
     // Cấu hình bộ lọc bảo mật
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -44,9 +56,9 @@ public class SecurityConfig {
                 // Cho phép truy cập các URL không yêu cầu xác thực
                 .authorizeHttpRequests().requestMatchers(UNSECURED_URLs).permitAll().and()
                 // Cấu hình quyền truy cập dựa trên vai trò (authorities)
-                .authorizeHttpRequests().requestMatchers("api/test/admin").hasAuthority("ADMIN").and()
-                .authorizeHttpRequests().requestMatchers("api/test/expert").hasAuthority("EXPERT").and()
-                .authorizeHttpRequests().requestMatchers("api/test/customer").hasAuthority("CUSTOMER")
+                .authorizeHttpRequests().requestMatchers(ADMIN_URL).hasAuthority("ADMIN").and()
+                .authorizeHttpRequests().requestMatchers(EXPERT_URL).hasAuthority("EXPERT").and()
+                .authorizeHttpRequests().requestMatchers(CUSTOMER_URL).hasAuthority("CUSTOMER")
                 .anyRequest().authenticated().and()
                 // Quản lý phiên làm việc (session)
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()

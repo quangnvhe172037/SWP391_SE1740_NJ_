@@ -28,14 +28,23 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     public void updatePassword(String email, String encodedPassword) {
+        // Tìm người dùng trong cơ sở dữ liệu bằng email
         Optional<Users> userOptional = userRepository.findByEmail(email);
-        if(userOptional.isPresent()){
+
+        if (userOptional.isPresent()) {
+            // Nếu người dùng tồn tại, lấy thông tin người dùng
             Users users = userOptional.get();
+
+            // Cập nhật mật khẩu đã mã hóa vào thông tin người dùng
             users.setPassword(encodedPassword);
+
+            // Lưu thông tin người dùng cập nhật vào cơ sở dữ liệu
             userRepository.save(users);
         } else {
+            // In ra thông báo lỗi nếu không tìm thấy người dùng
             System.out.println("NOT FOUND USER");
         }
     }
+
 }
 

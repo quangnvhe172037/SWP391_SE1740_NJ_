@@ -1,9 +1,9 @@
-import React, {useRef, useState} from "react";
+import React, { useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
-import CkeckButton from "react-validation/build/button";
+import CheckButton from "react-validation/build/button";
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
 
 const required = (value) => {
     if (!value) {
@@ -36,47 +36,44 @@ const Login = () => {
     };
 
     const handleLogin = (e) => {
-            e.preventDefault();
+        e.preventDefault();
 
-            setLoading(true);
+        setLoading(true);
 
-            form.current.validateAll();
+        form.current.validateAll();
 
-            if (checkBtn.current.context._errors.length === 0) {
-                axios
-                    .post("http://localhost:8080/authenticate", {
-                            userName,
-                            password,
-                        }
-                    )
-                    .then((response) => {
-                        const token = response.data;
-                        // Lưu thông tin vào localStorage
+        if (checkBtn.current.context._errors.length === 0) {
+            axios
+                .post("http://localhost:8080/authenticate", {
+                    userName,
+                    password,
+                })
+                .then((response) => {
+                    const token = response.data;
+                    // Lưu thông tin vào localStorage
+                    if (localStorage.getItem("token") !== null) {
+                        localStorage.clear();
+                    }
+                    localStorage.setItem("token", token);
+                    navigate("/home");
+                })
+                .catch((error) => {
+                    const resMessage =
+                        (error.response &&
+                            error.response.data &&
+                            error.response.data.message) ||
+                        error.message ||
+                        error.toString();
 
-                        navigate('/home')
-                        if (localStorage.getItem("token") !== null) {
-                            localStorage.clear();
-                        }
-                        localStorage.setItem("token", token);
-                    })
-                    .catch((error) => {
-                        const resMessage =
-                            (error.response &&
-                                error.response.data &&
-                                error.response.data.message) ||
-                            error.message ||
-                            error.toString();
-
-                        setMessage(resMessage);
-                    })
-                    .finally(() => {
-                        setLoading(false);
-                    });
-            } else {
-                setLoading(false);
-            }
+                    setMessage(resMessage);
+                })
+                .finally(() => {
+                    setLoading(false);
+                });
+        } else {
+            setLoading(false);
         }
-    ;
+    };
 
     return (
         <div className="col-md-12">
@@ -128,7 +125,12 @@ const Login = () => {
                             </div>
                         </div>
                     )}
-                    <CkeckButton style={{display: "none"}} ref={checkBtn}/>
+
+                    <div className="form-group">
+                        <Link to="/forgot-password">Forgot your Password?</Link>
+                    </div>
+
+                    <CheckButton style={{ display: "none" }} ref={checkBtn} />
                 </Form>
             </div>
         </div>

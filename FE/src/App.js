@@ -13,6 +13,7 @@ import BoardCustomer from "./components/BoardCustomer/BoardCustomer";
 import BoardAdmin from "./components/BoardAdmin/BoardAdmin";
 import BoardExpert from "./components/BoardExpert/BoardExpert";
 import ChangePassword from "./components/ChangePassword/ChangePassword";
+import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 
 const App = () => {
     const [currentUser, setCurrentUser] = useState(undefined);
@@ -129,6 +130,7 @@ const App = () => {
                                 <Route path="/admin" element={<Navigate to="/login" />} />
                             </>
                         )}
+                        <Route path="/forgot-password" element={<ForgotPassword />} />
                     </Routes>
                 </div>
             </div>
