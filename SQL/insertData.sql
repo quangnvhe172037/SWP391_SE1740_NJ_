@@ -1,8 +1,30 @@
-INSERT INTO `quizpractice`.`role`
-(`roleid`,
-`rolename`)
+
+
+INSERT INTO `quizpractice`.`users`
+(`usersid`,
+`password`,
+`first_name`,
+`last_name`,
+`email`,
+`mobile`,
+`gender`,
+`createdate`,
+`image`,
+`is_enabled`,
+`role`)
 VALUES
-(1, "Customer");
+(1,
+"$2a$10$quS2hnY5Fglq29NNtu86OeUelo0hTyRElm3FyGaZZR9b/TCqT0Eg.",
+"admin",
+"admin_sub",
+"quanpdhe170415@fpt.edu.vn",
+0334745645,
+1,
+"2003-11-19",
+"",
+1,
+"ADMIN");
+
 
 INSERT INTO `quizpractice`.`subjectcategory`
 (`cateid`,

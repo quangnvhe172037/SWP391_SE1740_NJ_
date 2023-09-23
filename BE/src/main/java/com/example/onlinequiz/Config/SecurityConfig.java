@@ -51,7 +51,8 @@ public class SecurityConfig {
             "/sliders/edit/image/**",
             "/sliders/edit/data/**",
             "/sliders/edit/**",
-            "/sliders/delete/**"
+            "/sliders/delete/**",
+            "/sliders/add"
     };
     // Cấu hình bộ lọc bảo mật
     @Bean

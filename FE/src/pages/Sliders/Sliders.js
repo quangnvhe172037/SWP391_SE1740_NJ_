@@ -152,7 +152,16 @@ const SliderList = () => {
           <option value="1">Visible</option>
           <option value="0">Hidden</option>
         </select>
+
+        <div>
+          <button>
+            <Link to={`/sliders/add`}>
+              Add new slider
+            </Link>
+          </button>
+        </div>
       </div>
+
       <table>
         <thead>
           <tr>
@@ -189,7 +198,9 @@ const SliderList = () => {
                 )}
 
                 <button>
-                  <Link to={`/sliders/edit/${slider.sliderID}`}>Edit</Link>
+                  <Link to={`/sliders/edit/${slider.sliderID}`}>
+                    Edit{slider.sliderID}
+                  </Link>
                 </button>
 
                 <button onClick={() => handleDelete(slider.sliderID)}>

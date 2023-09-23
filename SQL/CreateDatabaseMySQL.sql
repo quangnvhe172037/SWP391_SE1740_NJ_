@@ -50,12 +50,9 @@ CREATE TABLE IF NOT EXISTS `quizpractice`.`users` (
   `createdate` DATE  DEFAULT NULL,
   `image` VARCHAR(256)  DEFAULT NULL,
   `is_enabled` BIT  DEFAULT NULL,
-  `roleid` INT ,
+  `role` VARCHAR(256) NOT NULL ,
   PRIMARY KEY (`usersid`),
-  INDEX `roleid` (`roleid` ASC) VISIBLE,
-  CONSTRAINT `user_ibfk_1`
-    FOREIGN KEY (`roleid`)
-    REFERENCES `quizpractice`.`role`(`roleid`))
+  INDEX `role` (`role` ASC) VISIBLE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
 

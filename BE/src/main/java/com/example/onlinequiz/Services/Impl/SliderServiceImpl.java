@@ -35,23 +35,25 @@ public class SliderServiceImpl implements SliderService {
     }
 
     @Override
-    public Sliders findSlider(int id) {
+    public Sliders findSlider(Long id) {
         return sliderRepository.findBySliderID(id);
     }
 
     @Override
-    public void save(Sliders slider) {
+    public Sliders save(Sliders slider) {
         sliderRepository.save(slider);
+        return slider;
     }
 
+
     @Override
-    public void delete(long id) {
+    public void delete(Long id) {
         sliderRepository.deleteBySliderID(id);
     }
 
     // Lưu ảnh vào project
     @Override
-    public String storeImage( MultipartFile file, int id) {
+    public String storeImage( MultipartFile file, Long id) {
         String imageUrl = "";
         try {
             // Tạo đường dẫn đến thư mục lưu trữ tệp ảnh
@@ -71,6 +73,7 @@ public class SliderServiceImpl implements SliderService {
         }
         return "Error when save image";
     }
+
 
 
 

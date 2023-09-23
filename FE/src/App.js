@@ -16,6 +16,7 @@ import ChangePassword from "./components/ChangePassword/ChangePassword";
 import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 import SliderList from "./pages/Sliders/Sliders";
 import SliderDetail from "./pages/SliderDetail/SliderDetail";
+import SliderAdd from "./pages/SliderDetail/SliderAdd";
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -130,7 +131,11 @@ const App = () => {
               <Route path="/expert" element={<BoardExpert />} />
               <Route path="/admin" element={<BoardAdmin />} />
               <Route path="/sliders" element={<SliderList />} />
-              <Route path="/sliders/edit/*" element={<SliderDetail />} />
+              <Route
+                path="/sliders/edit/:sliderId"
+                element={<SliderDetail />}
+              />
+              <Route path="/sliders/add" element={<SliderAdd/>} />
             </>
           ) : (
             <>
