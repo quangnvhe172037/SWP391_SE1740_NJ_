@@ -1,6 +1,7 @@
 package com.example.onlinequiz.Jwt;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,7 +26,7 @@ public class JwtProvider {
 
     private String createToken(Map<String, Object> claims, String gmail) {
         Date now = new Date();
-        Date expirationDate = new Date(now.getTime() + validityInMilliseconds);
+        Date expirationDate = new Date(now.getTime() + 1800000);
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(gmail)
@@ -35,9 +36,17 @@ public class JwtProvider {
                 .compact();
     }
 
-    public boolean validateToken(String token, String email) {
-        String tokenEmail = getEmailFromToken(token);
-        return (tokenEmail.equals(email) && !isTokenExpired(token));
+    public boolean validateToken(String token) {
+        try {
+            Jws<Claims> jws = Jwts.parser().setSigningKey(secrectKey).parseClaimsJws(token);
+            Claims claims = jws.getBody();
+            Date expirationDate = claims.getExpiration();
+            Date now = new Date();
+            return !expirationDate.before(now);
+        } catch (Exception e){
+            System.out.println("validateToken: " + e.getMessage());
+            return false;
+        }
     }
 
     public String getEmailFromToken(String token) {

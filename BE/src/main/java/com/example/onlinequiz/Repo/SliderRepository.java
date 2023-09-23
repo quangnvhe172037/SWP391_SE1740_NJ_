@@ -13,5 +13,7 @@ public interface SliderRepository extends JpaRepository<Sliders, Long> {
 
     Sliders findBySliderID(int id);
 
-    void deleteBySliderID(int id);
+    void deleteBySliderID(long id);
+
+
 }

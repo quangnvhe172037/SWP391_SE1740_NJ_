@@ -1,9 +1,9 @@
-import React, {useRef, useState} from "react";
+import React, { useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
-import CkeckButton from "react-validation/build/button";
+import CheckButton from "react-validation/build/button";
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
 
 const required = (value) => {
     if (!value) {
@@ -20,14 +20,14 @@ const Login = () => {
     const form = useRef();
     const checkBtn = useRef();
 
-    const [email, setEmail] = useState("");
+    const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState("");
 
     const onChangeEmail = (e) => {
         const email = e.target.value;
-        setEmail(email);
+        setUserName(email);
     };
 
     const onChangePassword = (e) => {
@@ -36,53 +36,44 @@ const Login = () => {
     };
 
     const handleLogin = (e) => {
-            e.preventDefault();
+        e.preventDefault();
 
-            setLoading(true);
+        setLoading(true);
 
-            form.current.validateAll();
+        form.current.validateAll();
 
-            if (checkBtn.current.context._errors.length === 0) {
-                axios
-                    .post("http://localhost:8080/api/test/login", {
-                            email,
-                            password,
-                        }
-                    )
-                    .then((response) => {
-                        const {email, role, token} = response.data;
+        if (checkBtn.current.context._errors.length === 0) {
+            axios
+                .post("http://localhost:8080/authenticate", {
+                    userName,
+                    password,
+                })
+                .then((response) => {
+                    const token = response.data;
+                    // Lưu thông tin vào localStorage
+                    if (localStorage.getItem("token") !== null) {
+                        localStorage.clear();
+                    }
+                    localStorage.setItem("token", token);
+                    navigate("/home");
+                })
+                .catch((error) => {
+                    const resMessage =
+                        (error.response &&
+                            error.response.data &&
+                            error.response.data.message) ||
+                        error.message ||
+                        error.toString();
 
-                        // Lưu thông tin vào localStorage
-                        if (localStorage.getItem("email") !== null || localStorage.getItem("role") !== null || localStorage.getItem("token") !== null) {
-                            localStorage.removeItem("email");
-                            localStorage.removeItem("role");
-                            localStorage.removeItem("token");
-                        }
-
-                        localStorage.setItem("email", email);
-                        localStorage.setItem("role", role);
-                        localStorage.setItem("token", token);
-                        navigate('/home')
-                        console.log('login thanh cong');
-                    })
-                    .catch((error) => {
-                        const resMessage =
-                            (error.response &&
-                                error.response.data &&
-                                error.response.data.message) ||
-                            error.message ||
-                            error.toString();
-
-                        setMessage(resMessage);
-                    })
-                    .finally(() => {
-                        setLoading(false);
-                    });
-            } else {
-                setLoading(false);
-            }
+                    setMessage(resMessage);
+                })
+                .finally(() => {
+                    setLoading(false);
+                });
+        } else {
+            setLoading(false);
         }
-    ;
+    };
 
     return (
         <div className="col-md-12">
@@ -100,7 +91,7 @@ const Login = () => {
                             type="text"
                             className="form-control"
                             name="username"
-                            value={email}
+                            value={userName}
                             onChange={onChangeEmail}
                             validations={[required]}
                         />
@@ -134,7 +125,12 @@ const Login = () => {
                             </div>
                         </div>
                     )}
-                    <CkeckButton style={{display: "none"}} ref={checkBtn}/>
+
+                    <div className="form-group">
+                        <Link to="/forgot-password">Forgot your Password?</Link>
+                    </div>
+
+                    <CheckButton style={{ display: "none" }} ref={checkBtn} />
                 </Form>
             </div>
         </div>
