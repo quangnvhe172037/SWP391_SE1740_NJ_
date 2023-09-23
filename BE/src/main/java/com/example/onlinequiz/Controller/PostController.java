@@ -27,7 +27,7 @@ public class PostController {
     @ResponseBody
     public ResponseEntity<List<Posts>> getPost(){
         List<Posts> listPost = postService.getAllPostsSortByDate();
-        System.out.println(listPost);
+//        System.out.println(listPost);
         return ResponseEntity.ok(listPost);
     }
 
@@ -44,6 +44,16 @@ public class PostController {
     public ResponseEntity<List<Posts>> getRandomPost(){
         List<Posts> listRandomPost = postService.getRandomPosts(2);
         return ResponseEntity.ok(listRandomPost);
+    }
+
+    @GetMapping("/view/{postId}")
+    @ResponseBody
+    public ResponseEntity<Posts> getPostById(
+            @PathVariable Long postId
+    ){
+    Posts postFind = postService.getPostById(postId);
+    return ResponseEntity.ok(postFind);
+
     }
 //    @PostMapping("/add")
 //    public ResponseEntity<String> addPost(@RequestBody Posts post) {

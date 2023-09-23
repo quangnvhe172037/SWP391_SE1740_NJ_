@@ -16,7 +16,10 @@ import ChangePassword from "./components/ChangePassword/ChangePassword";
 import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 import SliderList from "./pages/Sliders/Sliders";
 import SliderDetail from "./pages/SliderDetail/SliderDetail";
+import PostList from "./pages/Posts/PostList";
+import PostDetail from "./pages/Posts/PostDetail";
 import SliderAdd from "./pages/SliderDetail/SliderAdd";
+
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -82,6 +85,11 @@ const App = () => {
                   Sliders
                 </Link>
               </li>
+              <li className="nav-item">
+                <Link to={"/posts"} className="nav-link">
+                  Post
+                </Link>
+              </li>
             </li>
           )}
         </div>
@@ -131,11 +139,19 @@ const App = () => {
               <Route path="/expert" element={<BoardExpert />} />
               <Route path="/admin" element={<BoardAdmin />} />
               <Route path="/sliders" element={<SliderList />} />
+
+              <Route path="/posts" element={<PostList />} />
+              <Route path="/posts/:postId" element={<PostDetail />} />
+              <Route path="/sliders/edit/*" element={<SliderDetail />} />
+
               <Route
                 path="/sliders/edit/:sliderId"
                 element={<SliderDetail />}
               />
+
               <Route path="/sliders/add" element={<SliderAdd />} />
+
+
             </>
           ) : (
             <>

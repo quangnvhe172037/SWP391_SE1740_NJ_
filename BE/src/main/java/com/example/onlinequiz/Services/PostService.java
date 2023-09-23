@@ -13,5 +13,7 @@ public interface PostService {
     List<Posts> getAllPostsSortByDate();
 
     List<Posts> getRandomPosts(int numberOfPosts);
+
+    Posts getPostById(Long postId);
 //    void addPost(Posts post);
 }
