@@ -57,7 +57,7 @@ public class SliderServiceImpl implements SliderService {
         String imageUrl = "";
         try {
             // Tạo đường dẫn đến thư mục lưu trữ tệp ảnh
-            String fileName = "image sliders " +String.valueOf(id) + FilenameUtils.getExtension(file.getOriginalFilename());
+            String fileName = "image sliders " +String.valueOf(id) +"."+ FilenameUtils.getExtension(file.getOriginalFilename());
             Path targetPath = Paths.get(uploadDir + "/sliders", fileName);
 
             // Lưu tệp ảnh vào thư mục lưu trữ

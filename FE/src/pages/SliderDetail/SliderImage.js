@@ -7,11 +7,12 @@ const SliderImage = ({
   setUpdatedImage,
   handleSaveImageClick,
   handleEditClick,
+  currentImage
 }) => {
   return (
     <form>
       Slider image
-      <img src={baseURL + updatedImage} alt="something" />
+      <img src={baseURL + currentImage} alt="something" />
       <input
         type="file"
         accept="image/*"

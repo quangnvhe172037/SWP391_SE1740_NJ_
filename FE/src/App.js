@@ -62,22 +62,22 @@ const App = () => {
 
           {isAuthenticated && (
             <li>
-              <li className="nav-item">
+              <li className="nav-item" style={{ display: "inline-block" }}>
                 <Link to={"/customer"} className="nav-link">
                   Customer Board
                 </Link>
               </li>
-              <li className="nav-item">
+              <li className="nav-item" style={{ display: "inline-block" }}>
                 <Link to={"/admin"} className="nav-link">
                   Admin Board
                 </Link>
               </li>
-              <li className="nav-item">
+              <li className="nav-item" style={{ display: "inline-block" }}>
                 <Link to={"/expert"} className="nav-link">
                   Expert Board
                 </Link>
               </li>
-              <li className="nav-item">
+              <li className="nav-item" style={{ display: "inline-block" }}>
                 <Link to={"/sliders"} className="nav-link">
                   Sliders
                 </Link>
@@ -135,7 +135,7 @@ const App = () => {
                 path="/sliders/edit/:sliderId"
                 element={<SliderDetail />}
               />
-              <Route path="/sliders/add" element={<SliderAdd/>} />
+              <Route path="/sliders/add" element={<SliderAdd />} />
             </>
           ) : (
             <>

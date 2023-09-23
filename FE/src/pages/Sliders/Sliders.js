@@ -25,11 +25,13 @@ const SliderList = () => {
       })
 
       .then((dataJson) => {
+        console.log(dataJson);
+        
         const data = dataJson.map((item) => ({
           sliderID: item.sliderID,
           title: item.title,
           image: item.image,
-          subjectID: item.subjectID,
+          subjectID: item.subject.subjectID,
           subjectName: item.subject.subjectName,
           subjectStatus: item.subject.status,
           status: item.status,

@@ -3,6 +3,7 @@ package com.example.onlinequiz.Controller;
 import com.example.onlinequiz.Model.Sliders;
 import com.example.onlinequiz.Model.Users;
 import com.example.onlinequiz.Services.SliderService;
+import com.example.onlinequiz.Services.SubjectService;
 import jakarta.servlet.annotation.MultipartConfig;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +26,10 @@ public class SliderController {
     @Autowired
     private final SliderService sliderService;
 
+
     @GetMapping
     @ResponseBody
-    public ResponseEntity<List<Sliders>> getAllSlider(){
+    public ResponseEntity<List<Sliders>>getAllSlider(){
         List<Sliders> listSliders = sliderService.getSliders();
 
         return ResponseEntity.ok(listSliders);
@@ -161,14 +163,18 @@ public class SliderController {
         }
     }
 
+    @Autowired
+    private final SubjectService subjectService;
     @PostMapping("/add")
     @ResponseBody
     public ResponseEntity<Sliders> addNewSlider(
             @RequestParam(name = "title") String title,
             @RequestParam(name = "note") String note,
             @RequestParam(name = "status") boolean status,
-            @RequestParam(name = "image") MultipartFile file
+            @RequestParam(name = "image") MultipartFile file,
+            @RequestParam(name = "subjectId") Long subjectId
     ){
+
         try {
             Sliders sliderChange = new Sliders();
 
@@ -180,6 +186,7 @@ public class SliderController {
                 sliderChange.setTitle(title);
                 // Lưu slider đã cập nhật vào cơ sở dữ liệu
                 sliderChange = sliderService.save(sliderChange);
+                sliderChange.setSubject(subjectService.getSubjectById(subjectId));
                 sliderChange.setImage(sliderService.storeImage(file, sliderChange.getSliderID()));
                 // Lưu slider đã cập nhật vào cơ sở dữ liệu
                 sliderChange = sliderService.save(sliderChange);
@@ -188,6 +195,7 @@ public class SliderController {
                 return ResponseEntity.notFound().build();
             }
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }

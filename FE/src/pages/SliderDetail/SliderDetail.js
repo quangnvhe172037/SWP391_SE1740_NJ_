@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import SliderImage from "./SliderImage";
 import SlidersData from "./SlidersData";
+import './SliderDetail.css'
+
 
 const SliderDetail = () => {
   const { sliderId } = useParams();
@@ -11,10 +13,12 @@ const SliderDetail = () => {
   const [updatedImage, setUpdatedImage] = useState("");
   const [updatedNote, setUpdatedNote] = useState("");
   const [updatedStatus, setUpdatedStatus] = useState(0); // Sử dụng giá trị mặc định
+  const [currentImage, setCurrentImage] = useState("");
   const navigate = useNavigate();
   const baseURL = "http://localhost:8081/";
   const token = localStorage.getItem("token");
-  console.log(sliderId);
+
+
   useEffect(() => {
     fetch(`http://localhost:8080/sliders/edit/${sliderId}`, {
       headers: {
@@ -30,9 +34,10 @@ const SliderDetail = () => {
       .then((data) => {
         setSliderData(data);
         setUpdatedTitle(data.title);
-        setUpdatedImage(data.image);
+        setCurrentImage(data.image);
         setUpdatedNote(data.note);
         setUpdatedStatus(data.status);
+        
       })
       .catch((error) => {
         console.error("Error fetching slider data:", error);
@@ -44,8 +49,10 @@ const SliderDetail = () => {
     setEditing(true);
   };
 
+
   const handleSaveDataClick = (e) => {
     e.preventDefault();
+    setEditing(false);
     // Tạo một đối tượng mới chứa thông tin đã cập nhật
 
     const formData = new FormData();
@@ -69,7 +76,7 @@ const SliderDetail = () => {
         return response.json();
       })
       .then((data) => {
-        navigate("/sliders");
+        navigate(`/sliders/edit/${sliderId}`);
       })
       .catch((error) => {
         console.error("Error updating slider data:", error);
@@ -81,8 +88,7 @@ const SliderDetail = () => {
     const formData = new FormData();
     formData.append("image", updatedImage);
 
-    console.log(formData.image);
-
+    
     // Gửi yêu cầu PUT để cập nhật ảnh
     fetch(`http://localhost:8080/sliders/edit/image/${sliderId}`, {
       method: "PUT",
@@ -99,7 +105,7 @@ const SliderDetail = () => {
         return response.json();
       })
       .then((data) => {
-        navigate("/sliders");
+         navigate(`/sliders/edit/${sliderId}`);
       })
       .catch((error) => {
         console.error("Error updating slider data:", error);
@@ -107,8 +113,8 @@ const SliderDetail = () => {
   };
 
   return (
-    <div>
-      <div>
+    <div className="row">
+      <div className="col-md-3 form-data">
         <SlidersData
           sliderData={sliderData}
           updatedTitle={updatedTitle}
@@ -123,13 +129,14 @@ const SliderDetail = () => {
         />
       </div>
 
-      <div>
+      <div className="col-md-9 form-img">
         <SliderImage
           baseURL={baseURL}
           updatedImage={updatedImage}
           editing={editing}
           setUpdatedImage={setUpdatedImage}
           handleSaveImageClick={handleSaveImageClick}
+          currentImage={currentImage}
         />
       </div>
     </div>

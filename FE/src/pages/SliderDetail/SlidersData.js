@@ -14,12 +14,12 @@ const SlidersData = ({
 }) => {
   return (
     <form>
-      <div>
-        Slider ID:
+      <div className="form-group">
+        <label>Slider ID:</label>
         <input type="text" value={sliderData.sliderID} readOnly />
       </div>
 
-      <div>
+      <div className="form-group">
         Slider title
         <input
           type="text"
@@ -29,7 +29,7 @@ const SlidersData = ({
         />
       </div>
 
-      <div>
+      <div className="form-group">
         Slider note
         <input
           type="text"
@@ -39,7 +39,7 @@ const SlidersData = ({
         />
       </div>
 
-      <div>
+      <div className="form-group">
         Slider status:
         <select
           value={updatedStatus}
@@ -53,7 +53,13 @@ const SlidersData = ({
 
       <div>
         {editing ? (
-          <button onClick={handleSaveDataClick}>Save</button>
+          <button
+            className="btn"
+            style={"padding: 0px 10px"}
+            onClick={handleSaveDataClick}
+          >
+            Save
+          </button>
         ) : (
           <button onClick={handleEditClick}>Edit</button>
         )}
