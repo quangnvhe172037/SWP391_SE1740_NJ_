@@ -1,0 +1,71 @@
+.blog-entry {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #fff;
+}
+
+.blog-entry img {
+    max-width: 100%;
+    height: auto;
+}
+
+.date {
+    font-size: 14px;
+    color: #888;
+}
+
+.post-title {
+    font-size: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-decoration: none;
+}
+
+p {
+    font-size: 16px;
+    color: #333;
+}
+
+.read-more {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.read-more:hover {
+    text-decoration: underline;
+}
+
+.category {
+
+    padding: 10px;
+    background-color: #f8f8f8;
+    margin-top: 20px;
+}
+
+.posts-entry-title {
+    text-transform: uppercase;
+    font-size: 20px;
+    color: #000;
+    letter-spacing: .05rem;
+}
+
+
+.posts-entry .blog-entry .img-link {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+.posts-entry-title {
+    text-transform: uppercase;
+    font-size: 20px;
+    color: #000;
+    letter-spacing: .05rem;
+    text-align: center;
+}
+.img-large {
+    width: 80px; /* Kích thước hình ảnh theo chiều rộng của cột */
+    height: auto; /* Duy trì tỷ lệ khung hình */
+}

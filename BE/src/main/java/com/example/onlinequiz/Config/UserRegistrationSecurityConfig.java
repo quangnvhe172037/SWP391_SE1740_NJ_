@@ -55,6 +55,7 @@ public class UserRegistrationSecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers("/sliders", "/sliders/**", "sliders/edit/**", "/sliders/edit/data", "/sliders/edit"
                         , "/sliders/edit/data/**", "/sliders/edit/image", "/sliders/edit/image/**", "/sliders/delete", "/sliders/delete/**")
+
                 .permitAll() // Cho phép tất cả truy cập /register/**
                 .requestMatchers("/register","/api/test/**")
                 .permitAll() // Cho phép tất cả truy cập /register/**
