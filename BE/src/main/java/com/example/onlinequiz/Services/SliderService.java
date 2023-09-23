@@ -13,7 +13,7 @@ public interface SliderService {
 
     void save(Sliders slider);
 
-    void delete(int id);
+    void delete(long id);
 
-    String storeImage(MultipartFile file);
+    String storeImage(MultipartFile file, int id);
 }
