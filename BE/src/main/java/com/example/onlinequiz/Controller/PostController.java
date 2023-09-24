@@ -22,7 +22,6 @@ public class PostController {
     private final PostService postService;
 
 
-
     @GetMapping
     @ResponseBody
     public ResponseEntity<List<Posts>> getPost(){
@@ -54,6 +53,16 @@ public class PostController {
     Posts postFind = postService.getPostById(postId);
     return ResponseEntity.ok(postFind);
 
+    }
+
+    @GetMapping("/selectCate")
+    @ResponseBody
+    public ResponseEntity<List<Posts>> getPostByCateId(
+//            @PathVariable Integer postcateid
+    ){
+        List<Posts> postsListByCate = postService.getPostByCateId(1);
+        System.out.println(postsListByCate);
+        return ResponseEntity.ok(postsListByCate);
     }
 //    @PostMapping("/add")
 //    public ResponseEntity<String> addPost(@RequestBody Posts post) {

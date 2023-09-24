@@ -22,7 +22,6 @@ import PostDetail from "./pages/Posts/PostDetail";
 import SliderAdd from "./pages/SliderDetail/SliderAdd";
 
 
-
 const App = () => {
     const [currentUser, setCurrentUser] = useState(undefined);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -135,7 +134,11 @@ const App = () => {
                 element={<SliderDetail />}
               />
 
+
               <Route path="/sliders/add" element={<SliderAdd />} />
+
+              <Route path="/sliders/add" element={<SliderAdd/>} />
+
             </>
           ) : (
             <>

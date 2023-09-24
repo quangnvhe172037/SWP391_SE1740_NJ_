@@ -14,6 +14,18 @@ class PostList extends Component {
             posts: [],
         };
     }
+    handleCategorySelect = (selectedCategoryId) => {
+        // Gửi yêu cầu lấy danh sách bài post tương ứng với selectedCategoryId lên server
+        console.log(selectedCategoryId);
+        axios.get(API_URL + '/selectCate/{selectedCategoryId}')
+
+            .then((response) => {
+                this.setState({ posts: response.data });
+            })
+            .catch((error) => {
+                console.error('Error fetching posts by category:', error);
+            });
+    };
 
     componentDidMount() {
         axios.get(API_URL)
@@ -27,6 +39,7 @@ class PostList extends Component {
 
     render() {
         const { posts } = this.state;
+
         return (
             <section className="section posts-entry posts-entry-sm bg-light">
                 <div className="container">
@@ -52,7 +65,7 @@ class PostList extends Component {
                                 ))}
                             </div>
                         </div>
-                        <Sidebar/>
+                        <Sidebar onSelectCategory={this.handleCategorySelect} />
                     </div>
                 </div>
             </section>
