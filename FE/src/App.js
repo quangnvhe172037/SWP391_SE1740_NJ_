@@ -19,7 +19,9 @@ import SliderList from "./pages/Sliders/Sliders";
 import SliderDetail from "./pages/SliderDetail/SliderDetail";
 import PostList from "./pages/Posts/PostList";
 import PostDetail from "./pages/Posts/PostDetail";
+import PostEdit from "./pages/Posts/PostEdit";
 import SliderAdd from "./pages/SliderDetail/SliderAdd";
+
 
 
 const App = () => {
@@ -126,7 +128,9 @@ const App = () => {
               <Route path="/sliders" element={<SliderList />} />
 
               <Route path="/posts" element={<PostList />} />
-              <Route path="/posts/:postId" element={<PostDetail />} />
+              <Route path="/posts/view/:postId" element={<PostDetail />} />
+                <Route path="/posts/edit/:postId" element={<PostEdit/>} />
+
               <Route path="/sliders/edit/*" element={<SliderDetail />} />
 
               <Route
