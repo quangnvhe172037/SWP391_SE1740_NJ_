@@ -15,6 +15,14 @@ import BoardExpert from "./components/BoardExpert/BoardExpert";
 import ChangePassword from "./components/ChangePassword/ChangePassword";
 import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 
+
+import SliderList from "./pages/Sliders/Sliders";
+import SliderDetail from "./pages/SliderDetail/SliderDetail";
+import PostList from "./pages/Posts/PostList";
+import PostDetail from "./pages/Posts/PostDetail";
+import SliderAdd from "./pages/SliderDetail/SliderAdd";
+
+
 const App = () => {
     const [currentUser, setCurrentUser] = useState(undefined);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -57,84 +65,90 @@ const App = () => {
                         </Link>
                     </li>
 
-                    {isAuthenticated && (
-                        <>
-                            <li className="nav-item">
-                                <Link to={"/customer"} className="nav-link">
-                                    Customer Board
-                                </Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link to={"/admin"} className="nav-link">
-                                    Admin Board
-                                </Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link to={"/expert"} className="nav-link">
-                                    Expert Board
-                                </Link>
-                            </li>
-                        </>
-                    )}
-                </div>
-
-                <div className="navbar-nav ml-auto">
-                    {isAuthenticated ? (
-                        <>
-                            <li className="nav-item">
-                                <Link to={"/profile"} className="nav-link">
-                                    Hello, {currentUser.sub}
-                                </Link>
-                            </li>
-                            <li className="nav-item">
-                                <a href="/login" className="nav-link" onClick={logOut}>
-                                    LogOut
-                                </a>
-                            </li>
-                        </>
-                    ) : (
-                        <>
-                            <li className="nav-item">
-                                <Link to={"/login"} className="nav-link">
-                                    Login
-                                </Link>
-                            </li>
-
-                            <li className="nav-item">
-                                <Link to={"/register"} className="nav-link">
-                                    Sign Up
-                                </Link>
-                            </li>
-                        </>
-                    )}
-                </div>
-            </nav>
-
-            <div className="container mt-3">
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/home" element={<Home />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/register" element={<Register />} />
-                    <Route path="/profile" element={<ChangePassword />} />
-                    {isAuthenticated ? (
-                        <>
-                            <Route path="/customer" element={<BoardCustomer />} />
-                            <Route path="/expert" element={<BoardExpert />} />
-                            <Route path="/admin" element={<BoardAdmin />} />
-                        </>
-                    ) : (
-                        <>
-                            <Route path="/customer" element={<Navigate to="/login" />} />
-                            <Route path="/expert" element={<Navigate to="/login" />} />
-                            <Route path="/admin" element={<Navigate to="/login" />} />
-                        </>
-                    )}
-                    <Route path="/forgot-password" element={<ForgotPassword />} />
-                </Routes>
-            </div>
+                    
+          {isAuthenticated && (
+            <li>
+              
+              <li className="nav-item" style={{ display: "inline-block" }}>
+                <Link to={"/sliders"} className="nav-link">
+                  Sliders
+                </Link>
+              </li>
+              <li className="nav-item" style={{ display: "inline-block" }}>
+                <Link to={"/posts"} className="nav-link">
+                  Post
+                </Link>
+              </li>
+            </li>
+          )}
         </div>
-    );
+
+        <div className="navbar-nav ml-auto">
+          {isAuthenticated ? (
+            <>
+              <li className="nav-item">
+                <Link to={"/profile"} className="nav-link">
+                  Hello, {currentUser.sub}
+                </Link>
+              </li>
+              <li className="nav-item">
+                <a href="/login" className="nav-link" onClick={logOut}>
+                  LogOut
+                </a>
+              </li>
+            </>
+          ) : (
+            <>
+              <li className="nav-item">
+                <Link to={"/login"} className="nav-link">
+                  Login
+                </Link>
+              </li>
+
+              <li className="nav-item">
+                <Link to={"/register"} className="nav-link">
+                  Sign Up
+                </Link>
+              </li>
+            </>
+          )}
+        </div>
+      </nav>
+
+      <div className="container mt-3">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/profile" element={<ChangePassword />} />
+          {isAuthenticated ? (
+            <>
+              <Route path="/sliders" element={<SliderList />} />
+
+              <Route path="/posts" element={<PostList />} />
+              <Route path="/posts/:postId" element={<PostDetail />} />
+              <Route path="/sliders/edit/*" element={<SliderDetail />} />
+
+              <Route
+                path="/sliders/edit/:sliderId"
+                element={<SliderDetail />}
+              />
+
+              <Route path="/sliders/add" element={<SliderAdd />} />
+            </>
+          ) : (
+            <>
+              <Route path="/customer" element={<Navigate to="/login" />} />
+              <Route path="/expert" element={<Navigate to="/login" />} />
+              <Route path="/admin" element={<Navigate to="/login" />} />
+            </>
+          )}
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+        </Routes>
+      </div>
+    </div>
+  );
 };
 
 export default App;

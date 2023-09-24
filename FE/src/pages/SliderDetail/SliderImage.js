@@ -11,8 +11,12 @@ const SliderImage = ({
 }) => {
   return (
     <form>
-      Slider image
-      <img src={baseURL + currentImage} alt="something" />
+      <div>
+        <label>Slider image</label>
+
+        <img src={baseURL + currentImage} alt="something" className="sliderImage"/>
+      </div>
+
       <input
         type="file"
         accept="image/*"
@@ -20,9 +24,7 @@ const SliderImage = ({
         readOnly={!editing}
       />
       <div>
-       
-          <button onClick={handleSaveImageClick}>Save</button>
-      
+        <button onClick={handleSaveImageClick}>Save</button>
       </div>
     </form>
   );

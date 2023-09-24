@@ -1,8 +1,26 @@
 .form-data,
-.form-img{
-    text-align: center;
+.form-img {
+  text-align: center;
+  width: 100%;
 }
 
-.form-img{
-    padding-top: 50px;
+.form-img {
+  padding-top: 5em;
+}
+
+.inputData {
+  width: 100%;
+  text-align: center;
+}
+
+.slider-detail {
+  margin-top: -16px;
+  height: 92vh;
+  padding-bottom: 10px;
+  background-color: #eee;
+}
+
+.sliderImage {
+  width: 500px;
+  height: auto;
 }

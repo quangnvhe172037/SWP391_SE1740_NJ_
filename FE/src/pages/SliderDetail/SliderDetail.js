@@ -14,6 +14,7 @@ const SliderDetail = () => {
   const [updatedNote, setUpdatedNote] = useState("");
   const [updatedStatus, setUpdatedStatus] = useState(0); // Sử dụng giá trị mặc định
   const [currentImage, setCurrentImage] = useState("");
+  const [updatedSubject, setUpdatedSubject] = useState("");
   const navigate = useNavigate();
   const baseURL = "http://localhost:8081/";
   const token = localStorage.getItem("token");
@@ -37,7 +38,7 @@ const SliderDetail = () => {
         setCurrentImage(data.image);
         setUpdatedNote(data.note);
         setUpdatedStatus(data.status);
-        
+        setUpdatedSubject(data.subject.subjectName);
       })
       .catch((error) => {
         console.error("Error fetching slider data:", error);
@@ -113,8 +114,8 @@ const SliderDetail = () => {
   };
 
   return (
-    <div className="row">
-      <div className="col-md-3 form-data">
+    <div className="row slider-detail">
+      <div className="col-md-4 form-data">
         <SlidersData
           sliderData={sliderData}
           updatedTitle={updatedTitle}
@@ -126,10 +127,11 @@ const SliderDetail = () => {
           setUpdatedStatus={setUpdatedStatus}
           handleSaveDataClick={handleSaveDataClick}
           handleEditClick={handleEditClick}
+          updatedSubject={updatedSubject}
         />
       </div>
 
-      <div className="col-md-9 form-img">
+      <div className="col-md-8 form-img">
         <SliderImage
           baseURL={baseURL}
           updatedImage={updatedImage}

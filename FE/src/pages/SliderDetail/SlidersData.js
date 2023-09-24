@@ -11,40 +11,60 @@ const SlidersData = ({
   setUpdatedStatus,
   handleSaveDataClick,
   handleEditClick,
+  updatedSubject
 }) => {
   return (
     <form>
       <div className="form-group">
-        <label>Slider ID:</label>
-        <input type="text" value={sliderData.sliderID} readOnly />
+        <label>Slider ID</label>
+        <input
+          type="text"
+          value={sliderData.sliderID}
+          readOnly
+          className="inputData"
+        />
       </div>
 
       <div className="form-group">
-        Slider title
+        <label>Subject Name</label>
+        <input
+          type="text"
+          value={updatedSubject}
+          readOnly
+          className="inputData"
+        />
+      </div>
+
+      <div className="form-group">
+        <label>Slider title</label>
         <input
           type="text"
           value={updatedTitle}
           onChange={(e) => setUpdatedTitle(e.target.value)}
           readOnly={!editing}
+          className="inputData"
         />
       </div>
 
       <div className="form-group">
-        Slider note
+        <label>Slider note</label>
         <input
           type="text"
           value={updatedNote}
           onChange={(e) => setUpdatedNote(e.target.value)}
           readOnly={!editing}
+          className="inputData"
         />
       </div>
 
       <div className="form-group">
-        Slider status:
+        <label>Slider status:</label>
+
         <select
           value={updatedStatus}
           onChange={(e) => setUpdatedStatus(e.target.value)}
           disabled={!editing}
+          className="inputData"
         >
           <option value="true">Active</option>
           <option value="false">Inactive</option>
@@ -53,11 +73,7 @@ const SlidersData = ({
 
       <div>
         {editing ? (
-          <button
-            className="btn"
-            style={"padding: 0px 10px"}
-            onClick={handleSaveDataClick}
-          >
+          <button className="btn" onClick={handleSaveDataClick}>
             Save
           </button>
         ) : (
