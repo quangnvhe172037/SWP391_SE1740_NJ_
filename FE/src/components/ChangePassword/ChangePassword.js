@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-const token = localStorage.getItem("token");
-
-// Regular expression to check for a strong password
-const passwordRegex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
+import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
+const token = localStorage.getItem('token');
 
 const ChangePassword = () => {
     const [email, setEmail] = useState('');
@@ -33,22 +31,24 @@ const ChangePassword = () => {
         }
 
         // Check if the new password is strong enough
+        const passwordRegex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
         if (!passwordRegex.test(newPassword)) {
             setMessage('The new password must be at least 8 characters long, contain an uppercase letter, a number, and a special character.');
             setIsPasswordStrong(false);
             return;
         }
 
-        axios.post('http://localhost:8080/change-password', {
-            email: email,
-            oldPassword: oldPassword,
-            newPassword: newPassword,
-        }, {
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-            },
-        })
+        axios
+            .post('http://localhost:8080/change-password', {
+                email: email,
+                oldPassword: oldPassword,
+                newPassword: newPassword,
+            }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+            })
             .then((response) => {
                 setMessage(response.data);
                 setPasswordsMatch(true);
@@ -65,57 +65,65 @@ const ChangePassword = () => {
 
     return (
         <div className="container">
-            <h2>Change Password</h2>
-            <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label>Email:</label>
-                    <input
-                        type="email"
-                        name="email"
-                        className="form-control"
-                        value={email}
-                        onChange={handleChange}
-                        required
-                    />
+            <div className="row justify-content-center align-items-center">
+                <div className="col-md-6 offset-md-7">
+                    <div className="card">
+                        <div className="card-body">
+                            <h2 className="card-title">Change Password</h2>
+                            <form onSubmit={handleSubmit}>
+                                <div className="form-group">
+                                    <label>Email:</label>
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        className="form-control"
+                                        value={email}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label>Old password:</label>
+                                    <input
+                                        type="password"
+                                        name="oldPassword"
+                                        className="form-control"
+                                        value={oldPassword}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label>New password:</label>
+                                    <input
+                                        type="password"
+                                        name="newPassword"
+                                        className="form-control"
+                                        value={newPassword}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label>Confirm password:</label>
+                                    <input
+                                        type="password"
+                                        name="confirmPassword"
+                                        className="form-control"
+                                        value={confirmPassword}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                </div>
+                                <button type="submit" className="btn btn-primary">Change password</button>
+                            </form>
+                            {!passwordsMatch && <div className="mt-3 text-danger">New password and confirm password do not match.</div>}
+                            {!isPasswordStrong && <div className="mt-3 text-danger">The new password must be at least 8 characters long, contain an uppercase letter, a number, and a special character.</div>}
+                            {message && <div className="mt-3">{message}</div>}
+                        </div>
+                    </div>
                 </div>
-                <div className="form-group">
-                    <label>Old password:</label>
-                    <input
-                        type="password"
-                        name="oldPassword"
-                        className="form-control"
-                        value={oldPassword}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div className="form-group">
-                    <label>New password:</label>
-                    <input
-                        type="password"
-                        name="newPassword"
-                        className="form-control"
-                        value={newPassword}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div className="form-group">
-                    <label>Confirm password:</label>
-                    <input
-                        type="password"
-                        name="confirmPassword"
-                        className="form-control"
-                        value={confirmPassword}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <button type="submit" className="btn btn-primary">Change password</button>
-            </form>
-            {!passwordsMatch && <div className="mt-3 text-danger">New password and confirm password do not match.</div>}
-            {!isPasswordStrong && <div className="mt-3 text-danger">The new password must be at least 8 characters long, contain an uppercase letter, a number, and a special character.</div>}
-            {message && <div className="mt-3">{message}</div>}
+            </div>
         </div>
     );
 }

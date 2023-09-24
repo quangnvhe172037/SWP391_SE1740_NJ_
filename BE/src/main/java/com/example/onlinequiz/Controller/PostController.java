@@ -51,6 +51,7 @@ public class PostController {
             @PathVariable Long postId
     ){
     Posts postFind = postService.getPostById(postId);
+        System.out.println(postFind);
     return ResponseEntity.ok(postFind);
 
     }

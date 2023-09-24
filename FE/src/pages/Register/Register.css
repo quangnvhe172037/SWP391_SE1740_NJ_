@@ -1,0 +1,18 @@
+.container {
+    background-image: url("/public/Capture.PNG");
+    background-size: 500px;
+    background-repeat: no-repeat;
+}
+
+.card {
+    border: 2px solid #FCC822;
+    border-radius: 100px;
+}
+
+.card-title {
+    text-align: center;
+}
+
+.form-group {
+    margin: 10px 0;
+}

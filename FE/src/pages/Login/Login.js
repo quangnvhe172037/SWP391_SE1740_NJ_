@@ -16,7 +16,7 @@ const required = (value) => {
 };
 
 const Login = () => {
-    const navigate = useNavigate(); // Sử dụng hook useNavigate để chuyển hướng
+    const navigate = useNavigate();
     const form = useRef();
     const checkBtn = useRef();
 
@@ -37,9 +37,7 @@ const Login = () => {
 
     const handleLogin = (e) => {
         e.preventDefault();
-
         setLoading(true);
-
         form.current.validateAll();
 
         if (checkBtn.current.context._errors.length === 0) {
@@ -50,17 +48,15 @@ const Login = () => {
                 })
                 .then((response) => {
                     const token = response.data;
-                    // Lưu thông tin vào localStorage
                     if (localStorage.getItem("token") !== null) {
                         localStorage.clear();
                     }
                     localStorage.setItem("token", token);
-                    navigate("/home"); // Sử dụng navigate thay vì
+                    navigate("/home");
                     window.location.reload();
                 })
                 .catch((error) => {
                     if (error.response && error.response.status === 403) {
-                        // Xử lý lỗi 403 và hiển thị thông báo "Wrong email or password"
                         setMessage("Wrong email or password");
                     } else {
                         const resMessage =
@@ -82,62 +78,66 @@ const Login = () => {
     };
 
     return (
-        <div className="col-md-12">
-            <div className="card card-container">
-                <img
-                    src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-                    alt="profile-img"
-                    className="profile-img-card"
-                />
-
-                <Form onSubmit={handleLogin} ref={form}>
-                    <div className="form-group">
-                        <label htmlFor="username">Email</label>
-                        <Input
-                            type="text"
-                            className="form-control"
-                            name="username"
-                            value={userName}
-                            onChange={onChangeEmail}
-                            validations={[required]}
+        <div className="container">
+            <div className="row justify-content-center">
+                <div className="col-md-6 offset-md-6">
+                    <div className="card card-container ">
+                        <img
+                            src="/Profile.PNG"
+                            alt="profile-img"
+                            className="profile-img-card"
                         />
-                    </div>
 
-                    <div className="form-group">
-                        <label htmlFor="password">Password</label>
-                        <Input
-                            type="password"
-                            className="form-control"
-                            name="password"
-                            value={password}
-                            onChange={onChangePassword}
-                            validations={[required]}
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <button className="btn btn-primary btn-block" disabled={loading}>
-                            {loading && (
-                                <span className="spinner-border spinner-border-sm"></span>
-                            )}
-                            <span>Login</span>
-                        </button>
-                    </div>
-
-                    {message && (
-                        <div className="form-group">
-                            <div className="alert alert-danger" role="alert">
-                                {message}
+                        <Form onSubmit={handleLogin} ref={form}>
+                            <div className="form-group">
+                                <label htmlFor="username">Email</label>
+                                <Input
+                                    type="text"
+                                    className="form-control"
+                                    name="username"
+                                    value={userName}
+                                    onChange={onChangeEmail}
+                                    validations={[required]}
+                                />
                             </div>
-                        </div>
-                    )}
 
-                    <div className="form-group">
-                        <Link to="/forgot-password">Forgot your Password?</Link>
+                            <div className="form-group">
+                                <label htmlFor="password">Password</label>
+                                <Input
+                                    type="password"
+                                    className="form-control"
+                                    name="password"
+                                    value={password}
+                                    onChange={onChangePassword}
+                                    validations={[required]}
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <button className="btn btn-primary btn-block" disabled={loading} style={{backgroundColor: "white", color: "black", border: "1px solid #FCC822"}}>
+                                    {loading && (
+                                        <span className="spinner-border spinner-border-sm"></span>
+                                    )}
+                                    <span>Login</span>
+                                </button>
+                            </div>
+
+                            {message && (
+                                <div className="form-group">
+                                    <div className="alert alert-danger" role="alert">
+                                        {message}
+                                    </div>
+                                </div>
+                            )}
+
+                            <div className="form-group">
+                                <Link to="/forgot-password" style={{color: "#FCC822"}}>Forgot your Password?</Link>
+                            </div>
+
+                            <CheckButton style={{ display: "none" }} ref={checkBtn} />
+                        </Form>
                     </div>
-
-                    <CheckButton style={{ display: "none" }} ref={checkBtn} />
-                </Form>
+                </div>
             </div>
         </div>
     );
