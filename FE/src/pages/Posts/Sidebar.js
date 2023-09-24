@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './style.css'
+import {Link} from "react-router-dom";
 
 
 const API_URL = "http://localhost:8080/posts";
@@ -9,10 +10,18 @@ class Sidebar extends Component {
         super(props);
         this.state = {
             categories: [], // Danh sách các danh mục sẽ được lấy từ Spring Boot
-            randomPosts: [], // Danh sách bài viết ngẫu nhiên
+            randomPosts: [],
+            posts: [],
+            selectedCategory: "",// Danh sách bài viết ngẫu nhiên
         };
     }
 
+    handleCategoryChange = (event) => {
+        const selectedCategoryId = event.target.value;
+        this.setState({ selectedCategoryId });
+        // Gọi hàm onSelectCategory để truyền giá trị về cho PostList component
+        this.props.onSelectCategory(selectedCategoryId);
+    };
 
     componentDidMount() {
         axios.get(API_URL + '/cate') // Gọi API từ Spring Boot bằng Axios
@@ -42,21 +51,26 @@ class Sidebar extends Component {
                         <button type="button">Tìm</button>
                     </div>
                     <h4>Thể loại</h4>
-                    <select className="form-control">
-                        <option>Chọn danh mục</option>
+                    <select
+                        className="form-control"
+                        value={this.state.selectedCategoryId}
+                        onChange={this.handleCategoryChange}
+                    >
+                        <option value="">Chọn danh mục</option>
                         {this.state.categories.map((category) => (
-                            <option key={category.id} value={category.name}>
+                            <option key={category.id} value={category.id}>
                                 {category.name}
                             </option>
                         ))}
                     </select>
+
                     <h4>Bài viết</h4>
                     {/* Danh sách bài viết */}
                     <ul className="list-group">
                         {this.state.randomPosts.map((post) => (
                             <li key={post.postID} className="list-group-item">
                                 <div className="row">
-                                    <a href='#'>
+                                    <Link to={`/posts/${post.postID}`}>
                                         <div className="col-md-4">
                                             <img
                                                 src={post.image} // Sử dụng đường dẫn hình ảnh từ dữ liệu bài viết
@@ -67,7 +81,7 @@ class Sidebar extends Component {
                                         <div className="col-md-8">
                                             <h6 className="">{post.title}</h6>
                                         </div>
-                                    </a>
+                                    </Link>
                                 </div>
                             </li>
                         ))}

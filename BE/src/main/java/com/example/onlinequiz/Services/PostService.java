@@ -15,5 +15,7 @@ public interface PostService {
     List<Posts> getRandomPosts(int numberOfPosts);
 
     Posts getPostById(Long postId);
+
+    List<Posts> getPostByCateId(Integer cateId);
 //    void addPost(Posts post);
 }

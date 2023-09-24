@@ -35,7 +35,8 @@ public class SecurityConfig {
             "/change-password",
             "/forgot-password",
             "/sliders",
-            "/posts/**"
+            "/posts/**",
+
     };
     // Danh sách các URL cho customer
     private static final String[] CUSTOMER_URL = {
