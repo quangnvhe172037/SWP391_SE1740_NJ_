@@ -1,3 +1,5 @@
+
+
 .form-data,
 .form-img {
   text-align: center;
@@ -8,6 +10,7 @@
 }
 
 .inputData {
+  margin-top: 15px;
   width: 100%;
   text-align: center;
   height: 35px;
@@ -19,7 +22,7 @@
   margin-top: -16px;
   height: 92vh;
   padding-bottom: 10px;
-  background-color: #eee;
+  background-color: #fff;
 }
 
 .sliderImage {
@@ -32,5 +35,6 @@
 }
 
 .sliderBtn{
+  text-align: center;
     padding: 5px 30px;
 }

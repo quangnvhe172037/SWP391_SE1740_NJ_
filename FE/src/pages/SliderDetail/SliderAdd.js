@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import "./SliderAdd.css"
 
 const SliderAdd = () => {
   const [subjects, setSubjects] = useState([]);
@@ -8,8 +9,7 @@ const SliderAdd = () => {
   const [updatedNote, setUpdatedNote] = useState("");
   const [updateSubject, setUpdateSubject] = useState("");
   const [updatedStatus, setUpdatedStatus] = useState(0); // Sử dụng giá trị mặc định
-  
-  
+
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
 
@@ -33,7 +33,7 @@ const SliderAdd = () => {
         const data = dataJson.map((item) => ({
           subjectID: item.subjectID,
           subjectName: item.subjectName,
-          status: item.status
+          status: item.status,
         }));
         return data;
       })
@@ -41,7 +41,6 @@ const SliderAdd = () => {
       .then((result) => {
         const mockData = result;
         setSubjects(mockData);
-        
       });
   }, []);
 
@@ -79,8 +78,6 @@ const SliderAdd = () => {
       });
   };
 
-
-  
   const handleImageChange = (e) => {
     const selectedFile = e.target.files[0];
 
@@ -92,24 +89,27 @@ const SliderAdd = () => {
   };
 
   return (
-    <div>
-      <div>
-        <form>
-          <div>
-            Slider title
+    <div className="row slider-detail slider-add">
+        <div className="col-md-6 form-data">
+          <div className="form-group">
+            <label>Slider title</label>
             <input
               type="text"
               value={updatedTitle}
+            className="inputData"
+            required
               onChange={(e) => setUpdatedTitle(e.target.value)}
             />
           </div>
-          <div>
+        <div>
+          <label>Subject</label>
             <select
-              value="-1"
+            className="inputData"
+            required
               onChange={(e) => {
-              
-              setUpdateSubject(e.target.value)
-              }}>
+                setUpdateSubject(e.target.value);
+              }}
+            >
               <option value="-1">Choose subject</option>
               {subjects.map((subject) => (
                 <option key={subject.subjectID} value={subject.subjectID}>
@@ -119,16 +119,20 @@ const SliderAdd = () => {
             </select>
           </div>
           <div>
-            Slider note
+            <label>Slider note</label>
             <input
-              type="text"
+            required
+            type="text"
+              className="inputData"
               value={updatedNote}
               onChange={(e) => setUpdatedNote(e.target.value)}
             />
           </div>
           <div>
-            Slider status:
-            <select
+            <label>Slider status:</label>
+          <select
+            required
+              className="inputData"
               value={updatedStatus}
               onChange={(e) => setUpdatedStatus(e.target.value)}
             >
@@ -136,14 +140,28 @@ const SliderAdd = () => {
               <option value="false">Inactive</option>
             </select>
           </div>
-          Slider image
-          <img src={updatedImage.preview} alt="something" />
-          <input type="file" accept="image/*" onChange={handleImageChange} />
-          <div>
-            <button onClick={handleSaveDataClick}>Add new sliders</button>
           </div>
-        </form>
-      </div>
+          <div className="col-md-6 form-img">
+            <label>Slider image</label>
+            <img
+              src={updatedImage.preview}
+              alt="Choose some img for slider"
+              className="sliderImage"
+            />
+        <input
+          required
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              className="inputImage"
+            />
+          </div>
+
+          <div className="btn-parent">
+            <button className="sliderBtn btn btn-dark btn-add" onClick={handleSaveDataClick}>Add new sliders</button>
+          </div>
+        
+      
     </div>
   );
 };

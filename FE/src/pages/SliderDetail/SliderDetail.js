@@ -115,7 +115,7 @@ const SliderDetail = () => {
 
   return (
     <div className="row slider-detail">
-      <div className="col-md-4 form-data">
+      <div className="col-md-6 form-data">
         <SlidersData
           sliderData={sliderData}
           updatedTitle={updatedTitle}
@@ -131,7 +131,7 @@ const SliderDetail = () => {
         />
       </div>
 
-      <div className="col-md-8 form-img">
+      <div className="col-md-6 form-img">
         <SliderImage
           baseURL={baseURL}
           updatedImage={updatedImage}
