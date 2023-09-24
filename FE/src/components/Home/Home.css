@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+.tuyn-slick .slick-dots li button::before {
+  width: 30px !important;
+  height: 8px !important;
+  content: '' !important;
+  background-color: rgba(104, 104, 104, 0.699);
+  border-radius: 15px;
+}
+
+.tuyn-slick .slick-dots li {
+  width: 30px !important;
+  height: 8px !important;
+}
+
+.tuyn-slick .slick-dots .slick-active button::before {
+  width: 42px !important;
+  height: 8px !important;
+  content: '' !important;
+  background-color: rgb(110, 110, 110);
+  border-radius: 15px;
+}
+
+.tuyn-slick .slick-dots .slick-active {
+  width: 42px !important;
+  height: 8px !important;
+}
+
+.tuyn-slick .slick-dots {
+  left: 30px;
+}
