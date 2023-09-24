@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,8 +34,10 @@ public class LoginController {
 
         // Kiểm tra xem người dùng có được xác thực thành công không
         if (authentication.isAuthenticated()) {
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            String userRole = userDetails.getAuthorities().iterator().next().getAuthority();
             // Nếu xác thực thành công, tạo và trả về token
-            return jwtService.generateToken(authRequest.getUserName());
+            return jwtService.generateToken(authRequest.getUserName(), userRole);
         } else {
             // Nếu xác thực thất bại, ném ra ngoại lệ UsernameNotFoundException
             throw new UsernameNotFoundException("Invalid user credential");

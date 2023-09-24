@@ -32,9 +32,9 @@ public class JWTService {
     private int JWT_EXPIRATION_TIME;
 
     // Tạo và trả về token JWT dựa trên tên người dùng
-    public String generateToken(String userName) {
+    public String generateToken(String userName, String userRole) {
         Map<String, Object> claims = new HashMap<>();
-        return generateTokenForUser(claims, userName);
+        return generateTokenForUser(claims, userName, userRole);
     }
 
     /*
@@ -52,7 +52,8 @@ public class JWTService {
      *   bởi nhiều thư viện và framework phổ biến. Điều này đồng nghĩa với việc bạn có khả năng tích
      *   hợp và sử dụng nó một cách dễ dàng trong ứng dụng của bạn.
      */
-    private String generateTokenForUser(Map<String, Object> claims, String userName) {
+    private String generateTokenForUser(Map<String, Object> claims, String userName, String userRole) {
+        claims.put("role", userRole);
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(userName)
