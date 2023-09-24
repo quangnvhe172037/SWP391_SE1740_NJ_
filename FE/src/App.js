@@ -25,6 +25,7 @@ import SliderAdd from "./pages/SliderDetail/SliderAdd";
 >>>>>>> c152f6f6d841c5cd3320d6a75051254a0b4224f8
 
 
+
 const App = () => {
     const [currentUser, setCurrentUser] = useState(undefined);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
