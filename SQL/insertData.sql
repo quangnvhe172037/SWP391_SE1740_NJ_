@@ -65,3 +65,14 @@ VALUES
 (9, "img/sliders/download.jpg", "Đây là khóa học 9", 1, "Bạn nên học khóa học này 9", 1),
 (10, "img/sliders/images.jpg", "Đây là khóa học 10", 1, "Bạn nên học khóa học này 10", 1);
 
+
+INSERT INTO postcategory (postcatename) VALUES ('Front-End'),('Back-End'),('No-End');
+
+
+INSERT INTO post (postdata, postcateid, usersid, image, datecreate, status, updatedate, briefinfor, title)
+VALUES ('Nội dung bài viết', 1, 2, 'duongdananh.jpg', '2023-09-24', true, '2023-09-25', 'Thông tin ngắn gọn 1', 'Tiêu đề bài viết 1'),
+('Nội dung bài viết', 2, 2, 'duongdananh.jpg', '2023-09-24', true, '2023-09-25', 'Thông tin ngắn gọn 2', 'Tiêu đề bài viết 2'),
+('Nội dung bài viết', 3, 2, 'duongdananh.jpg', '2023-09-24', true, '2023-09-25', 'Thông tin ngắn gọn 3', 'Tiêu đề bài viết 3');
+
+
+
