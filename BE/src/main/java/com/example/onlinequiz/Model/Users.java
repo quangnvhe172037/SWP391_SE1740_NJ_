@@ -25,7 +25,6 @@ import java.util.Set;
 @Table(name = "users")
 public class Users implements UserDetails {
     @Id
-    @Column(name = "usersid")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

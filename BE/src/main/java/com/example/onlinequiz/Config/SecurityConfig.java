@@ -29,13 +29,10 @@ public class SecurityConfig {
     private static final String[] UNSECURED_URLs = {
             "/authenticate/**",
             "/register",
-            "/api/test/all",
             "/register/**",
             "/home",
-            "/change-password",
             "/forgot-password",
-            "/sliders",
-            "/posts/**"
+            "/change-password"
     };
     // Danh sách các URL cho customer
     private static final String[] CUSTOMER_URL = {
@@ -48,13 +45,10 @@ public class SecurityConfig {
     // Danh sách các URL cho admin
     private static final String[] ADMIN_URL = {
             "/api/test/admin",
-            "/sliders/edit/**",
-            "/sliders/edit/image/**",
-            "/sliders/edit/data/**",
-            "/sliders/edit/**",
-            "/sliders/delete/**",
-            "/sliders/add",
-            "/subjects/all"
+    };
+    //Danh sách url cho cả 3 role expert, admin, customer
+    private static final String[] ThreeRole_URL = {
+            "/change-password"
     };
     // Cấu hình bộ lọc bảo mật
     @Bean
@@ -67,7 +61,8 @@ public class SecurityConfig {
                 // Cấu hình quyền truy cập dựa trên vai trò (authorities)
                 .authorizeHttpRequests().requestMatchers(ADMIN_URL).hasAuthority("ADMIN").and()
                 .authorizeHttpRequests().requestMatchers(EXPERT_URL).hasAuthority("EXPERT").and()
-                .authorizeHttpRequests().requestMatchers(CUSTOMER_URL).hasAuthority("CUSTOMER")
+                .authorizeHttpRequests().requestMatchers(CUSTOMER_URL).hasAuthority("CUSTOMER").and()
+                .authorizeHttpRequests().requestMatchers(ThreeRole_URL).hasAnyAuthority("CUSTOMER", "EXPERT", "CUSTOMER")
                 .anyRequest().authenticated().and()
                 // Quản lý phiên làm việc (session)
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()

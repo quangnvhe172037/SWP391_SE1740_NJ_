@@ -16,7 +16,7 @@ const required = (value) => {
 };
 
 const Login = () => {
-    const navigate = useNavigate();
+    const navigate = useNavigate(); // Sử dụng hook useNavigate để chuyển hướng
     const form = useRef();
     const checkBtn = useRef();
 
@@ -55,17 +55,23 @@ const Login = () => {
                         localStorage.clear();
                     }
                     localStorage.setItem("token", token);
-                    navigate("/home");
+                    navigate("/home"); // Sử dụng navigate thay vì
+                    window.location.reload();
                 })
                 .catch((error) => {
-                    const resMessage =
-                        (error.response &&
-                            error.response.data &&
-                            error.response.data.message) ||
-                        error.message ||
-                        error.toString();
+                    if (error.response && error.response.status === 403) {
+                        // Xử lý lỗi 403 và hiển thị thông báo "Wrong email or password"
+                        setMessage("Wrong email or password");
+                    } else {
+                        const resMessage =
+                            (error.response &&
+                                error.response.data &&
+                                error.response.data.message) ||
+                            error.message ||
+                            error.toString();
 
-                    setMessage(resMessage);
+                        setMessage(resMessage);
+                    }
                 })
                 .finally(() => {
                     setLoading(false);
