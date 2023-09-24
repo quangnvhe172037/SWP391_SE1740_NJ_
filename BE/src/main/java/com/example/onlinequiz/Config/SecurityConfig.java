@@ -47,6 +47,13 @@ public class SecurityConfig {
     // Danh sách các URL cho admin
     private static final String[] ADMIN_URL = {
             "/api/test/admin",
+            "/sliders/edit/**",
+            "/sliders/edit/image/**",
+            "/sliders/edit/data/**",
+            "/sliders/edit/**",
+            "/sliders/delete/**",
+            "/sliders/add",
+            "/subjects/all"
     };
     //Danh sách url cho cả 3 role expert, admin, customer
     private static final String[] ThreeRole_URL = {
