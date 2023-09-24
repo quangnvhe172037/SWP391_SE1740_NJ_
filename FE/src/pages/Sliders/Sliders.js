@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import "./Slider.css"
+
+
 const SliderList = () => {
   const [sliders, setSliders] = useState([]);
   const [filteredSliders, setFilteredSliders] = useState([]);
@@ -157,33 +160,35 @@ const SliderList = () => {
 
         <div>
           <button>
-            <Link to={`/sliders/add`}>
-              Add new slider
-            </Link>
+            <Link to={`/sliders/add`}>Add new slider</Link>
           </button>
         </div>
       </div>
 
-      <table>
+      <table className="table table-striped">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Image</th>
-            <th>Subject Name</th>
-            <th>Status</th>
-            <th>Note</th>
-            <th>Actions</th>
+            <th scope="col">ID</th>
+            <th scope="col">Title</th>
+            <th scope="col">Image</th>
+            <th scope="col">Subject Name</th>
+            <th scope="col">Status</th>
+            <th scope="col">Note</th>
+            <th scope="col">Actions</th>
           </tr>
         </thead>
         <tbody>
           {filteredSliders.map((slider) => (
-            <tr key={slider.sliderID}>
+            <tr key={slider.sliderID} scope="row">
               <td>{slider.sliderID}</td>
               <td>{slider.title}</td>
 
-              <td>
-                <img src={slider.image} alt="image of the slider"></img>
+              <td className="img-row">
+                <img
+                  className="img-fluid"
+                  src={slider.image}
+                  alt="image of the slider"
+                ></img>
               </td>
               <td>{slider.subjectName}</td>
               <td>{slider.status == 1 ? "Active" : "Inactive"}</td>
@@ -200,9 +205,7 @@ const SliderList = () => {
                 )}
 
                 <button>
-                  <Link to={`/sliders/edit/${slider.sliderID}`}>
-                    Edit{slider.sliderID}
-                  </Link>
+                  <Link to={`/sliders/edit/${slider.sliderID}`}>Edit</Link>
                 </button>
 
                 <button onClick={() => handleDelete(slider.sliderID)}>

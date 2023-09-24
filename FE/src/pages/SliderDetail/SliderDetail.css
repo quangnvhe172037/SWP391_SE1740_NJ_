@@ -5,15 +5,17 @@
 }
 
 .form-img {
-  padding-top: 5em;
 }
 
 .inputData {
   width: 100%;
   text-align: center;
+  height: 35px;
 }
 
 .slider-detail {
+  display: flex;
+  align-items: center;
   margin-top: -16px;
   height: 92vh;
   padding-bottom: 10px;
@@ -23,4 +25,12 @@
 .sliderImage {
   width: 500px;
   height: auto;
+}
+
+.inputImage{
+    margin: 20px 0;
+}
+
+.sliderBtn{
+    padding: 5px 30px;
 }

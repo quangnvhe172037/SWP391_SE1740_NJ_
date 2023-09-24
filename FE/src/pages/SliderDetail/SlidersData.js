@@ -73,11 +73,16 @@ const SlidersData = ({
 
       <div>
         {editing ? (
-          <button className="btn" onClick={handleSaveDataClick}>
+          <button
+            className="btn brn-dark sliderBtn"
+            onClick={handleSaveDataClick}
+          >
             Save
           </button>
         ) : (
-          <button onClick={handleEditClick}>Edit</button>
+          <button className="btn  btn-dark sliderBtn" onClick={handleEditClick}>
+            Edit
+          </button>
         )}
       </div>
     </form>

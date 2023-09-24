@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Routes, Route, Link, Navigate, BrowserRouter } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import jwtDecode from "jwt-decode";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import jwtDecode from "jwt-decode";
 import authapi from "./api/authapi";
 import Login from "./pages/Login/Login";
 import Home from "./components/Home/Home";
@@ -14,13 +15,12 @@ import BoardAdmin from "./components/BoardAdmin/BoardAdmin";
 import BoardExpert from "./components/BoardExpert/BoardExpert";
 import ChangePassword from "./components/ChangePassword/ChangePassword";
 import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
-
-
 import SliderList from "./pages/Sliders/Sliders";
 import SliderDetail from "./pages/SliderDetail/SliderDetail";
 import PostList from "./pages/Posts/PostList";
 import PostDetail from "./pages/Posts/PostDetail";
 import SliderAdd from "./pages/SliderDetail/SliderAdd";
+
 
 
 const App = () => {
