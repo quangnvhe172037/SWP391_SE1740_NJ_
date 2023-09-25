@@ -128,6 +128,9 @@ const SliderList = () => {
     // Gửi yêu cầu DELETE để xóa slider dựa trên sliderId
     fetch(`http://localhost:8080/sliders/delete/${sliderId}`, {
       method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     })
       .then((response) => {
         if (!response.ok) {

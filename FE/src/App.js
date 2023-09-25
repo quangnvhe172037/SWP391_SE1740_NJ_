@@ -128,61 +128,6 @@ const App = () => {
           <Route path="/profile" element={<ChangePassword />} />
           {isAuthenticated ? (
             <>
-              <Route path="/customer" element={<BoardCustomer />} />
-              <Route path="/expert" element={<BoardExpert />} />
-              <Route path="/admin" element={<BoardAdmin />} />
-            </>
-          ) : (
-            <>
-              <Route path="/customer" element={<Navigate to="/login" />} />
-              <Route path="/expert" element={<Navigate to="/login" />} />
-              <Route path="/admin" element={<Navigate to="/login" />} />
-            </>
-          )}
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-        </Routes>
-      </div>
-
-      <div className="navbar-nav ml-auto">
-        {isAuthenticated ? (
-          <>
-            <li className="nav-item">
-              <Link to={"/profile"} className="nav-link">
-                Hello, {currentUser.sub}
-              </Link>
-            </li>
-            <li className="nav-item">
-              <a href="/login" className="nav-link" onClick={logOut}>
-                LogOut
-              </a>
-            </li>
-          </>
-        ) : (
-          <>
-            <li className="nav-item">
-              <Link to={"/login"} className="nav-link">
-                Login
-              </Link>
-            </li>
-
-            <li className="nav-item">
-              <Link to={"/register"} className="nav-link">
-                Sign Up
-              </Link>
-            </li>
-          </>
-        )}
-      </div>
-
-      <div className="container mt-3">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/profile" element={<ChangePassword />} />
-          {isAuthenticated ? (
-            <>
               <Route path="/sliders" element={<SliderList />} />
 
               <Route path="/posts" element={<PostList />} />
