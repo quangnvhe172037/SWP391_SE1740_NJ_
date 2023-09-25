@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import './style.css';
 
 
 const API_URL = "http://localhost:8080/posts";
@@ -19,8 +20,9 @@ const PostDetail = () => {
                 console.error('Error fetching post data: ', error);
             });
     }, [postId]);
-
+    console.log(post);
     return (
+
         <div>
             <h1>{post.title}</h1>
             <img src={post.image} alt={post.title} />

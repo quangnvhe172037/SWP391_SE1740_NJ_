@@ -70,9 +70,11 @@ INSERT INTO postcategory (postcatename) VALUES ('Front-End'),('Back-End'),('No-E
 
 
 INSERT INTO post (postdata, postcateid, usersid, image, datecreate, status, updatedate, briefinfor, title)
-VALUES ('Nội dung bài viết', 1, 2, 'duongdananh.jpg', '2023-09-24', true, '2023-09-25', 'Thông tin ngắn gọn 1', 'Tiêu đề bài viết 1'),
-('Nội dung bài viết', 2, 2, 'duongdananh.jpg', '2023-09-24', true, '2023-09-25', 'Thông tin ngắn gọn 2', 'Tiêu đề bài viết 2'),
-('Nội dung bài viết', 3, 2, 'duongdananh.jpg', '2023-09-24', true, '2023-09-25', 'Thông tin ngắn gọn 3', 'Tiêu đề bài viết 3');
+VALUES ('Nội dung bài viết 3', 2, 1, 'img/posts/duongdananh2.jpg', '2023-09-29', 1, '2023-09-30', 'Thông tin ngắn gọn sieeuu', 'Tiêu đề bài viết 3'),
+ ('Nội dung bài viết 4', 2, 1, 'img/posts/duongdananh3.jpg', '2023-09-29', 1, '2023-09-30', 'Thông tin ngắn gọn sieeuu', 'Tiêu đề bài viết 4'),
+('Nội dung bài viết 5', 2, 1, 'img/posts/duongdananh5.jpg', '2023-09-29', 1, '2023-09-30', 'Thông tin ngắn gọn sieeuu', 'Tiêu đề bài viết 5'),
+('Nội dung bài viết 6', 2, 1, 'img/posts/duongdananh3.jpg', '2023-09-29', 1, '2023-09-30', 'Thông tin ngắn gọn sieeuu', 'Tiêu đề bài viết 6'),
+('Nội dung bài viết 7', 2, 1, 'img/posts/duongdananh2.jpg', '2023-09-29', 1, '2023-09-30', 'Thông tin ngắn gọn sieeuuu', 'Tiêu đề bài viết 7');
 
 
 
