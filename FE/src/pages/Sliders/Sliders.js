@@ -29,7 +29,7 @@ const SliderList = () => {
 
       .then((dataJson) => {
         console.log(dataJson);
-        
+        console.log(dataJson[0].subject.subjectID);
         const data = dataJson.map((item) => ({
           sliderID: item.sliderID,
           title: item.title,
@@ -40,6 +40,7 @@ const SliderList = () => {
           status: item.status,
           note: item.note,
         }));
+        console.log(data.subjectID);
         return data;
       })
 
@@ -144,15 +145,16 @@ const SliderList = () => {
   };
 
   return (
-    <div>
+    <div className="slider-list-container">
       <div>
         <input
+          className="input-filter"
           type="text"
           placeholder="Search by title or backlink"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <select onChange={(e) => setStatusFilter(e.target.value)}>
+        <select className="select-filter" onChange={(e) => setStatusFilter(e.target.value)}>
           <option value="all">All</option>
           <option value="1">Visible</option>
           <option value="0">Hidden</option>
@@ -187,7 +189,7 @@ const SliderList = () => {
                 <img
                   className="img-fluid"
                   src={slider.image}
-                  alt="image of the slider"
+                  alt="Ảnh khóa học"
                 ></img>
               </td>
               <td>{slider.subjectName}</td>
