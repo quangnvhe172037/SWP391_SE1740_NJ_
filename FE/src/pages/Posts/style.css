@@ -69,3 +69,7 @@ p {
     width: 80px; /* Kích thước hình ảnh theo chiều rộng của cột */
     height: auto; /* Duy trì tỷ lệ khung hình */
 }
+
+hr.tm-hr-primary {
+    border-top: 5px solid rgb(0, 0, 0);
+}
