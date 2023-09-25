@@ -7,21 +7,31 @@ const SliderImage = ({
   setUpdatedImage,
   handleSaveImageClick,
   handleEditClick,
+  currentImage
 }) => {
   return (
     <form>
-      Slider image
-      <img src={baseURL + updatedImage} alt="something" />
+      <div>
+        <label>Slider image</label>
+
+        <img
+          src={baseURL + currentImage}
+          alt="something"
+          className="sliderImage"
+        />
+      </div>
+
       <input
         type="file"
         accept="image/*"
         onChange={(e) => setUpdatedImage(e.target.files[0])}
         readOnly={!editing}
+        className="inputImage"
       />
       <div>
-       
-          <button onClick={handleSaveImageClick}>Save</button>
-      
+        <button className="sliderBtn btn btn-dark" onClick={handleSaveImageClick}>
+          Save
+        </button>
       </div>
     </form>
   );

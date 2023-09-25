@@ -11,9 +11,8 @@ import java.util.Optional;
 public interface SliderRepository extends JpaRepository<Sliders, Long> {
 
 
-    Sliders findBySliderID(int id);
+    Sliders findBySliderID(Long id);
 
-    void deleteBySliderID(long id);
-
+    void deleteBySliderID(Long id);
 
 }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import SliderImage from "./SliderImage";
 import SlidersData from "./SlidersData";
+import "./SliderDetail.css";
 
 const SliderDetail = () => {
   const { sliderId } = useParams();
@@ -11,9 +12,14 @@ const SliderDetail = () => {
   const [updatedImage, setUpdatedImage] = useState("");
   const [updatedNote, setUpdatedNote] = useState("");
   const [updatedStatus, setUpdatedStatus] = useState(0); // Sử dụng giá trị mặc định
+  const [currentImage, setCurrentImage] = useState("");
+  const [updatedSubject, setUpdatedSubject] = useState("");
   const navigate = useNavigate();
   const baseURL = "http://localhost:8081/";
   const token = localStorage.getItem("token");
+
+
+  // Get all sliders by using get
   useEffect(() => {
     fetch(`http://localhost:8080/sliders/edit/${sliderId}`, {
       headers: {
@@ -29,9 +35,10 @@ const SliderDetail = () => {
       .then((data) => {
         setSliderData(data);
         setUpdatedTitle(data.title);
-        setUpdatedImage(data.image);
+        setCurrentImage(data.image);
         setUpdatedNote(data.note);
         setUpdatedStatus(data.status);
+        setUpdatedSubject(data.subject.subjectName);
       })
       .catch((error) => {
         console.error("Error fetching slider data:", error);
@@ -45,6 +52,7 @@ const SliderDetail = () => {
 
   const handleSaveDataClick = (e) => {
     e.preventDefault();
+    setEditing(false);
     // Tạo một đối tượng mới chứa thông tin đã cập nhật
 
     const formData = new FormData();
@@ -68,7 +76,7 @@ const SliderDetail = () => {
         return response.json();
       })
       .then((data) => {
-        navigate("/sliders");
+        navigate(`/sliders/edit/${sliderId}`);
       })
       .catch((error) => {
         console.error("Error updating slider data:", error);
@@ -79,8 +87,6 @@ const SliderDetail = () => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("image", updatedImage);
-
-    console.log(formData.image);
 
     // Gửi yêu cầu PUT để cập nhật ảnh
     fetch(`http://localhost:8080/sliders/edit/image/${sliderId}`, {
@@ -98,7 +104,7 @@ const SliderDetail = () => {
         return response.json();
       })
       .then((data) => {
-        navigate("/sliders");
+        navigate(`/sliders/edit/${sliderId}`);
       })
       .catch((error) => {
         console.error("Error updating slider data:", error);
@@ -106,30 +112,38 @@ const SliderDetail = () => {
   };
 
   return (
-    <div>
-      <div>
-        <SlidersData
-          sliderData={sliderData}
-          updatedTitle={updatedTitle}
-          updatedNote={updatedNote}
-          updatedStatus={updatedStatus}
-          editing={editing}
-          setUpdatedTitle={setUpdatedTitle}
-          setUpdatedNote={setUpdatedNote}
-          setUpdatedStatus={setUpdatedStatus}
-          handleSaveDataClick={handleSaveDataClick}
-          handleEditClick={handleEditClick}
-        />
+    <div className=" ">
+      <div className="slider-title">
+        <h1>Edit Slider</h1>
       </div>
 
-      <div>
-        <SliderImage
-          baseURL={baseURL}
-          updatedImage={updatedImage}
-          editing={editing}
-          setUpdatedImage={setUpdatedImage}
-          handleSaveImageClick={handleSaveImageClick}
-        />
+      <div className="row slider-detail">
+        <div className="col-md-6 form-data">
+          <SlidersData
+            sliderData={sliderData}
+            updatedTitle={updatedTitle}
+            updatedNote={updatedNote}
+            updatedStatus={updatedStatus}
+            editing={editing}
+            setUpdatedTitle={setUpdatedTitle}
+            setUpdatedNote={setUpdatedNote}
+            setUpdatedStatus={setUpdatedStatus}
+            handleSaveDataClick={handleSaveDataClick}
+            handleEditClick={handleEditClick}
+            updatedSubject={updatedSubject}
+          />
+        </div>
+
+        <div className="col-md-6 form-img">
+          <SliderImage
+            baseURL={baseURL}
+            updatedImage={updatedImage}
+            editing={editing}
+            setUpdatedImage={setUpdatedImage}
+            handleSaveImageClick={handleSaveImageClick}
+            currentImage={currentImage}
+          />
+        </div>
       </div>
     </div>
   );

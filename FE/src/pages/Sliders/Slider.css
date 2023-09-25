@@ -1,0 +1,36 @@
+.slider-list-container{
+    background-color: #fff;
+}
+
+.input-filter,
+.select-filter{
+    height:30px;
+}
+
+.img-row{
+    width: 160px;
+}
+
+.editBtn a{
+    text-decoration: none;
+    color: black;
+}
+
+.btn-action{
+    text-align: center;
+}
+
+.action-row{
+    padding: 0px;
+}
+
+.add-btn{
+    float:right;
+    margin: 20px 0;
+}
+
+.add-btn a{
+    text-decoration: none;
+    color: black;
+}
+

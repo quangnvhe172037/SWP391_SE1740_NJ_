@@ -1,0 +1,10 @@
+.btn-parent{
+    width: 100%;
+    display:block;
+}
+
+
+.btn-add{
+    display: flex;
+    margin: 0 auto;
+}

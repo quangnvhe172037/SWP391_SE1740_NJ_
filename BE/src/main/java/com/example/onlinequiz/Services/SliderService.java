@@ -9,11 +9,13 @@ import java.util.Optional;
 public interface SliderService {
     List<Sliders> getSliders();
 
-    Sliders findSlider(int id);
+    Sliders findSlider(Long id);
 
-    void save(Sliders slider);
+    void delete(Long id);
 
-    void delete(long id);
+    String storeImage(MultipartFile file, Long id);
 
-    String storeImage(MultipartFile file, int id);
+    Sliders save(Sliders s);
+
+
 }

@@ -3,6 +3,7 @@ package com.example.onlinequiz.Controller;
 import com.example.onlinequiz.Model.Sliders;
 import com.example.onlinequiz.Model.Users;
 import com.example.onlinequiz.Services.SliderService;
+import com.example.onlinequiz.Services.SubjectService;
 import jakarta.servlet.annotation.MultipartConfig;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +26,10 @@ public class SliderController {
     @Autowired
     private final SliderService sliderService;
 
+
     @GetMapping
     @ResponseBody
-    public ResponseEntity<List<Sliders>> getAllSlider(){
+    public ResponseEntity<List<Sliders>>getAllSlider(){
         List<Sliders> listSliders = sliderService.getSliders();
 
         return ResponseEntity.ok(listSliders);
@@ -37,7 +39,7 @@ public class SliderController {
     @GetMapping("/edit/{sliderid}")
     @ResponseBody
     public ResponseEntity<Sliders> getSlider(
-            @PathVariable Integer sliderid
+            @PathVariable Long sliderid
     ){
         try {
             Sliders sliderOptional = sliderService.findSlider(sliderid);
@@ -58,7 +60,7 @@ public class SliderController {
     @PutMapping("/edit/image/{sliderId}")
     @ResponseBody
     public ResponseEntity<Sliders> updateSliderImage(
-            @PathVariable Integer sliderId,
+            @PathVariable Long sliderId,
             @RequestParam(name = "image",required = false) MultipartFile file
     ) {
 
@@ -68,7 +70,7 @@ public class SliderController {
                 // Cập nhật dữ liệu của slider từ updatedSliderData
                 sliderChange.setImage(sliderService.storeImage(file, sliderId));
                 // Lưu slider đã cập nhật vào cơ sở dữ liệu
-                sliderService.save(sliderChange);
+                sliderChange = sliderService.save(sliderChange);
 
                 return ResponseEntity.ok(sliderChange);
             } else {
@@ -85,12 +87,12 @@ public class SliderController {
         @PutMapping("/edit/data/{sliderId}")
         @ResponseBody
         public ResponseEntity<Sliders> updateSliderData(
-                @PathVariable Integer sliderId,
+                @PathVariable Long sliderId,
                 @RequestParam(name = "title") String title,
                 @RequestParam(name = "note") String note,
                 @RequestParam(name = "status") boolean status
         ) {
-            System.out.println(title);
+
             try {
                 Sliders sliderChange = sliderService.findSlider(sliderId);
 
@@ -101,7 +103,7 @@ public class SliderController {
                     sliderChange.setNote(note);
                     sliderChange.setTitle(title);
                     // Lưu slider đã cập nhật vào cơ sở dữ liệu
-                    sliderService.save(sliderChange);
+                    sliderChange = sliderService.save(sliderChange);
 
                     return ResponseEntity.ok(sliderChange);
                 } else {
@@ -116,7 +118,8 @@ public class SliderController {
     @PutMapping("/{sliderid}")
     @ResponseBody
     public ResponseEntity<Sliders> updateSliderStatus(
-            @PathVariable Integer sliderid, @RequestBody Map<String, Boolean> statusMap
+            @PathVariable Long sliderid,
+            @RequestBody Map<String, Boolean> statusMap
     ) {
         // Tìm slider theo sliderId trong cơ sở dữ liệu
         // Cập nhật giá trị status của slider bằng updatedSlider.getStatus()
@@ -130,7 +133,7 @@ public class SliderController {
             if (sliderOptional != null) {
                 Sliders slider = sliderOptional;
                 slider.setStatus(newStatus);
-                sliderService.save(slider); // Cập nhật trạng thái slider
+                slider = sliderService.save(slider); // Cập nhật trạng thái slider
 
                 return ResponseEntity.ok(slider);
             } else {
@@ -154,6 +157,43 @@ public class SliderController {
             sliderService.delete(sliderId);
             System.out.println("test 2");
             return ResponseEntity.ok("Work");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @Autowired
+    private final SubjectService subjectService;
+    @PostMapping("/add")
+    @ResponseBody
+    public ResponseEntity<Sliders> addNewSlider(
+            @RequestParam(name = "title") String title,
+            @RequestParam(name = "note") String note,
+            @RequestParam(name = "status") boolean status,
+            @RequestParam(name = "image") MultipartFile file,
+            @RequestParam(name = "subjectId") Long subjectId
+    ){
+
+        try {
+            Sliders sliderChange = new Sliders();
+
+            if (sliderChange != null) {
+
+                // Cập nhật dữ liệu của slider từ updatedSliderData
+                sliderChange.setStatus(status);
+                sliderChange.setNote(note);
+                sliderChange.setTitle(title);
+                // Lưu slider đã cập nhật vào cơ sở dữ liệu
+                sliderChange = sliderService.save(sliderChange);
+                sliderChange.setSubject(subjectService.getSubjectById(subjectId));
+                sliderChange.setImage(sliderService.storeImage(file, sliderChange.getSliderID()));
+                // Lưu slider đã cập nhật vào cơ sở dữ liệu
+                sliderChange = sliderService.save(sliderChange);
+                return ResponseEntity.ok(sliderChange);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

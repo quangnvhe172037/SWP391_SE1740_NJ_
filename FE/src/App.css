@@ -30,3 +30,7 @@ label {
     -webkit-border-radius: 50%;
     border-radius: 50%;
 }
+
+.nav-link {
+    color: #F8F8F8;
+}

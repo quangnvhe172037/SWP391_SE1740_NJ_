@@ -54,6 +54,16 @@ public class PostServiceImpl implements PostService {
                 .mapToObj(allPosts::get)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public Posts getPostById(Long postid){
+        return postRepository.findPostsByPostID(postid);
+    }
+
+    @Override
+    public List<Posts> getPostByCateId(Integer cateId) {
+        return postRepository.findPostsByPostCategory(cateId);
+    }
 //    @Override
 //    public void addPost(Posts post) {
 //        postRepository.save(post);
