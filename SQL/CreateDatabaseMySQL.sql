@@ -24,17 +24,6 @@ CREATE SCHEMA IF NOT EXISTS `quizpractice` DEFAULT CHARACTER SET utf8mb4 COLLATE
 
 USE `quizpractice` ;
 
--- -----------------------------------------------------
--- Table `quizpractice`.`role`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `quizpractice`.`role` (
-  `roleid` INT NOT NULL,
-  `rolename` VARCHAR(256) CHARACTER SET 'utf8mb4',
-  PRIMARY KEY (`roleID`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4;
-
-
 
 -- -----------------------------------------------------
 -- Table `quizpractice`.`user`
@@ -182,19 +171,6 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
 
 
-
--- -----------------------------------------------------
--- Table `quizpractice`.`questionlevel`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `quizpractice`.`questionLevel` (
-  `levelid` INT NOT NULL AUTO_INCREMENT,
-  `levelname` VARCHAR(256) CHARACTER SET 'utf8mb4'  NULL DEFAULT NULL,
-  PRIMARY KEY (`levelid`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4;
-
-
-
 -- -----------------------------------------------------
 -- Table `quizpractice`.`quiz`
 -- -----------------------------------------------------
@@ -267,6 +243,21 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
 
 
+-- -----------------------------------------------------
+-- Table `quizpractice`.`examlevel
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `quizpractice`.`examlevel` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `num_quest` VARCHAR(256) CHARACTER SET 'utf8mb4'  NULL DEFAULT NULL,
+  `quizid` BIGINT,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `examlevel_ibfk_1`
+    FOREIGN KEY (`quizid`)
+    REFERENCES `quizpractice`.`quizexam` (`quizid`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
 
 -- -----------------------------------------------------
 -- Table `quizpractice`.`quizquestion`
@@ -279,7 +270,7 @@ CREATE TABLE IF NOT EXISTS `quizpractice`.`quizquestion` (
   INDEX `sentenceID` (`sentenceid` ASC) VISIBLE,
   CONSTRAINT `quizquestion_ibfk_1`
     FOREIGN KEY (`sentenceid`)
-    REFERENCES `quizpractice`.`quizData` (`sentenceid`))
+    REFERENCES `quizpractice`.`quizdata` (`sentenceid`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
 
@@ -441,6 +432,17 @@ CREATE TABLE IF NOT EXISTS `quizpractice`.`userpayment` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
 
-
-
+-- Create 
+CREATE TABLE IF NOT EXISTS `quizpractice`.`verification_token` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `token` VARCHAR(256) CHARACTER SET 'utf8mb4',
+  `expiration_time` DATETIME NULL,
+  `usersid` BIGINT NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `usersid` (`usersid` ASC) VISIBLE,
+  CONSTRAINT `verification_token_ibfk_1`
+    FOREIGN KEY (`usersid`)
+    REFERENCES `quizpractice`.`users` (`usersid`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
 

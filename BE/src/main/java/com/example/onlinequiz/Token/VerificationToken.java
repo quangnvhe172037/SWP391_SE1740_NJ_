@@ -23,7 +23,7 @@ public class VerificationToken {
     private static final int EXPIRATION_TIME = 15; // Thời gian hết hạn token (15 phút)
 
     @OneToOne // Đánh dấu mối quan hệ một một (One-to-One)
-    @JoinColumn(name = "user_id") // Liên kết với trường user_id
+    @JoinColumn(name = "usersid") // Liên kết với trường user_id
     private Users user; // Trường đại diện cho người dùng liên quan đến token
 
     public VerificationToken(String token, Users user) {
