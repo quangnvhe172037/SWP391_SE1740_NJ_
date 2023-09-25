@@ -13,8 +13,7 @@ import BoardAdmin from "./components/BoardAdmin/BoardAdmin";
 import BoardExpert from "./components/BoardExpert/BoardExpert";
 import ChangePassword from "./components/ChangePassword/ChangePassword";
 import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
-<<<<<<< HEAD
-=======
+
 import SliderList from "./pages/Sliders/Sliders";
 import SliderDetail from "./pages/SliderDetail/SliderDetail";
 import PostList from "./pages/Posts/PostList";
@@ -22,7 +21,7 @@ import PostDetail from "./pages/Posts/PostDetail";
 import PostEdit from "./pages/Posts/PostEdit";
 import SliderAdd from "./pages/SliderDetail/SliderAdd";
 
->>>>>>> c152f6f6d841c5cd3320d6a75051254a0b4224f8
+
 
 
 
@@ -144,10 +143,10 @@ const App = () => {
                     <Route path="/forgot-password" element={<ForgotPassword />} />
                 </Routes>
             </div>
-        </div>
-<<<<<<< HEAD
-    );
-=======
+
+
+
+
 
         <div className="navbar-nav ml-auto">
           {isAuthenticated ? (
@@ -179,7 +178,7 @@ const App = () => {
             </>
           )}
         </div>
-      </nav>
+
 
       <div className="container mt-3">
         <Routes>
@@ -219,9 +218,9 @@ const App = () => {
           <Route path="/forgot-password" element={<ForgotPassword />} />
         </Routes>
       </div>
-    </div>
+        </div>
   );
->>>>>>> c152f6f6d841c5cd3320d6a75051254a0b4224f8
+
 };
 
 export default App;
