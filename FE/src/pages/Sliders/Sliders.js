@@ -159,7 +159,7 @@ const SliderList = () => {
         </select>
 
         <div>
-          <button>
+          <button className="add-btn">
             <Link to={`/sliders/add`}>Add new slider</Link>
           </button>
         </div>
@@ -193,22 +193,31 @@ const SliderList = () => {
               <td>{slider.subjectName}</td>
               <td>{slider.status == 1 ? "Active" : "Inactive"}</td>
               <td>{slider.note}</td>
-              <td>
+              <td className="row action-row">
                 {slider.status == 1 ? (
-                  <button onClick={() => handleAction(slider.sliderID, "hide")}>
+                  <button
+                    className="col-md-4 btn-action"
+                    onClick={() => handleAction(slider.sliderID, "hide")}
+                  >
                     Hidden
                   </button>
                 ) : (
-                  <button onClick={() => handleAction(slider.sliderID, "show")}>
+                  <button
+                    className="col-md-3 btn-action"
+                    onClick={() => handleAction(slider.sliderID, "show")}
+                  >
                     Show
                   </button>
                 )}
 
-                <button>
+                <button className="editBtn col-md-3 btn-action">
                   <Link to={`/sliders/edit/${slider.sliderID}`}>Edit</Link>
                 </button>
 
-                <button onClick={() => handleDelete(slider.sliderID)}>
+                <button 
+                  className="col-md-4 btn-action"
+                  onClick={() => handleDelete(slider.sliderID)}
+                >
                   Delete
                 </button>
               </td>

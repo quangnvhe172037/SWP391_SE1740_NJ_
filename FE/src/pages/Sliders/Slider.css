@@ -2,3 +2,25 @@
 .img-row{
     width: 160px;
 }
+
+.editBtn a{
+    text-decoration: none;
+    color: black;
+}
+
+.btn-action{
+    text-align: center;
+}
+
+.action-row{
+    padding: 0px;
+}
+
+.add-btn{
+    float:right;
+}
+
+.add-btn a{
+    text-decoration: none;
+    color: black;
+}
