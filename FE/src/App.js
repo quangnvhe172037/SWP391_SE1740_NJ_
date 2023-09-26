@@ -180,7 +180,7 @@ const App = () => {
               <h3 className="text-tuyn-gray mb-2 text-sm">Điều khoản</h3>
             </div>
             <div>
-              <h1 className="capitalize font-bold text-white mb-3">
+              <h1 className="capitalize font-bold text-white mb-3 a">
                 CÔNG TY CỔ PHẦN CÔNG NGHỆ GIÁO DỤC QUIZZI
               </h1>
               <h3 className="text-tuyn-gray mb-2 text-sm">
