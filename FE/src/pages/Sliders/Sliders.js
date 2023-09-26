@@ -153,7 +153,7 @@ const SliderList = () => {
         <input
           className="input-filter"
           type="text"
-          placeholder="Search by title or backlink"
+          placeholder="Search by title or subject name"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
