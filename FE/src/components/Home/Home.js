@@ -15,7 +15,7 @@ const Home = () => {
     // Xử lí api
     const apiSlider = "http://localhost:8080/sliders";
 
-    const apiSubjects = "http://localhost:8080/subjects";
+    const apiSubjects = "http://localhost:8080/subjects/all";
 
     const apiPosts = "http://localhost:8080/posts";
 

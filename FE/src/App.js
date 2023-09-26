@@ -156,7 +156,7 @@ const App = () => {
         </Routes>
       </div>
       <footer className="py-8 lg:pt-16 lg:pb-10 bg-[rgb(24,24,33)] px-4">
-        <div className="container mx-auto ">
+        <div className="mx-auto ">
           <section className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:justify-items-center">
             <div>
               <div className="flex items-center gap-3 mb-3">
