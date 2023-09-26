@@ -166,22 +166,24 @@ const App = () => {
                   alt=""
                 />
                 <h1 className="capitalize font-bold text-white">
-                  Học Lập Trình Để Đi Làm
+                  Thách thức bản thân, tăng cường kiến thức
                 </h1>
               </div>
               <h3 className="text-tuyn-gray mb-2 text-sm">
                 Điện thoại: 0246.329.1102
               </h3>
               <h3 className="text-tuyn-gray mb-2 text-sm">
-                Email: contact@fullstack.edu.vn
+                Email: quangnvhe172037@fpt.edu.vn
               </h3>
               <h3 className="text-tuyn-gray mb-2 text-sm">
-                Địa chỉ: Nhà D9, lô A10, Nam Trung Yên, Trung Hòa, Cầu Giấy, Hà
-                Nội
+                Địa chỉ: Khu Giáo dục và Đào tạo Khu Công nghệ cao Hòa Lạc Km29,
+                Đại lộ Thăng Long, Thạch Hoà, Thạch Thất, Hà Nội 13100
               </h3>
             </div>
             <div>
-              <h1 className="capitalize font-bold text-white mb-3">VỀ Quizzi</h1>
+              <h1 className="capitalize font-bold text-white mb-3">
+                VỀ Quizzi
+              </h1>
               <h3 className="text-tuyn-gray mb-2 text-sm">Giới thiệu</h3>
               <h3 className="text-tuyn-gray mb-2 text-sm">Cơ hội việc làm</h3>
               <h3 className="text-tuyn-gray mb-2 text-sm">Đối tác</h3>
