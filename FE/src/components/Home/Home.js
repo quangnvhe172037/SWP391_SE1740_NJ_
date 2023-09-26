@@ -107,7 +107,7 @@ const Home = () => {
         const { onClick } = props;
         return (
             <div
-                className='h-8 w-8 rounded-full shadow-lg flex justify-center items-center absolute top-1/2 translate-y-[-50%] left-[-14px] cursor-pointer bg-white'
+                className='h-8 w-8 rounded-full shadow-lg flex justify-center items-center absolute top-1/2 translate-y-[-50%] left-[-14px] cursor-pointer z-10 bg-white'
                 onClick={onClick}
             >
                 <svg xmlns='http://www.w3.org/2000/svg' className='h-5 w-5' viewBox='0 0 20 20' fill='currentColor'>
@@ -144,9 +144,9 @@ const Home = () => {
         infinite: true,
         speed: 500,
         slidesToShow: 1,
-        slidesToScroll: 1,
-        nextArrow: <SampleNextArrow />,
-        prevArrow: <SamplePrevArrow />
+        slidesToScroll: 1,       
+        prevArrow: <SampleNextArrow/>,
+        nextArrow: <SamplePrevArrow/>
     };
     return (
         <>
@@ -156,7 +156,7 @@ const Home = () => {
                         <div key={index}>
                             <div
                                 className='flex justify-between h-[270px] items-center rounded-xl '
-                                style={{ backgroundImage: `linear-gradient(to right, ${item.bgFrom}, ${item.bgTo})` }}
+                                style={{ backgroundImage: `linear-gradient(to right)` }}
                             >
                                 <div className='hidden md:block w-full'>
                                     <img className='rounded-xl w-full' style={{ height: '800px' }} src={item.image} alt='' />

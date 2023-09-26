@@ -149,7 +149,7 @@ const App = () => {
               <div className="flex items-center gap-3 mb-3">
                 <img
                   className="h-10 w-10"
-                  src="https://fullstack.edu.vn/static/media/f8-icon.18cd71cfcfa33566a22b.png"
+                  src="https://scontent.fhan15-1.fna.fbcdn.net/v/t1.15752-9/352418349_278492141385603_6785204458197370940_n.png?_nc_cat=106&ccb=1-7&_nc_sid=ae9488&_nc_ohc=xVx3DAYE2coAX--M-WZ&_nc_ht=scontent.fhan15-1.fna&oh=03_AdTAVEvLC9XYryl9detjHO7bUmdvXXfs7rU1Qz7b4yt20A&oe=653A0373"
                   alt=""
                 />
                 <h1 className="capitalize font-bold text-white">
@@ -168,7 +168,7 @@ const App = () => {
               </h3>
             </div>
             <div>
-              <h1 className="capitalize font-bold text-white mb-3">VỀ F8</h1>
+              <h1 className="capitalize font-bold text-white mb-3">VỀ Quizzi</h1>
               <h3 className="text-tuyn-gray mb-2 text-sm">Giới thiệu</h3>
               <h3 className="text-tuyn-gray mb-2 text-sm">Cơ hội việc làm</h3>
               <h3 className="text-tuyn-gray mb-2 text-sm">Đối tác</h3>
@@ -181,7 +181,7 @@ const App = () => {
             </div>
             <div>
               <h1 className="capitalize font-bold text-white mb-3">
-                CÔNG TY CỔ PHẦN CÔNG NGHỆ GIÁO DỤC F8
+                CÔNG TY CỔ PHẦN CÔNG NGHỆ GIÁO DỤC QUIZZI
               </h1>
               <h3 className="text-tuyn-gray mb-2 text-sm">
                 Mã số thuế: 0109922901
@@ -197,7 +197,7 @@ const App = () => {
           </section>
           <section className="flex mt-5">
             <h3 className="text-tuyn-gray mb-2 text-sm">
-              © 2018 - 2022 F8. All rights reserved.
+              © 2018 - 2022 Quizzi. All rights reserved.
             </h3>
           </section>
         </div>
