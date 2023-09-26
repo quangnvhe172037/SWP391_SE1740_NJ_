@@ -1,8 +1,30 @@
-INSERT INTO `quizpractice`.`role`
-(`roleid`,
-`rolename`)
+
+
+INSERT INTO `quizpractice`.`users`
+(`usersid`,
+`password`,
+`first_name`,
+`last_name`,
+`email`,
+`mobile`,
+`gender`,
+`createdate`,
+`image`,
+`is_enabled`,
+`role`)
 VALUES
-(1, "Customer");
+(1,
+"$2a$10$quS2hnY5Fglq29NNtu86OeUelo0hTyRElm3FyGaZZR9b/TCqT0Eg.",
+"admin",
+"admin_sub",
+"quanpdhe170415@fpt.edu.vn",
+0334745645,
+1,
+"2003-11-19",
+"",
+1,
+"ADMIN");
+
 
 INSERT INTO `quizpractice`.`subjectcategory`
 (`cateid`,
@@ -42,4 +64,17 @@ VALUES
 (8, "img/sliders/download (8).jpg", "Đây là khóa học 8", 1, "Bạn nên học khóa học này 8", 1),
 (9, "img/sliders/download.jpg", "Đây là khóa học 9", 1, "Bạn nên học khóa học này 9", 1),
 (10, "img/sliders/images.jpg", "Đây là khóa học 10", 1, "Bạn nên học khóa học này 10", 1);
+
+
+INSERT INTO postcategory (postcatename) VALUES ('Front-End'),('Back-End'),('No-End');
+
+
+INSERT INTO post (postdata, postcateid, usersid, image, datecreate, status, updatedate, briefinfor, title)
+VALUES ('Nội dung bài viết 3', 2, 1, 'img/posts/duongdananh2.jpg', '2023-09-29', 1, '2023-09-30', 'Thông tin ngắn gọn sieeuu', 'Tiêu đề bài viết 3'),
+ ('Nội dung bài viết 4', 2, 1, 'img/posts/duongdananh3.jpg', '2023-09-29', 1, '2023-09-30', 'Thông tin ngắn gọn sieeuu', 'Tiêu đề bài viết 4'),
+('Nội dung bài viết 5', 2, 1, 'img/posts/duongdananh5.jpg', '2023-09-29', 1, '2023-09-30', 'Thông tin ngắn gọn sieeuu', 'Tiêu đề bài viết 5'),
+('Nội dung bài viết 6', 2, 1, 'img/posts/duongdananh3.jpg', '2023-09-29', 1, '2023-09-30', 'Thông tin ngắn gọn sieeuu', 'Tiêu đề bài viết 6'),
+('Nội dung bài viết 7', 2, 1, 'img/posts/duongdananh2.jpg', '2023-09-29', 1, '2023-09-30', 'Thông tin ngắn gọn sieeuuu', 'Tiêu đề bài viết 7');
+
+
 

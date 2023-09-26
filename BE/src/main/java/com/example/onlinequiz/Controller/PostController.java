@@ -22,12 +22,11 @@ public class PostController {
     private final PostService postService;
 
 
-
     @GetMapping
     @ResponseBody
     public ResponseEntity<List<Posts>> getPost(){
         List<Posts> listPost = postService.getAllPostsSortByDate();
-        System.out.println(listPost);
+//        System.out.println(listPost);
         return ResponseEntity.ok(listPost);
     }
 
@@ -44,6 +43,27 @@ public class PostController {
     public ResponseEntity<List<Posts>> getRandomPost(){
         List<Posts> listRandomPost = postService.getRandomPosts(2);
         return ResponseEntity.ok(listRandomPost);
+    }
+
+    @GetMapping("/view/{postId}")
+    @ResponseBody
+    public ResponseEntity<Posts> getPostById(
+            @PathVariable Long postId
+    ){
+    Posts postFind = postService.getPostById(postId);
+        System.out.println(postFind);
+    return ResponseEntity.ok(postFind);
+
+    }
+
+    @GetMapping("/selectCate")
+    @ResponseBody
+    public ResponseEntity<List<Posts>> getPostByCateId(
+//            @PathVariable Integer postcateid
+    ){
+        List<Posts> postsListByCate = postService.getPostByCateId(1);
+        System.out.println(postsListByCate);
+        return ResponseEntity.ok(postsListByCate);
     }
 //    @PostMapping("/add")
 //    public ResponseEntity<String> addPost(@RequestBody Posts post) {

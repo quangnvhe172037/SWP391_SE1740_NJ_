@@ -1,0 +1,42 @@
+.slider-title{
+  text-align: center;
+}
+
+.form-data,
+.form-img {
+  text-align: center;
+  width: 100%;
+}
+
+.form-img {
+}
+
+.inputData {
+  margin-top: 15px;
+  width: 100%;
+  text-align: center;
+  height: 35px;
+}
+
+.slider-detail {
+  display: flex;
+  align-items: center;
+  margin-top: -16px;
+  height: 92vh;
+  padding-bottom: 10px;
+  background-color: #fff;
+}
+
+.sliderImage {
+  width: 500px;
+  height: auto;
+}
+
+.inputImage{
+    margin: 20px 0;
+}
+
+.sliderBtn{
+  text-align: center;
+    padding: 5px 30px;
+}
