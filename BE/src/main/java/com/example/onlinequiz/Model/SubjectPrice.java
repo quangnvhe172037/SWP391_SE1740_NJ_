@@ -25,8 +25,6 @@ public class SubjectPrice {
     @JoinColumn(name = "subjectid")
     private Subjects subject;
 
-    @Column(name = "duration")
-    private Date duration;
 
     @Column(name = "status")
     private boolean status;

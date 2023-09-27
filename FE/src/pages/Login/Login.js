@@ -4,6 +4,7 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import axios from "axios";
+import jwtDecode from "jwt-decode";
 
 const required = (value) => {
     if (!value) {
@@ -52,8 +53,27 @@ const Login = () => {
                         localStorage.clear();
                     }
                     localStorage.setItem("token", token);
-                    navigate("/home");
-                    window.location.reload();
+                    const user = jwtDecode(token);
+                    console.log(user.role);
+                    switch (user.role) {
+                      case "ADMIN":
+                        navigate("/adminrole");
+                        window.location.reload();
+                        break;
+                      case "EXPERT":
+                        navigate("/expertrole");
+                        window.location.reload();
+                        break;
+                      case "MARKETING":
+                        navigate("/marketingrole");
+                        window.location.reload();
+                        break;
+                      default:
+                        navigate("/home");
+                        window.location.reload();
+                        break;
+                    }
+                    
                 })
                 .catch((error) => {
                     if (error.response && error.response.status === 403) {

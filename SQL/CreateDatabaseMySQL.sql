@@ -372,9 +372,7 @@ CREATE TABLE IF NOT EXISTS `quizpractice`.`subjectprice` (
   `preid` BIGINT NOT NULL AUTO_INCREMENT,
   `price` BIGINT NULL DEFAULT NULL,
   `subjectid` BIGINT NULL DEFAULT NULL,
-  `duration` DATETIME NULL DEFAULT NULL,
   `status` BIT NULL DEFAULT NULL,
-  `subjectpricecol` VARCHAR(45) NULL,
   PRIMARY KEY (`preid`),
   INDEX `subjectID` (`subjectid` ASC) VISIBLE,
   CONSTRAINT `subjectprice_ibfk_1`
@@ -411,8 +409,6 @@ CREATE TABLE IF NOT EXISTS `quizpractice`.`userpayment` (
   `billid` BIGINT NOT NULL AUTO_INCREMENT,
   `usersid` BIGINT NULL DEFAULT NULL,
   `preid` BIGINT NULL DEFAULT NULL,
-  `timestart` DATETIME NULL DEFAULT NULL,
-  `timeend` DATETIME NULL DEFAULT NULL,
   `status` BIT NULL DEFAULT NULL,
   `notify` VARCHAR(256) CHARACTER SET 'utf8mb4'  NULL DEFAULT NULL,
   `subjectid` BIGINT NULL DEFAULT NULL,

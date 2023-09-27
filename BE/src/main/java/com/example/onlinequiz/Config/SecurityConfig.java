@@ -42,18 +42,21 @@ public class SecurityConfig {
     };
     // Danh sách các URL cho expert
     private static final String[] EXPERT_URL = {
-            "/api/test/expert",
     };
-    // Danh sách các URL cho admin
-    private static final String[] ADMIN_URL = {
-            "/api/test/admin",
+
+    private static final String[] MARKETING_URL = {
             "/sliders/edit/**",
             "/sliders/edit/image/**",
             "/sliders/edit/data/**",
             "/sliders/edit/**",
             "/sliders/delete/**",
             "/sliders/add",
-            "/subjects/all"
+            "/subjects/all",
+            "/sliders/list",
+    };
+    // Danh sách các URL cho admin
+    private static final String[] ADMIN_URL = {
+
     };
     //Danh sách url cho cả 3 role expert, admin, customer
     private static final String[] ThreeRole_URL = {
@@ -71,7 +74,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests().requestMatchers(ADMIN_URL).hasAuthority("ADMIN").and()
                 .authorizeHttpRequests().requestMatchers(EXPERT_URL).hasAuthority("EXPERT").and()
                 .authorizeHttpRequests().requestMatchers(CUSTOMER_URL).hasAuthority("CUSTOMER").and()
-                .authorizeHttpRequests().requestMatchers(ThreeRole_URL).hasAnyAuthority("CUSTOMER", "EXPERT", "CUSTOMER")
+                .authorizeHttpRequests().requestMatchers(MARKETING_URL).hasAuthority("MARKETING").and()
+                .authorizeHttpRequests().requestMatchers(ThreeRole_URL).hasAnyAuthority("CUSTOMER", "EXPERT", "CUSTOMER" , "MARKETING")
                 .anyRequest().authenticated().and()
                 // Quản lý phiên làm việc (session)
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()

@@ -35,6 +35,14 @@ public class SliderController {
         return ResponseEntity.ok(listSliders);
     }
 
+    @GetMapping("/list")
+    @ResponseBody
+    public ResponseEntity<List<Sliders>>getAllSliderAsMarketing(){
+        List<Sliders> listSliders = sliderService.getSliders();
+
+        return ResponseEntity.ok(listSliders);
+    }
+
 //    Lấy dữ liệu của 1 slider
     @GetMapping("/edit/{sliderid}")
     @ResponseBody

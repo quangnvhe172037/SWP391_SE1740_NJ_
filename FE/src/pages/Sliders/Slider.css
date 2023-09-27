@@ -1,10 +1,13 @@
 .slider-list-container{
+width: 100wh;
     background-color: #fff;
 }
 
 .input-filter,
 .select-filter{
     height:30px;
+    margin: 0 10px;
+    border:1px solid black;
 }
 
 .img-row{
@@ -13,16 +16,18 @@
 
 .editBtn a{
     text-decoration: none;
-    color: black;
 }
 
 .btn-action{
     text-align: center;
+    justify-content: space-between;
 }
 
 .action-row{
     padding: 0px;
+    display: flex;
 }
+
 
 .add-btn{
     float:right;
@@ -32,5 +37,39 @@
 .add-btn a{
     text-decoration: none;
     color: black;
+}
+
+
+.table-striped tbody tr:nth-child(even) {
+    background-color: #FCC822;
+    color: white;
+}
+
+.table-striped tbody tr:nth-child(odd) {
+    background-color: white;
+    color: F333333;
+}
+
+.modify-btn {
+  background-color: #fcc222;
+  color: white;
+}
+
+.modify-btn a:hover {
+background-color: white;
+  color: #fcc222;
+  text-decoration: none;
+}
+
+.modify-btn:hover {
+  background-color: white;
+  border: 1px solid #fcc222;
+  color: #fcc222;
+  text-decoration: none;
+}
+
+.modify-btn a{
+  text-decoration: none;
+  color: white;
 }
 

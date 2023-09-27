@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route, Link, Navigate, BrowserRouter } from "react-router-dom";
+import { Routes, Route, Link, Navigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import jwtDecode from "jwt-decode";
@@ -7,10 +7,11 @@ import jwtDecode from "jwt-decode";
 import authapi from "./api/authapi";
 import Login from "./pages/Login/Login";
 import Home from "./components/Home/Home";
+import ExpertDashboard from "./pages/ExpertDashboard/ExpertDashboard";
+import AdminDashboard from "./pages/Dashboard/Dashboard";
+import MarketingDashboard from "./pages/MarketingDashboard/MarketingDashboard";
 import Register from "./pages/Register/Register";
-import BoardCustomer from "./components/BoardCustomer/BoardCustomer";
-import BoardAdmin from "./components/BoardAdmin/BoardAdmin";
-import BoardExpert from "./components/BoardExpert/BoardExpert";
+
 import ChangePassword from "./components/ChangePassword/ChangePassword";
 import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 
@@ -68,21 +69,7 @@ const App = () => {
 
           {isAuthenticated && (
             <>
-              <li className="nav-item">
-                <Link to={"/customer"} className="nav-link">
-                  Customer Board
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to={"/admin"} className="nav-link">
-                  Admin Board
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to={"/expert"} className="nav-link">
-                  Expert Board
-                </Link>
-              </li>
+             
             </>
           )}
         </div>
@@ -119,7 +106,7 @@ const App = () => {
         </div>
       </nav>
 
-      <div className="container mt-3">
+      <div className="container mt-3 wrap">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
@@ -141,6 +128,10 @@ const App = () => {
                 element={<SliderDetail />}
               />
 
+              <Route path="/marketingrole" element={<MarketingDashboard />} />
+              <Route path="/adminrole" element={<AdminDashboard />} />
+              <Route path="/expertrole" element={<ExpertDashboard />} />
+              
               <Route path="/sliders/add" element={<SliderAdd />} />
 
               <Route path="/sliders/add" element={<SliderAdd />} />

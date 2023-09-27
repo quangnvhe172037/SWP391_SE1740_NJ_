@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Slider.css"
-
+import jwtDecode from "jwt-decode";
 
 const SliderList = () => {
   const [sliders, setSliders] = useState([]);
@@ -11,7 +11,7 @@ const SliderList = () => {
   const token = localStorage.getItem("token");
   
   // Xử lí api
-  const api = "http://localhost:8080/sliders";
+  const api = "http://localhost:8080/sliders/list";
 
   useEffect(() => {
     fetch(api, {
@@ -153,18 +153,21 @@ const SliderList = () => {
         <input
           className="input-filter"
           type="text"
-          placeholder="Search by title or backlink"
+          placeholder="Search by title or subject name"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <select className="select-filter" onChange={(e) => setStatusFilter(e.target.value)}>
+        <select
+          className="select-filter"
+          onChange={(e) => setStatusFilter(e.target.value)}
+        >
           <option value="all">All</option>
           <option value="1">Visible</option>
           <option value="0">Hidden</option>
         </select>
 
         <div>
-          <button className="add-btn">
+          <button className="add-btn modify-btn btn ">
             <Link to={`/sliders/add`}>Add new slider</Link>
           </button>
         </div>
@@ -201,26 +204,26 @@ const SliderList = () => {
               <td className="row action-row">
                 {slider.status == 1 ? (
                   <button
-                    className="col-md-4 btn-action"
+                    className="col-md-4 btn-action modify-btn"
                     onClick={() => handleAction(slider.sliderID, "hide")}
                   >
                     Hidden
                   </button>
                 ) : (
                   <button
-                    className="col-md-3 btn-action"
+                    className="col-md-3 btn-action modify-btn"
                     onClick={() => handleAction(slider.sliderID, "show")}
                   >
                     Show
                   </button>
                 )}
 
-                <button className="editBtn col-md-3 btn-action">
+                <button className="editBtn col-md-3 btn-action modify-btn">
                   <Link to={`/sliders/edit/${slider.sliderID}`}>Edit</Link>
                 </button>
 
-                <button 
-                  className="col-md-4 btn-action"
+                <button
+                  className="col-md-4 btn-action modify-btn"
                   onClick={() => handleDelete(slider.sliderID)}
                 >
                   Delete

@@ -23,7 +23,19 @@ VALUES
 "2003-11-19",
 "",
 1,
-"ADMIN");
+"ADMIN"),
+(2,
+"$2a$10$quS2hnY5Fglq29NNtu86OeUelo0hTyRElm3FyGaZZR9b/TCqT0Eg.",
+"marketing",
+"marketing_sub",
+"vquang191103@gmail.com",
+0334745645,
+1,
+"2003-11-19",
+"",
+1,
+"MARKETING")
+;
 
 
 INSERT INTO `quizpractice`.`subjectcategory`

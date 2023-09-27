@@ -111,36 +111,12 @@ const SliderDetail = () => {
   };
 
   return (
-    <div className="slider-wrap">
-      <h1>Edit Slider</h1>
-      <br />
-      <div className="row">
-        <SliderImage
-          baseURL={baseURL}
-          updatedImage={updatedImage}
-          editing={editing}
-          setUpdatedImage={setUpdatedImage}
-          handleSaveImageClick={handleSaveImageClick}
-          currentImage={currentImage}
-        />
-
-        <SlidersData
-          sliderData={sliderData}
-          updatedTitle={updatedTitle}
-          updatedNote={updatedNote}
-          updatedStatus={updatedStatus}
-          editing={editing}
-          setUpdatedTitle={setUpdatedTitle}
-          setUpdatedNote={setUpdatedNote}
-          setUpdatedStatus={setUpdatedStatus}
-          handleSaveDataClick={handleSaveDataClick}
-          handleEditClick={handleEditClick}
-          updatedSubject={updatedSubject}
-        />
+    <div className="">
+      <div className="slider-title">
+        <h1>Edit Slider</h1>
       </div>
-    </div>
 
-    /* <div className="row slider-detail">
+      <div className="row slider-detail">
         <div className="col-md-6 form-data">
           <SlidersData
             sliderData={sliderData}
@@ -168,7 +144,7 @@ const SliderDetail = () => {
           />
         </div>
       </div>
-    </div> */
+    </div>
   );
 };
 

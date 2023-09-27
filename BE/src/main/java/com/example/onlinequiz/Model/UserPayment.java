@@ -23,12 +23,6 @@ public class UserPayment {
     @JoinColumn(name = "preid")
     private SubjectPrice subjectPrice;
 
-    @Column(name = "timestart")
-    private Date timeStart;
-
-    @Column(name = "timeend")
-    private Date timeEnd;
-
     @Column(name = "status")
     private boolean status;
 
