@@ -66,6 +66,18 @@ p {
     text-align: center;
 }
 .img-large {
-    width: 80px; /* Kích thước hình ảnh theo chiều rộng của cột */
-    height: auto; /* Duy trì tỷ lệ khung hình */
+    width: 100%; /* Đặt chiều rộng ảnh thành 100% để làm cho ảnh to ra */
+    height: auto; /* Đảm bảo tỷ lệ khung hình không bị biến đổi */
+}
+
+hr.tm-hr-primary {
+    border-top: 5px solid rgb(0, 0, 0);
+}
+
+.image-container {
+    display: flex;
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    border-radius: 10px; /* Bo cong các góc */
+    overflow: hidden; /* Để ảnh không tràn ra ngoài khung bo cong */
 }
