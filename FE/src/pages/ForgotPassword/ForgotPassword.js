@@ -27,7 +27,7 @@ const ForgotPassword = () => {
     };
 
     return (
-        <div className="container mt-5">
+        <div className="containers mt-5">
             <div className="row">
                 <div className="col-md-6 offset-md-3">
                     <h2>Forgot Password</h2>
@@ -38,13 +38,13 @@ const ForgotPassword = () => {
                                 type="email"
                                 className="form-control"
                                 id="email"
-                                placeholder="Nhập địa chỉ Email"
+                                placeholder="Input Email"
                                 value={email}
                                 onChange={handleEmailChange}
                                 required
                             />
                         </div>
-                        <button type="submit" className="btn btn-primary">
+                        <button type="submit" className="btn" style={{borderColor: "black", color: "black"}}>
                             Reset password
                         </button>
                     </form>

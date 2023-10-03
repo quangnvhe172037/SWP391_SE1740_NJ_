@@ -68,7 +68,7 @@ const Registration = () => {
     return (
         <div className="container">
             <div className="row justify-content-center" >
-                <div className="col-md-6 offset-md-7" > {/* Sử dụng offset-md-3 để dịch chuyển khung đăng ký */}
+                <div className="col-md-6 offset-md-10" > {/* Sử dụng offset-md-3 để dịch chuyển khung đăng ký */}
                     <div className="card" style={{marginTop: "20px"}}>
                         <div className="card-body">
                             <h2 className="card-title">Register</h2>
@@ -129,7 +129,7 @@ const Registration = () => {
                                     value={formData.role}
                                 />
                                 {message && <div className="alert mt-2">{message}</div>}
-                                <button type="submit" className="btn btn-primary" style={{backgroundColor: "#ffff", color: "#FCc822", border: "1px solid"}}>
+                                <button type="submit" className="btn btn-primary" style={{backgroundColor: "black", color: "white", border: "1px solid", height:"35px", width:"100px", marginLeft:"75px"}}>
                                     Register
                                 </button>
                             </form>

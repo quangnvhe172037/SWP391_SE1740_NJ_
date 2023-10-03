@@ -3,7 +3,7 @@ package com.example.onlinequiz.Controller;
 import com.example.onlinequiz.Event.RegistrationCompleteEvent;
 import com.example.onlinequiz.Exception.UserAlreadyExistException;
 import com.example.onlinequiz.Model.Users;
-import com.example.onlinequiz.Payload.RegistrationRequest;
+import com.example.onlinequiz.Payload.Request.RegistrationRequest;
 import com.example.onlinequiz.Repo.VerificationTokenRepository;
 import com.example.onlinequiz.Services.Impl.UserServiceImpl;
 import com.example.onlinequiz.Token.VerificationToken;

@@ -1,4 +1,4 @@
-package com.example.onlinequiz.Payload;
+package com.example.onlinequiz.Payload.Response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

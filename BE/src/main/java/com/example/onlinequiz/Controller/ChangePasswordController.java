@@ -1,6 +1,6 @@
 package com.example.onlinequiz.Controller;
 
-import com.example.onlinequiz.Payload.PasswordChangeRequest;
+import com.example.onlinequiz.Payload.Request.PasswordChangeRequest;
 import com.example.onlinequiz.Security.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

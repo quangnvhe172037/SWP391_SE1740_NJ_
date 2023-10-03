@@ -66,7 +66,7 @@ const ChangePassword = () => {
     return (
         <div className="container">
             <div className="row justify-content-center align-items-center">
-                <div className="col-md-6 offset-md-7">
+                <div className="col-md-6 offset-md-11">
                     <div className="card">
                         <div className="card-body">
                             <h2 className="card-title">Change Password</h2>
@@ -115,7 +115,7 @@ const ChangePassword = () => {
                                         required
                                     />
                                 </div>
-                                <button type="submit" className="btn btn-primary">Change password</button>
+                                <button type="submit" className="btn" style={{borderColor: "#FCC822", color: "black"}}>Change password</button>
                             </form>
                             {!passwordsMatch && <div className="mt-3 text-danger">New password and confirm password do not match.</div>}
                             {!isPasswordStrong && <div className="mt-3 text-danger">The new password must be at least 8 characters long, contain an uppercase letter, a number, and a special character.</div>}

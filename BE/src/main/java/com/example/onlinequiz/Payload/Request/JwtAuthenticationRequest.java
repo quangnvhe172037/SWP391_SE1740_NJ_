@@ -1,4 +1,4 @@
-package com.example.onlinequiz.Payload;
+package com.example.onlinequiz.Payload.Request;
 
 import lombok.Data;
 

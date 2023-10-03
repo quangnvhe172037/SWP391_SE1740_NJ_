@@ -45,6 +45,8 @@ public class Users implements UserDetails {
 
     private boolean isEnabled = false;
 
+    private boolean gender;
+    private String mobile;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role));

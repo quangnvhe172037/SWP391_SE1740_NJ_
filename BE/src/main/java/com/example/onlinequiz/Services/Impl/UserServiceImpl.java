@@ -2,7 +2,9 @@ package com.example.onlinequiz.Services.Impl;
 
 import com.example.onlinequiz.Exception.UserAlreadyExistException;
 import com.example.onlinequiz.Model.Users;
-import com.example.onlinequiz.Payload.RegistrationRequest;
+import com.example.onlinequiz.Payload.Request.RegistrationRequest;
+import com.example.onlinequiz.Payload.Request.UpdateProfileRequest;
+import com.example.onlinequiz.Payload.Response.ProfileResponse;
 import com.example.onlinequiz.Repo.UserRepository;
 import com.example.onlinequiz.Repo.VerificationTokenRepository;
 import com.example.onlinequiz.Services.UserService;
@@ -73,6 +75,37 @@ public class UserServiceImpl implements UserService {
         user.setEnabled(true); // Kích hoạt tài khoản người dùng
         userRepository.save(user); // Lưu thông tin người dùng đã kích hoạt
         return "valid"; // Trả về "valid" nếu mã xác thực hợp lệ và tài khoản đã được kích hoạt
+    }
+
+    @Override
+    public ProfileResponse getUserProfileByEmail(String email) {
+        Optional<Users> usersOptional = userRepository.findByEmail(email);
+        if (usersOptional.isPresent()){
+            Users users = usersOptional.get();
+            ProfileResponse profileResponse = new ProfileResponse();
+            profileResponse.setFirstName(users.getFirstName());
+            profileResponse.setLastName(users.getLastName());
+            profileResponse.setEmail(users.getEmail());
+            profileResponse.setGender(users.isGender());
+            profileResponse.setPassword(users.getPassword());
+            return profileResponse;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public Users updateUserProfile(String email, UpdateProfileRequest request) {
+        Optional<Users> optionalUsers = userRepository.findByEmail(email);
+        if(optionalUsers.isEmpty()){
+            return null;
+        }
+        Users existingUser = optionalUsers.get();
+        existingUser.setFirstName(request.getFirstName());
+        existingUser.setLastName(request.getLastName());
+        existingUser.setMobile(request.getMobile());
+        existingUser.setGender(request.isGender());
+        return userRepository.save(existingUser);
     }
 }
 

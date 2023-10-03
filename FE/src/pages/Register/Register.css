@@ -5,8 +5,8 @@
 }
 
 .card {
-    border: 2px solid #FCC822;
-    border-radius: 100px;
+    border: 1px solid black;
+    border-radius: 10%;
 }
 
 .card-title {

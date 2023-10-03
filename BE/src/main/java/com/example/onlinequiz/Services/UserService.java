@@ -1,8 +1,9 @@
 package com.example.onlinequiz.Services;
 
 import com.example.onlinequiz.Model.Users;
-import com.example.onlinequiz.Payload.RegistrationRequest;
-import com.example.onlinequiz.Token.VerificationToken;
+import com.example.onlinequiz.Payload.Request.RegistrationRequest;
+import com.example.onlinequiz.Payload.Request.UpdateProfileRequest;
+import com.example.onlinequiz.Payload.Response.ProfileResponse;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,4 +18,8 @@ public interface UserService {
     void saveUserVerificationToken(Users theUser, String verificationToken);
 
     String validateaToken(String theToken);
+
+    ProfileResponse getUserProfileByEmail(String email);
+
+    Users updateUserProfile(String email, UpdateProfileRequest request);
 }

@@ -1,7 +1,7 @@
 package com.example.onlinequiz.Controller;
 
 import com.example.onlinequiz.Services.Impl.JWTService;
-import com.example.onlinequiz.Payload.JwtAuthenticationRequest;
+import com.example.onlinequiz.Payload.Request.JwtAuthenticationRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
