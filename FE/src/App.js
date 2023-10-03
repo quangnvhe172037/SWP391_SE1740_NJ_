@@ -23,6 +23,7 @@ import PostEdit from "./pages/Posts/PostEdit";
 import SliderAdd from "./pages/SliderDetail/SliderAdd";
 import Footer from "./components/Footer/Footer";
 import Profile from "./pages/Profile/Profile";
+import Subject from "./components/Subject/Subject";
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -147,6 +148,7 @@ const App = () => {
             </>
           )}
           <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/subject" element={<Subject />} />
         </Routes>
       </div>
       <Footer />

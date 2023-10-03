@@ -1,8 +1,8 @@
 package com.example.onlinequiz.Controller;
 
+import com.example.onlinequiz.Model.SubjectCategories;
 import com.example.onlinequiz.Model.Subjects;
-import com.example.onlinequiz.Services.SubjectService;
-import jakarta.servlet.annotation.MultipartConfig;
+import com.example.onlinequiz.Services.CategorySubjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,18 +14,16 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin(value = "*")
-@RequestMapping("/subjects")
-@MultipartConfig
-public class SubjectController {
+@RequestMapping("/categorysubject")
+public class CategorySubjectController {
     @Autowired
-    private final SubjectService subjectService;
-
+    private final CategorySubjectService categorySubjectService;
     @GetMapping("/all")
     @ResponseBody
-    public ResponseEntity<List<Subjects>> getAllSubjects() {
+    public ResponseEntity<List<SubjectCategories>> getAllSubjects() {
         try {
-            List<Subjects> subjectList = subjectService.getAllSubject();
-            return ResponseEntity.ok(subjectList);
+            List<SubjectCategories> subjectCategories = categorySubjectService.getAll();
+            return ResponseEntity.ok(subjectCategories);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -33,5 +31,4 @@ public class SubjectController {
 
 
     }
-
 }

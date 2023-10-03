@@ -1,24 +1,28 @@
 import React, { useState, useEffect } from "react";
 import Slider from 'react-slick';
-import './Home.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import {Routes,Route, Link } from 'react-router-dom';
-import DayJs from "./DayJs";
-import Subject from "../Subject/Subject";
+import { Routes, Route, Link } from 'react-router-dom';
+import ReactPaginate from "react-paginate";
 
-const Home = () => {
+const Subject = () => {
     const [sliders, setSliders] = useState([]);
     const [courses, setCourses] = useState([]);
-    const [posts, setPosts] = useState([]);
+    const [categories, setCategories] = useState([]);
+    const [search, setSearch] = useState("");
+    const [category, setCategory] = useState("1");
+    const [courseTemp, setCourseTemp] = useState([]);
+    const [totalPage,setTotalPage] = useState(0);
+    const [pageNum,setPageNum] = useState(1);
 
     // Xử lí api
     const apiSlider = "http://localhost:8080/sliders";
 
     const apiSubjects = "http://localhost:8080/subjects/all";
 
-    const apiPosts = "http://localhost:8080/posts";
+    const apiCategory = "http://localhost:8080/categorysubject/all"
+
 
     useEffect(() => {
         fetch(apiSlider)
@@ -50,6 +54,29 @@ const Home = () => {
     }, []);
 
     useEffect(() => {
+        fetch(apiCategory)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.json();
+            })
+
+            .then((dataJson) => {
+                const data = dataJson.map((item) => ({
+                    id: item.cateID,
+                    name: item.cateName
+                }));
+                return data;
+            })
+
+            .then((result) => {
+                const data = result;
+                setCategories(data);
+            });
+    }, []);
+
+    useEffect(() => {
         fetch(apiSubjects)
             .then((response) => {
                 if (!response.ok) {
@@ -65,6 +92,7 @@ const Home = () => {
                     image: item.image,
                     status: item.status,
                     description: item.description,
+                    categoryID: item.subjectCategory.cateID
                 }));
                 return data;
             })
@@ -72,37 +100,38 @@ const Home = () => {
             .then((result) => {
                 const data = result;
                 setCourses(data);
+                setTotalPage(data.length % 3 == 0 ? (data.length / 3) : (Math.floor(data.length / 3) + 1));
+                setCourseTemp(data);
             });
     }, []);
 
-    useEffect(() => {
-        fetch(apiPosts)
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error("Network response was not ok");
+    const handleChange = (e) => {
+        const value = e.target.value;
+        setCategory(value);
+    }
+
+    const handleSearch = (e) => {
+        const value = e.target.value;
+        setSearch(value);
+    }
+
+    const handlePageClick = (e) => {
+        const page = +e.selected + 1;
+        setPageNum(page);
+    }
+    const handleSubmit = (e) => {
+        const list = [];
+        for (var i = 0; i < courseTemp.length; i++) {
+            if (courseTemp[i].categoryID === Number(category)) {
+                if (search.trim().length === 0 || (search.trim().length != 0 && courseTemp[i].subjectName.trim().toLowerCase().includes(search.trim().toLowerCase()))) {
+                    list.push(courseTemp[i]);
                 }
-                return response.json();
-            })
-
-            .then((dataJson) => {
-                const data = dataJson.map((item) => ({
-                    postID: item.postID,
-                    postData: item.postData,
-                    postCategory: item.postCategory.name,
-                    owner: item.user.firstName + '' + item.user.lastName,
-                    image: item.image,
-                    updateDate: item.updateDate,
-                    briefInfor: item.briefInfor,
-                    title: item.title
-                }));
-                return data;
-            })
-
-            .then((result) => {
-                const data = result;
-                setPosts(data);
-            });
-    }, []);
+            }
+        }
+        setTotalPage(list.length % 3 == 0 ? (list.length / 3) : (Math.floor(list.length / 3) + 1));
+        setCourses(list);
+        e.preventDefault();
+    }
 
     function SampleNextArrow(props) {
         const { onClick } = props;
@@ -169,12 +198,28 @@ const Home = () => {
             </section>
             <section className='md:px-4 lg:px-9'>
                 <section>
-                    <div className='flex justify-between pb-5'>
-                        <h1 className='text-xl font-extrabold'>Khóa học nổi bật</h1>
-                        <Link to={"/subject"} className=' text-orange-600 font-bold'>Xem tất cả</Link>
-                    </div>
+                    <form onSubmit={handleSubmit} className="pb-12 flex items-center">
+                        <div className="grow flex border border-purple-200 rounded">
+                            <input onChange={handleSearch}
+                                type="text"
+                                className="block w-full px-4 py-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                                placeholder="Search..."
+                            />
+                            <select onChange={handleChange} className="block w-full px-4 py-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40" >
+                                {
+                                    categories.map((data, index) => (
+                                        <option value={data.id}>{data.name}</option>
+                                    ))
+                                }
+                            </select>
+                            <button type="submit" className="px-4 text-white bg-purple-600 border-l rounded ">
+                                Search
+                            </button>
+                        </div>
+
+                    </form>
                     <div className='grid grid-flow-col auto-cols-[60%] snap-x overflow-y-auto md:grid-flow-row md:grid-cols-3 lg:grid-cols-4 gap-6 pb-5'>
-                        {courses.map((data, index) => (
+                        {courses.slice((pageNum - 1) * 3,Math.min(pageNum * 3,courses.length) + 1).map((data, index) => (
                             <div className='snap-center snap-always'>
                                 <div className='relative'>
                                     <div className='absolute bottom-3 flex justify-between items-center w-full px-3'>
@@ -201,51 +246,26 @@ const Home = () => {
                             </div>
                         ))}
                     </div>
-                </section>
-            </section>
-            <section className='md:px-4 lg:px-9'>
-                <section>
-                    <div className='flex justify-between pb-5'>
-                        <h1 className='text-xl font-extrabold'>Bài viết nổi bật</h1>
-                        <p className=' text-orange-600 font-bold'>Xem tất cả</p>
-                    </div>
-                    <div className='grid grid-flow-col auto-cols-[60%] snap-x overflow-y-auto md:grid-flow-row md:grid-cols-3 lg:grid-cols-4 gap-6 pb-5'>
-                        {posts.map((data, index) => {
-                            <div className='rounded-xl border-2 p-4 mb-4'>
-                                <div className='flex justify-between mb-4'>
-                                    <div className='flex items-center gap-2'>
-                                        <h3 className='text-sm font-medium capitalize'>{data.owner}</h3>
-                                    </div>
-                                    <div className='flex gap-3'>
-                                        <svg
-                                            xmlns='http://www.w3.org/2000/svg'
-                                            className='h-6 w-6 cursor-pointer'
-                                            viewBox='0 0 24 24'
-                                            strokeWidth={2}
-                                        >
-                                            <path strokeLinecap='round' strokeLinejoin='round' d='M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z' />
-                                        </svg>
-                                        <svg xmlns='http://www.w3.org/2000/svg' className='h-5 w-5' viewBox='0 0 20 20' fill='currentColor'>
-                                            <path d='M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z' />
-                                        </svg>
-                                    </div>
-                                </div>
-                                <Link to={`#`}>
-                                    <div className='flex justify-between gap-4 items-center flex-wrap sm:flex-nowrap'>
-                                        <div className='order-2 sm:order-1'>
-                                            <h1 className='text-xl font-bold mb-3'>{data.title}</h1>
-                                            <p className='text-sm text-slate-600 mb-3'>{data.briefInfor}</p>
-                                            <span className='text-sm mr-3'>{DayJs.from(data.updateDate)}</span>
-                                        </div>
-                                        <div className='order-1 sm:order-2 w-full sm:w-52 flex-shrink-0'>
-                                            <img className='object-cover rounded-xl w-full aspect-video' src={data.image} alt='' />
-                                        </div>
-                                    </div>
-                                </Link>
-                            </div>
-                        }
-                        )
-                        }
+                    <div className="pb-12">
+                        <ReactPaginate
+                            breakLabel="..."
+                            nextLabel="next >"
+                            onPageChange={handlePageClick}
+                            pageRangeDisplayed={5}
+                            pageCount={totalPage}
+                            previousLabel="< previous"
+                            renderOnZeroPageCount={null}
+                            pageClassName="page-item"
+                            pageLinkClassName="page-link"
+                            previousClassName="page-item"
+                            previousLinkClassName="page-link"
+                            nextClassName="page-item"
+                            nextLinkClassName="page-link"
+                            breakClassName="page-item"
+                            breakLinkClassName="page-link"
+                            containerClassName="pagination"
+                            activeClassName="active"
+                        />
                     </div>
                 </section>
             </section>
@@ -253,4 +273,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default Subject;
