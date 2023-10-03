@@ -7,7 +7,7 @@ organization/expert to build up & sell the quiz practice services, supports the 
 * Our team consits of 5 peoples:
   * [Nguyễn Vinh Quang](https://github.com/quangnvhe172037)
   * [Bùi Gia An](https://github.com/anbghe170027)
-  * [Phạm Đức Quân](https://github.com/quanpham11)
+  * [Phạm Đức Quân](https://github.com/quanpdhe170415)
   * [Nguyễn Thành An](https://github.com/thanhantk03)
   * [Phạm Thanh Tú](https://github.com/tupthe160952)
 
