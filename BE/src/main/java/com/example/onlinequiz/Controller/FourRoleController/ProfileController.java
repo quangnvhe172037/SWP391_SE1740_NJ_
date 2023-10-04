@@ -16,15 +16,16 @@ public class ProfileController {
     @Autowired
     private UserServiceImpl userService;
 
+    // Endpoint để lấy thông tin cá nhân của người dùng dựa trên địa chỉ email
     @GetMapping("/{email}")
-    public ResponseEntity<ProfileResponse> getUserProfile(@PathVariable String email){
+    public ResponseEntity<ProfileResponse> getUserProfile(@PathVariable String email) {
+        // Gọi userService để lấy thông tin cá nhân của người dùng và trả về ứng dụng
         ProfileResponse profileResponse = userService.getUserProfileByEmail(email);
-        if (profileResponse != null){
+        if (profileResponse != null) {
             return ResponseEntity.ok(profileResponse);
         } else {
-            return (ResponseEntity<ProfileResponse>) ResponseEntity.status(HttpStatus.NOT_FOUND);
+            // Trả về mã HTTP NOT_FOUND nếu không tìm thấy thông tin cá nhân
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
-
-
 }

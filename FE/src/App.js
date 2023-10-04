@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from "react";
-import {Routes, Route, Link, Navigate} from "react-router-dom";
+import React, { useState, useEffect, useRef } from "react";
+import { Routes, Route, Link, Navigate, useLocation } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import styles from "./App.module.css"
+import styles from "./App.module.css";
 import jwtDecode from "jwt-decode";
 
 import authapi from "./api/authapi";
@@ -24,20 +24,21 @@ import PostEdit from "./pages/Posts/PostEdit";
 import SliderAdd from "./pages/SliderDetail/SliderAdd";
 import Footer from "./components/Footer/Footer";
 import Profile from "./pages/Profile/Profile";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faAngleDown} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import AccountList from "./components/AccountList/AccountList";
 
 const App = () => {
     const [currentUser, setCurrentUser] = useState(undefined);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [userRole, setUserRole] = useState(null);
 
     const toggleDropdown = () => {
-
         setIsDropdownOpen(!isDropdownOpen);
     };
 
+    const location = useLocation();
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -46,21 +47,25 @@ const App = () => {
                 const user = jwtDecode(token);
                 setCurrentUser(user);
                 setIsAuthenticated(true);
+                setUserRole(user.role); // Lấy và lưu trữ vai trò của người dùng
             } catch (error) {
                 console.error("Invalid token:", error);
                 setCurrentUser(undefined);
                 setIsAuthenticated(false);
+                setUserRole(null);
                 localStorage.removeItem("token");
             }
         } else {
             setIsAuthenticated(false);
+            setUserRole(null);
         }
-    }, []);
+    }, [location]);
 
     const logOut = () => {
         authapi.logout();
         setCurrentUser(undefined);
         setIsAuthenticated(false);
+        setUserRole(null);
         localStorage.removeItem("token");
     };
 
@@ -72,23 +77,58 @@ const App = () => {
                     backgroundColor: "white",
                     boxShadow: "0 2px 4px lightgrey",
                     borderBottom: "1px solid black",
-                    height: "72px"
+                    height: "72px",
                 }}
             >
-                <Link to={"/"} className="navbar-brand" style={{color: "black", fontSize: "1.4rem", fontWeight: "700"}}>
+                <Link
+                    to={"/"}
+                    className="navbar-brand"
+                    style={{
+                        color: "black",
+                        fontSize: "1.4rem",
+                        fontWeight: "700",
+                    }}
+                >
                     Quizzi AIM CÓC VÀNG
                 </Link>
                 <div className="navbar-nav mr-auto">
                     <li className="nav-item">
-                        <Link to={"/home"} className="nav-link" style={{color: "black"}}>
+                        <Link to={"/home"} className="nav-link" style={{ color: "black" }}>
                             Home
                         </Link>
                     </li>
-
-                    {isAuthenticated && (
-                        <>
-
-                        </>
+                    {userRole === "ADMIN" && (
+                        <li className="nav-item">
+                            <Link
+                                to={"/adminrole"}
+                                className="nav-link"
+                                style={{ color: "black" }}
+                            >
+                                Admin Board
+                            </Link>
+                        </li>
+                    )}
+                    {userRole === "EXPERT" && (
+                        <li className="nav-item">
+                            <Link
+                                to={"/expertrole"}
+                                className="nav-link"
+                                style={{ color: "black" }}
+                            >
+                                Expert Board
+                            </Link>
+                        </li>
+                    )}
+                    {userRole === "MARKETING" && (
+                        <li className="nav-item">
+                            <Link
+                                to={"/marketingrole"}
+                                className="nav-link"
+                                style={{ color: "black" }}
+                            >
+                                Marketing Board
+                            </Link>
+                        </li>
                     )}
                 </div>
 
@@ -96,10 +136,10 @@ const App = () => {
                     {isAuthenticated ? (
                         <>
                             <li className="nav-item" onClick={toggleDropdown}>
-                      <span className="nav-link" style={{color: "black", cursor: "pointer"}}>
-                        Hello, {currentUser.sub}{' '}
-                          <FontAwesomeIcon icon={faAngleDown}/>
-                      </span>
+                <span className="nav-link" style={{ color: "black", cursor: "pointer" }}>
+                  Hello, {currentUser.sub}{" "}
+                    <FontAwesomeIcon icon={faAngleDown} />
+                </span>
                                 {isDropdownOpen && (
                                     <ul className={`${styles['dropdown-menu']} ${isDropdownOpen ? '' : styles['dropdown-menu-closed']}`}>
                                         <li>
@@ -112,13 +152,11 @@ const App = () => {
                                                 Account
                                             </Link>
                                         </li>
-
                                     </ul>
                                 )}
                             </li>
-
                             <li className="nav-item">
-                                <a href="/login" className="nav-link" onClick={logOut} style={{color: "black"}}>
+                                <a href="/login" className="nav-link" onClick={logOut} style={{ color: "black" }}>
                                     LogOut
                                 </a>
                             </li>
@@ -126,13 +164,12 @@ const App = () => {
                     ) : (
                         <>
                             <li className="nav-item">
-                                <Link to={"/login"} className="nav-link" style={{color: "black"}}>
+                                <Link to={"/login"} className="nav-link" style={{ color: "black" }}>
                                     Login
                                 </Link>
                             </li>
-
                             <li className="nav-item">
-                                <Link to={"/register"} className="nav-link" style={{color: "black"}}>
+                                <Link to={"/register"} className="nav-link" style={{ color: "black" }}>
                                     Sign Up
                                 </Link>
                             </li>
@@ -141,49 +178,26 @@ const App = () => {
                 </div>
             </nav>
 
-            <div className="container mt-3 wrap" style={{minHeight: "70vh"}}>
+            <div className="container mt-3 wrap" style={{ minHeight: "70vh" }}>
                 <Routes>
-                    <Route path="/" element={<Home/>}/>
-                    <Route path="/home" element={<Home/>}/>
-                    <Route path="/login" element={<Login/>}/>
-                    <Route path="/register" element={<Register/>}/>
-                    <Route path="/change-password" element={<ChangePassword/>}/>
-                    <Route path="/profile" element={<Profile/>}/>
-                    {isAuthenticated ? (
+                    <Route path="/" element={<Home />} />
+                    <Route path="/home" element={<Home />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
+                    <Route path="/change-password" element={<ChangePassword />} />
+                    <Route path="/profile" element={<Profile />} />
+                    {isAuthenticated && (
                         <>
-                            <Route path="/sliders" element={<SliderList/>}/>
-
-                            <Route path="/posts" element={<PostList/>}/>
-                            <Route path="/posts/view/:postId" element={<PostDetail/>}/>
-                            <Route path="/posts/edit/:postId" element={<PostEdit/>}/>
-
-                            <Route path="/sliders/edit/*" element={<SliderDetail/>}/>
-
-                            <Route
-                                path="/sliders/edit/:sliderId"
-                                element={<SliderDetail/>}
-                            />
-
-                            <Route path="/marketingrole" element={<MarketingDashboard/>}/>
-                            <Route path="/adminrole" element={<AdminDashboard/>}/>
-                            <Route path="/expertrole" element={<ExpertDashboard/>}/>
-
-                            <Route path="/sliders/add" element={<SliderAdd/>}/>
-
-                            <Route path="/sliders/add" element={<SliderAdd/>}/>
-                        </>
-                    ) : (
-                        <>
-                            <Route path="/customer" element={<Navigate to="/login"/>}/>
-                            <Route path="/expert" element={<Navigate to="/login"/>}/>
-                            <Route path="/admin" element={<Navigate to="/login"/>}/>
+                            <Route path="/adminrole" element={<AdminDashboard />} />
+                            <Route path="/expertrole" element={<ExpertDashboard />} />
+                            <Route path="/marketingrole" element={<MarketingDashboard />} />
                         </>
                     )}
-                    <Route path="/forgot-password" element={<ForgotPassword/>}/>
-                    <Route path="/account-list" element={<AccountList/>}/>
+                    <Route path="/forgot-password" element={<ForgotPassword />} />
+                    <Route path="/account-list" element={<AccountList />} />
                 </Routes>
             </div>
-            <Footer/>
+            <Footer />
         </div>
     );
 };

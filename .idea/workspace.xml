@@ -5,28 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f42a8f0a-d40f-4bc9-b56d-aa67269e9f4b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Controller/AdminController/AccountController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Payload/Request/UpdateAccountRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Payload/Response/AccountResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FE/src/components/AccountList/AccountList.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Controller/ChangePasswordController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Controller/FourRoleController/ChangePasswordController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Controller/ForgotPasswordController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Controller/PublicController/ForgotPasswordController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Controller/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Controller/PublicController/HomeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Controller/PublicController/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Controller/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Controller/PublicController/PostController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Controller/ProfileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Controller/FourRoleController/ProfileController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Controller/RegistrationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Controller/PublicController/RegistrationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Controller/SliderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Controller/PublicController/SliderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Controller/SubjectController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Controller/PublicController/SubjectController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Controller/UpdateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Controller/FourRoleController/UpdateController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Payload/Request/RegistrationRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Payload/Request/RegistrationRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Services/Impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Services/Impl/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Services/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BE/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Controller/AdminController/AccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Controller/AdminController/AccountController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Controller/FourRoleController/ProfileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Controller/FourRoleController/ProfileController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Controller/FourRoleController/UpdateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Controller/FourRoleController/UpdateController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FE/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/src/pages/Dashboard/Dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/pages/Dashboard/Dashboard.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,7 +107,7 @@
       <workItem from="1696417313626" duration="77000" />
       <workItem from="1696417395543" duration="126000" />
       <workItem from="1696417538569" duration="400000" />
-      <workItem from="1696424559738" duration="15021000" />
+      <workItem from="1696424559738" duration="16569000" />
     </task>
     <servers />
   </component>
