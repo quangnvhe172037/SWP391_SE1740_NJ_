@@ -1,0 +1,17 @@
+/* App.module.css */
+/* App.css */
+.dropdown-menu {
+    display: block;
+    background-color: white; /* Màu nền đen */
+    color: white; /* Màu chữ trắng */
+    position: absolute;
+    top: 100%; /* Hiển thị menu dưới "Hello" */
+    border: 1px solid black;
+    padding: 10px;
+    z-index: 1000;
+}
+
+
+.dropdown-menu-closed {
+    display: none; /* Ẩn khi isDropdownOpen là false */
+}

@@ -35,7 +35,11 @@ public class SecurityConfig {
             "/sliders",
             "/subjects/**",
             "/posts/**",
+<<<<<<< Updated upstream
             "/categorysubject/**",
+=======
+
+>>>>>>> Stashed changes
     };
     // Danh sách các URL cho customer
     private static final String[] CUSTOMER_URL = {
@@ -63,6 +67,7 @@ public class SecurityConfig {
     private static final String[] FourRole_URL = {
             "/change-password",
             "/profile",
+            "/update/profile"
     };
     // Cấu hình bộ lọc bảo mật
     @Bean

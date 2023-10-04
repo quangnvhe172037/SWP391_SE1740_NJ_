@@ -26,13 +26,5 @@ public class ProfileController {
         }
     }
 
-    @PatchMapping("/{email}")
-    public ResponseEntity<?> updateProfile(@PathVariable String email, @RequestBody UpdateProfileRequest request){
-        Users updateUser = userService.updateUserProfile(email, request);
-        if (updateUser != null){
-            return ResponseEntity.ok(updateUser);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Update fail, please try again");
-        }
-    }
+
 }

@@ -42,8 +42,9 @@ const Profile = () => {
     const handleSaveChanges = () => {
         // Gửi yêu cầu PUT đến API để cập nhật thông tin hồ sơ
         axios
-            .put(`http://localhost:8081/profile/${user.sub}`, profileData, {
+            .put(`http://localhost:8080/update/profile/${user.sub}`, profileData, {
                 headers: {
+                    "Content-Type":"application/json",
                     Authorization: `Bearer ${token}`,
                 },
             })
@@ -53,7 +54,12 @@ const Profile = () => {
                 setProfileData(response.data);
             })
             .catch((error) => {
-                console.error('Error updating profile data:', error);
+                if (error.response && error.response.status === 400){
+                    console.error("Bad request: ", error.response.data);
+                    alert("Something error");
+                } else {
+                    console.error('Error updating profile data:', error);
+                }
             });
     };
 

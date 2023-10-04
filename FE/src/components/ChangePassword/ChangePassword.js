@@ -115,7 +115,7 @@ const ChangePassword = () => {
                                         required
                                     />
                                 </div>
-                                <button type="submit" className="btn" style={{borderColor: "#FCC822", color: "black"}}>Change password</button>
+                                <button type="submit" className="btn" style={{borderColor: "black", color: "black"}}>Change password</button>
                             </form>
                             {!passwordsMatch && <div className="mt-3 text-danger">New password and confirm password do not match.</div>}
                             {!isPasswordStrong && <div className="mt-3 text-danger">The new password must be at least 8 characters long, contain an uppercase letter, a number, and a special character.</div>}

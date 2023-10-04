@@ -11,12 +11,14 @@ import com.example.onlinequiz.Services.UserService;
 import com.example.onlinequiz.Token.VerificationToken;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
+
 @Service // Đánh dấu đây là một Spring Service để thực hiện logic liên quan đến người dùng
 @RequiredArgsConstructor // Tự động tạo constructor với tham số cho các trường được đánh dấu là final
 public class UserServiceImpl implements UserService {
@@ -37,7 +39,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Users registerUser(RegistrationRequest request) {
         Optional<Users> user = this.findbyEmail(request.email());
-        if(user.isPresent()){
+        if (user.isPresent()) {
             throw new UserAlreadyExistException("User with email " + request.email() + " already exists!"); // Nếu người dùng đã tồn tại, ném ngoại lệ UserAlreadyExistException
         }
         var newUser = new Users(); // Tạo một đối tượng người dùng mới
@@ -63,12 +65,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public String validateaToken(String theToken) {
         VerificationToken token = tokenRepository.findByToken(theToken); // Tìm kiếm VerificationToken bằng mã xác thực
-        if(token == null){
+        if (token == null) {
             return "Invalid verification token"; // Nếu không tìm thấy, trả về thông báo lỗi
         }
         Users user = token.getUser();
         Calendar calendar = Calendar.getInstance();
-        if(token.getTokenExpirationTime().getTime() - calendar.getTime().getTime() <= 0){
+        if (token.getTokenExpirationTime().getTime() - calendar.getTime().getTime() <= 0) {
             tokenRepository.delete(token); // Xóa VerificationToken nếu đã hết hạn
             return "Token already expired"; // Trả về thông báo lỗi nếu mã xác thực đã hết hạn
         }
@@ -80,7 +82,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public ProfileResponse getUserProfileByEmail(String email) {
         Optional<Users> usersOptional = userRepository.findByEmail(email);
-        if (usersOptional.isPresent()){
+        if (usersOptional.isPresent()) {
             Users users = usersOptional.get();
             ProfileResponse profileResponse = new ProfileResponse();
             profileResponse.setFirstName(users.getFirstName());
@@ -88,6 +90,7 @@ public class UserServiceImpl implements UserService {
             profileResponse.setEmail(users.getEmail());
             profileResponse.setGender(users.isGender());
             profileResponse.setPassword(users.getPassword());
+            profileResponse.setMobile(users.getMobile());
             return profileResponse;
         } else {
             return null;
@@ -95,17 +98,30 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Users updateUserProfile(String email, UpdateProfileRequest request) {
+    public void updateUserProfile(String email, UpdateProfileRequest request) {
         Optional<Users> optionalUsers = userRepository.findByEmail(email);
-        if(optionalUsers.isEmpty()){
-            return null;
+        if (optionalUsers.isEmpty()) {
+            throw new UsernameNotFoundException("User not found");
+        } else {
+            Users existingUser = optionalUsers.get();
+            if (request.getFirstName() != null) {
+                existingUser.setFirstName(request.getFirstName());
+            }
+
+            if (request.getLastName() != null) {
+                existingUser.setLastName(request.getLastName());
+            }
+
+            if (request.getMobile() != null) {
+                existingUser.setMobile(request.getMobile());
+            }
+
+            if (request.getGender() != null) {
+                existingUser.setGender(request.getGender());
+            }
+
+            userRepository.save(existingUser);
         }
-        Users existingUser = optionalUsers.get();
-        existingUser.setFirstName(request.getFirstName());
-        existingUser.setLastName(request.getLastName());
-        existingUser.setMobile(request.getMobile());
-        existingUser.setGender(request.isGender());
-        return userRepository.save(existingUser);
     }
 }
 
