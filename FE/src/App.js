@@ -24,12 +24,8 @@ import PostEdit from "./pages/Posts/PostEdit";
 import SliderAdd from "./pages/SliderDetail/SliderAdd";
 import Footer from "./components/Footer/Footer";
 import Profile from "./pages/Profile/Profile";
-<<<<<<< Updated upstream
-import Subject from "./components/Subject/Subject";
-=======
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faAngleDown} from "@fortawesome/free-solid-svg-icons";
->>>>>>> Stashed changes
 
 const App = () => {
     const [currentUser, setCurrentUser] = useState(undefined);
@@ -37,6 +33,7 @@ const App = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     const toggleDropdown = () => {
+
         setIsDropdownOpen(!isDropdownOpen);
     };
 
@@ -186,88 +183,7 @@ const App = () => {
             </div>
             <Footer/>
         </div>
-<<<<<<< Updated upstream
-
-        <div className="navbar-nav ml-auto">
-          {isAuthenticated ? (
-            <>
-              <li className="nav-item">
-                <Link to={"/profile"} className="nav-link" style={{ color: "black" }}>
-                  Hello, {currentUser.sub}
-                </Link>
-              </li>
-              <li className="nav-item">
-                <a href="/login" className="nav-link" onClick={logOut} style={{ color: "black" }}>
-                  LogOut
-                </a>
-              </li>
-            </>
-          ) : (
-            <>
-              <li className="nav-item">
-                <Link to={"/login"} className="nav-link" style={{ color: "black" }}>
-                  Login
-                </Link>
-              </li>
-
-              <li className="nav-item">
-                <Link to={"/register"} className="nav-link" style={{ color: "black" }}>
-                  Sign Up
-                </Link>
-              </li>
-            </>
-          )}
-        </div>
-      </nav>
-
-      <div className="container mt-3 wrap" style={{minHeight: "70vh"}}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/change-password" element={<ChangePassword />} />
-          <Route path="/profile" element={<Profile />} />
-          {isAuthenticated ? (
-            <>
-              <Route path="/sliders" element={<SliderList />} />
-
-              <Route path="/posts" element={<PostList />} />
-              <Route path="/posts/view/:postId" element={<PostDetail />} />
-              <Route path="/posts/edit/:postId" element={<PostEdit />} />
-
-              <Route path="/sliders/edit/*" element={<SliderDetail />} />
-
-              <Route
-                path="/sliders/edit/:sliderId"
-                element={<SliderDetail />}
-              />
-
-              <Route path="/marketingrole" element={<MarketingDashboard />} />
-              <Route path="/adminrole" element={<AdminDashboard />} />
-              <Route path="/expertrole" element={<ExpertDashboard />} />
-              
-              <Route path="/sliders/add" element={<SliderAdd />} />
-
-              <Route path="/sliders/add" element={<SliderAdd />} />
-            </>
-          ) : (
-            <>
-              <Route path="/customer" element={<Navigate to="/login" />} />
-              <Route path="/expert" element={<Navigate to="/login" />} />
-              <Route path="/admin" element={<Navigate to="/login" />} />
-            </>
-          )}
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/subject" element={<Subject />} />
-        </Routes>
-      </div>
-      <Footer />
-    </div>
-  );
-=======
     );
->>>>>>> Stashed changes
 };
 
 export default App;

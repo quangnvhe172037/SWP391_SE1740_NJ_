@@ -5,18 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f42a8f0a-d40f-4bc9-b56d-aa67269e9f4b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Controller/UpdateController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FE/src/App.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Controller/ProfileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Controller/ProfileController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Payload/Request/UpdateProfileRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Payload/Request/UpdateProfileRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Services/Impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Services/Impl/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Services/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FE/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/src/components/ChangePassword/ChangePassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/components/ChangePassword/ChangePassword.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/src/pages/Profile/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/pages/Profile/Profile.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,11 +95,22 @@
       <workItem from="1696338034736" duration="5010000" />
       <workItem from="1696346392299" duration="37000" />
       <workItem from="1696347085149" duration="1133000" />
-      <workItem from="1696380997065" duration="17572000" />
+      <workItem from="1696380997065" duration="18985000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

@@ -35,11 +35,7 @@ public class SecurityConfig {
             "/sliders",
             "/subjects/**",
             "/posts/**",
-<<<<<<< Updated upstream
-            "/categorysubject/**",
-=======
 
->>>>>>> Stashed changes
     };
     // Danh sách các URL cho customer
     private static final String[] CUSTOMER_URL = {
