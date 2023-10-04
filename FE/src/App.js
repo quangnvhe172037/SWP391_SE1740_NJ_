@@ -26,6 +26,7 @@ import Footer from "./components/Footer/Footer";
 import Profile from "./pages/Profile/Profile";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faAngleDown} from "@fortawesome/free-solid-svg-icons";
+import AccountList from "./components/AccountList/AccountList";
 
 const App = () => {
     const [currentUser, setCurrentUser] = useState(undefined);
@@ -179,6 +180,7 @@ const App = () => {
                         </>
                     )}
                     <Route path="/forgot-password" element={<ForgotPassword/>}/>
+                    <Route path="/account-list" element={<AccountList/>}/>
                 </Routes>
             </div>
             <Footer/>

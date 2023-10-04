@@ -1,4 +1,4 @@
-package com.example.onlinequiz.Controller;
+package com.example.onlinequiz.Controller.FourRoleController;
 
 import com.example.onlinequiz.Model.Users;
 import com.example.onlinequiz.Payload.Request.UpdateProfileRequest;

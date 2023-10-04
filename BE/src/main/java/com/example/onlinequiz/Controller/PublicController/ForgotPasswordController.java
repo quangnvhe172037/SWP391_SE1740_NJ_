@@ -1,4 +1,4 @@
-package com.example.onlinequiz.Controller;
+package com.example.onlinequiz.Controller.PublicController;
 
 import com.example.onlinequiz.Model.Users;
 import com.example.onlinequiz.Repo.UserRepository;

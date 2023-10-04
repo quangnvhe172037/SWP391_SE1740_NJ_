@@ -1,4 +1,4 @@
-package com.example.onlinequiz.Controller;
+package com.example.onlinequiz.Controller.PublicController;
 
 import com.example.onlinequiz.Model.PostCategories;
 import com.example.onlinequiz.Model.Posts;

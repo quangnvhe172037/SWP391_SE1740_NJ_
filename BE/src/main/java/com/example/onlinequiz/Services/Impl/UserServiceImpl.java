@@ -4,6 +4,7 @@ import com.example.onlinequiz.Exception.UserAlreadyExistException;
 import com.example.onlinequiz.Model.Users;
 import com.example.onlinequiz.Payload.Request.RegistrationRequest;
 import com.example.onlinequiz.Payload.Request.UpdateProfileRequest;
+import com.example.onlinequiz.Payload.Response.AccountResponse;
 import com.example.onlinequiz.Payload.Response.ProfileResponse;
 import com.example.onlinequiz.Repo.UserRepository;
 import com.example.onlinequiz.Repo.VerificationTokenRepository;
@@ -15,6 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
@@ -48,6 +50,7 @@ public class UserServiceImpl implements UserService {
         newUser.setEmail(request.email());
         newUser.setPassword(passwordEncoder.encode(request.password())); // Mã hóa mật khẩu trước khi lưu vào cơ sở dữ liệu
         newUser.setRole(request.role());
+        newUser.setGender(true);
         return userRepository.save(newUser); // Lưu người dùng mới vào cơ sở dữ liệu và trả về đối tượng người dùng đã lưu
     }
 
@@ -121,6 +124,39 @@ public class UserServiceImpl implements UserService {
             }
 
             userRepository.save(existingUser);
+        }
+    }
+
+    @Override
+    public List<AccountResponse> getAllAccounts() {
+        List<Users> users = userRepository.findAll();
+        List<AccountResponse> accountResponses = new ArrayList<>();
+
+        for (Users account : users){
+            AccountResponse response = new AccountResponse(
+                    account.getFirstName(),
+                    account.getLastName(),
+                    account.getEmail(),
+                    account.getMobile(),
+                    account.getRole(),
+                    account.isGender(),
+                    account.isEnabled()
+            );
+            accountResponses.add(response);
+        }
+        return accountResponses;
+    }
+
+    @Override
+    public Users updateAccount(String email, String editedRole, boolean editedEnabled) {
+        Optional<Users> users = userRepository.findByEmail(email);
+        if (users.isPresent()){
+            Users updateUsers = users.get();
+            updateUsers.setRole(editedRole);
+            updateUsers.setEnabled(editedEnabled);
+            return userRepository.save(updateUsers);
+        } else {
+            throw new RuntimeException("Account not found");
         }
     }
 }

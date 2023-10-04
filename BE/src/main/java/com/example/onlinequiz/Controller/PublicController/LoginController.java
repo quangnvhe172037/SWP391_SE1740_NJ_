@@ -1,4 +1,4 @@
-package com.example.onlinequiz.Controller;
+package com.example.onlinequiz.Controller.PublicController;
 
 import com.example.onlinequiz.Services.Impl.JWTService;
 import com.example.onlinequiz.Payload.Request.JwtAuthenticationRequest;

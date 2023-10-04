@@ -6,7 +6,8 @@ public record RegistrationRequest(String firstName,
                                   String lastName,
                                   String email,
                                   String password,
-                                  String role
+                                  String role,
+                                  boolean gender
 ) {
     // Đây là một ghi chú (record) được sử dụng để định nghĩa một lớp dữ liệu không thay đổi (immutable).
     // Các trường (fields) của record được định nghĩa trong dấu ngoặc đơn và tự động có các phương thức getter.
