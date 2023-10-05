@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import {useNavigate} from "react-router-dom";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons";
 
 const AccountList = () => {
     const token = localStorage.getItem("token");
     const [accounts, setAccounts] = useState([]);
     const [editableAccounts, setEditableAccounts] = useState([]);
-
+    const [sortByRoleAscending, setSortByRoleAscending] = useState(true); // Thêm state để xác định thứ tự sắp xếp
+    const [searchEmail, setSearchEmail] = useState(""); // Thêm state cho giá trị tìm kiếm
     const fetchAccounts = async () => {
         try {
             const response = await axios.get('http://localhost:8080/admin/all-accounts', {
@@ -17,6 +21,10 @@ const AccountList = () => {
             // Khởi tạo mảng editableAccounts với các phần tử mặc định không có chỉnh sửa
             setEditableAccounts(new Array(response.data.length).fill(false));
         } catch (error) {
+            if (error.response && error.response.status === 403) {
+                // Nếu response trả về mã lỗi 403, dẫn người dùng quay lại trang Home
+                localStorage.removeItem("token");
+            }
             console.error('Error fetching accounts:', error);
         }
     };
@@ -57,9 +65,42 @@ const AccountList = () => {
         }
     };
 
+    const handleSortByRoleClick = () => {
+        // Sao chép danh sách tài khoản hiện tại
+        const sortedAccounts = [...accounts];
+        // Sắp xếp tài khoản theo vai trò (role)
+        sortedAccounts.sort((a, b) => {
+            if (sortByRoleAscending) {
+                return a.role.localeCompare(b.role);
+            } else {
+                return b.role.localeCompare(a.role);
+            }
+        });
+        // Cập nhật danh sách tài khoản với thứ tự mới
+        setAccounts(sortedAccounts);
+        // Đảo ngược thứ tự sắp xếp (ascending/descending)
+        setSortByRoleAscending(!sortByRoleAscending);
+    };
+
+    const handleSearchChange = (e) => {
+        // Cập nhật giá trị tìm kiếm khi người dùng thay đổi ô nhập liệu
+        setSearchEmail(e.target.value);
+        // Lọc danh sách tài khoản dựa trên email và cập nhật danh sách hiển thị
+        const filteredAccounts = accounts.filter(account => account.email.toLowerCase().includes(e.target.value.toLowerCase()));
+        setAccounts(filteredAccounts);
+    };
+
     return (
         <div className="containers mt-5">
             <h5>Account List</h5>
+                <input
+                    type="text"
+                    className="form-control"
+                    id="searchEmail"
+                    value={searchEmail}
+                    onChange={handleSearchChange}
+
+                />
             <table className="table mt-3">
                 <thead>
                 <tr>
@@ -67,7 +108,9 @@ const AccountList = () => {
                     <th>Last Name</th>
                     <th>Email</th>
                     <th>Mobile</th>
-                    <th>Role</th>
+                    <th>Role <button className="btn" onClick={handleSortByRoleClick}>
+                        {sortByRoleAscending ? "▲" : "▼"}
+                    </button></th>
                     <th>Gender</th>
                     <th>Enabled</th>
                     <th>Edit</th>

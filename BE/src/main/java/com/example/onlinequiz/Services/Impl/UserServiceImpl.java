@@ -16,10 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service // Đánh dấu đây là một Spring Service để thực hiện logic liên quan đến người dùng
 @RequiredArgsConstructor // Tự động tạo constructor với tham số cho các trường được đánh dấu là final
@@ -51,6 +48,7 @@ public class UserServiceImpl implements UserService {
         newUser.setPassword(passwordEncoder.encode(request.password())); // Mã hóa mật khẩu trước khi lưu vào cơ sở dữ liệu
         newUser.setRole(request.role());
         newUser.setGender(true);
+        newUser.setCreateDate(new Date(System.currentTimeMillis()));
         return userRepository.save(newUser); // Lưu người dùng mới vào cơ sở dữ liệu và trả về đối tượng người dùng đã lưu
     }
 

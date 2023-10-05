@@ -57,6 +57,9 @@ const Profile = () => {
                 if (error.response && error.response.status === 400){
                     console.error("Bad request: ", error.response.data);
                     alert("Something error");
+                } else if (error.response && error.response.status === 403) {
+                    // Nếu response trả về mã lỗi 403, dẫn người dùng quay lại trang Home
+                    localStorage.removeItem("token");
                 } else {
                     console.error('Error updating profile data:', error);
                 }

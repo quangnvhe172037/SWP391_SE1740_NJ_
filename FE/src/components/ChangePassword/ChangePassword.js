@@ -60,6 +60,11 @@ const ChangePassword = () => {
                 setPasswordsMatch(true);
                 setIsPasswordStrong(true);
                 // Handle errors or display error message to the user
+                if (error.response && error.response.status === 403) {
+                    // Nếu response trả về mã lỗi 403, dẫn người dùng quay lại trang Home
+                    localStorage.removeItem("token");
+                }
+
             });
     };
 

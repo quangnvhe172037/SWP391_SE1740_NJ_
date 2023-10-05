@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { Routes, Route, Link, Navigate, useLocation } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
@@ -25,9 +25,8 @@ import SliderAdd from "./pages/SliderDetail/SliderAdd";
 import Footer from "./components/Footer/Footer";
 import Profile from "./pages/Profile/Profile";
 
-
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faAngleDown} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import Subject from "./components/Subject/Subject";
 import AccountList from "./components/AccountList/AccountList";
 
@@ -73,153 +72,154 @@ const App = () => {
     };
 
     return (
-
-      <div>
-        <nav
-          className="navbar navbar-expand"
-          style={{
-            backgroundColor: "white",
-            boxShadow: "0 2px 4px lightgrey",
-            borderBottom: "1px solid black",
-            height: "72px",
-          }}
-        >
-          <Link
-            to={"/"}
-            className="navbar-brand"
-            style={{ color: "black", fontSize: "1.4rem", fontWeight: "700" }}
-          >
-            Quizzi Học để không thành Bùi An
-          </Link>
-          <div className="navbar-nav mr-auto">
-            <li className="nav-item">
-              <Link
-                to={"/home"}
-                className="nav-link"
-                style={{ color: "black" }}
-              >
-                Home
-              </Link>
-            </li>
-
-            {isAuthenticated && <></>}
-          </div>
-
-          <div className="navbar-nav ml-auto">
-            {isAuthenticated ? (
-              <>
-                <li className="nav-item" onClick={toggleDropdown}>
-                  <span
+        <div>
+            <nav
+                className="navbar navbar-expand"
+                style={{
+                    backgroundColor: "white",
+                    boxShadow: "0 2px 4px lightgrey",
+                    borderBottom: "1px solid black",
+                    height: "72px",
+                }}
+            >
+                <Link
+                    to={"/"}
+                    className="navbar-brand"
+                    style={{ color: "black", fontSize: "1.4rem", fontWeight: "700" }}
+                >
+                    Quizzi Learn Is Never Late
+                </Link>
+                <div className="navbar-nav mr-auto">
+                    <li className="nav-item">
+                        <Link to={"/home"} className="nav-link" style={{ color: "black" }}>
+                            Home
+                        </Link>
+                    </li>
+                    {isAuthenticated && (
+                        <>
+                            {userRole === "MARKETING" && (
+                                <li className="nav-item">
+                                    <Link to={"/marketingrole"} className="nav-link" style={{ color: "black" }}>
+                                        MAKETING Board
+                                    </Link>
+                                </li>
+                            )}
+                            {userRole === "EXPERT" && (
+                                <li className="nav-item">
+                                    <Link to={"/expertrole"} className="nav-link" style={{ color: "black" }}>
+                                        Expert Board
+                                    </Link>
+                                </li>
+                            )}
+                            {userRole === "ADMIN" && (
+                                <li className="nav-item">
+                                    <Link to={"/adminrole"} className="nav-link" style={{ color: "black" }}>
+                                        Admin Board
+                                    </Link>
+                                </li>
+                            )}
+                        </>
+                    )}
+                </div>
+                <div className="navbar-nav ml-auto">
+                    {isAuthenticated ? (
+                        <>
+                            <li className="nav-item" onClick={toggleDropdown}>
+                <span
                     className="nav-link"
                     style={{ color: "black", cursor: "pointer" }}
-                  >
-                    Hello, {currentUser.sub}{" "}
+                >
+                  Hello, {currentUser.sub}{" "}
                     <FontAwesomeIcon icon={faAngleDown} />
-                  </span>
-                  {isDropdownOpen && (
-                    <ul
-                      className={`${styles["dropdown-menu"]} ${
-                        isDropdownOpen ? "" : styles["dropdown-menu-closed"]
-                      }`}
-                    >
-                      <li>
-                        <Link to="/profile" className="dropdown-item">
-                          Profile
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="/account" className="dropdown-item">
-                          Account
-                        </Link>
-                      </li>
-                    </ul>
-                  )}
-                </li>
+                </span>
+                                {isDropdownOpen && (
+                                    <ul
+                                        className={`${styles["dropdown-menu"]} ${
+                                            isDropdownOpen ? "" : styles["dropdown-menu-closed"]
+                                        }`}
+                                    >
+                                        <li>
+                                            <Link to="/profile" className="dropdown-item">
+                                                Profile
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/account" className="dropdown-item">
+                                                Account
+                                            </Link>
+                                        </li>
+                                    </ul>
+                                )}
+                            </li>
+                            <li className="nav-item">
+                                <a
+                                    href="/login"
+                                    className="nav-link"
+                                    onClick={logOut}
+                                    style={{ color: "black" }}
+                                >
+                                    LogOut
+                                </a>
+                            </li>
+                        </>
+                    ) : (
+                        <>
+                            <li className="nav-item">
+                                <Link
+                                    to={"/login"}
+                                    className="nav-link"
+                                    style={{ color: "black" }}
+                                >
+                                    Login
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link
+                                    to={"/register"}
+                                    className="nav-link"
+                                    style={{ color: "black" }}
+                                >
+                                    Sign Up
+                                </Link>
+                            </li>
+                        </>
+                    )}
+                </div>
+            </nav>
 
-                <li className="nav-item">
-                  <a
-                    href="/login"
-                    className="nav-link"
-                    onClick={logOut}
-                    style={{ color: "black" }}
-                  >
-                    LogOut
-                  </a>
-                </li>
-              </>
-            ) : (
-              <>
-                <li className="nav-item">
-                  <Link
-                    to={"/login"}
-                    className="nav-link"
-                    style={{ color: "black" }}
-                  >
-                    Login
-                  </Link>
-                </li>
-
-                <li className="nav-item">
-                  <Link
-                    to={"/register"}
-                    className="nav-link"
-                    style={{ color: "black" }}
-                  >
-                    Sign Up
-                  </Link>
-                </li>
-              </>
-            )}
-          </div>
-        </nav>
-
-        <div className="container mt-3 wrap" style={{ minHeight: "70vh" }}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/change-password" element={<ChangePassword />} />
-            <Route path="/profile" element={<Profile />} />
-            {isAuthenticated ? (
-              <>
-                <Route path="/sliders" element={<SliderList />} />
-
-                <Route path="/posts" element={<PostList />} />
-                <Route path="/posts/view/:postId" element={<PostDetail />} />
-                <Route path="/posts/edit/:postId" element={<PostEdit />} />
-
-                <Route path="/sliders/edit/*" element={<SliderDetail />} />
-
-                <Route
-                  path="/sliders/edit/:sliderId"
-                  element={<SliderDetail />}
-                />
-
-                <Route path="/marketingrole" element={<MarketingDashboard />} />
-                <Route path="/adminrole" element={<AdminDashboard />} />
-                <Route path="/expertrole" element={<ExpertDashboard />} />
-
-                <Route path="/sliders/add" element={<SliderAdd />} />
-
-                <Route path="/sliders/add" element={<SliderAdd />} />
-              </>
-            ) : (
-              <>
-                <Route path="/customer" element={<Navigate to="/login" />} />
-                <Route path="/expert" element={<Navigate to="/login" />} />
-                <Route path="/admin" element={<Navigate to="/login" />} />
-              </>
-            )}
-            <Route path="/forgot-password" element={<ForgotPassword />} />
-              <Route path="/subject" element={<Subject />} />
-              <Route path="/account-list" element={<AccountList />} />
-              
-          </Routes>
-
+            <div className="container mt-3 wrap" style={{ minHeight: "70vh" }}>
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/home" element={<Home />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
+                    <Route path="/change-password" element={<ChangePassword />} />
+                    <Route path="/profile" element={<Profile />} />
+                    {isAuthenticated && (
+                        <>
+                            <Route path="/customer" element={<Navigate to="/login" />} />
+                            <Route path="/expert" element={<Navigate to="/login" />} />
+                            <Route path="/admin" element={<Navigate to="/login" />} />
+                            <Route path="/sliders" element={<SliderList />} />
+                            <Route path="/posts" element={<PostList />} />
+                            <Route path="/posts/view/:postId" element={<PostDetail />} />
+                            <Route path="/posts/edit/:postId" element={<PostEdit />} />
+                            <Route path="/sliders/edit/*" element={<SliderDetail />} />
+                            <Route path="/sliders/edit/:sliderId" element={<SliderDetail />} />
+                            <Route path="/marketingrole" element={<MarketingDashboard />} />
+                            <Route path="/adminrole" element={<AdminDashboard />} />
+                            <Route path="/expertrole" element={<ExpertDashboard />} />
+                            <Route path="/sliders/add" element={<SliderAdd />} />
+                            <Route path="/sliders/add" element={<SliderAdd />} />
+                            <Route path="/forgot-password" element={<ForgotPassword />} />
+                            <Route path="/subject" element={<Subject />} />
+                            <Route path="/account-list" element={<AccountList />} />
+                        </>
+                    )}
+                </Routes>
+            </div>
+            <Footer />
         </div>
-        <Footer />
-      </div>
     );
 };
 

@@ -14,50 +14,49 @@ const Footer = () => {
                                 alt=""
                             />
                             <h1 className="capitalize font-bold text-white">
-                                Thách thức bản thân, tăng cường kiến thức
+                                Challenge Yourself, Enhance Your Knowledge
                             </h1>
                         </div>
-                        <h3 className="text-tuyn-gray mb-2 text-sm">
-                            Điện thoại: 0246.329.1102
+                        <h3 className="text-gray-500 mb-2 text-sm">
+                            Phone: 0246.329.1102
                         </h3>
-                        <h3 className="text-tuyn-gray mb-2 text-sm">
+                        <h3 className="text-gray-500 mb-2 text-sm">
                             Email: quangnvhe172037@fpt.edu.vn
                         </h3>
-                        <h3 className="text-tuyn-gray mb-2 text-sm">
-                            Địa chỉ: Khu Giáo dục và Đào tạo Khu Công nghệ cao Hòa Lạc Km29,
-                            Đại lộ Thăng Long, Thạch Hoà, Thạch Thất, Hà Nội 13100
+                        <h3 className="text-gray-500 mb-2 text-sm">
+                            Address: High-Tech Education and Training Zone Hòa Lạc Km29,
+                            Thăng Long Avenue, Thạch Hoà, Thạch Thất, Hanoi 13100
                         </h3>
                     </div>
                     <div>
-                        <h1 className="capitalize font-bold text-white mb-3">VỀ Quizzi</h1>
-                        <h3 className="text-tuyn-gray mb-2 text-sm">Giới thiệu</h3>
-                        <h3 className="text-tuyn-gray mb-2 text-sm">Cơ hội việc làm</h3>
-                        <h3 className="text-tuyn-gray mb-2 text-sm">Đối tác</h3>
+                        <h1 className="capitalize font-bold text-white mb-3">About Quizzi</h1>
+                        <h3 className="text-gray-500 mb-2 text-sm">Introduction</h3>
+                        <h3 className="text-gray-500 mb-2 text-sm">Job Opportunities</h3>
+                        <h3 className="text-gray-500 mb-2 text-sm">Partnerships</h3>
                     </div>
                     <div>
-                        <h1 className="capitalize font-bold text-white mb-3">HỖ TRỢ</h1>
-                        <h3 className="text-tuyn-gray mb-2 text-sm">Liên hệ</h3>
-                        <h3 className="text-tuyn-gray mb-2 text-sm">Bảo mật</h3>
-                        <h3 className="text-tuyn-gray mb-2 text-sm">Điều khoản</h3>
+                        <h1 className="capitalize font-bold text-white mb-3">Support</h1>
+                        <h3 className="text-gray-500 mb-2 text-sm">Contact</h3>
+                        <h3 className="text-gray-500 mb-2 text-sm">Privacy</h3>
+                        <h3 className="text-gray-500 mb-2 text-sm">Terms</h3>
                     </div>
                     <div>
                         <h1 className="capitalize font-bold text-white mb-3 a">
-                            CÔNG TY CỔ PHẦN CÔNG NGHỆ GIÁO DỤC QUIZZI
+                            QUIZZI EDUCATIONAL TECHNOLOGY CORPORATION
                         </h1>
-                        <h3 className="text-tuyn-gray mb-2 text-sm">
-                            Mã số thuế: 0109922901
+                        <h3 className="text-gray-500 mb-2 text-sm">
+                            Tax ID: 0109922901
                         </h3>
-                        <h3 className="text-tuyn-gray mb-2 text-sm">
-                            Ngày thành lập: 04/03/2022
+                        <h3 className="text-gray-500 mb-2 text-sm">
+                            Founded: 03/04/2022
                         </h3>
-                        <h3 className="text-tuyn-gray mb-2 text-sm">
-                            Lĩnh vực: Công nghệ, giáo dục, lập trình. F8 xây dựng và phát
-                            triển những sản phẩm mạng lại giá trị cho cộng đồng.
+                        <h3 className="text-gray-500 mb-2 text-sm">
+                            Fields: Technology, Education, Programming. F8 builds and develops products that bring value to the community.
                         </h3>
                     </div>
                 </section>
                 <section className="flex mt-5">
-                    <h3 className="text-tuyn-gray mb-2 text-sm">
+                    <h3 className="text-gray-500 mb-2 text-sm">
                         © 2018 - 2022 Quizzi. All rights reserved.
                     </h3>
                 </section>

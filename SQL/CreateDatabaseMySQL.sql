@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `quizpractice`.`users` (
   `email` VARCHAR(256) DEFAULT NULL,
   `mobile` INT  DEFAULT NULL,
   `gender` BIT(1)  DEFAULT NULL,
-  `createdate` DATE  DEFAULT NULL,
+  `create_date` DATE  DEFAULT NULL,
   `image` VARCHAR(256)  DEFAULT NULL,
   `is_enabled` BIT  DEFAULT NULL,
   `role` VARCHAR(256) NOT NULL ,
