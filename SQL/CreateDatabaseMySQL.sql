@@ -179,12 +179,12 @@ CREATE TABLE IF NOT EXISTS `quizpractice`.`quiz` (
   `quizname` VARCHAR(256) CHARACTER SET 'utf8mb4'  NULL DEFAULT NULL,
   `status` BIT NULL DEFAULT NULL,
   `description` VARCHAR(256) CHARACTER SET 'utf8mb4'  NULL DEFAULT NULL,
-  `lessonid` BIGINT NULL DEFAULT NULL,
+  `subjectid` BIGINT NULL DEFAULT NULL,
   PRIMARY KEY (`quizid`),
   INDEX `lessonid` (`lessonid` ASC) VISIBLE,
   CONSTRAINT `quiz_ibfk_1`
-    FOREIGN KEY (`lessonid`)
-    REFERENCES `quizpractice`.`lesson` (`lessonid`))
+   FOREIGN KEY (`subjectid`)
+    REFERENCES `quizpractice`.`subject` (`subjectid`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
 
@@ -196,6 +196,7 @@ DEFAULT CHARACTER SET = utf8mb4;
 CREATE TABLE IF NOT EXISTS `quizpractice`.`quizdata` (
   `sentenceid` BIGINT NOT NULL AUTO_INCREMENT,
   `quizid` BIGINT NULL DEFAULT NULL,
+  `lessonid` BIGINT NULL,
   PRIMARY KEY (`sentenceid`),
   INDEX `quizid` (`quizid` ASC) VISIBLE,
   CONSTRAINT `quizdata_ibfk_1`
