@@ -35,6 +35,7 @@ public class SecurityConfig {
             "/sliders",
             "/subjects/**",
             "/posts/**",
+            "/categorysubject/**",
 
     };
     // Danh sách các URL cho customer
