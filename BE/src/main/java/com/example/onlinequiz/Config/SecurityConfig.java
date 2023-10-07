@@ -35,6 +35,8 @@ public class SecurityConfig {
             "/sliders",
             "/subjects/**",
             "/posts/**",
+            "/categorysubject/**",
+
     };
     // Danh sách các URL cho customer
     private static final String[] CUSTOMER_URL = {
@@ -56,11 +58,13 @@ public class SecurityConfig {
     };
     // Danh sách các URL cho admin
     private static final String[] ADMIN_URL = {
-
+            "/admin/**"
     };
     //Danh sách url cho cả 3 role expert, admin, customer
-    private static final String[] ThreeRole_URL = {
-            "/change-password"
+    private static final String[] FourRole_URL = {
+            "/change-password",
+            "/profile",
+            "/update/profile"
     };
     // Cấu hình bộ lọc bảo mật
     @Bean
@@ -75,7 +79,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests().requestMatchers(EXPERT_URL).hasAuthority("EXPERT").and()
                 .authorizeHttpRequests().requestMatchers(CUSTOMER_URL).hasAuthority("CUSTOMER").and()
                 .authorizeHttpRequests().requestMatchers(MARKETING_URL).hasAuthority("MARKETING").and()
-                .authorizeHttpRequests().requestMatchers(ThreeRole_URL).hasAnyAuthority("CUSTOMER", "EXPERT", "CUSTOMER" , "MARKETING")
+                .authorizeHttpRequests().requestMatchers(FourRole_URL).hasAnyAuthority("CUSTOMER", "EXPERT", "CUSTOMER" , "MARKETING")
                 .anyRequest().authenticated().and()
                 // Quản lý phiên làm việc (session)
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()

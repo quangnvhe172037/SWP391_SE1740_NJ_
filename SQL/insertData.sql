@@ -34,7 +34,18 @@ VALUES
 "2003-11-19",
 "",
 1,
-"MARKETING")
+"MARKETING"),
+(3,
+"$2a$10$quS2hnY5Fglq29NNtu86OeUelo0hTyRElm3FyGaZZR9b/TCqT0Eg.",
+"customer",
+"customer_sub",
+"quangnv1911@gmail.com",
+0334745645,
+1,
+"2003-11-19",
+"",
+1,
+"CUSTOMER")
 ;
 
 

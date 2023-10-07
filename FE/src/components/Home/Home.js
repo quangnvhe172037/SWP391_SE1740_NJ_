@@ -4,8 +4,9 @@ import './Home.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { Link } from 'react-router-dom';
+import {Routes,Route, Link } from 'react-router-dom';
 import DayJs from "./DayJs";
+import Subject from "../Subject/Subject";
 
 const Home = () => {
     const [sliders, setSliders] = useState([]);
@@ -144,9 +145,9 @@ const Home = () => {
         infinite: true,
         speed: 500,
         slidesToShow: 1,
-        slidesToScroll: 1,       
-        prevArrow: <SampleNextArrow/>,
-        nextArrow: <SamplePrevArrow/>
+        slidesToScroll: 1,
+        prevArrow: <SampleNextArrow />,
+        nextArrow: <SamplePrevArrow />
     };
     return (
         <>
@@ -170,7 +171,7 @@ const Home = () => {
                 <section>
                     <div className='flex justify-between pb-5'>
                         <h1 className='text-xl font-extrabold'>Khóa học nổi bật</h1>
-                        <p className=' text-orange-600 font-bold'>Xem tất cả</p>
+                        <Link to={"/subject"} className=' text-orange-600 font-bold'>Xem tất cả</Link>
                     </div>
                     <div className='grid grid-flow-col auto-cols-[60%] snap-x overflow-y-auto md:grid-flow-row md:grid-cols-3 lg:grid-cols-4 gap-6 pb-5'>
                         {courses.map((data, index) => (
@@ -247,7 +248,7 @@ const Home = () => {
                         }
                     </div>
                 </section>
-            </section>            
+            </section>
         </>
     );
 };

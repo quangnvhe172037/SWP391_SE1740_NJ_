@@ -54,7 +54,6 @@ const Login = () => {
                     }
                     localStorage.setItem("token", token);
                     const user = jwtDecode(token);
-                    console.log(user.role);
                     switch (user.role) {
                       case "ADMIN":
                         navigate("/adminrole");
@@ -100,7 +99,7 @@ const Login = () => {
     return (
         <div className="container">
             <div className="row justify-content-center">
-                <div className="col-md-6 offset-md-6">
+                <div className="col-md-6 offset-md-10">
                     <div className="card card-container ">
                         <img
                             src="/Profile.PNG"
@@ -134,7 +133,7 @@ const Login = () => {
                             </div>
 
                             <div className="form-group">
-                                <button className="btn btn-primary btn-block" disabled={loading} style={{backgroundColor: "white", color: "black", border: "1px solid #FCC822"}}>
+                                <button className="btn btn-primary btn-block" disabled={loading} style={{backgroundColor: "white", color: "black", border: "1px solid black"}}>
                                     {loading && (
                                         <span className="spinner-border spinner-border-sm"></span>
                                     )}
@@ -151,7 +150,7 @@ const Login = () => {
                             )}
 
                             <div className="form-group">
-                                <Link to="/forgot-password" style={{color: "#FCC822"}}>Forgot your Password?</Link>
+                                <Link to="/forgot-password" style={{color: "black"}}>Forgot your Password?</Link>
                             </div>
 
                             <CheckButton style={{ display: "none" }} ref={checkBtn} />

@@ -26,6 +26,6 @@ public class Quizzes {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "lessonid")
-    private Lessons lesson;
+    @JoinColumn(name = "subjectid")
+    private Subjects subject;
 }

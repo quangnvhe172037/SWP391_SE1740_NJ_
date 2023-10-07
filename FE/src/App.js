@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route, Link, Navigate } from "react-router-dom";
+import { Routes, Route, Link, Navigate, useLocation } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+import styles from "./App.module.css";
 import jwtDecode from "jwt-decode";
 
 import authapi from "./api/authapi";
@@ -21,195 +22,205 @@ import PostList from "./pages/Posts/PostList";
 import PostDetail from "./pages/Posts/PostDetail";
 import PostEdit from "./pages/Posts/PostEdit";
 import SliderAdd from "./pages/SliderDetail/SliderAdd";
+import Footer from "./components/Footer/Footer";
+import Profile from "./pages/Profile/Profile";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import Subject from "./components/Subject/Subject";
+import AccountList from "./components/AccountList/AccountList";
 
 const App = () => {
-  const [currentUser, setCurrentUser] = useState(undefined);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [currentUser, setCurrentUser] = useState(undefined);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [userRole, setUserRole] = useState(null);
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      try {
-        const user = jwtDecode(token);
-        setCurrentUser(user);
-        setIsAuthenticated(true);
-      } catch (error) {
-        console.error("Invalid token:", error);
+    const toggleDropdown = () => {
+        setIsDropdownOpen(!isDropdownOpen);
+    };
+
+    const location = useLocation();
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (token) {
+            try {
+                const user = jwtDecode(token);
+                setCurrentUser(user);
+                setIsAuthenticated(true);
+                setUserRole(user.role); // Lấy và lưu trữ vai trò của người dùng
+            } catch (error) {
+                console.error("Invalid token:", error);
+                setCurrentUser(undefined);
+                setIsAuthenticated(false);
+                setUserRole(null);
+                localStorage.removeItem("token");
+            }
+        } else {
+            setIsAuthenticated(false);
+            setUserRole(null);
+        }
+    }, [location]);
+
+    const logOut = () => {
+        authapi.logout();
         setCurrentUser(undefined);
         setIsAuthenticated(false);
+        setUserRole(null);
         localStorage.removeItem("token");
-      }
-    } else {
-      setIsAuthenticated(false);
-    }
-  }, []);
+    };
 
-  const logOut = () => {
-    authapi.logout();
-    setCurrentUser(undefined);
-    setIsAuthenticated(false);
-    localStorage.removeItem("token");
-  };
-
-  return (
-    <div>
-      <nav
-        className="navbar navbar-expand"
-        style={{ backgroundColor: "#FCC822" }}
-      >
-        <Link to={"/"} className="navbar-brand" style={{ color: "#F8F8F8" }}>
-          Quizzi
-        </Link>
-        <div className="navbar-nav mr-auto">
-          <li className="nav-item">
-            <Link to={"/home"} className="nav-link">
-              Home
-            </Link>
-          </li>
-
-          {isAuthenticated && (
-            <>
-             
-            </>
-          )}
-        </div>
-
-        <div className="navbar-nav ml-auto">
-          {isAuthenticated ? (
-            <>
-              <li className="nav-item">
-                <Link to={"/profile"} className="nav-link">
-                  Hello, {currentUser.sub}
+    return (
+        <div>
+            <nav
+                className="navbar navbar-expand"
+                style={{
+                    backgroundColor: "white",
+                    boxShadow: "0 2px 4px lightgrey",
+                    borderBottom: "1px solid black",
+                    height: "72px",
+                }}
+            >
+                <Link
+                    to={"/"}
+                    className="navbar-brand"
+                    style={{ color: "black", fontSize: "1.4rem", fontWeight: "700" }}
+                >
+                    Quizzi Learn Is Never Late
                 </Link>
-              </li>
-              <li className="nav-item">
-                <a href="/login" className="nav-link" onClick={logOut}>
-                  LogOut
-                </a>
-              </li>
-            </>
-          ) : (
-            <>
-              <li className="nav-item">
-                <Link to={"/login"} className="nav-link">
-                  Login
-                </Link>
-              </li>
+                <div className="navbar-nav mr-auto">
+                    <li className="nav-item">
+                        <Link to={"/home"} className="nav-link" style={{ color: "black" }}>
+                            Home
+                        </Link>
+                    </li>
+                    {isAuthenticated && (
+                        <>
+                            {userRole === "MARKETING" && (
+                                <li className="nav-item">
+                                    <Link to={"/marketingrole"} className="nav-link" style={{ color: "black" }}>
+                                        MAKETING Board
+                                    </Link>
+                                </li>
+                            )}
+                            {userRole === "EXPERT" && (
+                                <li className="nav-item">
+                                    <Link to={"/expertrole"} className="nav-link" style={{ color: "black" }}>
+                                        Expert Board
+                                    </Link>
+                                </li>
+                            )}
+                            {userRole === "ADMIN" && (
+                                <li className="nav-item">
+                                    <Link to={"/adminrole"} className="nav-link" style={{ color: "black" }}>
+                                        Admin Board
+                                    </Link>
+                                </li>
+                            )}
+                        </>
+                    )}
+                </div>
+                <div className="navbar-nav ml-auto">
+                    {isAuthenticated ? (
+                        <>
+                            <li className="nav-item" onClick={toggleDropdown}>
+                <span
+                    className="nav-link"
+                    style={{ color: "black", cursor: "pointer" }}
+                >
+                  Hello, {currentUser.sub}{" "}
+                    <FontAwesomeIcon icon={faAngleDown} />
+                </span>
+                                {isDropdownOpen && (
+                                    <ul
+                                        className={`${styles["dropdown-menu"]} ${
+                                            isDropdownOpen ? "" : styles["dropdown-menu-closed"]
+                                        }`}
+                                    >
+                                        <li>
+                                            <Link to="/profile" className="dropdown-item">
+                                                Profile
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/account" className="dropdown-item">
+                                                Account
+                                            </Link>
+                                        </li>
+                                    </ul>
+                                )}
+                            </li>
+                            <li className="nav-item">
+                                <a
+                                    href="/login"
+                                    className="nav-link"
+                                    onClick={logOut}
+                                    style={{ color: "black" }}
+                                >
+                                    LogOut
+                                </a>
+                            </li>
+                        </>
+                    ) : (
+                        <>
+                            <li className="nav-item">
+                                <Link
+                                    to={"/login"}
+                                    className="nav-link"
+                                    style={{ color: "black" }}
+                                >
+                                    Login
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link
+                                    to={"/register"}
+                                    className="nav-link"
+                                    style={{ color: "black" }}
+                                >
+                                    Sign Up
+                                </Link>
+                            </li>
+                        </>
+                    )}
+                </div>
+            </nav>
 
-              <li className="nav-item">
-                <Link to={"/register"} className="nav-link">
-                  Sign Up
-                </Link>
-              </li>
-            </>
-          )}
+            <div className="container mt-3 wrap" style={{ minHeight: "70vh" }}>
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/home" element={<Home />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
+                    <Route path="/change-password" element={<ChangePassword />} />
+                    <Route path="/profile" element={<Profile />} />
+                    {isAuthenticated && (
+                        <>
+                            <Route path="/customer" element={<Navigate to="/login" />} />
+                            <Route path="/expert" element={<Navigate to="/login" />} />
+                            <Route path="/admin" element={<Navigate to="/login" />} />
+                            <Route path="/sliders" element={<SliderList />} />
+                            <Route path="/posts" element={<PostList />} />
+                            <Route path="/posts/view/:postId" element={<PostDetail />} />
+                            <Route path="/posts/edit/:postId" element={<PostEdit />} />
+                            <Route path="/sliders/edit/*" element={<SliderDetail />} />
+                            <Route path="/sliders/edit/:sliderId" element={<SliderDetail />} />
+                            <Route path="/marketingrole" element={<MarketingDashboard />} />
+                            <Route path="/adminrole" element={<AdminDashboard />} />
+                            <Route path="/expertrole" element={<ExpertDashboard />} />
+                            <Route path="/sliders/add" element={<SliderAdd />} />
+                            <Route path="/sliders/add" element={<SliderAdd />} />
+                            <Route path="/forgot-password" element={<ForgotPassword />} />
+                            <Route path="/subject" element={<Subject />} />
+                            <Route path="/account-list" element={<AccountList />} />
+                        </>
+                    )}
+                </Routes>
+            </div>
+            <Footer />
         </div>
-      </nav>
-
-      <div className="container mt-3 wrap">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/profile" element={<ChangePassword />} />
-          {isAuthenticated ? (
-            <>
-              <Route path="/sliders" element={<SliderList />} />
-
-              <Route path="/posts" element={<PostList />} />
-              <Route path="/posts/view/:postId" element={<PostDetail />} />
-              <Route path="/posts/edit/:postId" element={<PostEdit />} />
-
-              <Route path="/sliders/edit/*" element={<SliderDetail />} />
-
-              <Route
-                path="/sliders/edit/:sliderId"
-                element={<SliderDetail />}
-              />
-
-              <Route path="/marketingrole" element={<MarketingDashboard />} />
-              <Route path="/adminrole" element={<AdminDashboard />} />
-              <Route path="/expertrole" element={<ExpertDashboard />} />
-              
-              <Route path="/sliders/add" element={<SliderAdd />} />
-
-              <Route path="/sliders/add" element={<SliderAdd />} />
-            </>
-          ) : (
-            <>
-              <Route path="/customer" element={<Navigate to="/login" />} />
-              <Route path="/expert" element={<Navigate to="/login" />} />
-              <Route path="/admin" element={<Navigate to="/login" />} />
-            </>
-          )}
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-        </Routes>
-      </div>
-      <footer className="py-8 lg:pt-16 lg:pb-10 bg-[rgb(24,24,33)] px-4">
-        <div className="mx-auto ">
-          <section className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:justify-items-center">
-            <div>
-              <div className="flex items-center gap-3 mb-3">
-                <img
-                  className="h-10 w-10"
-                  src="https://scontent.fhan15-1.fna.fbcdn.net/v/t1.15752-9/352418349_278492141385603_6785204458197370940_n.png?_nc_cat=106&ccb=1-7&_nc_sid=ae9488&_nc_ohc=xVx3DAYE2coAX--M-WZ&_nc_ht=scontent.fhan15-1.fna&oh=03_AdTAVEvLC9XYryl9detjHO7bUmdvXXfs7rU1Qz7b4yt20A&oe=653A0373"
-                  alt=""
-                />
-                <h1 className="capitalize font-bold text-white">
-                  Thách thức bản thân, tăng cường kiến thức
-                </h1>
-              </div>
-              <h3 className="text-tuyn-gray mb-2 text-sm">
-                Điện thoại: 0246.329.1102
-              </h3>
-              <h3 className="text-tuyn-gray mb-2 text-sm">
-                Email: quangnvhe172037@fpt.edu.vn
-              </h3>
-              <h3 className="text-tuyn-gray mb-2 text-sm">
-                Địa chỉ: Khu Giáo dục và Đào tạo Khu Công nghệ cao Hòa Lạc Km29,
-                Đại lộ Thăng Long, Thạch Hoà, Thạch Thất, Hà Nội 13100
-              </h3>
-            </div>
-            <div>
-              <h1 className="capitalize font-bold text-white mb-3">
-                VỀ Quizzi
-              </h1>
-              <h3 className="text-tuyn-gray mb-2 text-sm">Giới thiệu</h3>
-              <h3 className="text-tuyn-gray mb-2 text-sm">Cơ hội việc làm</h3>
-              <h3 className="text-tuyn-gray mb-2 text-sm">Đối tác</h3>
-            </div>
-            <div>
-              <h1 className="capitalize font-bold text-white mb-3">HỖ TRỢ</h1>
-              <h3 className="text-tuyn-gray mb-2 text-sm">Liên hệ</h3>
-              <h3 className="text-tuyn-gray mb-2 text-sm">Bảo mật</h3>
-              <h3 className="text-tuyn-gray mb-2 text-sm">Điều khoản</h3>
-            </div>
-            <div>
-              <h1 className="capitalize font-bold text-white mb-3 a">
-                CÔNG TY CỔ PHẦN CÔNG NGHỆ GIÁO DỤC QUIZZI
-              </h1>
-              <h3 className="text-tuyn-gray mb-2 text-sm">
-                Mã số thuế: 0109922901
-              </h3>
-              <h3 className="text-tuyn-gray mb-2 text-sm">
-                Ngày thành lập: 04/03/2022
-              </h3>
-              <h3 className="text-tuyn-gray mb-2 text-sm">
-                Lĩnh vực: Công nghệ, giáo dục, lập trình. F8 xây dựng và phát
-                triển những sản phẩm mạng lại giá trị cho cộng đồng.
-              </h3>
-            </div>
-          </section>
-          <section className="flex mt-5">
-            <h3 className="text-tuyn-gray mb-2 text-sm">
-              © 2018 - 2022 Quizzi. All rights reserved.
-            </h3>
-          </section>
-        </div>
-      </footer>
-    </div>
-  );
+    );
 };
 
 export default App;

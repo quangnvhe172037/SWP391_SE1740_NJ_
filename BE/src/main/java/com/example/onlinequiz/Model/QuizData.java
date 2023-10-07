@@ -19,4 +19,7 @@ public class QuizData {
     @ManyToOne
     @JoinColumn(name = "quizid")
     private Quizzes quiz;
+
+    @Column(name = "lessonid")
+    private Long lessonid;
 }

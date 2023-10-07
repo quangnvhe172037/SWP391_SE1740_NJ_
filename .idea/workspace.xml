@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f42a8f0a-d40f-4bc9-b56d-aa67269e9f4b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Model/Users.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Model/Users.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Services/Impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Services/Impl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE/src/components/AccountList/AccountList.js" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/components/AccountList/AccountList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE/src/components/BoardAdmin/BoardAdmin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE/src/components/BoardCustomer/BoardCustomer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE/src/components/BoardExpert/BoardExpert.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE/src/components/BoardModerator/BoardModerator.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE/src/components/BoardUser/BoardUser.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE/src/components/ChangePassword/ChangePassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/components/ChangePassword/ChangePassword.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE/src/components/Footer/Footer.js" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/components/Footer/Footer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE/src/components/Profile/Profile.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE/src/pages/Profile/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/pages/Profile/Profile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SQL/CreateDatabaseMySQL.sql" beforeDir="false" afterPath="$PROJECT_DIR$/SQL/CreateDatabaseMySQL.sql" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="PackageJsonUpdateNotifier">
+    <dismissed value="$PROJECT_DIR$/package.json" />
+  </component>
+  <component name="ProjectId" id="2W0Yvm2mZRvsHbbmLB0GfiCf6v3" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Dell/Documents/GitHub/SWP391_SE1740_NJ_&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;b5eaf44aa14fe138aefb510c0abaf63e&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\IntelliJ IDEA 2022.3.3\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RunManager" selected="Spring Boot.OnlineQuizApplication">
+    <configuration name="generated-requests | #1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" requestIdentifier="#1" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="OnlineQuizApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="OnlineQuiz" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.onlinequiz.OnlineQuizApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="HTTP Request.generated-requests | #1" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f42a8f0a-d40f-4bc9-b56d-aa67269e9f4b" name="Changes" comment="" />
+      <created>1695871198083</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1695871198083</updated>
+      <workItem from="1695871199378" duration="1706000" />
+      <workItem from="1696291960296" duration="3418000" />
+      <workItem from="1696295734307" duration="2902000" />
+      <workItem from="1696302713879" duration="4063000" />
+      <workItem from="1696313211461" duration="7977000" />
+      <workItem from="1696323165794" duration="3783000" />
+      <workItem from="1696338034736" duration="5010000" />
+      <workItem from="1696346392299" duration="37000" />
+      <workItem from="1696347085149" duration="1133000" />
+      <workItem from="1696380997065" duration="18985000" />
+      <workItem from="1696417284092" duration="16000" />
+      <workItem from="1696417313626" duration="77000" />
+      <workItem from="1696417395543" duration="126000" />
+      <workItem from="1696417538569" duration="400000" />
+      <workItem from="1696424559738" duration="16740000" />
+      <workItem from="1696443987435" duration="938000" />
+      <workItem from="1696471895764" duration="1567000" />
+      <workItem from="1696505904228" duration="2159000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="dependencySupport" implementationName="java:org.springframework:spring-core" />
+    <option featureType="dependencySupport" implementationName="java:org.springframework.security:spring-security-core" />
+    <option featureType="dependencySupport" implementationName="javascript:npm:react" />
+    <option featureType="dependencySupport" implementationName="java:jakarta.validation:jakarta.validation-api" />
+    <option featureType="dependencySupport" implementationName="javascript:npm:tailwindcss" />
+    <option featureType="dependencySupport" implementationName="java:jakarta.persistence:jakarta.persistence-api" />
+    <option featureType="dependencySupport" implementationName="java:org.springframework.data:spring-data-commons" />
+    <option featureType="dependencySupport" implementationName="java:org.hibernate.validator:hibernate-validator" />
+    <option featureType="dependencySupport" implementationName="java:org.springframework.boot:spring-boot" />
+    <option featureType="dependencySupport" implementationName="java:org.springframework:spring-webmvc" />
+    <option featureType="dependencySupport" implementationName="java:org.projectlombok:lombok" />
+    <option featureType="dependencySupport" implementationName="javascript:npm:postcss" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

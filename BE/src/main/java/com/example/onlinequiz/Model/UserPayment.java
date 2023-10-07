@@ -17,8 +17,6 @@ public class UserPayment {
     @Id
     @Column(name = "billid")
     private Long billID;
-    @Column(name = "account")
-    private String account;
     @ManyToOne
     @JoinColumn(name = "preid")
     private SubjectPrice subjectPrice;
@@ -28,6 +26,9 @@ public class UserPayment {
 
     @Column(name = "notify", length = 256, columnDefinition = "VARCHAR(256) CHARACTER SET utf8mb4")
     private String notify;
+
+    @Column(name = "purchasedate")
+    private Date purchase_date;
 
     @ManyToOne
     @JoinColumn(name = "subjectid")
