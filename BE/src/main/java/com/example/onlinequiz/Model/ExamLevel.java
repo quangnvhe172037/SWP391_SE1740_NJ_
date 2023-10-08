@@ -19,5 +19,5 @@ public class ExamLevel {
     private int numQuest;
 
     @JoinColumn(name = "quizid")
-    private QuizExams quizExams;
+    private Quizzes quizzes;
 }

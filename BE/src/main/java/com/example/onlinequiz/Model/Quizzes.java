@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @Entity
 @AllArgsConstructor
@@ -28,4 +30,19 @@ public class Quizzes {
     @ManyToOne
     @JoinColumn(name = "subjectid")
     private Subjects subject;
+
+    private Long lessonid;
+
+    @ManyToOne
+    @JoinColumn(name = "quiztypeid")
+    private QuizTypes quizTypes;
+
+    @Column(name = "datecreate")
+    private Date dateCreate;
+
+    @Column(name = "durationtime")
+    private Date durationTime;
+
+    @Column(name = "passrate")
+    private int passRate;
 }
