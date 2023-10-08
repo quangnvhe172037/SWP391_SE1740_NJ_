@@ -69,6 +69,7 @@ CREATE TABLE IF NOT EXISTS `quizpractice`.`subject` (
   `status` BIT NULL DEFAULT NULL,
   `image` VARCHAR(256) NULL DEFAULT NULL,
   `description` VARCHAR(256) CHARACTER SET 'utf8mb4'  NULL DEFAULT NULL,
+  `createdate` DATETIME NOT NULL,
   PRIMARY KEY (`subjectid`),
   INDEX `cateid` (`cateid` ASC) VISIBLE,
   CONSTRAINT `subject_ibfk_1`
@@ -170,42 +171,19 @@ CREATE TABLE IF NOT EXISTS `quizpractice`.`post` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
 
-
--- -----------------------------------------------------
--- Table `quizpractice`.`quiz`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `quizpractice`.`quiz` (
-  `quizid` BIGINT NOT NULL AUTO_INCREMENT,
-  `quizname` VARCHAR(256) CHARACTER SET 'utf8mb4'  NULL DEFAULT NULL,
-  `status` BIT NULL DEFAULT NULL,
-  `description` VARCHAR(256) CHARACTER SET 'utf8mb4'  NULL DEFAULT NULL,
-  `subjectid` BIGINT NULL DEFAULT NULL,
-  PRIMARY KEY (`quizid`),
-  INDEX `lessonid` (`lessonid` ASC) VISIBLE,
-  CONSTRAINT `quiz_ibfk_1`
-   FOREIGN KEY (`subjectid`)
-    REFERENCES `quizpractice`.`subject` (`subjectid`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4;
-
-
-
 -- -----------------------------------------------------
 -- Table `quizpractice`.`quizdata`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `quizpractice`.`quizdata` (
   `sentenceid` BIGINT NOT NULL AUTO_INCREMENT,
-  `quizid` BIGINT NULL DEFAULT NULL,
-  `lessonid` BIGINT NULL,
+  `subjectid` BIGINT NOT NULL,
   PRIMARY KEY (`sentenceid`),
-  INDEX `quizid` (`quizid` ASC) VISIBLE,
-  CONSTRAINT `quizdata_ibfk_1`
-    FOREIGN KEY (`quizid`)
-    REFERENCES `quizpractice`.`quiz` (`quizid`))
+  INDEX `sentenceid` (`sentenceid` ASC) VISIBLE,
+    CONSTRAINT `quizdata_ibfk_1`
+    FOREIGN KEY (`subjectid`)
+    REFERENCES `quizpractice`.`subject` (`subjectid`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
-
-
 
 -- -----------------------------------------------------
 -- Table `quizpractice`.`quizanswer`
@@ -226,41 +204,6 @@ DEFAULT CHARACTER SET = utf8mb4;
 
 
 -- -----------------------------------------------------
--- Table `quizpractice`.`quizexam`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `quizpractice`.`quizexam` (
-  `quizid` BIGINT NOT NULL AUTO_INCREMENT,
-  `quizname` VARCHAR(256) CHARACTER SET 'utf8mb4'  NULL DEFAULT NULL,
-  `datecreate` DATETIME NULL DEFAULT NULL,
-  `durationtime` DATETIME NULL DEFAULT NULL,
-  `passrate` INT NULL DEFAULT NULL,
-  `subjectid` BIGINT NULL DEFAULT NULL,
-  PRIMARY KEY (`quizid`),
-  INDEX `subjectid` (`subjectid` ASC) VISIBLE,
-  CONSTRAINT `quizexam_ibfk_1`
-    FOREIGN KEY (`subjectid`)
-    REFERENCES `quizpractice`.`subject` (`subjectid`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4;
-
-
--- -----------------------------------------------------
--- Table `quizpractice`.`examlevel
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `quizpractice`.`examlevel` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `num_quest` VARCHAR(256) CHARACTER SET 'utf8mb4'  NULL DEFAULT NULL,
-  `quizid` BIGINT,
-  PRIMARY KEY (`id`),
-  CONSTRAINT `examlevel_ibfk_1`
-    FOREIGN KEY (`quizid`)
-    REFERENCES `quizpractice`.`quizexam` (`quizid`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4;
-
-
-
--- -----------------------------------------------------
 -- Table `quizpractice`.`quizquestion`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `quizpractice`.`quizquestion` (
@@ -272,6 +215,80 @@ CREATE TABLE IF NOT EXISTS `quizpractice`.`quizquestion` (
   CONSTRAINT `quizquestion_ibfk_1`
     FOREIGN KEY (`sentenceid`)
     REFERENCES `quizpractice`.`quizdata` (`sentenceid`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- -----------------------------------------------------
+-- Table `quizpractice`.`quiztype`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `quizpractice`.`quiztype` (
+  `quiztypeid` BIGINT NOT NULL AUTO_INCREMENT,
+  `quiztypename` VARCHAR(256) CHARACTER SET 'utf8mb4'  NULL DEFAULT NULL,
+  PRIMARY KEY (`quiztypeid`),
+  INDEX `quiztypeid` (`quiztypeid` ASC) VISIBLE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- -----------------------------------------------------
+-- Table `quizpractice`.`quiz`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `quizpractice`.`quiz` (
+  `quizid` BIGINT NOT NULL AUTO_INCREMENT,
+  `quizname` VARCHAR(256) CHARACTER SET 'utf8mb4'  NULL DEFAULT NULL,
+  `status` BIT NULL DEFAULT NULL,
+  `description` VARCHAR(256) CHARACTER SET 'utf8mb4'  NULL DEFAULT NULL,
+  `subjectid` BIGINT NULL DEFAULT NULL,
+  `lessonid` BIGINT NULL DEFAULT NULL,
+  `quiztypeid` BIGINT NOT NULL,
+  `datecreate` DATETIME NULL DEFAULT NULL,
+  `durationtime` DATETIME NULL DEFAULT NULL,
+  `passrate` INT NULL DEFAULT NULL,
+  PRIMARY KEY (`quizid`),
+  INDEX `lessonid` (`lessonid` ASC) VISIBLE,
+  CONSTRAINT `quiz_ibfk_1`
+   FOREIGN KEY (`subjectid`)
+    REFERENCES `quizpractice`.`subject` (`subjectid`),
+    CONSTRAINT `quiz_ibfk_2`
+   FOREIGN KEY (`quiztypeid`)
+    REFERENCES `quizpractice`.`quiztype` (`quiztypeid`),
+    CONSTRAINT `quiz_ibfk_3`
+   FOREIGN KEY (`lessonid`)
+    REFERENCES `quizpractice`.`lesson` (`lessonid`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+-- -----------------------------------------------------
+-- Table `quizpractice`.`quizdetail`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `quizpractice`.`quizdetail` (
+  `quizdetailid` BIGINT NOT NULL AUTO_INCREMENT,
+  `sentenceid` BIGINT NULL DEFAULT NULL,
+   `quizid` BIGINT NULL DEFAULT NULL,
+  PRIMARY KEY (`quizdetailid`),
+  INDEX `quizid` (`quizid` ASC) VISIBLE,
+  CONSTRAINT `quizdetail_ibfk_1`
+    FOREIGN KEY (`sentenceid`)
+    REFERENCES `quizpractice`.`quizdata` (`sentenceid`),
+    CONSTRAINT `quizdetail_ibfk_2`
+    FOREIGN KEY (`quizid`)
+    REFERENCES `quizpractice`.`quiz` (`quizid`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- -----------------------------------------------------
+-- Table `quizpractice`.`examlevel
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `quizpractice`.`examlevel` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `num_quest` INT,
+  `quizid` BIGINT,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `examlevel_ibfk_1`
+    FOREIGN KEY (`quizid`)
+    REFERENCES `quizpractice`.`quiz` (`quizid`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
 
@@ -295,7 +312,7 @@ CREATE TABLE IF NOT EXISTS `quizpractice`.`quizresult` (
     REFERENCES `quizpractice`.`users` (`usersid`),
   CONSTRAINT `quizresult_ibfk_2`
     FOREIGN KEY (`quizid`)
-    REFERENCES `quizpractice`.`quizexam` (`quizid`))
+    REFERENCES `quizpractice`.`quiz` (`quizid`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
 
@@ -353,6 +370,7 @@ DEFAULT CHARACTER SET = utf8mb4;
 CREATE TABLE IF NOT EXISTS `quizpractice`.`subjectjoin` (
   `subjectid` BIGINT NOT NULL ,
   `usersid` BIGINT NOT NULL,
+	`is_pass` BIT NULL DEFAULT NULL,
   PRIMARY KEY (`subjectid`, `usersid`),
   INDEX `usersid` (`usersid` ASC) VISIBLE,
   CONSTRAINT `subjectjoin_ibfk_1`
@@ -413,6 +431,7 @@ CREATE TABLE IF NOT EXISTS `quizpractice`.`userpayment` (
   `status` BIT NULL DEFAULT NULL,
   `notify` VARCHAR(256) CHARACTER SET 'utf8mb4'  NULL DEFAULT NULL,
   `subjectid` BIGINT NULL DEFAULT NULL,
+  `purchasedate` DATETIME NOT NULL,
   PRIMARY KEY (`billid`),
   INDEX `usersid` (`usersid` ASC) VISIBLE,
   INDEX `preid` (`preid` ASC) VISIBLE,

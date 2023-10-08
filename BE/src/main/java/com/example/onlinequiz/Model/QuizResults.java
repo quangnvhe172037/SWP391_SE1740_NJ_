@@ -30,7 +30,7 @@ public class QuizResults {
 
     @ManyToOne
     @JoinColumn(name = "quizid")
-    private QuizExams quizExam;
+    private Quizzes quizzes;
 
     @Column(name = "correctanswer")
     private int correctAnswer;

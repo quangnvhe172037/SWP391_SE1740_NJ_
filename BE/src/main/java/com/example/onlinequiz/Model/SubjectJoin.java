@@ -16,6 +16,8 @@ public class SubjectJoin {
     @EmbeddedId
     private SubjectJoinId id;
 
+    private boolean is_pass;
+
     @ManyToOne
     @MapsId("subjectid")
     @JoinColumn(name = "subjectid")
