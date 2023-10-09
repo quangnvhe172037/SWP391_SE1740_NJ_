@@ -5,21 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f42a8f0a-d40f-4bc9-b56d-aa67269e9f4b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_servlet_javax_servlet_api_4_0_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Config/VNPayConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Controller/CustomerController/PaymentController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Payload/Response/PaymentResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Payload/Response/TransactionResponse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Model/Users.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Model/Users.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Services/Impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Services/Impl/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/src/components/AccountList/AccountList.js" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/components/AccountList/AccountList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/src/components/BoardAdmin/BoardAdmin.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/src/components/BoardCustomer/BoardCustomer.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/src/components/BoardExpert/BoardExpert.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/src/components/BoardModerator/BoardModerator.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/src/components/BoardUser/BoardUser.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/src/components/ChangePassword/ChangePassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/components/ChangePassword/ChangePassword.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/src/components/Footer/Footer.js" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/components/Footer/Footer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/src/components/Profile/Profile.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/src/pages/Profile/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/pages/Profile/Profile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SQL/CreateDatabaseMySQL.sql" beforeDir="false" afterPath="$PROJECT_DIR$/SQL/CreateDatabaseMySQL.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BE/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Controller/CategorySubjectController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Controller/PublicController/CategorySubjectController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,26 +53,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Dell/Documents/GitHub/SWP391_SE1740_NJ_&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;b5eaf44aa14fe138aefb510c0abaf63e&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\IntelliJ IDEA 2022.3.3\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/Dell/Downloads/vnpay_jsp",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "spring.configuration.checksum": "b5eaf44aa14fe138aefb510c0abaf63e",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2022.3.3\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Spring Boot.OnlineQuizApplication">
     <configuration name="generated-requests | #1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" requestIdentifier="#1" runType="Run single request">
       <method v="2" />
@@ -121,6 +117,7 @@
       <workItem from="1696443987435" duration="938000" />
       <workItem from="1696471895764" duration="1567000" />
       <workItem from="1696505904228" duration="2159000" />
+      <workItem from="1696836451117" duration="4764000" />
     </task>
     <servers />
   </component>
