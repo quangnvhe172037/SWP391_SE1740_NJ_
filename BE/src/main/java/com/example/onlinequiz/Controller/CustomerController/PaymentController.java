@@ -28,9 +28,9 @@ public class PaymentController {
 
 
     @GetMapping("/create_payment")
-    public ResponseEntity<?> createPayment() throws UnsupportedEncodingException {
+    public ResponseEntity<?> createPayment(@RequestParam long price) throws UnsupportedEncodingException {
 
-        long amount = 1000000;
+        long amount = price * 100;
         String vnp_TxnRef = VNPayConfig.getRandomNumber(8);
         String vnp_TmnCode = VNPayConfig.vnp_TmnCode;
         Map<String, String> vnp_Params = new HashMap<>();
