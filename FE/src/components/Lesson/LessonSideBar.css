@@ -1,0 +1,56 @@
+.lesson-sidebar{
+    width  : 100%;
+    text-align: center;
+    padding: 0;
+    font-family:Udemy Sans',-apple-system,BlinkMacSystemFont,Roboto,'Segoe UI',Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol;
+}
+
+.lesson-sidebar-name{
+    padding: 16px;
+    height:56px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.lesson-topic-name{
+    width: 50%;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.lesson-topic-content{
+    padding: 16px 0px;
+    height: 72px;
+    background-color:#F7F9FA;
+    border-bottom: 1px solid #d1d7dc;
+
+}
+
+.lesson-topic-content:hover{
+    cursor: pointer;
+}
+
+.lesson-topic{
+    width: 100%;
+    background-color: #F7F9FA;
+     
+}
+
+.lesson-list{
+    background-color: #FFFFFF;
+    width: 100%;
+
+}
+
+.lesson-list-content{
+    height: auto;
+    width: 100%;
+    border-bottom: 1px solid #d1d7dc;
+}
+
+.lesson-content-detail{
+     padding: 16px 0px;
+    height: 72px;
+    border-bottom: 1px solid #d1d7dc;
+
+}

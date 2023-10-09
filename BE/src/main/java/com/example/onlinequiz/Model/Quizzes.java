@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Time;
 import java.util.Date;
 
 @Data
@@ -41,7 +42,7 @@ public class Quizzes {
     private Date dateCreate;
 
     @Column(name = "durationtime")
-    private Date durationTime;
+    private Time durationTime;
 
     @Column(name = "passrate")
     private int passRate;

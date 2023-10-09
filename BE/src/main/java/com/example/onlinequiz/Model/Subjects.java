@@ -33,7 +33,7 @@ public class Subjects {
     @Column(name = "image", length = 256)
     private String image;
 
-    @Column(name = "description", length = 256, columnDefinition = "VARCHAR(256) CHARACTER SET utf8mb4")
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
     @Column(name = "createdate")
