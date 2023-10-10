@@ -20,40 +20,9 @@ INSERT INTO `quizpractice`.`users`
 `is_enabled`,
 `role`)
 VALUES
-(1,
-"$2a$10$quS2hnY5Fglq29NNtu86OeUelo0hTyRElm3FyGaZZR9b/TCqT0Eg.",
-"admin",
-"admin_sub",
-"quanpdhe170415@fpt.edu.vn",
-0334745645,
-1,
-"2003-11-19",
-"",
-1,
-"ADMIN"),
-(2,
-"$2a$10$quS2hnY5Fglq29NNtu86OeUelo0hTyRElm3FyGaZZR9b/TCqT0Eg.",
-"marketing",
-"marketing_sub",
-"vquang191103@gmail.com",
-0334745645,
-1,
-"2003-11-19",
-"",
-1,
-"MARKETING"),
-(3,
-"$2a$10$quS2hnY5Fglq29NNtu86OeUelo0hTyRElm3FyGaZZR9b/TCqT0Eg.",
-"customer",
-"customer_sub",
-"quangnv1911@gmail.com",
-0334745645,
-1,
-"2003-11-19",
-"",
-1,
-"CUSTOMER")
-;
+(1, "$2a$10$quS2hnY5Fglq29NNtu86OeUelo0hTyRElm3FyGaZZR9b/TCqT0Eg.", "admin", "admin_sub", "quanpdhe170415@fpt.edu.vn",0334745645,1,"2003-11-19","",1,"ADMIN"),
+(2,"$2a$10$quS2hnY5Fglq29NNtu86OeUelo0hTyRElm3FyGaZZR9b/TCqT0Eg.","marketing","marketing_sub","vquang191103@gmail.com",0334745645,1,"2003-11-19","",1,"MARKETING"),
+(3,"$2a$10$quS2hnY5Fglq29NNtu86OeUelo0hTyRElm3FyGaZZR9b/TCqT0Eg.","customer","customer_sub","quangnv1911@gmail.com",0334745645,1,"2003-11-19","",1,"CUSTOMER");
 
 
 INSERT INTO `quizpractice`.`subjectcategory`
@@ -84,11 +53,12 @@ VALUES
 INSERT INTO `quizpractice`.`subjecttopic`
 (`topicid`,
 `topicname`,
-`subjectid`)
+`subjectid`,
+`order`)
 VALUES
-(1, "HTML Development", 4),
-(2, "Javascript Development", 4),
-(3, "Bootstrap Development", 4);
+(1, "HTML Development", 4, 1),
+(2, "Javascript Development", 4, 2),
+(3, "Bootstrap Development", 4, 3);
 
 
 INSERT INTO `quizpractice`.`lessontype`
@@ -106,17 +76,19 @@ INSERT INTO `quizpractice`.`lesson`
 `status`,
 `videolink`,
 `topicid`,
-`lessontypeid`)
+`lessontypeid`,
+`order`)
 VALUES
-(1, "Introduect to HTML", 1, "MDLn5-zSQQI", 1, 2);
+(1, "Introduect to HTML", 1, "salY_Sm6mv4?si=tcrUkJTunS_4oocG", 1, 2, 1);
 INSERT INTO `quizpractice`.`lesson`
 (`lessonid`,
 `lessonname`,
 `status`,
 `topicid`,
-`lessontypeid`)
+`lessontypeid`,
+`order`)
 VALUES
-(2, "Practice HTML", 1, 1, 1);
+(2, "Practice HTML", 1, 1, 1, 2);
 
 INSERT INTO `quizpractice`.`lesson`
 (`lessonid`,
@@ -124,9 +96,10 @@ INSERT INTO `quizpractice`.`lesson`
 `status`,
 `topicid`,
 `lessontypeid`,
-`lessoncontent`)
+`lessoncontent`,
+`order`)
 VALUES
-(3, "Note about HTML", 1, 1, 3, "Bạn cần hoàn thành bài trên");
+(3, "Note about HTML", 1, 1, 3, "Bạn cần hoàn thành bài trên",3);
 
 INSERT INTO `quizpractice`.`lesson`
 (`lessonid`,
@@ -134,9 +107,10 @@ INSERT INTO `quizpractice`.`lesson`
 `status`,
 `topicid`,
 `lessontypeid`,
-`lessoncontent`)
+`lessoncontent`,
+`order`)
 VALUES
-(4, "Introduect to CSS", 1, 2, 3, "Bạn cần làm bài này");
+(4, "Introduce to CSS", 1, 2, 3, "Bạn cần làm bài này", 4);
 
 INSERT INTO `quizpractice`.`lesson`
 (`lessonid`,
@@ -144,9 +118,10 @@ INSERT INTO `quizpractice`.`lesson`
 `status`,
 `topicid`,
 `lessontypeid`,
-`lessoncontent`)
+`lessoncontent`,
+`order`)
 VALUES
-(5, "Introduect to Boostrap", 1, 3, 3, "Bạn cần làm bài này");
+(5, "Introduce to Boostrap", 1, 3, 3, "Bạn cần làm bài này", 5);
 
 
 INSERT INTO `quizpractice`.`quiz`
@@ -162,7 +137,6 @@ INSERT INTO `quizpractice`.`quiz`
 `passrate`)
 VALUES
 (1, "Practice HTML", 1, "", 4, 2, 1, "2023-10-09", "01:00:00", 50);
-
 
 
 INSERT INTO `quizpractice`.`sliders`

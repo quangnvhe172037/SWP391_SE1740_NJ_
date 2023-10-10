@@ -24,13 +24,9 @@ public class SubjectTopicController {
     @GetMapping("/get/{subjectID}")
     @ResponseBody
     public ResponseEntity<List<SubjectTopics>> getSubjectTopics(@PathVariable Long subjectID) {
-        System.out.println("test");
         List<SubjectTopics> subjectTopic = subjectTopicService.getTopics(subjectID);
         try {
-
-
             if (subjectTopic != null) {
-
                 return ResponseEntity.ok(subjectTopic);
             } else {
                 return ResponseEntity.notFound().build();

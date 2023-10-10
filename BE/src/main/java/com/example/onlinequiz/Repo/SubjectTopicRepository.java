@@ -11,5 +11,5 @@ import java.util.Optional;
 
 @Repository
 public interface SubjectTopicRepository extends JpaRepository<SubjectTopics, Long> {
-    List<SubjectTopics> getAllBySubject(Subjects id);
+    List<SubjectTopics> getAllBySubjectOrderByOrder(Subjects id);
 }

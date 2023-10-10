@@ -19,6 +19,9 @@ public class SubjectTopics {
     @Column(name = "topicname", length = 256, columnDefinition = "VARCHAR(256) CHARACTER SET utf8mb4")
     private String topicName;
 
+    @Column(name = "order")
+    private Integer order;
+
     @ManyToOne
     @JoinColumn(name = "subjectid")
     private Subjects subject;
