@@ -58,21 +58,24 @@ public class RegistrationController {
     }
 
     // Xử lý các yêu cầu GET đến /register/verifyEmail
-    @GetMapping("/verifyEmail")
-    public String verifyEmail(@RequestParam("token") String token) {
+    @GetMapping("/verifyEmail/{token}")
+    public ResponseEntity<?> verifyEmail(@PathVariable String token) {
         VerificationToken theToken = tokenRepository.findByToken(token);
+        System.out.println(token);
         if (theToken.getUser().isEnabled()) {
-            return "This account has already been verified, please login";
+            return ResponseEntity.ok("This account has already been verified, please login");
         }
         String verificationResult = userService.validateaToken(token);
         if (verificationResult.equalsIgnoreCase("valid")) {
-            return "Email verified successfully. Now you can login to your account";
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("This account has already been verified, please login");
         }
-        return "Invalid verification token";
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid verification token");
     }
 
     // Phương thức để xây dựng URL ứng dụng dựa trên yêu cầu HTTP
     private String applicationUrl(HttpServletRequest httpServletRequest) {
-        return "http://" + httpServletRequest.getServerName() + ":" + httpServletRequest.getServerPort() + httpServletRequest.getContextPath();
+
+        return "http://" + httpServletRequest.getServerName() + ":8081" + httpServletRequest.getContextPath();
+
     }
 }

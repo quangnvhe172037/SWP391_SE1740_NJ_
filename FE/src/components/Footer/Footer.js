@@ -51,7 +51,7 @@ const Footer = () => {
                             Founded: 03/04/2022
                         </h3>
                         <h3 className="text-gray-500 mb-2 text-sm">
-                            Fields: Technology, Education, Programming. F8 builds and develops products that bring value to the community.
+                            Fields: Technology, Education, Programming. Quizzi builds and develops products that bring value to the community.
                         </h3>
                     </div>
                 </section>

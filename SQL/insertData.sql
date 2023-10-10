@@ -1,3 +1,10 @@
+INSERT INTO `quizpractice`.`quiztype`
+(`quiztypeid`,
+`quiztypename`)
+VALUES
+(1, "learning"),
+(2, "practice"),
+(3, "exam");
 
 
 INSERT INTO `quizpractice`.`users`
@@ -8,7 +15,7 @@ INSERT INTO `quizpractice`.`users`
 `email`,
 `mobile`,
 `gender`,
-`createdate`,
+`create_date`,
 `image`,
 `is_enabled`,
 `role`)
@@ -58,16 +65,105 @@ VALUES
 (3, "Design");
 
 
+
+
 INSERT INTO `quizpractice`.`subject`
 (`subjectid`,
 `subjectname`,
 `cateid`,
 `status`,
 `image`,
-`description`)
+`description`,
+`createdate`)
 VALUES
-(1, "SWP", 1, 1, "img/sliders/download (1).jpg", "Day la lop hoc swp"),
-(2, "FER", 1, 1, "img/sliders/download (2).jpg", "Day la lop hoc FER");
+(1, "SWP", 1, 1, "img/sliders/download (1).jpg", "Day la lop hoc swp", "2023-09-30"),
+(2, "FER", 1, 1, "img/sliders/download (2).jpg", "Day la lop hoc FER", "2023-09-29"),
+(3, "SWT", 1, 1, "img/sliders/download (2).jpg", "Day la lop hoc FER", "2023-09-28"),
+(4, "HTML, JavaScript, & Bootstrap ", 1, 1, "img/sliders/download (2).jpg", "", "2023-09-28");
+
+INSERT INTO `quizpractice`.`subjecttopic`
+(`topicid`,
+`topicname`,
+`subjectid`)
+VALUES
+(1, "HTML Development", 4),
+(2, "Javascript Development", 4),
+(3, "Bootstrap Development", 4);
+
+
+INSERT INTO `quizpractice`.`lessontype`
+(`lessontypeid`,
+`lessontypename`)
+VALUES
+(1, "quiz"),
+(2, "video"),
+(3, "content");
+
+
+INSERT INTO `quizpractice`.`lesson`
+(`lessonid`,
+`lessonname`,
+`status`,
+`videolink`,
+`topicid`,
+`lessontypeid`)
+VALUES
+(1, "Introduect to HTML", 1, "MDLn5-zSQQI", 1, 2);
+INSERT INTO `quizpractice`.`lesson`
+(`lessonid`,
+`lessonname`,
+`status`,
+`topicid`,
+`lessontypeid`)
+VALUES
+(2, "Practice HTML", 1, 1, 1);
+
+INSERT INTO `quizpractice`.`lesson`
+(`lessonid`,
+`lessonname`,
+`status`,
+`topicid`,
+`lessontypeid`,
+`lessoncontent`)
+VALUES
+(3, "Note about HTML", 1, 1, 3, "Bạn cần hoàn thành bài trên");
+
+INSERT INTO `quizpractice`.`lesson`
+(`lessonid`,
+`lessonname`,
+`status`,
+`topicid`,
+`lessontypeid`,
+`lessoncontent`)
+VALUES
+(4, "Introduect to CSS", 1, 2, 3, "Bạn cần làm bài này");
+
+INSERT INTO `quizpractice`.`lesson`
+(`lessonid`,
+`lessonname`,
+`status`,
+`topicid`,
+`lessontypeid`,
+`lessoncontent`)
+VALUES
+(5, "Introduect to Boostrap", 1, 3, 3, "Bạn cần làm bài này");
+
+
+INSERT INTO `quizpractice`.`quiz`
+(`quizid`,
+`quizname`,
+`status`,
+`description`,
+`subjectid`,
+`lessonid`,
+`quiztypeid`,
+`datecreate`,
+`durationtime`,
+`passrate`)
+VALUES
+(1, "Practice HTML", 1, "", 4, 2, 1, "2023-10-09", "01:00:00", 50);
+
+
 
 INSERT INTO `quizpractice`.`sliders`
 (`sliderid`,

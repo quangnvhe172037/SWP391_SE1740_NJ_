@@ -36,11 +36,15 @@ public class SecurityConfig {
             "/subjects/**",
             "/posts/**",
             "/categorysubject/**",
+            "/api/payment/**",
+            "/subjecttopic/get/**",
+            "/lesson/get/*"
+
 
     };
     // Danh sách các URL cho customer
     private static final String[] CUSTOMER_URL = {
-            "/api/test/customer",
+
     };
     // Danh sách các URL cho expert
     private static final String[] EXPERT_URL = {

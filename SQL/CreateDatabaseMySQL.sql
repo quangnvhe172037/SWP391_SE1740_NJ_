@@ -11,7 +11,7 @@
 -- -----------------------------------------------------
 -- Schema swp
 -- -----------------------------------------------------
-
+DROP SCHEMA quizpractice;
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `quizpractice` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `quizpractice`.`subject` (
   `cateid` INT NULL DEFAULT NULL,
   `status` BIT NULL DEFAULT NULL,
   `image` VARCHAR(256) NULL DEFAULT NULL,
-  `description` VARCHAR(256) CHARACTER SET 'utf8mb4'  NULL DEFAULT NULL,
+  `description` TEXT CHARACTER SET 'utf8mb4'  NULL DEFAULT NULL,
   `createdate` DATETIME NOT NULL,
   PRIMARY KEY (`subjectid`),
   INDEX `cateid` (`cateid` ASC) VISIBLE,
@@ -119,6 +119,7 @@ CREATE TABLE IF NOT EXISTS `quizpractice`.`lesson` (
   `videolink` VARCHAR(256) NULL DEFAULT NULL,
   `topicid` BIGINT NULL DEFAULT NULL,
   `lessontypeid` INT NULL DEFAULT NULL,
+  `lessoncontent` TEXT NULL DEFAULT NULL,
   PRIMARY KEY (`lessonid`),
   INDEX `topicid` (`topicid` ASC) VISIBLE,
   INDEX `lessontypeid` (`lessontypeid` ASC) VISIBLE,
@@ -243,10 +244,10 @@ CREATE TABLE IF NOT EXISTS `quizpractice`.`quiz` (
   `lessonid` BIGINT NULL DEFAULT NULL,
   `quiztypeid` BIGINT NOT NULL,
   `datecreate` DATETIME NULL DEFAULT NULL,
-  `durationtime` DATETIME NULL DEFAULT NULL,
+  `durationtime` TIME NULL DEFAULT NULL,
   `passrate` INT NULL DEFAULT NULL,
   PRIMARY KEY (`quizid`),
-  INDEX `lessonid` (`lessonid` ASC) VISIBLE,
+  INDEX `subjectid` (`subjectid` ASC) VISIBLE,
   CONSTRAINT `quiz_ibfk_1`
    FOREIGN KEY (`subjectid`)
     REFERENCES `quizpractice`.`subject` (`subjectid`),
@@ -296,7 +297,7 @@ DEFAULT CHARACTER SET = utf8mb4;
 
 -- -----------------------------------------------------
 -- Table `quizpractice`.`quizresult`
--- -----------------------------------------------------
+-- -------------------------------------examlevel----------------
 CREATE TABLE IF NOT EXISTS `quizpractice`.`quizresult` (
   `resultid` BIGINT NOT NULL AUTO_INCREMENT,
   `score` INT NULL DEFAULT NULL,
