@@ -69,7 +69,7 @@ const Registration = () => {
     return (
         <div className="container">
             <div className="row justify-content-center" >
-                <div className="col-md-6 offset-md-10" > {/* Sử dụng offset-md-3 để dịch chuyển khung đăng ký */}
+                <div className="col-md-4 offset-md-7" > {/* Sử dụng offset-md-3 để dịch chuyển khung đăng ký */}
                     <div className="card" style={{marginTop: "20px"}}>
                         <div className="card-body">
                             <h2 className="card-title">Register</h2>

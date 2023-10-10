@@ -29,6 +29,6 @@ public class LessonServiceImpl implements LessonService {
     public List<Lessons> getLessons(Long id) {
         Subjects s = subjectRepository.getSubjectsBySubjectID(id);
         List<SubjectTopics> st = subjectTopicRepository.getAllBySubject(s);
-        return lessonsRepository.findAllByTopicIn(st);
+        return lessonsRepository.findAllByTopicInAndStatusIsTrue(st);
     }
 }

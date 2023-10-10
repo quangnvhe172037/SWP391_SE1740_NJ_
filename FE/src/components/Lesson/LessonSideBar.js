@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./LessonSideBar.css";
-import { Link, useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
 import "font-awesome/css/font-awesome.min.css";
-import subjectopicApi from "../../api/subjecttopic";
 
 const LessonSidebar = () => {
   const [topics, setTopics] = useState([]);
@@ -151,18 +150,19 @@ const LessonSidebar = () => {
             )}
           </div>
 
-          {/* {topic.isOpen && (
+           {topic.isOpen && (
             <div className="lesson-list-content">
                       <ul className="lesson-list">
+                        
                           
-                {topic.lesson.map((lesson, index) => (
+                {/* {topic.lesson.map((lesson, index) => (
                   <li key={lesson.lessonId} className="lesson-content-detail">
                     <Link to={`/subject/{4}/lesson/${lessonId}`}>{lesson.lessonName}</Link>
                   </li>
-                ))}
+                ))} */}
               </ul>
             </div>
-          )} */}
+          )}
         </div>
       ))}
     </div>

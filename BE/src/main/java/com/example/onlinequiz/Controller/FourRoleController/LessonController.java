@@ -1,8 +1,6 @@
 package com.example.onlinequiz.Controller.FourRoleController;
 
 import com.example.onlinequiz.Model.Lessons;
-import com.example.onlinequiz.Model.Sliders;
-import com.example.onlinequiz.Payload.Response.ProfileResponse;
 import com.example.onlinequiz.Services.Impl.LessonServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

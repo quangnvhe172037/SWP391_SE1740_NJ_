@@ -74,6 +74,8 @@ public class RegistrationController {
 
     // Phương thức để xây dựng URL ứng dụng dựa trên yêu cầu HTTP
     private String applicationUrl(HttpServletRequest httpServletRequest) {
+
         return "http://" + httpServletRequest.getServerName() + ":8081" + httpServletRequest.getContextPath();
+
     }
 }

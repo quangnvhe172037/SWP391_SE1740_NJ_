@@ -13,5 +13,5 @@ import java.util.Optional;
 @Repository
 public interface LessonsRepository extends JpaRepository<Lessons, Long> {
     List<Lessons> findAllByTopic(SubjectTopics st);
-    List<Lessons> findAllByTopicInAAndStatusIsTrue(List<SubjectTopics> st);
+    List<Lessons> findAllByTopicInAndStatusIsTrue(List<SubjectTopics> st);
 }
