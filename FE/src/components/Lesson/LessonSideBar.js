@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import "./LessonSideBar.css";
 import { Link, useParams } from "react-router-dom";
 import "font-awesome/css/font-awesome.min.css";
-import LoadingOverlay from "react-loading-overlay";
+
 const LessonSidebar = () => {
   const [topics, setTopics] = useState([]);
   const [lessons, setLessons] = useState([]);
   const token = localStorage.getItem("token");
   const { subjectId, lessonId } = useParams();
-
+ const [loading, setLoading] = useState(true);
 
 
   useEffect(() => {
@@ -140,8 +140,8 @@ const LessonSidebar = () => {
   };
 
   return (
-    
     <div className="lesson-sidebar col-md-3">
+      
       <div className="lesson-sidebar-name">
         <span>Subject content</span>
       </div>
@@ -170,13 +170,13 @@ const LessonSidebar = () => {
                   .filter((lesson) => lesson.topicID === topic.topicID)
                   .map((lesson) => (
                     <li key={lesson.lessonId} className="lesson-content-detail">
-                      <Link to={`/subject/${subjectId}/lesson/${lesson.lessonId}`}>
+                      <Link
+                        to={`/subject/${subjectId}/lesson/${lesson.lessonId}`}
+                      >
                         {lesson.lessonName}
                       </Link>
                     </li>
                   ))}
-
-
               </ul>
             </div>
           )}
