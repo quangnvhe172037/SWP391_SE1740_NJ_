@@ -29,6 +29,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import Subject from "./components/Subject/Subject";
 import AccountList from "./components/AccountList/AccountList";
+import VerifyEmail from "./components/VerifyEmail/VerifyEmail";
 
 const App = () => {
     const [currentUser, setCurrentUser] = useState(undefined);
@@ -211,11 +212,12 @@ const App = () => {
                             <Route path="/expertrole" element={<ExpertDashboard />} />
                             <Route path="/sliders/add" element={<SliderAdd />} />
                             <Route path="/sliders/add" element={<SliderAdd />} />
-                            <Route path="/forgot-password" element={<ForgotPassword />} />
                             <Route path="/subject" element={<Subject />} />
                             <Route path="/account-list" element={<AccountList />} />
                         </>
                     )}
+                    <Route path="/register/verifyEmail" element={<VerifyEmail />} />
+                    <Route path="/forgot-password" element={<ForgotPassword />} />
                 </Routes>
             </div>
             <Footer />
