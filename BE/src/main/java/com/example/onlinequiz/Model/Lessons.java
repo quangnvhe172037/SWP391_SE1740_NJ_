@@ -23,16 +23,20 @@ public class Lessons {
     private boolean status;
 
     @Column(name = "order")
-    private int order;
+    private Integer order;
 
     @Column(name = "videolink", length = 256)
     private String videoLink;
+
+
+    @Column(name = "lessoncontent")
+    private String lessonContent;
 
     @ManyToOne
     @JoinColumn(name = "topicid")
     private SubjectTopics topic;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "lessontypeid")
     private LessonType lessonType;
 }
