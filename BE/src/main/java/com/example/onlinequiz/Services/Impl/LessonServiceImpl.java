@@ -28,7 +28,15 @@ public class LessonServiceImpl implements LessonService {
     @Override
     public List<Lessons> getLessons(Long id) {
         Subjects s = subjectRepository.getSubjectsBySubjectID(id);
-        List<SubjectTopics> st = subjectTopicRepository.getAllBySubject(s);
+        List<SubjectTopics> st = subjectTopicRepository.getAllBySubjectOrderByOrder(s);
         return lessonsRepository.findAllByTopicInAndStatusIsTrue(st);
     }
+
+    @Override
+    public Lessons getLessonData(Long id) {
+
+        return lessonsRepository.getLessonsByLessonIDOrderByOrder(id);
+    }
+
+
 }

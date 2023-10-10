@@ -26,6 +26,6 @@ public class SubjectTopicServiceImp implements SubjectTopicService {
     public List<SubjectTopics> getTopics(Long id) {
         Subjects s = subjectRepository.getSubjectsBySubjectID(id);
 
-        return subjectTopicRepository.getAllBySubject(s);
+        return subjectTopicRepository.getAllBySubjectOrderByOrder(s);
     }
 }

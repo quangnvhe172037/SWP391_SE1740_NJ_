@@ -33,6 +33,7 @@ import AccountList from "./components/AccountList/AccountList";
 import VerifyEmail from "./components/VerifyEmail/VerifyEmail";
 
 import Lesson from "./pages/Lesson/Lesson";
+import LessonDetail from "./pages/LessonDetail/LessonDetail";
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -236,9 +237,10 @@ const App = () => {
                 path="/subject/:subjectId/lesson/:lessonId"
                 element={<Lesson />}
               />
+              
             </>
           )}
-          <Route path="/subject" element={<Subject />} />
+          <Route path="/expert/subject/:subjectId/manage" element={ <LessonDetail/>} />
 
           <Route path="/register/verifyEmail" element={<VerifyEmail />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />

@@ -11,7 +11,7 @@
 -- -----------------------------------------------------
 -- Schema swp
 -- -----------------------------------------------------
-DROP SCHEMA quizpractice;
+ DROP SCHEMA quizpractice;
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `quizpractice` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -85,6 +85,7 @@ DEFAULT CHARACTER SET = utf8mb4;
 CREATE TABLE IF NOT EXISTS `quizpractice`.`subjecttopic` (
   `topicid` BIGINT NOT NULL AUTO_INCREMENT,
   `topicname` VARCHAR(256) CHARACTER SET 'utf8mb4'  NULL DEFAULT NULL,
+  `order` INT NULL DEFAULT NULL,
   `subjectid` BIGINT NULL DEFAULT NULL,
   PRIMARY KEY (`topicid`),
   INDEX `subjectid` (`subjectid` ASC) VISIBLE,

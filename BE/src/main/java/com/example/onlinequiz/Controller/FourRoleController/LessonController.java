@@ -35,4 +35,19 @@ public class LessonController {
         }
 
     }
+
+    @GetMapping("/get/data/{lessonId}")
+    public ResponseEntity<Lessons> getLesson(@PathVariable Long lessonId) {
+        Lessons l = lessonService.getLessonData(lessonId);
+        try {
+            if (l != null) {
+
+                return ResponseEntity.ok(l);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }

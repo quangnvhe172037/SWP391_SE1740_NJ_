@@ -1,0 +1,26 @@
+.lesson-detail-container {
+  border: 1px solid black;
+  max-width: 100%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.16);
+}
+
+.lesson-detail-header {
+  color: #2d2f31;
+  border-bottom: 1px solid #d1d7dc;
+  height: 96px;
+  padding: 24px;
+  font-weight: 700;
+  font-size: 1.8rem;
+  line-height: 1.35;
+  font-family: Georgia;
+  text-align: center;
+}
+
+.lesson-detail-section{
+    background-color: #D1D7DC;
+    margin: 20px;
+}
+
+.lesson-detail-header-name{
+    font-weight: 700;
+}

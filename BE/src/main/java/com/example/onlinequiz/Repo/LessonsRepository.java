@@ -14,4 +14,7 @@ import java.util.Optional;
 public interface LessonsRepository extends JpaRepository<Lessons, Long> {
     List<Lessons> findAllByTopic(SubjectTopics st);
     List<Lessons> findAllByTopicInAndStatusIsTrue(List<SubjectTopics> st);
+
+    Lessons getLessonsByLessonIDOrderByOrder(Long id);
+
 }

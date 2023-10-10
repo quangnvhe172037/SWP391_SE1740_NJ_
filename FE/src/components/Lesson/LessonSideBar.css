@@ -1,64 +1,89 @@
-.lesson-sidebar{
-    width  : 100%;
-    text-align: center;
-    padding: 0;
-    font-family:Udemy Sans',-apple-system,BlinkMacSystemFont,Roboto,'Segoe UI',Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol;
+.lesson-sidebar {
+  width: 100%;
+
+  padding: 0;
+  font-family: Udemy Sans ",-apple-system,BlinkMacSystemFont,Roboto," Segoe UI
+    ",Helvetica,Arial,sans-serif," Apple Color Emoji "," Segoe UI Emoji ","
+    Segoe UI Symbol;
 }
 
-.lesson-sidebar-name{
-    padding: 16px;
-    height:56px;
-    font-weight: 700;
-    line-height: 1.2;
+.lesson-sidebar-left {
+  float: left;
+}
+
+.lesson-sidebar-right {
+  float: right;
+}
+
+.lesson-sidebar-name {
+  padding: 16px;
+  height: 56px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.lesson-topic-name {
+  width: 50%;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.lesson-sidebar-topic {
+  
+}
+
+.lesson-topic-content {
+  padding: 16px 16px 16px 16px;
+  height: 72px;
+  background-color: #f7f9fa;
+  border-bottom: 1px solid #d1d7dc;
+}
+
+.lesson-topic-content:hover {
+  cursor: pointer;
+}
+
+.lesson-topic {
+  width: 100%;
+  background-color: #f7f9fa;
 }
 
 .lesson-topic-name{
-    width: 50%;
-    font-weight: 700;
-    line-height: 1.2;
+    width: 70%;
 }
 
-.lesson-topic-content{
-    padding: 16px 0px;
-    height: 72px;
-    background-color:#F7F9FA;
-    border-bottom: 1px solid #d1d7dc;
-
+.lesson-list {
+  background-color: #ffffff;
+  width: 100%;
 }
 
-.lesson-topic-content:hover{
-    cursor: pointer;
+.lesson-list-content {
+  height: auto;
+  width: 100%;
+  border-bottom: 1px solid #d1d7dc;
 }
 
-.lesson-topic{
-    width: 100%;
-    background-color: #F7F9FA;
-     
+.lesson-content-detail {
+  padding: 16px 0px;
+  height: 72px;
+  border-bottom: 1px solid #d1d7dc;
+  text-decoration: none;
+  text-align: center;
 }
 
-.lesson-list{
-    background-color: #FFFFFF;
-    width: 100%;
-
+.lesson-content-detail:hover {
+  background-color: #d1d7dc;
+  cursor: pointer;
+  color: black;
 }
 
-.lesson-list-content{
-    height: auto;
-    width: 100%;
-    border-bottom: 1px solid #d1d7dc;
+.lesson-content-detail a:hover {
+  background-color: #d1d7dc;
+  cursor: pointer;
+  color: black;
+  text-decoration: none;
 }
 
-.lesson-content-detail{
-     padding: 16px 0px;
-    height: 72px;
-    border-bottom: 1px solid #d1d7dc;
-
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
 
 .loader {
   border: 4px solid rgba(255, 255, 255, 0.3);
@@ -67,4 +92,10 @@
   width: 40px;
   height: 40px;
   animation: spin 1s linear infinite;
+}
+
+/* CSS */
+.active-lesson {
+  background-color: #d1d7dc; /* Màu sắc của bài học hiện tại */
+  font-weight: bold; /* Các thuộc tính CSS khác */
 }
