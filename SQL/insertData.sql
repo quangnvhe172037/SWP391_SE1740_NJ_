@@ -138,6 +138,44 @@ INSERT INTO `quizpractice`.`quiz`
 VALUES
 (1, "Practice HTML", 1, "", 4, 2, 1, "2023-10-09", "01:00:00", 50);
 
+INSERT INTO `quizpractice`.`quizdata`
+(`sentenceid`,
+`subjectid`)
+VALUES
+(1, 4),
+(2, 4),
+(3, 4),
+(4, 4);
+
+INSERT INTO `quizpractice`.`quizanswer`
+(`answerid`,
+`answerdata`,
+`sentenceid`,
+`istrueanswer`)
+VALUES
+( 1, "Câu trả lời 1", 1, 1),
+( 2, "Câu trả lời 2", 1, 0),
+( 3, "Câu trả lời 3", 1, 0),
+( 4, "Câu trả lời 4", 1, 0);
+
+INSERT INTO `quizpractice`.`quizquestion`
+(`questionid`,
+`questiondata`,
+`sentenceid`)
+VALUES
+(1, "Câu hỏi 1", 1);
+
+
+
+
+INSERT INTO `quizpractice`.`quizdetail`
+(`quizdetailid`,
+`sentenceid`,
+`quizid`)
+VALUES
+(1, 1, 1);
+
+
 
 INSERT INTO `quizpractice`.`sliders`
 (`sliderid`,

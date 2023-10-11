@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import styles from "./App.module.css";
 import jwtDecode from "jwt-decode";
-
+import 'react-quill/dist/quill.snow.css';
 import authapi from "./api/authapi";
 import Login from "./pages/Login/Login";
 import Home from "./components/Home/Home";
@@ -34,6 +34,7 @@ import VerifyEmail from "./components/VerifyEmail/VerifyEmail";
 
 import Lesson from "./pages/Lesson/Lesson";
 import LessonDetail from "./pages/LessonDetail/LessonDetail";
+import CreatePost from "./pages/Posts/CreatePost/CreatePost";
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -226,10 +227,12 @@ const App = () => {
                 path="/sliders/edit/:sliderId"
                 element={<SliderDetail />}
               />
-              <Route path="/marketingrole" element={<MarketingDashboard />} />
-              <Route path="/adminrole" element={<AdminDashboard />} />
-              <Route path="/expertrole" element={<ExpertDashboard />} />
-              <Route path="/sliders/add" element={<SliderAdd />} />
+              <Route
+                path="/marketing/dashboard"
+                element={<MarketingDashboard />}
+              />
+              <Route path="/admin/dashboard" element={<AdminDashboard />} />
+              <Route path="/expert/dashboard" element={<ExpertDashboard />} />
               <Route path="/sliders/add" element={<SliderAdd />} />
               <Route path="/subject" element={<Subject />} />
               <Route path="/account-list" element={<AccountList />} />
@@ -237,10 +240,16 @@ const App = () => {
                 path="/subject/:subjectId/lesson/:lessonId"
                 element={<Lesson />}
               />
-              
+              <Route
+                path="/marketing/post/create"
+                element={<CreatePost/>}
+              />
             </>
           )}
-          <Route path="/expert/subject/:subjectId/manage" element={ <LessonDetail/>} />
+          <Route
+            path="/expert/subject/:subjectId/manage"
+            element={<LessonDetail />}
+          />
 
           <Route path="/register/verifyEmail" element={<VerifyEmail />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />

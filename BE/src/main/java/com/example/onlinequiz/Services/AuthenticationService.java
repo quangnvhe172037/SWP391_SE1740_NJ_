@@ -5,4 +5,8 @@ import com.example.onlinequiz.Payload.Request.LoginRequest;
 
 public interface AuthenticationService {
     public AuthenticationResponse authenticate(LoginRequest request);
+
+    interface PostCateService {
+
+    }
 }

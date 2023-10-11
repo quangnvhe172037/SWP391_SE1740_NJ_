@@ -1,0 +1,11 @@
+.create-post-header-container{
+    margin: 10px 0;
+}
+
+.create-post-title{
+    width: 100%;
+    outline: none;
+    padding: 10px;
+    font-size:36px;
+    fon-weight:bolder;
+}

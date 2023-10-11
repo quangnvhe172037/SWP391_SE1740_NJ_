@@ -1,0 +1,10 @@
+
+.create-post-container{
+    margin: 10px 10px 52px 10px;
+
+}
+
+.creat-post-quill .ql-container{
+    overflow: scroll;
+    height:500px;
+}

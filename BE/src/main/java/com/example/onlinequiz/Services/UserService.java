@@ -27,4 +27,6 @@ public interface UserService {
     List<AccountResponse> getAllAccounts();
 
     Users updateAccount(String email, String editedRole, boolean editedEnabled);
+
+    Users getUserByEmail(String email);
 }

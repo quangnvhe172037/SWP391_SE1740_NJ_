@@ -157,5 +157,10 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException("Account not found");
         }
     }
+
+    @Override
+    public Users getUserByEmail(String email) {
+        return userRepository.getByEmail(email);
+    }
 }
 

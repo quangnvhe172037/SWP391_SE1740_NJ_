@@ -50,11 +50,20 @@ public class RegistrationCompleteEventListener implements ApplicationListener<Re
     public void sendVerificationEmail(String url) throws MessagingException, UnsupportedEncodingException {
         String subject = "[Notification] - Quizzi's Email active";
         String senderName = "Quizzi Support";
-        String mailContent = "<p> Hi, "+ theUser.getFirstName() + ", </p>" +
+        String mailContent = /*"<p> Hi, "+ theUser.getFirstName() + ", </p>" +
                 "<p>Thank you for registering with us,"  +
                 "Please, follow the link below to complete your registration.</p>" +
                 "<a href=\"" + url + "\">Verify your email to activate your account</a>" +
-                "<p> Thank you <br> Quizzi";
+                "<p> Thank you <br> Quizzi"+
+*/
+                "<p> Hi, "+ theUser.getFirstName() + ", </p>" +
+                "<p>We are delighted to inform you that your account has been successfully created on our website. To complete the registration process and secure your account, please click on the link below to confirm your email address:</p>" +
+                "<a href=\"" + url + "\">Verify your email to activate your account</a>" +
+                "<p>If you do not remember registering for an account or did not initiate this action, you may disregard this email.</p>" +
+                "<p>Thank you for joining us. If you have any questions or need further assistance, please do not hesitate to contact us at [support email or support phone number].</p>" +
+                "Sincerely,<br>"+
+                "<p>Quizzi</p>"
+                ;
         MimeMessage message = mailSender.createMimeMessage();
         var messageHelper = new MimeMessageHelper(message);
         messageHelper.setFrom("quanpdhe170415@fpt.edu.vn", senderName);

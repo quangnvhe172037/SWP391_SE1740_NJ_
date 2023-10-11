@@ -39,7 +39,10 @@ public class SecurityConfig {
             "/api/payment/**",
             "/subjecttopic/get/**",
             "/lesson/get/*",
-            "/lesson/get/data/*"
+            "/lesson/get/data/*",
+            "/quiz/get/lesson/*",
+            "/quizdata/get/quiz/*",
+            "/marketing/post/add"
 
 
     };

@@ -1,6 +1,5 @@
 package com.example.onlinequiz.Controller.FourRoleController;
 
-import com.example.onlinequiz.Model.Lessons;
 import com.example.onlinequiz.Model.Quizzes;
 import com.example.onlinequiz.Services.Impl.QuizServiceImpl;
 import lombok.AllArgsConstructor;
@@ -18,6 +17,8 @@ public class QuizController {
     @Autowired
     private final QuizServiceImpl quizService;
 
+
+    // Lấy bài quiz của lesson bằng cách dùng lessonId
     @GetMapping("/get/lesson/{lessonId}")
     public ResponseEntity<Quizzes> getLesson(
             @PathVariable Long lessonId
@@ -34,4 +35,6 @@ public class QuizController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+
 }

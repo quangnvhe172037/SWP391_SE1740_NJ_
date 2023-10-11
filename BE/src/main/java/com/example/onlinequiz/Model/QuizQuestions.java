@@ -19,7 +19,7 @@ public class QuizQuestions {
     @Column(name = "questiondata", length = 256, columnDefinition = "VARCHAR(256) CHARACTER SET utf8mb4")
     private String questionData;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "sentenceid")
     private QuizData quizData;
 }
