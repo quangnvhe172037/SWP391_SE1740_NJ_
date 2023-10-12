@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 
 const AdminDashboard = () => {
     return (
-        <div className="containers mt-5">
+        <div className="admin-container mt-5">
             <div className="row justify-content-center">
                 <div className="col-md-4 col-md-7">
                     <div className="card">

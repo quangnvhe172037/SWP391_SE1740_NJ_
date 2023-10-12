@@ -68,7 +68,7 @@ const Profile = () => {
     };
 
     return (
-        <div className="containers mt-5">
+        <div className="profile-container mt-5">
             <div className="row">
                 <div className="col-md-4">
                     <img src="https://th.bing.com/th/id/OIP.yP3kk77LcFKDSG9UeLzrmwHaLE?w=133&h=199&c=7&r=0&o=5&dpr=1.5&pid=1.7"
