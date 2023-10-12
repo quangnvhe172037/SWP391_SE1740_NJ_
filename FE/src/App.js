@@ -128,7 +128,7 @@ const App = () => {
               {userRole === "ADMIN" && (
                 <li className="nav-item">
                   <Link
-                    to={"/adminrole"}
+                    to={"/admin/dashboard"}
                     className="nav-link"
                     style={{ color: "black" }}
                   >
@@ -213,11 +213,9 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/change-password" element={<ChangePassword />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/account-list" element={<AccountList />} />
           {isAuthenticated && (
             <>
-              <Route path="/customer" element={<Navigate to="/login" />} />
-              <Route path="/expert" element={<Navigate to="/login" />} />
-              <Route path="/admin" element={<Navigate to="/login" />} />
               <Route path="/sliders" element={<SliderList />} />
               <Route path="/posts" element={<PostList />} />
               <Route path="/posts/view/:postId" element={<PostDetail />} />
@@ -235,7 +233,6 @@ const App = () => {
               <Route path="/expert/dashboard" element={<ExpertDashboard />} />
               <Route path="/sliders/add" element={<SliderAdd />} />
               <Route path="/subject" element={<Subject />} />
-              <Route path="/account-list" element={<AccountList />} />
               <Route
                 path="/subject/:subjectId/lesson/:lessonId"
                 element={<Lesson />}
@@ -251,7 +248,7 @@ const App = () => {
             element={<LessonDetail />}
           />
 
-          <Route path="/register/verifyEmail" element={<VerifyEmail />} />
+          <Route path="/register/verifyEmail/" element={<VerifyEmail />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
         </Routes>
       </div>

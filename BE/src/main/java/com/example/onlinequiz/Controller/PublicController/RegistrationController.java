@@ -15,8 +15,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 @CrossOrigin("*") // Cho phép CORS từ mọi nguồn
 @RestController // Đánh dấu đây là một Controller
@@ -47,6 +52,7 @@ public class RegistrationController {
             // Gửi sự kiện đăng ký hoàn thành
             publisher.publishEvent(new RegistrationCompleteEvent(user, applicationUrl(httpServletRequest)));
 
+
             response.put("success", true);
             response.put("message", "Register success! Please check your email for registration");
             return ResponseEntity.ok(response);
@@ -61,13 +67,12 @@ public class RegistrationController {
     @GetMapping("/verifyEmail/{token}")
     public ResponseEntity<?> verifyEmail(@PathVariable String token) {
         VerificationToken theToken = tokenRepository.findByToken(token);
-        System.out.println(token);
         if (theToken.getUser().isEnabled()) {
             return ResponseEntity.ok("This account has already been verified, please login");
         }
         String verificationResult = userService.validateaToken(token);
         if (verificationResult.equalsIgnoreCase("valid")) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("This account has already been verified, please login");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("This account has been verified, please login");
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid verification token");
     }

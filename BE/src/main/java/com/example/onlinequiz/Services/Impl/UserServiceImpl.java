@@ -70,14 +70,18 @@ public class UserServiceImpl implements UserService {
             return "Invalid verification token"; // Nếu không tìm thấy, trả về thông báo lỗi
         }
         Users user = token.getUser();
-        Calendar calendar = Calendar.getInstance();
-        if (token.getTokenExpirationTime().getTime() - calendar.getTime().getTime() <= 0) {
+        TimeZone utc = TimeZone.getTimeZone("UTC+7");
+        Calendar calendar = Calendar.getInstance(utc);
+        long datetime = calendar.getTime().getTime()  -  token.getExpirationTime().getTime() ;
+        if (datetime > 0) {
             tokenRepository.delete(token); // Xóa VerificationToken nếu đã hết hạn
+            userRepository.delete(user);
             return "Token already expired"; // Trả về thông báo lỗi nếu mã xác thực đã hết hạn
+        } else {
+            user.setEnabled(true); // Kích hoạt tài khoản người dùng
+            userRepository.save(user); // Lưu thông tin người dùng đã kích hoạt
+            return "valid"; // Trả về "valid" nếu mã xác thực hợp lệ và tài khoản đã được kích hoạt
         }
-        user.setEnabled(true); // Kích hoạt tài khoản người dùng
-        userRepository.save(user); // Lưu thông tin người dùng đã kích hoạt
-        return "valid"; // Trả về "valid" nếu mã xác thực hợp lệ và tài khoản đã được kích hoạt
     }
 
     @Override

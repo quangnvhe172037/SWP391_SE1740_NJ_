@@ -18,7 +18,7 @@ public class EmailServiceImpl implements EmailService {
         SimpleMailMessage message = new SimpleMailMessage();
 
         // Đặt người gửi
-        message.setFrom("quanpdhe170415@fpt.edu.vn");
+        message.setFrom("Quizzi's Support <quanpdhe170415@fpt.edu.vn>");
 
         // Đặt người nhận
         message.setTo(to);

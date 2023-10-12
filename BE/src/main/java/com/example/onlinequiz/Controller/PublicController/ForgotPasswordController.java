@@ -47,7 +47,7 @@ public class ForgotPasswordController {
             userRepository.save(users);
 
             // Gửi email chứa mật khẩu mới đến người dùng
-            String subject = "New Password For Quizzi";
+            String subject = "[Notification] - New Password For Quizzi";
             String message = "Hi, " + email +
                     ". Here is your new password, please DO NOT SHARE to anyone. New password is: " + newPassword +
                     ". Please login to change password.";
@@ -62,7 +62,7 @@ public class ForgotPasswordController {
 
     private String generateRandomPassword() {
         // Tạo một mật khẩu ngẫu nhiên, ví dụ: 10 ký tự bất kỳ
-        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        String characters = "AABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+[]{}|;:,.<>?";
         StringBuilder newPassword = new StringBuilder();
         Random random = new Random();
 
