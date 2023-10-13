@@ -185,7 +185,7 @@ public class SliderController {
 
         try {
             Sliders sliderChange = new Sliders();
-
+            System.out.println(sliderChange.getSliderID());
             if (sliderChange != null) {
 
                 // Cập nhật dữ liệu của slider từ updatedSliderData

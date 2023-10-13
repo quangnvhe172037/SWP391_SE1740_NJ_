@@ -89,7 +89,8 @@ public class PostServiceImpl implements PostService {
         String imageUrl = "";
         try {
             // Tạo đường dẫn đến thư mục lưu trữ tệp ảnh
-            String fileName = "image sliders " +String.valueOf(id) +"."+ FilenameUtils.getExtension(file.getOriginalFilename());
+            String fileName = "image post " +String.valueOf(id) +"."+ FilenameUtils.getExtension(file.getOriginalFilename());
+            System.out.println(id);
             Path targetPath = Paths.get(uploadDir + "/Posts", fileName);
 
             // Lưu tệp ảnh vào thư mục lưu trữ

@@ -56,15 +56,15 @@ const Login = () => {
                     const user = jwtDecode(token);
                     switch (user.role) {
                       case "ADMIN":
-                        navigate("/adminrole");
+                        navigate("/admin/dashboard");
                         window.location.reload();
                         break;
                       case "EXPERT":
-                        navigate("/expertrole");
+                        navigate("/expert/dashboard");
                         window.location.reload();
                         break;
                       case "MARKETING":
-                        navigate("/marketingrole");
+                        navigate("/marketing/dashboard");
                         window.location.reload();
                         break;
                       default:

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import "./Slider.css"
+import "./Slider.css";
 import jwtDecode from "jwt-decode";
 
 const SliderList = () => {
@@ -9,7 +9,7 @@ const SliderList = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const token = localStorage.getItem("token");
-  
+
   // Xử lí api
   const api = "http://localhost:8080/sliders/list";
 
@@ -98,9 +98,9 @@ const SliderList = () => {
     fetch(`http://localhost:8080/sliders/${sliderId}`, {
       method: "PUT",
       headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-        },
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
       body: JSON.stringify({ status: updateStatus }),
     })
       .then((response) => {
@@ -173,58 +173,76 @@ const SliderList = () => {
       <table className="table table-striped">
         <thead>
           <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Title</th>
-            <th scope="col">Image</th>
-            <th scope="col">Subject Name</th>
-            <th scope="col">Status</th>
-            <th scope="col">Note</th>
-            <th scope="col">Actions</th>
+            <th scope="col" className="slider-table-header">
+              ID
+            </th>
+            <th scope="col" className="slider-table-header">
+              Title
+            </th>
+            <th scope="col" className="slider-table-header">
+              Image
+            </th>
+            <th scope="col" className="slider-table-header">
+              Subject Name
+            </th>
+            <th scope="col" className="slider-table-header">
+              Status
+            </th>
+            <th scope="col" className="slider-table-header">
+              Note
+            </th>
+            <th scope="col" className="slider-table-header">
+              Actions
+            </th>
           </tr>
         </thead>
         <tbody>
           {filteredSliders.map((slider) => (
             <tr key={slider.sliderID} scope="row">
-              <td>{slider.sliderID}</td>
-              <td>{slider.title}</td>
+              <td className="slider-table-data">{slider.sliderID}</td>
+              <td className="slider-table-data">{slider.title}</td>
 
-              <td className="img-row">
+              <td className="img-row slider-table-data">
                 <img
                   className="img-fluid"
                   src={slider.image}
                   alt="Ảnh khóa học"
                 ></img>
               </td>
-              <td>{slider.subjectName}</td>
-              <td>{slider.status == 1 ? "Active" : "Inactive"}</td>
-              <td>{slider.note}</td>
-              <td className="row action-row">
+              <td className="slider-table-data">{slider.subjectName}</td>
+              <td className="slider-table-data">
+                {slider.status == 1 ? "Active" : "Inactive"}
+              </td>
+              <td className="slider-table-data">{slider.note}</td>
+              <td className="row action-row slider-table-data">
                 {slider.status == 1 ? (
-                  <button
-                    className="col-md-4 btn-action modify-btn"
+                  <div
+                    className="col-md-4 btn-action"
                     onClick={() => handleAction(slider.sliderID, "hide")}
                   >
-                    Hidden
-                  </button>
+                    <i class="fa-solid fa-eye-slash"></i>
+                  </div>
                 ) : (
-                  <button
-                    className="col-md-3 btn-action modify-btn"
+                  <div
+                    className="col-md-4 btn-action"
                     onClick={() => handleAction(slider.sliderID, "show")}
                   >
-                    Show
-                  </button>
+                    <i class="fa-solid fa-eye"></i>
+                  </div>
                 )}
 
-                <button className="editBtn col-md-3 btn-action modify-btn">
-                  <Link to={`/sliders/edit/${slider.sliderID}`}>Edit</Link>
-                </button>
+                <div className="editBtn col-md-3 btn-action">
+                  <Link to={`/sliders/edit/${slider.sliderID}`}>
+                    <i class="fa-solid fa-pen-to-square"></i>
+                  </Link>
+                </div>
 
-                <button
-                  className="col-md-4 btn-action modify-btn"
+                <div
+                  className="col-md-4 btn-action"
                   onClick={() => handleDelete(slider.sliderID)}
                 >
-                  Delete
-                </button>
+                  <i class="fa-solid fa-trash"></i>
+                </div>
               </td>
             </tr>
           ))}

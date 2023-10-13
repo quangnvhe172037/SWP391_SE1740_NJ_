@@ -41,15 +41,17 @@ public class PostMarketingController {
             ) {
         try {
             Posts post = new Posts();
+            System.out.println(post.getPostID());
             post.setPostCategory(postService.getPostCate(cateId));
             post.setPostData(data);
             post.setTitle(title);
             post.setBriefInfor(brief);
-            post.setStatus(true);
+            post.setStatus(false);
 
             post.setUser(userService.getUserByEmail(email));
-            System.out.println(new Date());
             post.setDateCreate(new Date());
+            post.setUpdateDate(new Date());
+            postService.updatePost(post);
             post.setImage(postService.storeImage(file, post.getPostID()));
             // Cập nhật dữ liệu của post từ updatedPostData
             postService.updatePost(post);

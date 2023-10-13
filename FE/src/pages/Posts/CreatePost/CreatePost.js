@@ -4,20 +4,22 @@ import "react-quill/dist/quill.snow.css";
 import "./CreatePost.css";
 import { useEffect } from "react";
 import jwtDecode from "jwt-decode";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CreatePostHeader from "../../../components/Post/CreatePost/CreatePostHeader";
 import { data } from "autoprefixer";
 
 const CreatePost = () => {
   const token = localStorage.getItem("token");
   const user = jwtDecode(token);
-  const [updatedImage, setUpdatedImage] = useState("");
+  const [updatedImage, setUpdatedImage] = useState(
+    "/img/posts/duongdananh.jpg"
+  );
   const [valueArticle, setValueArticle] = useState("");
   const [postCates, setPostCates] = useState([]);
   const [postCate, setPostCate] = useState("1");
   const [title, setUpdatedTitle] = useState("");
   const [brief, setUpdatedBrief] = useState("");
-  const [isFormComplete, setIsFormComplete] = useState(false);
+  let isFormComplete = false;
 
   const navigate = useNavigate();
   const handleImageChange = (e) => {
@@ -38,6 +40,9 @@ const CreatePost = () => {
       },
     })
       .then((response) => {
+        if (response.statusCode === 401) {
+        }
+
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
@@ -60,7 +65,12 @@ const CreatePost = () => {
 
   const handleSaveDataClick = (e) => {
     e.preventDefault();
-    // Tạo một đối tượng mới chứa thông tin đã cập nhật
+    checkFormCompletion();
+    if (!isFormComplete) {
+      alert("Enter all fields before submit");
+      return;
+    }
+    //Tạo một đối tượng mới chứa thông tin đã cập nhật
 
     const formData = new FormData();
     formData.append("title", title);
@@ -80,86 +90,120 @@ const CreatePost = () => {
     })
       .then((response) => {
         if (!response.ok) {
-          console.log("1");
           throw new Error(response.data.status);
         }
-        console.log("2");
         return response.json();
       })
 
       .then((data) => {
         alert("Succesfully");
-        navigate("/sliders");
+        navigate("/home");
       })
       .catch((error) => {
         console.error("Error updating slider data:", error);
       });
   };
-  const checkFormCompletion = () => { 
+  const checkFormCompletion = () => {
     // Kiểm tra xem tất cả các trường đã được nhập đầy đủ hay chưa
-    if (title== "" && data !== "" && postCate !== "" && valueArticle !== ""&& updatedImage !== ""&& brief !== "" ) {
-      setIsFormComplete(true);
-
+    
+    if (
+      title !== "" &&
+      postCate !== "" &&
+      valueArticle !== "" &&
+      brief !== "" &&
+      updatedImage !== "/img/posts/duongdananh.jpg"
+    ) {
+      isFormComplete = true;
     } else {
-      setIsFormComplete(false);
+      isFormComplete = false;
     }
   };
 
   return (
     <div className="create-post-container">
       <div className="row">
+        <h1 className="create-post-header-title col-md-9">Post Detail</h1>
+
+        <div className="col-md-3">
+          <button onClick={handleSaveDataClick} className="create-post-button">
+            Save Draft
+          </button>
+        </div>
+      </div>
+      <div className="row">
         <div className="col-md -9">
           <CreatePostHeader title={title} setUpdatedTitle={setUpdatedTitle} />
-        </div>
-        <div className="col-md-3">
-          <button onClick={handleSaveDataClick} disabled={!isFormComplete} className="CreatePost-button">Save</button>
         </div>
       </div>
 
       <div className="row">
-        <div className="create-post-left col-md-8">
+        <div className="create-post-left col-md-9">
           <ReactQuill
             theme="snow"
             className="creat-post-quill"
             style={{ minHeight: "70px" }}
             value={valueArticle}
-            crollingContainer=".scroll-container"
             onChange={setValueArticle}
             required
           />
         </div>
 
-        <div className="create-post-right col-md-4">
-          <h2>Post Data</h2>
-          <input
-            type="text"
-            placeholder="Brief"
-            onChange={setUpdatedBrief}
-            required
-          />
+        <div className="create-post-right col-md-3">
+          <div className="create-post-image">
+            {updatedImage === "/img/posts/duongdananh.jpg" ? (
+              <img
+                src="/img/posts/duongdananh.jpg"
+                alt="Choose some img for slider"
+                className="create-post-image-preview"
+                max-width="30%"
+                max-height="30%"
+              />
+            ) : (
+              <img
+                src={updatedImage.preview}
+                alt="Choose some img for slider"
+                className="create-post-image-preview"
+                max-width="30%"
+                max-height="30%"
+              />
+            )}
 
-          <select className="" onChange={(e) => setPostCate(e.target.value)}>
-            {postCates.map((option, index) => (
-              <option key={index} value={option.postCateId} required>
-                {option.postCateName}
-              </option>
-            ))}
-          </select>
+            <h6 className="upload-notify">Upload an image</h6>
 
-          <img
-            src={updatedImage.preview}
-            alt="Choose some img for slider"
-            className="sliderImage"
-          />
-          <h6 className="upload-notify">Upload a photo</h6>
+            <input
+              required
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              className="inputImage"
+            />
+          </div>
 
-          <input
-            required
-            type="file"
-            accept="image/*"
-            onChange={handleImageChange}
-            className="inputImage"
-          />
+          <div className="create-post-brief">
+            <div>Write the short descrtion</div>
+            <input
+              type="text"
+              placeholder="Brief"
+              className="create-post-brief-description"
+              onChange={(e) => setUpdatedBrief(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="create-post-cate">
+            <div>Post Category:</div>
+            <select
+              className="create-post-cate-data"
+              required
+              onChange={(e) => setPostCate(e.target.value)}
+            >
+              {postCates.map((option, index) => (
+                <option key={index} value={option.postCateId} required>
+                  {option.postCateName}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
       </div>
     </div>
