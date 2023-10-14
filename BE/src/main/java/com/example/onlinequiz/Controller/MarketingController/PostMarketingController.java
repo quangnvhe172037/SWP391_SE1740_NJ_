@@ -28,7 +28,7 @@ public class PostMarketingController {
     private final UserServiceImpl userService;
 
     // Edit new Post
-    @GetMapping("/edit/{postId}")
+    @PutMapping("/{postId}")
     @ResponseBody
     public ResponseEntity<Posts> editPost(
             @PathVariable Long postId,
@@ -41,22 +41,23 @@ public class PostMarketingController {
 
     ) {
         try {
-
+            System.out.println("1");
             Posts postChange = postService.getPostById(postId);
-            postChange.setPostCategory(postService.getPostCate(cateId));
-            postChange.setPostData(data);
-            postChange.setTitle(title);
-            postChange.setBriefInfor(brief);
-            postChange.setStatus(false);
+            if (postChange != null) {
+                postChange.setPostCategory(postService.getPostCate(cateId));
+                postChange.setPostData(data);
+                postChange.setTitle(title);
+                postChange.setBriefInfor(brief);
 
-            postChange.setUser(userService.getUserByEmail(email));
-            postChange.setDateCreate(new Date());
-            postChange.setUpdateDate(new Date());
-            postChange.setImage(postService.storeImage(file, postId));
-            // Cập nhật dữ liệu của post từ updatedPostData
-            postService.updatePost(postChange);
-            return ResponseEntity.ok(postChange);
-
+                postChange.setUser(userService.getUserByEmail(email));
+                postChange.setUpdateDate(new Date());
+                postChange.setImage(postService.storeImage(file, postId));
+                // Cập nhật dữ liệu của post từ updatedPostData
+                postService.updatePost(postChange);
+                return ResponseEntity.ok(postChange);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -74,7 +75,7 @@ public class PostMarketingController {
             @RequestParam(name = "brief") String brief,
             @RequestParam(name = "email") String email
 
-            ) {
+    ) {
         try {
             Posts post = new Posts();
             System.out.println(post.getPostID());

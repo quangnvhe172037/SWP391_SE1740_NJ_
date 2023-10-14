@@ -1,34 +1,72 @@
-import { useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "./CreatePost.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import jwtDecode from "jwt-decode";
-import { Link, useNavigate } from "react-router-dom";
-import CreatePostHeader from "../../../components/Post/CreatePost/CreatePostHeader";
-import { data } from "autoprefixer";
+import { useNavigate, useParams } from "react-router-dom";
 
-const CreatePost = () => {
-  const token = localStorage.getItem("token");
-  const user = jwtDecode(token);
-  const [updatedImage, setUpdatedImage] = useState(
-    "/img/posts/duongdananh.jpg"
-  );
-  const [valueArticle, setValueArticle] = useState("");
-  const [postCates, setPostCates] = useState([]);
-  const [postCate, setPostCate] = useState("1");
-  const [title, setUpdatedTitle] = useState("");
-  const [brief, setUpdatedBrief] = useState("");
-  let isFormComplete = false;
+import CreatePostHeader from "../PostComponent/CreatePostHeader";
 
-  const navigate = useNavigate();
+const PostEditComponent = () => {
+     const { postId } = useParams();
+     const [updatedImage, setUpdatedImage] = useState("");
+     const [valueArticle, setValueArticle] = useState("");
+     const [postCates, setPostCates] = useState([]);
+     const [postCate, setPostCate] = useState("1");
+     const [title, setUpdatedTitle] = useState("");
+     const [brief, setUpdatedBrief] = useState("");
+     const token = localStorage.getItem("token");
+     const user = jwtDecode(token);
+     let isFormComplete = true;
+     const api = `http://localhost:8080/posts/view/${postId}`;
+    const baseURL = "http://localhost:8081/";
+    const navigate = useNavigate();
+    console.log(updatedImage);
+    const defaultImage = baseURL.concat(updatedImage);
+    console.log(defaultImage);
+    const [imageData, setImageData] = useState("");
+    console.log(defaultImage);
+    console.log(imageData);
+
+ useEffect(() => {
+   fetch(api, {
+     headers: {
+       "Content-Type": "application/json",
+       Authorization: `Bearer ${token}`,
+     },
+   })
+     .then((response) => {
+       if (!response.ok) {
+         throw new Error("Network response was not ok");
+       }
+       return response.json();
+     })
+
+     .then((dataJson) => {
+       console.log(1);
+       setPostCate(dataJson.postCategory.id);
+       setUpdatedImage(dataJson.image);
+       setValueArticle(dataJson.postData);
+       setUpdatedTitle(dataJson.title);
+         setUpdatedBrief(dataJson.briefInfor);
+         setImageData(baseURL.concat(dataJson.image));
+     })
+
+     .catch((error) => {
+       console.error("Error fetching slider data:", error);
+     });
+ }, [postId]);
+
+
   const handleImageChange = (e) => {
-    const selectedFile = e.target.files[0];
-
-    if (selectedFile) {
-      selectedFile.preview = URL.createObjectURL(selectedFile); // Tạo đường dẫn tạm thời cho ảnh
-      console.log(selectedFile);
-      setUpdatedImage(selectedFile); // Cập nhật đường dẫn ảnh trong state
+    const newImage = e.target.files[0];
+    if (newImage) {
+        setUpdatedImage(newImage); // Lưu trữ đối tượng hình ảnh mới
+        const reader = new FileReader();
+        reader.onload = () => {
+          setImageData(reader.result); // Cập nhật đường dẫn tạm thời cho hình ảnh
+        };
+        reader.readAsDataURL(newImage);
     }
   };
 
@@ -58,7 +96,8 @@ const CreatePost = () => {
       })
 
       .then((result) => {
-        const mockData = result;
+          const mockData = result;
+          
         setPostCates(mockData);
       });
   }, []);
@@ -76,20 +115,22 @@ const CreatePost = () => {
     formData.append("title", title);
     formData.append("data", valueArticle);
     formData.append("cateid", postCate);
-    formData.append("image", updatedImage);
+      formData.append("image", updatedImage);
+      console.log(imageData);
     formData.append("brief", brief);
     formData.append("email", user.sub);
 
-    // Gửi yêu cầu POST để cập nhật dữ liệu
-    fetch(`http://localhost:8080/marketing/post/add`, {
-      method: "POST",
+    // Gửi yêu cầu PUT để cập nhật dữ liệu
+    fetch(`http://localhost:8080/marketing/post/${postId}`, {
+      method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,
       },
       body: formData,
     })
       .then((response) => {
-        if (!response.ok) {
+          if (!response.ok) {
+            console.log(postId);
           throw new Error(response.data.status);
         }
         return response.json();
@@ -99,25 +140,29 @@ const CreatePost = () => {
         alert("Succesfully");
         navigate("/home");
       })
-      .catch((error) => {
+        .catch((error) => {
+          console.log(error.message);
         console.error("Error updating slider data:", error);
       });
-  };
+    };
+    
+
+
   const checkFormCompletion = () => {
     // Kiểm tra xem tất cả các trường đã được nhập đầy đủ hay chưa
-    
+
     if (
       title !== "" &&
       postCate !== "" &&
       valueArticle !== "" &&
-      brief !== "" &&
-      updatedImage !== "/img/posts/duongdananh.jpg"
+      brief !== "" 
     ) {
       isFormComplete = true;
     } else {
       isFormComplete = false;
     }
-  };
+    };
+
 
   return (
     <div className="create-post-container">
@@ -150,23 +195,23 @@ const CreatePost = () => {
 
         <div className="create-post-right col-md-3">
           <div className="create-post-image">
-            {updatedImage === "/img/posts/duongdananh.jpg" ? (
+            
+              {/* <img
+                src={baseURL + updatedImage}
+                alt="Choose some img for slider"
+                className="create-post-image-preview"
+                max-width="30%"
+                max-height="30%"
+              /> */}
+            
               <img
-                src="/img/posts/duongdananh.jpg"
+                src={imageData}
                 alt="Choose some img for slider"
                 className="create-post-image-preview"
                 max-width="30%"
                 max-height="30%"
               />
-            ) : (
-              <img
-                src={updatedImage.preview}
-                alt="Choose some img for slider"
-                className="create-post-image-preview"
-                max-width="30%"
-                max-height="30%"
-              />
-            )}
+        
 
             <h6 className="upload-notify">Upload an image</h6>
 
@@ -184,6 +229,7 @@ const CreatePost = () => {
             <input
               type="text"
               placeholder="Brief"
+              value={brief}
               className="create-post-brief-description"
               onChange={(e) => setUpdatedBrief(e.target.value)}
               required
@@ -198,7 +244,12 @@ const CreatePost = () => {
               onChange={(e) => setPostCate(e.target.value)}
             >
               {postCates.map((option, index) => (
-                <option key={index} value={option.postCateId} required>
+                <option
+                  key={index}
+                  value={option.postCateId}
+                  required
+                  selected={option.postCateId === postCate ? true : false}
+                >
                   {option.postCateName}
                 </option>
               ))}
@@ -210,4 +261,4 @@ const CreatePost = () => {
   );
 };
 
-export default CreatePost;
+export default PostEditComponent;

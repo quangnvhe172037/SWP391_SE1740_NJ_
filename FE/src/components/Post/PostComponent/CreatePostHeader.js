@@ -1,4 +1,4 @@
-import { useState } from "react";
+
 import "./CreatePostHeader.css";
 const CreatePostHeader = ({ title, setUpdatedTitle }) => {
   return (
@@ -7,6 +7,7 @@ const CreatePostHeader = ({ title, setUpdatedTitle }) => {
         type="text"
         className="create-post-title"
         required
+        value={title}
         placeholder="Title"
         onChange={(e) => setUpdatedTitle(e.target.value)}
       />

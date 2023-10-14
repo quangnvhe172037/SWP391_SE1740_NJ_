@@ -91,7 +91,7 @@ public class PostServiceImpl implements PostService {
             // Tạo đường dẫn đến thư mục lưu trữ tệp ảnh
             String fileName = "image post " +String.valueOf(id) +"."+ FilenameUtils.getExtension(file.getOriginalFilename());
             System.out.println(id);
-            Path targetPath = Paths.get(uploadDir + "/Posts", fileName);
+            Path targetPath = Paths.get(uploadDir + "/posts", fileName);
 
             // Lưu tệp ảnh vào thư mục lưu trữ
             Files.copy(file.getInputStream(), targetPath, StandardCopyOption.REPLACE_EXISTING);
@@ -99,7 +99,7 @@ public class PostServiceImpl implements PostService {
             // Trả về đường dẫn tới tệp ảnh vừa tải lên
             imageUrl = uploadDir + "/" + file.getOriginalFilename();
 
-            return "img/Posts/" + fileName;
+            return "img/posts/" + fileName;
         } catch (IOException e) {
             e.printStackTrace();
 

@@ -8,6 +8,7 @@ const SliderImage = ({
   handleSaveImageClick,
   currentImage,
 }) => {
+  console.log(baseURL + currentImage);
   const handleImageChange = (e) => {
     const selectedFile = e.target.files[0];
 

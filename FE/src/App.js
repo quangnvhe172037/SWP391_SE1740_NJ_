@@ -34,9 +34,13 @@ import VerifyEmail from "./components/VerifyEmail/VerifyEmail";
 
 import Lesson from "./pages/Lesson/Lesson";
 import LessonDetail from "./pages/LessonDetail/LessonDetail";
-import CreatePost from "./pages/Posts/CreatePost/CreatePost";
 import UserHeader from "./components/Header/Header";
+
 import Term from "./components/Term/Term";
+
+import CreatePostManage from "./pages/Posts/ManagePost/CreatePost/CreatePostManage";
+import EditPostMange from "./pages/Posts/ManagePost/EditPost/EditPostMange";
+
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -72,7 +76,6 @@ const App = () => {
 
       <div className="container mt-3 wrap" style={{ minHeight: "70vh" }}>
         <Routes>
-
           {/* All */}
           <Route path="/" element={<Home />} />
           <Route path="/terms" element={<Term />} />
@@ -85,10 +88,8 @@ const App = () => {
           <Route path="/register/verifyEmail/" element={<VerifyEmail />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
 
-
           {isAuthenticated && (
             <>
-          
               <Route path="/sliders" element={<SliderList />} />
               <Route path="/posts" element={<PostList />} />
               <Route path="/posts/view/:postId" element={<PostDetail />} />
@@ -110,8 +111,14 @@ const App = () => {
                 path="/subject/:subjectId/lesson/:lessonId"
                 element={<Lesson />}
               />
-              <Route path="/marketing/post/create" element={<CreatePost />} />
-
+              <Route
+                path="/marketing/post/create"
+                element={<CreatePostManage />}
+              />
+              <Route
+                path="/marketing/post/edit/:postId"
+                element={<EditPostMange />}
+              />
               <Route
                 path="/expert/subject/:subjectId/manage"
                 element={<LessonDetail />}
