@@ -32,10 +32,10 @@ const PostDetail = () => {
     }
 
     return (
-        <div className="container">
+
+        <div className="containers">
             <div className="row">
                 <div className="col-lg-8 mx-auto">
-                    <hr className="tm-hr-primary tm-mb-30" />
                     <div className="effect-lily tm-post-link tm-pt-40">
                         <div className="tm-post-link-inner d-flex justify-content-center align-items-center">
                             {post.image && (

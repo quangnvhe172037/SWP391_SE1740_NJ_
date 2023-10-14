@@ -18,4 +18,5 @@ public class UserRegistrationImpl implements UserRegistrationService {
     public List<UserPayment> getUserPaymentList(){
         return  userRegistrationsRepository.findAll();
     }
+
 }

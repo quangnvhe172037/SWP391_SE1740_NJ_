@@ -1,14 +1,20 @@
 .blog-entry {
     border: 1px solid #ddd;
     padding: 15px;
-    margin-bottom: 20px;
     background-color: #fff;
+    height: 100%; /* Đảm bảo tất cả blog entry có độ cao bằng nhau */
+
 }
+
 
 .blog-entry img {
     max-width: 100%;
-    height: auto;
+    height: 100%; /* Đảm bảo tất cả hình ảnh có độ cao bằng nhau */
 }
+
+
+/* Các CSS khác của blog-entry không thay đổi */
+
 
 .date {
     font-size: 14px;
