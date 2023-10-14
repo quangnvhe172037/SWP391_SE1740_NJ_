@@ -2,6 +2,7 @@ package com.example.onlinequiz.Config;
 
 import com.example.onlinequiz.Jwt.JwtAuthenticationFilter;
 import com.example.onlinequiz.Security.UserDetailsServiceImpl;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

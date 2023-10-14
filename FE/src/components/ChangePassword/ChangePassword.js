@@ -69,9 +69,9 @@ const ChangePassword = () => {
     };
 
     return (
-        <div className="container">
+        <div className="containers">
             <div className="row justify-content-center align-items-center">
-                <div className="col-md-6 offset-md-11">
+                <div className="col-md-4 offset-md-6">
                     <div className="card">
                         <div className="card-body">
                             <h2 className="card-title">Change Password</h2>

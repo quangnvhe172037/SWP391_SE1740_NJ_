@@ -6,11 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="f42a8f0a-d40f-4bc9-b56d-aa67269e9f4b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/src/components/AccountList/AccountList.js" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/components/AccountList/AccountList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/src/pages/Dashboard/Dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/pages/Dashboard/Dashboard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE/src/components/ChangePassword/ChangePassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/components/ChangePassword/ChangePassword.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE/src/pages/ForgotPassword/ForgotPassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/pages/ForgotPassword/ForgotPassword.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FE/src/pages/Login/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/pages/Login/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/src/pages/Profile/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/pages/Profile/Profile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/src/pages/Register/Register.css" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/pages/Register/Register.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,7 +120,10 @@
       <workItem from="1696981188267" duration="7107000" />
       <workItem from="1696991398052" duration="9868000" />
       <workItem from="1697071663863" duration="487000" />
-      <workItem from="1697072181431" duration="9797000" />
+      <workItem from="1697072181431" duration="13503000" />
+      <workItem from="1697092525318" duration="3956000" />
+      <workItem from="1697204450308" duration="2153000" />
+      <workItem from="1697250547488" duration="420000" />
     </task>
     <servers />
   </component>

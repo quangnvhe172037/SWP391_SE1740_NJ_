@@ -32,7 +32,7 @@ const ForgotPassword = () => {
     };
 
     return (
-        <div className="containers mt-5">
+        <div className="forgotpassword-container mt-5">
             <div className="row">
                 <div className="col-md-6 offset-md-3">
                     <h2>Forgot Password</h2>
