@@ -36,6 +36,7 @@ import Lesson from "./pages/Lesson/Lesson";
 import LessonDetail from "./pages/LessonDetail/LessonDetail";
 import CreatePost from "./pages/Posts/CreatePost/CreatePost";
 import UserHeader from "./components/Header/Header";
+import Term from "./components/Term/Term";
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -74,6 +75,7 @@ const App = () => {
 
           {/* All */}
           <Route path="/" element={<Home />} />
+          <Route path="/terms" element={<Term />} />
           <Route path="/home" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />

@@ -44,6 +44,14 @@ const Registration = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        if (!formData.agreeTerms) {
+            setMessage("You must agree to the Terms and Conditions.");
+            return;
+        }
+        if (formData.password !== formData.confirmPassword) {
+            setMessage("Confirm Password does not match!");
+            return;
+        }
         if (formData.password !== formData.confirmPassword) {
             setMessage("Confirm Password does not match!");
             return;
@@ -140,6 +148,17 @@ const Registration = () => {
                                 ) : (
                                     <div>
                                         {message && <div className="alert mt-2">{message}</div>}
+                                        <div className="form-check">
+                                            <input
+                                                type="checkbox"
+                                                className="form-check-input"
+                                                name="agreeTerms"
+                                                onChange={handleInputChange}
+                                            />
+                                            <label className="form-check-label" htmlFor="agreeTerms">
+                                                I agree to the <a href="/terms" target="_blank">Terms and Conditions</a>
+                                            </label>
+                                        </div>
                                         <button type="submit" className="btn btn-primary" style={{ backgroundColor: "black", color: "white", border: "1px solid", height: "35px", width: "100px", marginLeft: "75px" }}>
                                             Register
                                         </button>

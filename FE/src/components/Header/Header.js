@@ -4,7 +4,8 @@ import authapi from "../../api/authapi";
 import jwtDecode from "jwt-decode";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
-import styles from "./Header.module.css";
+// import styles from "./Header.module.css";
+import styles from "../../App.module.css";
 const UserHeader = () => {
   const [currentUser, setCurrentUser] = useState(undefined);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
