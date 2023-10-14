@@ -27,7 +27,43 @@ public class PostMarketingController {
     @Autowired
     private final UserServiceImpl userService;
 
+    // Edit new Post
+    @GetMapping("/edit/{postId}")
+    @ResponseBody
+    public ResponseEntity<Posts> editPost(
+            @PathVariable Long postId,
+            @RequestParam(name = "title") String title,
+            @RequestParam(name = "data") String data,
+            @RequestParam(name = "cateid") Long cateId,
+            @RequestParam(name = "image") MultipartFile file,
+            @RequestParam(name = "brief") String brief,
+            @RequestParam(name = "email") String email
 
+    ) {
+        try {
+
+            Posts postChange = postService.getPostById(postId);
+            postChange.setPostCategory(postService.getPostCate(cateId));
+            postChange.setPostData(data);
+            postChange.setTitle(title);
+            postChange.setBriefInfor(brief);
+            postChange.setStatus(false);
+
+            postChange.setUser(userService.getUserByEmail(email));
+            postChange.setDateCreate(new Date());
+            postChange.setUpdateDate(new Date());
+            postChange.setImage(postService.storeImage(file, postId));
+            // Cập nhật dữ liệu của post từ updatedPostData
+            postService.updatePost(postChange);
+            return ResponseEntity.ok(postChange);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    // Add new post
     @PostMapping("/add")
     @ResponseBody
     public ResponseEntity<Posts> addNewPost(
