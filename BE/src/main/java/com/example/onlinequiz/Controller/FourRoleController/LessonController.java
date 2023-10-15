@@ -19,7 +19,9 @@ public class LessonController {
     private final LessonServiceImpl lessonService;
 
     @GetMapping("/get/{subjectID}")
-    public ResponseEntity<List<Lessons>> getLessonsBySubject(@PathVariable Long subjectID) {
+    public ResponseEntity<List<Lessons>> getLessonsBySubject(
+            @PathVariable Long subjectID
+    ) {
         List<Lessons> lesson = lessonService.getLessons(subjectID);
         try {
 

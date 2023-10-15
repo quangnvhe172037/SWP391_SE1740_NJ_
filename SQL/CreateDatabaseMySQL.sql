@@ -159,7 +159,7 @@ CREATE TABLE IF NOT EXISTS `quizpractice`.`post` (
   `datecreate` DATETIME NULL DEFAULT NULL,
   `status` BIT NULL DEFAULT NULL,
   `updatedate` DATETIME NULL DEFAULT NULL,
-  `briefinfor` VARCHAR(256) CHARACTER SET 'utf8mb4'  NULL DEFAULT NULL,
+  `briefinfor` TEXT CHARACTER SET 'utf8mb4'  NULL DEFAULT NULL,
   `title` VARCHAR(256) CHARACTER SET 'utf8mb4'  NULL DEFAULT NULL,
   PRIMARY KEY (`postid`),
   INDEX `postcateid` (`postcateid` ASC) VISIBLE,

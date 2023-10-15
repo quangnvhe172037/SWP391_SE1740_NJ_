@@ -8,65 +8,64 @@ import { useNavigate, useParams } from "react-router-dom";
 import CreatePostHeader from "../PostComponent/CreatePostHeader";
 
 const PostEditComponent = () => {
-     const { postId } = useParams();
-     const [updatedImage, setUpdatedImage] = useState("");
-     const [valueArticle, setValueArticle] = useState("");
-     const [postCates, setPostCates] = useState([]);
-     const [postCate, setPostCate] = useState("1");
-     const [title, setUpdatedTitle] = useState("");
-     const [brief, setUpdatedBrief] = useState("");
-     const token = localStorage.getItem("token");
-     const user = jwtDecode(token);
-     let isFormComplete = true;
-     const api = `http://localhost:8080/posts/view/${postId}`;
-    const baseURL = "http://localhost:8081/";
-    const navigate = useNavigate();
-    console.log(updatedImage);
-    const defaultImage = baseURL.concat(updatedImage);
-    console.log(defaultImage);
-    const [imageData, setImageData] = useState("");
-    console.log(defaultImage);
-    console.log(imageData);
+  const { postId } = useParams();
+  const [updatedImage, setUpdatedImage] = useState("");
+  const [valueArticle, setValueArticle] = useState("");
+  const [postCates, setPostCates] = useState([]);
+  const [postCate, setPostCate] = useState("1");
+  const [title, setUpdatedTitle] = useState("");
+  const [brief, setUpdatedBrief] = useState("");
+  const token = localStorage.getItem("token");
+  const user = jwtDecode(token);
+  let isFormComplete = true;
+  const api = `http://localhost:8080/posts/view/${postId}`;
+  const baseURL = "http://localhost:8081/";
+  const navigate = useNavigate();
+  console.log(updatedImage);
+  const defaultImage = baseURL.concat(updatedImage);
+  console.log(defaultImage);
+  const [imageData, setImageData] = useState("");
+  console.log(defaultImage);
+  console.log(imageData);
 
- useEffect(() => {
-   fetch(api, {
-     headers: {
-       "Content-Type": "application/json",
-       Authorization: `Bearer ${token}`,
-     },
-   })
-     .then((response) => {
-       if (!response.ok) {
-         throw new Error("Network response was not ok");
-       }
-       return response.json();
-     })
+  useEffect(() => {
+    fetch(api, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
 
-     .then((dataJson) => {
-       console.log(1);
-       setPostCate(dataJson.postCategory.id);
-       setUpdatedImage(dataJson.image);
-       setValueArticle(dataJson.postData);
-       setUpdatedTitle(dataJson.title);
-         setUpdatedBrief(dataJson.briefInfor);
-         setImageData(baseURL.concat(dataJson.image));
-     })
+      .then((dataJson) => {
+        console.log(1);
+        setPostCate(dataJson.postCategory.id);
+        setUpdatedImage(dataJson.image);
+        setValueArticle(dataJson.postData);
+        setUpdatedTitle(dataJson.title);
+        setUpdatedBrief(dataJson.briefInfor);
+        setImageData(baseURL.concat(dataJson.image));
+      })
 
-     .catch((error) => {
-       console.error("Error fetching slider data:", error);
-     });
- }, [postId]);
-
+      .catch((error) => {
+        console.error("Error fetching slider data:", error);
+      });
+  }, [postId]);
 
   const handleImageChange = (e) => {
     const newImage = e.target.files[0];
     if (newImage) {
-        setUpdatedImage(newImage); // Lưu trữ đối tượng hình ảnh mới
-        const reader = new FileReader();
-        reader.onload = () => {
-          setImageData(reader.result); // Cập nhật đường dẫn tạm thời cho hình ảnh
-        };
-        reader.readAsDataURL(newImage);
+      setUpdatedImage(newImage); // Lưu trữ đối tượng hình ảnh mới
+      const reader = new FileReader();
+      reader.onload = () => {
+        setImageData(reader.result); // Cập nhật đường dẫn tạm thời cho hình ảnh
+      };
+      reader.readAsDataURL(newImage);
     }
   };
 
@@ -96,8 +95,8 @@ const PostEditComponent = () => {
       })
 
       .then((result) => {
-          const mockData = result;
-          
+        const mockData = result;
+
         setPostCates(mockData);
       });
   }, []);
@@ -114,14 +113,21 @@ const PostEditComponent = () => {
     const formData = new FormData();
     formData.append("title", title);
     formData.append("data", valueArticle);
-    formData.append("cateid", postCate);
-      formData.append("image", updatedImage);
-      console.log(imageData);
+      formData.append("cateid", postCate);
+      console.log(updatedImage instanceof File);
+      if (updatedImage instanceof File) {
+          formData.append("image", updatedImage);
+      } else {
+          const emptyFile = new File([""], "empty.jpg", { type: "image/jpeg" });
+          formData.append("image", emptyFile);
+      }
+      console.log(updatedImage);
+    console.log(imageData);
     formData.append("brief", brief);
     formData.append("email", user.sub);
 
     // Gửi yêu cầu PUT để cập nhật dữ liệu
-    fetch(`http://localhost:8080/marketing/post/${postId}`, {
+    fetch(`http://localhost:8080/marketing/post/edit/${postId}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -129,8 +135,8 @@ const PostEditComponent = () => {
       body: formData,
     })
       .then((response) => {
-          if (!response.ok) {
-            console.log(postId);
+        if (!response.ok) {
+          console.log(postId);
           throw new Error(response.data.status);
         }
         return response.json();
@@ -140,13 +146,11 @@ const PostEditComponent = () => {
         alert("Succesfully");
         navigate("/home");
       })
-        .catch((error) => {
-          console.log(error.message);
+      .catch((error) => {
+        console.log(error.message);
         console.error("Error updating slider data:", error);
       });
-    };
-    
-
+  };
 
   const checkFormCompletion = () => {
     // Kiểm tra xem tất cả các trường đã được nhập đầy đủ hay chưa
@@ -155,29 +159,25 @@ const PostEditComponent = () => {
       title !== "" &&
       postCate !== "" &&
       valueArticle !== "" &&
-      brief !== "" 
+      brief !== ""
     ) {
       isFormComplete = true;
     } else {
       isFormComplete = false;
     }
-    };
-
+  };
 
   return (
     <div className="create-post-container">
       <div className="row">
-        <h1 className="create-post-header-title col-md-9">Post Detail</h1>
+        <div className="create-post-header-title col-md-9">
+          <CreatePostHeader title={title} setUpdatedTitle={setUpdatedTitle} />
+        </div>
 
-        <div className="col-md-3">
+        <div className="col-md-3 create-post-button-wrap">
           <button onClick={handleSaveDataClick} className="create-post-button">
             Save Draft
           </button>
-        </div>
-      </div>
-      <div className="row">
-        <div className="col-md -9">
-          <CreatePostHeader title={title} setUpdatedTitle={setUpdatedTitle} />
         </div>
       </div>
 
@@ -196,22 +196,13 @@ const PostEditComponent = () => {
         <div className="create-post-right col-md-3">
           <div className="create-post-image">
             
-              {/* <img
-                src={baseURL + updatedImage}
-                alt="Choose some img for slider"
-                className="create-post-image-preview"
-                max-width="30%"
-                max-height="30%"
-              /> */}
-            
-              <img
-                src={imageData}
-                alt="Choose some img for slider"
-                className="create-post-image-preview"
-                max-width="30%"
-                max-height="30%"
-              />
-        
+            <img
+              src={imageData}
+              alt="Choose some img for slider"
+              className="create-post-image-preview"
+              max-width="30%"
+              max-height="30%"
+            />
 
             <h6 className="upload-notify">Upload an image</h6>
 
@@ -225,11 +216,14 @@ const PostEditComponent = () => {
           </div>
 
           <div className="create-post-brief">
-            <div>Write the short descrtion</div>
-            <input
+            <div className="create-post-sub-info">
+              Write the short descrtion
+            </div>
+            <textarea
               type="text"
               placeholder="Brief"
               value={brief}
+              contenteditable="true"
               className="create-post-brief-description"
               onChange={(e) => setUpdatedBrief(e.target.value)}
               required
@@ -237,7 +231,7 @@ const PostEditComponent = () => {
           </div>
 
           <div className="create-post-cate">
-            <div>Post Category:</div>
+            <div className="create-post-sub-info">Post Category:</div>
             <select
               className="create-post-cate-data"
               required

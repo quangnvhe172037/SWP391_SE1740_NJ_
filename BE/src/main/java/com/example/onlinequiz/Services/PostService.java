@@ -2,6 +2,8 @@ package com.example.onlinequiz.Services;
 
 import com.example.onlinequiz.Model.PostCategories;
 import com.example.onlinequiz.Model.Posts;
+import com.example.onlinequiz.Model.Users;
+import com.example.onlinequiz.Payload.Response.PostListResponse;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -25,4 +27,10 @@ public interface PostService {
     String storeImage(MultipartFile file, Long id);
 
     void updatePost(Posts p);
+
+    List<PostListResponse> getAllPostByUser(Users u);
+
+    PostListResponse updateStatus(Posts p);
+
+    void delete(Long id);
 }

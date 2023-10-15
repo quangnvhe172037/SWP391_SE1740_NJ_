@@ -103,7 +103,7 @@ const PostManage = ({
 
       .then((data) => {
         alert("Succesfully");
-        navigate("/home");
+        navigate("/marketing/post/manage");
       })
       .catch((error) => {
         console.error("Error updating slider data:", error);
@@ -128,17 +128,14 @@ const PostManage = ({
   return (
     <div className="create-post-container">
       <div className="row">
-        <h1 className="create-post-header-title col-md-9">Post Detail</h1>
+        <div className="create-post-header-title col-md-9">
+          <CreatePostHeader title={title} setUpdatedTitle={setUpdatedTitle} />
+        </div>
 
-        <div className="col-md-3">
+        <div className="col-md-3 create-post-button-wrap">
           <button onClick={handleSaveDataClick} className="create-post-button">
             Save Draft
           </button>
-        </div>
-      </div>
-      <div className="row">
-        <div className="col-md -9">
-          <CreatePostHeader title={title} setUpdatedTitle={setUpdatedTitle} />
         </div>
       </div>
 
@@ -186,11 +183,14 @@ const PostManage = ({
           </div>
 
           <div className="create-post-brief">
-            <div>Write the short descrtion</div>
-            <input
+            <div className="create-post-sub-info">
+              Write the short descrtion
+            </div>
+            <textarea
               type="text"
               placeholder="Brief"
               value={brief}
+              contenteditable="true"
               className="create-post-brief-description"
               onChange={(e) => setUpdatedBrief(e.target.value)}
               required
@@ -198,14 +198,19 @@ const PostManage = ({
           </div>
 
           <div className="create-post-cate">
-            <div>Post Category:</div>
+            <div className="create-post-sub-info">Post Category:</div>
             <select
               className="create-post-cate-data"
               required
               onChange={(e) => setPostCate(e.target.value)}
             >
               {postCates.map((option, index) => (
-                <option key={index} value={option.postCateId} required  selected={option.postCateId === postCate ? true : false}>
+                <option
+                  key={index}
+                  value={option.postCateId}
+                  required
+                  selected={option.postCateId === postCate ? true : false}
+                >
                   {option.postCateName}
                 </option>
               ))}

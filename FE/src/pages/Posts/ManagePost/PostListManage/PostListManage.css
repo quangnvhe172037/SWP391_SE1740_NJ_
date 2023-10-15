@@ -1,0 +1,79 @@
+.manage-post-list-container {
+  margin: 0 auto 40px auto;
+  max-width: 1000px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.16);
+  padding: 40px;
+  background-color: ;
+}
+
+.manage-post-header {
+  font-size: 36px;
+  font-weight: bolder;
+  margin-bottom: 20px;
+}
+
+.manage-post-btn {
+  padding: 8px 10px;
+  color: white;
+  background-color: black;
+  justify-content: center;
+  text-align: center;
+}
+.manage-post-btn:hover,
+.manange-post-list-link:hover {
+  opacity: 0.8;
+  color: white;
+  text-decoration: none;
+}
+
+.manage-post-list-element {
+  text-align: center;
+  margin: 20px 20px 40px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.16);
+  height: 140px;
+}
+
+.post-list-element-content {
+  padding-top: 10px;
+}
+
+.post-list-title,
+.post-list-info,
+.post-list-blog {
+  margin-top: 10px;
+}
+
+.post-list-element-image {
+  margin: auto 0;
+  transform: translate(10%, 20%);
+}
+
+.post-list-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #555;
+}
+
+.post-list-info {
+  display: flex;
+  justify-content: space-around;
+}
+
+.post-list-blog {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.post-list-action-btn:hover{
+opacity: 0.7;
+cursor: pointer;
+color:black;
+
+}
+
+.post-list-action-list{
+margin-top: 20px;
+}
+

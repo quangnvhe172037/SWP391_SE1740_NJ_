@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import './style.css';
 import { format } from "date-fns";
+import ReactQuill from 'react-quill';
+import "react-quill/dist/quill.bubble.css";
 
 const API_URL = "http://localhost:8080/";
 const Local_URL = "http://localhost:8081/";
@@ -33,33 +35,43 @@ const PostDetail = () => {
 
     return (
 
-        <div className="containers">
-            <div className="row">
-                <div className="col-lg-8 mx-auto">
-                    <div className="effect-lily tm-post-link tm-pt-40">
-                        <div className="tm-post-link-inner d-flex justify-content-center align-items-center">
-                            {post.image && (
-                                <img
-                                    src={`${Local_URL}${post.image}`}
-                                    alt={post.title}
-                                    className="img-fluid custom-image"
-                                />
-                            )}
-                        </div>
-                    </div>
-                    <div className="blog-entry mt-4">
-                        {post.title && <h2 className="post-title">{post.title}</h2>}
-                        {post.dateCreate && (
-                            <div className="date">
-                                {format(new Date(post.dateCreate), 'dd-MM-yyyy')}
-                            </div>
-                        )}
-                        {formatTextToParagraphs(post.postData)}
-                        <p>Author: {post.user && post.user.lastName + ' ' + post.user.firstName}</p>
-                    </div>
-                </div>
+      <div className="container">
+        <div className="row">
+          <div className="col-lg-8 mx-auto">
+            <hr className="tm-hr-primary tm-mb-30" />
+            <div className="effect-lily tm-post-link tm-pt-40">
+              <div className="tm-post-link-inner d-flex justify-content-center align-items-center">
+                {post.image && (
+                  <img
+                    src={`${Local_URL}${post.image}`}
+                    alt={post.title}
+                    className="img-fluid custom-image"
+                  />
+                )}
+              </div>
+
             </div>
+            <div className="blog-entry mt-4">
+              {post.title && <h2 className="post-title">{post.title}</h2>}
+              {post.dateCreate && (
+                <div className="date">
+                  {format(new Date(post.dateCreate), "dd-MM-yyyy")}
+                </div>
+              )}
+              <ReactQuill
+                value={post.postData}
+                readOnly={true}
+                theme={"bubble"}
+              />
+              {/* {formatTextToParagraphs(post.postData)} */}
+              <p>
+                Author:{" "}
+                {post.user && post.user.lastName + " " + post.user.firstName}
+              </p>
+            </div>
+          </div>
         </div>
+      </div>
     );
 };
 

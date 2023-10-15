@@ -29,7 +29,7 @@ public class SliderController {
 
     @GetMapping
     @ResponseBody
-    public ResponseEntity<List<Sliders>>getAllSlider(){
+    public ResponseEntity<List<Sliders>> getAllSlider() {
         List<Sliders> listSliders = sliderService.getSliders();
 
         return ResponseEntity.ok(listSliders);
@@ -37,18 +37,30 @@ public class SliderController {
 
     @GetMapping("/list")
     @ResponseBody
-    public ResponseEntity<List<Sliders>>getAllSliderAsMarketing(){
-        List<Sliders> listSliders = sliderService.getSliders();
+    public ResponseEntity<List<Sliders>> getAllSliderAsMarketing() {
+        try {
+            List<Sliders> listSliders = sliderService.getSliders();
 
-        return ResponseEntity.ok(listSliders);
+
+            if (listSliders != null) {
+
+
+                return ResponseEntity.ok(listSliders);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
     }
 
-//    Lấy dữ liệu của 1 slider
+    //    Lấy dữ liệu của 1 slider
     @GetMapping("/edit/{sliderid}")
     @ResponseBody
     public ResponseEntity<Sliders> getSlider(
             @PathVariable Long sliderid
-    ){
+    ) {
         try {
             Sliders sliderOptional = sliderService.findSlider(sliderid);
 
@@ -69,7 +81,7 @@ public class SliderController {
     @ResponseBody
     public ResponseEntity<Sliders> updateSliderImage(
             @PathVariable Long sliderId,
-            @RequestParam(name = "image",required = false) MultipartFile file
+            @RequestParam(name = "image", required = false) MultipartFile file
     ) {
 
         try {
@@ -92,37 +104,37 @@ public class SliderController {
 
 
     // Thay đổi dữ liệu của 1 slider
-        @PutMapping("/edit/data/{sliderId}")
-        @ResponseBody
-        public ResponseEntity<Sliders> updateSliderData(
-                @PathVariable Long sliderId,
-                @RequestParam(name = "title") String title,
-                @RequestParam(name = "note") String note,
-                @RequestParam(name = "status") boolean status
-        ) {
+    @PutMapping("/edit/data/{sliderId}")
+    @ResponseBody
+    public ResponseEntity<Sliders> updateSliderData(
+            @PathVariable Long sliderId,
+            @RequestParam(name = "title") String title,
+            @RequestParam(name = "note") String note,
+            @RequestParam(name = "status") boolean status
+    ) {
 
-            try {
-                Sliders sliderChange = sliderService.findSlider(sliderId);
+        try {
+            Sliders sliderChange = sliderService.findSlider(sliderId);
 
-                if (sliderChange != null) {
+            if (sliderChange != null) {
 
-                    // Cập nhật dữ liệu của slider từ updatedSliderData
-                    sliderChange.setStatus(status);
-                    sliderChange.setNote(note);
-                    sliderChange.setTitle(title);
-                    // Lưu slider đã cập nhật vào cơ sở dữ liệu
-                    sliderChange = sliderService.save(sliderChange);
+                // Cập nhật dữ liệu của slider từ updatedSliderData
+                sliderChange.setStatus(status);
+                sliderChange.setNote(note);
+                sliderChange.setTitle(title);
+                // Lưu slider đã cập nhật vào cơ sở dữ liệu
+                sliderChange = sliderService.save(sliderChange);
 
-                    return ResponseEntity.ok(sliderChange);
-                } else {
-                    return ResponseEntity.notFound().build();
-                }
-            } catch (Exception e) {
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+                return ResponseEntity.ok(sliderChange);
+            } else {
+                return ResponseEntity.notFound().build();
             }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
+    }
 
-        // Thay đổi giá trị status của slider
+    // Thay đổi giá trị status của slider
     @PutMapping("/{sliderid}")
     @ResponseBody
     public ResponseEntity<Sliders> updateSliderStatus(
@@ -153,11 +165,11 @@ public class SliderController {
 
     }
 
-    @DeleteMapping ("/delete/{sliderId}")
+    @DeleteMapping("/delete/{sliderId}")
     @ResponseBody
     public ResponseEntity<String> DeleteSlider(
             @PathVariable Long sliderId
-    ){
+    ) {
         System.out.println("delete");
 
         try {
@@ -173,6 +185,7 @@ public class SliderController {
 
     @Autowired
     private final SubjectService subjectService;
+
     @PostMapping("/add")
     @ResponseBody
     public ResponseEntity<Sliders> addNewSlider(
@@ -181,7 +194,7 @@ public class SliderController {
             @RequestParam(name = "status") boolean status,
             @RequestParam(name = "image") MultipartFile file,
             @RequestParam(name = "subjectId") Long subjectId
-    ){
+    ) {
 
         try {
             Sliders sliderChange = new Sliders();

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Routes, Route, Link, Navigate, useLocation } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import styles from "./App.module.css";
 import jwtDecode from "jwt-decode";
 import "react-quill/dist/quill.snow.css";
 import authapi from "./api/authapi";
@@ -40,6 +39,8 @@ import Term from "./components/Term/Term";
 
 import CreatePostManage from "./pages/Posts/ManagePost/CreatePost/CreatePostManage";
 import EditPostMange from "./pages/Posts/ManagePost/EditPost/EditPostMange";
+import PostListManage from "./pages/Posts/ManagePost/PostListManage/PostListManage";
+import PrivateContent from "./components/HandleException/PrivateContent";
 
 
 const App = () => {
@@ -54,6 +55,8 @@ const App = () => {
     if (token) {
       try {
         const user = jwtDecode(token);
+        console.log(token);
+        console.log(user);
         setCurrentUser(user);
         setIsAuthenticated(true);
         setUserRole(user.role); // Lấy và lưu trữ vai trò của người dùng
@@ -77,6 +80,7 @@ const App = () => {
       <div className="container mt-3 wrap" style={{ minHeight: "70vh" }}>
         <Routes>
           {/* All */}
+          <Route path="/private" element={<PrivateContent />} />
           <Route path="/" element={<Home />} />
           <Route path="/terms" element={<Term />} />
           <Route path="/home" element={<Home />} />
@@ -122,6 +126,10 @@ const App = () => {
               <Route
                 path="/expert/subject/:subjectId/manage"
                 element={<LessonDetail />}
+              />
+              <Route
+                path="/marketing/post/manage"
+                element={<PostListManage />}
               />
             </>
           )}

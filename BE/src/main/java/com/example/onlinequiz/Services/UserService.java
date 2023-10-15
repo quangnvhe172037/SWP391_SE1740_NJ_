@@ -29,4 +29,6 @@ public interface UserService {
     Users updateAccount(String email, String editedRole, boolean editedEnabled);
 
     Users getUserByEmail(String email);
+
+    Users getUserById(Long id);
 }

@@ -43,9 +43,6 @@ public class SecurityConfig {
             "/lesson/get/data/**",
             "/quiz/get/lesson/**",
             "/quizdata/get/quiz/**",
-            "/marketing/post/add",
-            "/marketing/post/**",
-            "/marketing/post/edit"
 
 
     };
@@ -66,10 +63,20 @@ public class SecurityConfig {
             "/sliders/add",
             "/subjects/all",
             "/sliders/list",
+            "/marketing/post/add",
+            "/marketing/post/edit/**",
+            "/marketing/post/edit",
+            "/marketing/post/manage/**",
+            "/marketing/post/update/status/**",
+            "/marketing/post/delete/**"
+
+
+
     };
     // Danh sách các URL cho admin
     private static final String[] ADMIN_URL = {
             "/admin/**"
+
     };
     //Danh sách url cho cả 3 role expert, admin, customer
     private static final String[] FourRole_URL = {
