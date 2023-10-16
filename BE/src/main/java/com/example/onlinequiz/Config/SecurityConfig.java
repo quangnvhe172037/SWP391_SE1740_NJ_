@@ -82,7 +82,11 @@ public class SecurityConfig {
     private static final String[] FourRole_URL = {
             "/change-password",
             "/profile",
-            "/update/profile"
+            "/update/profile",
+            "/quiz/get/**",
+            "/quiz/result/get",
+            "/quiz/result/get/**",
+            "/quiz/get/lesson/**"
     };
     // Cấu hình bộ lọc bảo mật
     @Bean
@@ -97,7 +101,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests().requestMatchers(EXPERT_URL).hasAuthority("EXPERT").and()
                 .authorizeHttpRequests().requestMatchers(CUSTOMER_URL).hasAuthority("CUSTOMER").and()
                 .authorizeHttpRequests().requestMatchers(MARKETING_URL).hasAuthority("MARKETING").and()
-                .authorizeHttpRequests().requestMatchers(FourRole_URL).hasAnyAuthority("CUSTOMER", "EXPERT", "CUSTOMER" , "MARKETING")
+                .authorizeHttpRequests().requestMatchers(FourRole_URL).hasAnyAuthority("CUSTOMER", "EXPERT", "ADMIN" , "MARKETING")
                 .anyRequest().authenticated().and()
                 // Quản lý phiên làm việc (session)
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()

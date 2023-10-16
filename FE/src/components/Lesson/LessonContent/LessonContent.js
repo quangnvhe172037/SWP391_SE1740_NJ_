@@ -11,7 +11,6 @@ const LessonContent = () => {
    const [lesson, setLesson] = useState({});
    const token = localStorage.getItem("token");
    const { lessonId } = useParams();
-
    useEffect (() => {
      fetch(`http://localhost:8080/lesson/get/data/${lessonId}`, {
        headers: {
@@ -29,14 +28,13 @@ const LessonContent = () => {
        .then((dataJson) => {
          
          const data = {
-           lessonId: dataJson.lessonId,
+           lessonId: dataJson.lessonID,
            lessonName: dataJson.lessonName,
            lessonType: dataJson.lessonType.lessonTypeID,
            lessonOrder: dataJson.order,
            lessonVideoLink: dataJson.videoLink,
            lessonContent: dataJson.lessonContent,
          };
-         
          return data;
        })
 
@@ -44,30 +42,26 @@ const LessonContent = () => {
          
          const mockData = result;
          setLesson(mockData);
+         
        });
-   }, [lessonId]);
-console.log(typeof (lesson.lessonId));
-console.log(typeof lessonId);
-  let lessonData;
-  console.log(lesson.lessonType);
-  console.log("lesson video link" + lesson.lessonVideoLink);
-   switch (lesson.lessonType) {
-     case "1":
-      //  lessonData = <LessonVideo lessonVideo={lesson.videoLink} />;
-       break;
-     case 2:
-       lessonData = <LessonVideo lessonVideo={lesson.lessonVideoLink} />;
-       break;
-     case 3:
-       lessonData = <LessonPost lessonPost={lesson.lessonContent} />;
-       break;
-     default:
-       break;
-   }
+   }, [lessonId, token]);
 
   return (
-      <div className="lesson-content col-md-9">
-          {lessonData}
+    <div className="lesson-content col-md-9">
+      {(() => {
+        switch (lesson.lessonType) {
+          case 1:
+            console.log("check switch case " + lesson.lessonId);
+            return <LessonQuiz lessonId={lesson.lessonId} />;
+          case 2:
+            return <LessonVideo lessonVideo={lesson.lessonVideoLink} />;
+          case 3:
+            return <LessonPost lessonPost={lesson.lessonContent} />;
+          default:
+            console.log("no data");
+            return null;
+        }
+      })()}
     </div>
   );
 };

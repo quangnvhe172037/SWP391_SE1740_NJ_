@@ -12,4 +12,6 @@ import java.util.List;
 public interface QuizDataRepository  extends JpaRepository<QuizData, Long> {
 //    List<QuizData> findByQuizDetail_Quizzes_quizid(Long quizid);
 //    List<QuizData> getAllByQuizdetailsIsIn(List<QuizDetail> qd);
+
+
 }

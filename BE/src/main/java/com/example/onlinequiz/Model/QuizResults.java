@@ -33,6 +33,11 @@ public class QuizResults {
     private Quizzes quizzes;
 
     @Column(name = "correctanswer")
-    private int correctAnswer;
+    private int correctAnswer = 0;
 
+    @Column(name = "nullanswer")
+    private int nullAnswer = 0;
+
+    @Column(name = "falseanswer")
+    private int falseAnswer = 0;
 }

@@ -1,44 +1,53 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import QuizInfo from "../../Quiz/QuizResult/QuizInfo/QuizInfo";
+import QuizResultData from "../../Quiz/QuizResult/QuizResultData/QuizResultData";
 
-const LessonQuiz = () => {
-    const [lesson, setLesson] = useState({});
-    const token = localStorage.getItem("token");
-    const { lessonId } = useParams();
-    useEffect(() => {
-      fetch(`http://localhost:8080/lesson/get/data/${lessonId}`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
+const LessonQuiz = (prop) => {
+  
+  const [quizInfo, setQuizInfo] = useState({});
+  const token = localStorage.getItem("token");
+  let lessonId = prop.lessonId;
+  console.log("LessonQuiz data" + lessonId);
+
+  useEffect(() => {
+    fetch(`http://localhost:8080/quiz/get/lesson/${lessonId}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
       })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Network response was not ok");
-          }
-          return response.json();
-        })
 
-        .then((dataJson) => {
-          const data = {
-            lessonId: dataJson.lessonId,
-            lessonName: dataJson.lessonName,
-            lessonType: dataJson.lessonType.lessonTypeID,
-            lessonVideoLink: dataJson.videoLink,
-            lessonContent: dataJson.lessonContent,
-          };
+      .then((dataJson) => {
+        const data = {
+          quizId: dataJson.quizID
+        };
 
-          return data;
-        })
+        return data;
+      })
 
-        .then((result) => {
-          const mockData = result;
-          setLesson(mockData);
-        });
-    }, []);
-    return <div className="lesson-content col-md-9">
-      
-  </div>;
+      .then((result) => {
+        const mockData = result;
+        setQuizInfo(mockData);
+      });
+  }, [lessonId, token]);
+
+  
+
+  console.log("Lesson Quzi Data");
+  return (
+    <div className="lesson-content-data">
+      <QuizInfo quizId={quizInfo.quizId} />
+
+      <QuizResultData quizId={quizInfo.quizId} />
+    </div>
+  );
 };
 
 export default LessonQuiz;

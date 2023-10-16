@@ -12,6 +12,7 @@ import java.util.List;
 public interface QuizDetailRepository  extends JpaRepository<QuizDetail, Long> {
 //    QuizDetail getByQuizID(Long id);
 
+    int countQuizDetailByQuizzes(Quizzes q);
     List<QuizDetail> getAllByQuizzes(Quizzes q);
 //    List<QuizDetail> getAllByQuizID(Long id);
 
