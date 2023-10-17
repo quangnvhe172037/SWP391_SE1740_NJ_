@@ -1,3 +1,11 @@
+.slider-table-header{
+    text-align: center;
+}
+
+.slider-table-data{
+    text-align: center;
+}
+
 .slider-list-container{
 width: 100wh;
     background-color: #fff;
@@ -23,6 +31,11 @@ width: 100wh;
     justify-content: space-between;
 }
 
+.btn-action:hover{
+    opacity: 0.5;
+    cursor: pointer;
+}
+
 .action-row{
     padding: 0px;
     display: flex;
@@ -40,31 +53,20 @@ width: 100wh;
 }
 
 
-.table-striped tbody tr:nth-child(even) {
-    background-color: #FCC822;
-    color: white;
-}
 
-.table-striped tbody tr:nth-child(odd) {
-    background-color: white;
-    color: F333333;
-}
 
 .modify-btn {
-  background-color: #fcc222;
+  background-color: black;
   color: white;
 }
 
 .modify-btn a:hover {
-background-color: white;
-  color: #fcc222;
+    opacity: 0.5;
   text-decoration: none;
 }
 
 .modify-btn:hover {
-  background-color: white;
-  border: 1px solid #fcc222;
-  color: #fcc222;
+ opacity: 0.5;
   text-decoration: none;
 }
 

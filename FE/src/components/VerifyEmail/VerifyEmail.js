@@ -7,40 +7,44 @@ const VerifyEmail = () => {
     const [response, setResponse] = useState('');
     const navigate = useNavigate();
 
-    // Trích xuất token từ URL
+    // Trích xuất token từ URL và gửi yêu cầu khi component được tạo
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search);
-        setToken(urlParams.get('token'));
-        if (token) {
-            // Gửi token lên server khi component được tạo
-            sendTokenToServer(token);
+        const tokenParam = urlParams.get('token');
+        setToken(tokenParam);
+        if (tokenParam) {
+            sendTokenToServer(tokenParam);
         }
     }, []);
 
     const sendTokenToServer = async (tokenParam) => {
         try {
-            const response = await axios.get(`http://localhost:8080/register/verifyEmail/${token}`, {
-
-            });
-            if (response.status === 200) {
-                // Trường hợp thành công (status code 200), điều hướng đến trang login
-                alert('Xác nhận email thành công. Đăng nhập ngay!');
-                navigate('/login'); // Điều hướng đến trang login
-            } else {
-                // Trường hợp lỗi (không phải status code 200), hiển thị thông báo lỗi
-                alert('Xác nhận email thất bại. Vui lòng thử lại hoặc đăng ký lại.');
-                navigate('/register'); // Điều hướng đến trang register
-            }
+            const response = await axios.get(`http://localhost:8080/register/verifyEmail/` + tokenParam, {});
+            setResponse(response.data);
         } catch (error) {
-            // Xử lý lỗi nếu có
             console.error('Lỗi khi gửi token:', error);
         }
     };
 
     return (
-
         <div>
-
+            <h1>Welcome to quizzi</h1>
+            {response === 'This account has already been verified, please login' ? (
+                <div>
+                    <p>This account has already been verified, please login.</p>
+                    {/* Hiển thị nút hoặc liên kết để đến trang đăng nhập */}
+                </div>
+            ) : response === 'Invalid verification token' ? (
+                <div>
+                    <p>Invalid verification token. Please try again.</p>
+                    {/* Hiển thị nút hoặc liên kết để quay lại trang xác minh email */}
+                </div>
+            ) : response === 'This account has been verified, please login' ? (
+                <div>
+                    <p>This account has been verified, please login</p>
+                    {/* Hiển thị nút hoặc liên kết để quay lại trang xác minh email */}
+                </div>
+            ): null}
         </div>
     );
 };

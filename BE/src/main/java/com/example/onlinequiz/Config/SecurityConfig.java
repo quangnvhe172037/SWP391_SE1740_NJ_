@@ -2,6 +2,7 @@ package com.example.onlinequiz.Config;
 
 import com.example.onlinequiz.Jwt.JwtAuthenticationFilter;
 import com.example.onlinequiz.Security.UserDetailsServiceImpl;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -39,7 +40,10 @@ public class SecurityConfig {
             "/api/payment/**",
             "/subjecttopic/get/**",
             "/lesson/get/*",
-            "/lesson/get/data/*"
+            "/lesson/get/data/**",
+            "/quiz/get/lesson/**",
+            "/quizdata/get/quiz/**",
+            "/myregistration/myRes"
 
 
     };
@@ -60,16 +64,30 @@ public class SecurityConfig {
             "/sliders/add",
             "/subjects/all",
             "/sliders/list",
+            "/marketing/post/add",
+            "/marketing/post/edit/**",
+            "/marketing/post/edit",
+            "/marketing/post/manage/**",
+            "/marketing/post/update/status/**",
+            "/marketing/post/delete/**"
+
+
+
     };
     // Danh sách các URL cho admin
     private static final String[] ADMIN_URL = {
             "/admin/**"
+
     };
     //Danh sách url cho cả 3 role expert, admin, customer
     private static final String[] FourRole_URL = {
             "/change-password",
             "/profile",
-            "/update/profile"
+            "/update/profile",
+            "/quiz/get/**",
+            "/quiz/result/get",
+            "/quiz/result/get/**",
+            "/quiz/get/lesson/**"
     };
     // Cấu hình bộ lọc bảo mật
     @Bean
@@ -84,7 +102,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests().requestMatchers(EXPERT_URL).hasAuthority("EXPERT").and()
                 .authorizeHttpRequests().requestMatchers(CUSTOMER_URL).hasAuthority("CUSTOMER").and()
                 .authorizeHttpRequests().requestMatchers(MARKETING_URL).hasAuthority("MARKETING").and()
-                .authorizeHttpRequests().requestMatchers(FourRole_URL).hasAnyAuthority("CUSTOMER", "EXPERT", "CUSTOMER" , "MARKETING")
+                .authorizeHttpRequests().requestMatchers(FourRole_URL).hasAnyAuthority("CUSTOMER", "EXPERT", "ADMIN" , "MARKETING")
                 .anyRequest().authenticated().and()
                 // Quản lý phiên làm việc (session)
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()

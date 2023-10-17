@@ -1,5 +1,5 @@
 const AddNewQuiz = () => {
-  return <div className="newQuiz-container"></div>;
+  return <div className=""></div>;
 };
 
 export default AddNewQuiz;

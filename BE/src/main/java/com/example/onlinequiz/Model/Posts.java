@@ -21,11 +21,11 @@ public class Posts {
     @Column(name = "postdata", columnDefinition = "TEXT")
     private String postData;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "postcateid")
     private PostCategories postCategory;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "usersid")
     private Users user;
 
@@ -40,7 +40,7 @@ public class Posts {
     @Column(name = "updatedate")
     private Date updateDate;
 
-    @Column(name = "briefinfor", length = 256, columnDefinition = "VARCHAR(256) CHARACTER SET utf8mb4")
+    @Column(name = "briefinfor", columnDefinition = "TEXT")
     private String briefInfor;
 
     @Column(name = "title", length = 256, columnDefinition = "VARCHAR(256) CHARACTER SET utf8mb4")

@@ -16,11 +16,35 @@
   text-align: center;
 }
 
-.lesson-detail-section{
-    background-color: #D1D7DC;
-    margin: 20px;
+.lesson-detail-section {
+  background-color: #f7f9fa;
+  margin: 20px;
+  overflow: hidden;
 }
 
-.lesson-detail-header-name{
-    font-weight: 700;
+.lesson-detail-header-name {
+  font-weight: 700;
+  margin: 40px 10px 10px 20px;
+}
+
+.lesson-section-content {
+  margin-left: 40px;
+}
+
+.lesson-detail-content {
+  background-color: white;
+  border: 1px solid #6a6f73;
+  margin: 16px 0;
+  height: 52px;
+  font-family: "Udemy Sans", "SF Pro Text", -apple-system, BlinkMacSystemFont,
+    Roboto, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol";
+  color: #2d2f31;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.lesson-detail-content-order {
+  width: 20px;
+  text-align:center;
 }

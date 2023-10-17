@@ -1,11 +1,13 @@
 package com.example.onlinequiz.Model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.BatchSize;
 
-@Data
+import java.util.List;
+
+@Getter
+@Setter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,12 +18,15 @@ public class QuizDetail {
     @Column(name = "quizdetailid")
     private Long quizDetailID;
 
+    @BatchSize(size = 5)
     @ManyToOne
-    @MapsId("sentenceid")
     @JoinColumn(name = "sentenceid")
     private QuizData quizData;
 
+    @BatchSize(size = 5)
     @ManyToOne
     @JoinColumn(name = "quizid")
     private Quizzes quizzes;
+
+
 }

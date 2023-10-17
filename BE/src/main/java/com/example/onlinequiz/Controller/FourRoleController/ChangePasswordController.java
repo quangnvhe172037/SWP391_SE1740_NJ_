@@ -33,7 +33,7 @@ public class ChangePasswordController {
             // Mã hóa mật khẩu mới và cập nhật mật khẩu trong cơ sở dữ liệu
             String encodedPassword = passwordEncoder.encode(newPassword);
             userService.updatePassword(email, encodedPassword);
-            return ResponseEntity.ok("Password change success!"); // Trả về 200 OK nếu thành công
+            return ResponseEntity.ok("Password change successfully!"); // Trả về 200 OK nếu thành công
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Something wrong in email or password");
             // Trả về lỗi 401 UNAUTHORIZED nếu có lỗi

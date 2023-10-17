@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface UserRegistrationService {
     List<UserPayment> getUserPaymentList();
+
+//    List<UserPayment> findAllByStatusAsc();
 }

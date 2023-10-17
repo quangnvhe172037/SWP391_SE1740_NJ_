@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
@@ -16,6 +16,9 @@ const required = (value) => {
     }
 };
 
+const MAX_LOGIN_ATTEMPTS = 5; // Số lần nhập sai tối đa trước khi yêu cầu chờ
+const WAIT_TIME_MINUTES = 5; // Thời gian chờ (phút)
+
 const Login = () => {
     const navigate = useNavigate();
     const form = useRef();
@@ -25,6 +28,32 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState("");
+    const [loginAttempts, setLoginAttempts] = useState(0);
+    const [waiting, setWaiting] = useState(false);
+    const [remainingWaitTime, setRemainingWaitTime] = useState(0);
+
+    useEffect(() => {
+        const lastWaitTime = localStorage.getItem("lastWaitTime");
+        if (lastWaitTime) {
+            const currentTime = new Date().getTime();
+            const waitEndTime = new Date(parseInt(lastWaitTime, 10) + WAIT_TIME_MINUTES * 60000);
+            if (currentTime < waitEndTime) {
+                const remainingTime = Math.ceil((waitEndTime - currentTime) / 60000);
+                setWaiting(true);
+                setRemainingWaitTime(remainingTime);
+            } else {
+                localStorage.removeItem("lastWaitTime");
+                clearWaitStatus();
+            }
+        }
+    }, []);
+
+    const clearWaitStatus = () => {
+        setLoginAttempts(0);
+        setWaiting(false);
+        setRemainingWaitTime(0);
+        localStorage.removeItem("lastWaitTime");
+    };
 
     const onChangeEmail = (e) => {
         const email = e.target.value;
@@ -32,8 +61,8 @@ const Login = () => {
     };
 
     const onChangePassword = (e) => {
-        const password = e.target.value;
-        setPassword(password);
+        const pass = e.target.value;
+        setPassword(pass);
     };
 
     const handleLogin = (e) => {
@@ -42,6 +71,10 @@ const Login = () => {
         form.current.validateAll();
 
         if (checkBtn.current.context._errors.length === 0) {
+            if (waiting) {
+                alert(`Please wait for ${remainingWaitTime} minutes before trying again.`);
+                return;
+            }
             axios
                 .post("http://localhost:8080/authenticate", {
                     userName,
@@ -56,15 +89,15 @@ const Login = () => {
                     const user = jwtDecode(token);
                     switch (user.role) {
                       case "ADMIN":
-                        navigate("/adminrole");
+                        navigate("/admin/dashboard");
                         window.location.reload();
                         break;
                       case "EXPERT":
-                        navigate("/expertrole");
+                        navigate("/expert/dashboard");
                         window.location.reload();
                         break;
                       case "MARKETING":
-                        navigate("/marketingrole");
+                        navigate("/marketing/dashboard");
                         window.location.reload();
                         break;
                       default:
@@ -72,11 +105,17 @@ const Login = () => {
                         window.location.reload();
                         break;
                     }
-                    
                 })
                 .catch((error) => {
                     if (error.response && error.response.status === 403) {
                         setMessage("Wrong email or password");
+                        setLoginAttempts(loginAttempts + 1);
+                        if (loginAttempts >= MAX_LOGIN_ATTEMPTS) {
+                            const currentTime = new Date().getTime();
+                            localStorage.setItem("lastWaitTime", currentTime);
+                            setWaiting(true);
+                            setRemainingWaitTime(WAIT_TIME_MINUTES);
+                        }
                     } else {
                         const resMessage =
                             (error.response &&
@@ -84,7 +123,6 @@ const Login = () => {
                                 error.response.data.message) ||
                             error.message ||
                             error.toString();
-
                         setMessage(resMessage);
                     }
                 })
@@ -96,11 +134,23 @@ const Login = () => {
         }
     };
 
+    const handleReload = () => {
+        window.location.reload();
+    };
+
+    const reloadTimeout = useRef(null);
+
+    useEffect(() => {
+        if (waiting) {
+            reloadTimeout.current = setTimeout(handleReload, WAIT_TIME_MINUTES * 60 * 1000);
+        }
+    }, [waiting]);
+
     return (
-        <div className="container">
+        <div className="containers">
             <div className="row justify-content-center">
-                <div className="col-md-6 offset-md-10">
-                    <div className="card card-container ">
+                <div className="col-md-6 offset-md-6">
+                    <div className="card card-container">
                         <img
                             src="/Profile.PNG"
                             alt="profile-img"

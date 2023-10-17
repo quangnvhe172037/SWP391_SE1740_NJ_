@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./Register.css"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faSpinner} from "@fortawesome/free-solid-svg-icons";
+
 const Registration = () => {
     const [formData, setFormData] = useState({
         firstName: "",
@@ -12,9 +15,9 @@ const Registration = () => {
     });
 
     const [message, setMessage] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
     const isStrongPassword = (password) => {
-        // Điều kiện mật khẩu: ít nhất 8 ký tự, chữ viết hoa, số, ký tự đặc biệt
         const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&*!])[A-Za-z\d@#$%^&*!]{8,}$/;
         return regex.test(password);
     };
@@ -28,49 +31,58 @@ const Registration = () => {
 
         if (name === "password") {
             if (!isStrongPassword(value)) {
-                setMessage("Password is not strong enough(contain at least 8 character, uppercase, number, special character).");
+                setMessage("Password is not strong enough (contain at least 8 characters, uppercase, number, special character).");
             } else {
                 setMessage("");
             }
         }
 
         if (name === "role") {
-            // Cập nhật giá trị cho trường input ẩn "role"
             document.querySelector('input[name="role"]').value = value;
         }
     };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        if (!formData.agreeTerms) {
+            setMessage("You must agree to the Terms and Conditions.");
+            return;
+        }
+        if (formData.password !== formData.confirmPassword) {
+            setMessage("Confirm Password does not match!");
+            return;
+        }
         if (formData.password !== formData.confirmPassword) {
             setMessage("Confirm Password does not match!");
             return;
         }
 
+        setIsLoading(true);
+
         try {
-            console.log(formData);
             const response = await axios.post("http://localhost:8080/register", formData, {
                 headers: {
                     "Content-Type": "application/json",
                 },
             });
-            console.log(response.data);
 
             setMessage(response.data.message);
         } catch (error) {
-            if (error.response.status === 400) {
+            if (error.response && error.response.status === 400) {
                 setMessage(error.response.data.message);
             } else {
                 console.error(error);
             }
+        } finally {
+            setIsLoading(false);
         }
     };
 
     return (
-        <div className="container">
-            <div className="row justify-content-center" >
-                <div className="col-md-4 offset-md-7" > {/* Sử dụng offset-md-3 để dịch chuyển khung đăng ký */}
-                    <div className="card" style={{marginTop: "20px"}}>
+        <div className="containers">
+            <div className="row justify-content-center">
+                <div className="col-md-4 offset-md-7">
+                    <div className="card" style={{ marginTop: "20px" }}>
                         <div className="card-body">
                             <h2 className="card-title">Register</h2>
                             <form onSubmit={handleSubmit}>
@@ -129,10 +141,29 @@ const Registration = () => {
                                     name="role"
                                     value={formData.role}
                                 />
-                                {message && <div className="alert mt-2">{message}</div>}
-                                <button type="submit" className="btn btn-primary" style={{backgroundColor: "black", color: "white", border: "1px solid", height:"35px", width:"100px", marginLeft:"75px"}}>
-                                    Register
-                                </button>
+                                {isLoading ? (
+                                    <div className="text-center">
+                                        <p>Loading...<FontAwesomeIcon icon={faSpinner} spin size="3px"/></p>
+                                    </div>
+                                ) : (
+                                    <div>
+                                        {message && <div className="alert mt-2">{message}</div>}
+                                        <div className="form-check">
+                                            <input
+                                                type="checkbox"
+                                                className="form-check-input"
+                                                name="agreeTerms"
+                                                onChange={handleInputChange}
+                                            />
+                                            <label className="form-check-label" htmlFor="agreeTerms">
+                                                I agree to the <a href="/terms" target="_blank">Terms and Conditions</a>
+                                            </label>
+                                        </div>
+                                        <button type="submit" className="btn btn-primary" style={{ backgroundColor: "black", color: "white", border: "1px solid", height: "35px", width: "100px", marginLeft: "75px" }}>
+                                            Register
+                                        </button>
+                                    </div>
+                                )}
                             </form>
                         </div>
                     </div>

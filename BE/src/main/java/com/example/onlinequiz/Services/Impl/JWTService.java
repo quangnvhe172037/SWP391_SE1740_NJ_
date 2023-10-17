@@ -54,6 +54,8 @@ public class JWTService {
      */
     private String generateTokenForUser(Map<String, Object> claims, String userName, String userRole) {
         claims.put("role", userRole);
+        Long id = userRepository.getByEmail(userName).getId();
+        claims.put("userId", id);
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(userName)

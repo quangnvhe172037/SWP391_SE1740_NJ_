@@ -100,6 +100,7 @@ const Home = () => {
 
             .then((result) => {
                 const data = result;
+                console.log(data);
                 setPosts(data);
             });
     }, []);
@@ -210,7 +211,7 @@ const Home = () => {
                         <p className=' text-orange-600 font-bold'>Xem tất cả</p>
                     </div>
                     <div className='grid grid-flow-col auto-cols-[60%] snap-x overflow-y-auto md:grid-flow-row md:grid-cols-3 lg:grid-cols-4 gap-6 pb-5'>
-                        {posts.map((data, index) => {
+                        {posts.map((data, index) => (
                             <div className='rounded-xl border-2 p-4 mb-4'>
                                 <div className='flex justify-between mb-4'>
                                     <div className='flex items-center gap-2'>
@@ -233,17 +234,18 @@ const Home = () => {
                                 <Link to={`#`}>
                                     <div className='flex justify-between gap-4 items-center flex-wrap sm:flex-nowrap'>
                                         <div className='order-2 sm:order-1'>
-                                            <h1 className='text-xl font-bold mb-3'>{data.title}</h1>
+                                            <h2 className='text-xl font-bold mb-3'>{data.title}</h2>
                                             <p className='text-sm text-slate-600 mb-3'>{data.briefInfor}</p>
                                             <span className='text-sm mr-3'>{DayJs.from(data.updateDate)}</span>
                                         </div>
+
                                         <div className='order-1 sm:order-2 w-full sm:w-52 flex-shrink-0'>
                                             <img className='object-cover rounded-xl w-full aspect-video' src={data.image} alt='' />
                                         </div>
                                     </div>
                                 </Link>
                             </div>
-                        }
+                            )
                         )
                         }
                     </div>

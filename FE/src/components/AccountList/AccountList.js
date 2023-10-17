@@ -91,7 +91,7 @@ const AccountList = () => {
     };
 
     return (
-        <div className="containers mt-5">
+        <div className="view-container mt-5">
             <h5>Account List</h5>
                 <input
                     type="text"
@@ -164,13 +164,15 @@ const AccountList = () => {
                             {editableAccounts[index] ? (
                                 <button
                                     className="btn btn-success"
+                                    style={{border: "1px solid black"}}
                                     onClick={() => handleSaveClick(index, account.email)}
                                 >
                                     Save
                                 </button>
                             ) : (
                                 <button
-                                    className="btn btn-primary"
+                                    className="btn"
+                                    style={{border: "1px solid black"}}
                                     onClick={() => handleEditClick(index)}
                                 >
                                     Edit

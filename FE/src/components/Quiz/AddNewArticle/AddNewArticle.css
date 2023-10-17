@@ -1,0 +1,7 @@
+.lessonArticle-typing-area {
+  background-color: white;
+}
+
+.lessonArticle-typing-area .ql-container.ql-snow {
+  min-height: 70px;
+}

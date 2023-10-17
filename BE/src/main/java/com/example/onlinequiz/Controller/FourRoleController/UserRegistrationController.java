@@ -17,7 +17,7 @@ public class UserRegistrationController {
     @Autowired
     public final UserRegistrationService registrationService;
 
-    @GetMapping
+    @GetMapping("/myRes")
     @ResponseBody
     public ResponseEntity<List<UserPayment>> getUserRegistration(){
         List<UserPayment> userPaymentList = registrationService.getUserPaymentList();

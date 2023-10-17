@@ -52,6 +52,7 @@ const Profile = () => {
                 setIsEditing(false);
                 // Cập nhật lại thông tin hồ sơ sau khi lưu thành công
                 setProfileData(response.data);
+                window.location.reload();
             })
             .catch((error) => {
                 if (error.response && error.response.status === 400){
@@ -67,7 +68,7 @@ const Profile = () => {
     };
 
     return (
-        <div className="containers mt-5">
+        <div className="profile-container mt-5">
             <div className="row">
                 <div className="col-md-4">
                     <img src="https://th.bing.com/th/id/OIP.yP3kk77LcFKDSG9UeLzrmwHaLE?w=133&h=199&c=7&r=0&o=5&dpr=1.5&pid=1.7"
@@ -84,12 +85,26 @@ const Profile = () => {
                             <td>{profileData.email}</td>
                         </tr>
                         <tr>
-                            <td className="text-left"><strong>Full Name:</strong></td>
+                            <td className="text-left"><strong>First Name:</strong></td>
                             <td>
                                 <input
                                     type="text"
                                     name="firstName"
-                                    value={`${profileData.firstName} ${profileData.lastName}`}
+                                    value={`${profileData.firstName}`}
+                                    onChange={handleInputChange}
+                                    className="form-control"
+                                    disabled={!isEditing}
+                                    style={{borderColor: "black"}}
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className="text-left"><strong>Last Name:</strong></td>
+                            <td>
+                                <input
+                                    type="text"
+                                    name="firstName"
+                                    value={`${profileData.lastName}`}
                                     onChange={handleInputChange}
                                     className="form-control"
                                     disabled={!isEditing}
@@ -133,7 +148,7 @@ const Profile = () => {
                                 <input
                                     type="password"
                                     name="password"
-                                    value={profileData.password}
+                                    value="*****************"
                                     onChange={handleInputChange}
                                     // className="form-control"
                                     readOnly

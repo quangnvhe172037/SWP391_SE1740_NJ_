@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./LessonDetail.css";
+import AddNewArticle from "../../components/Quiz/AddNewArticle/AddNewArticle";
+import EditLessonQuiz from "../../components/Lesson/EditLessonForm/EditLessonQuiz/EditLessonQuiz";
 
 const LessonDetail = () => {
   const { subjectId } = useParams();
@@ -82,17 +84,33 @@ const LessonDetail = () => {
       {topics.map((topic) => (
         <div key={topic.topicID} className="lesson-detail-section">
           <div className="lesson-detail-header-name">
-            <span className="">Lesson {topic.topicOrder}: {topic.topicName}</span>
+            <span className="">
+              Lesson {topic.topicOrder}: {topic.topicName}
+            </span>
           </div>
 
           <div className="">
-            <ul className="">
+            <ul className="lesson-section-content">
               {lessons
                 .filter((lesson) => lesson.topicID === topic.topicID)
                 .map((lesson) => (
-                  <li key={lesson.lessonId} className={""}>
-                    {lesson.lessonName}
-                  </li>
+                  <div>
+                    <li key={lesson.lessonId} className="lesson-detail-content">
+                      <span>Lecture</span>
+                      <input
+                        type="text"
+                        readOnly
+                        value={lesson.lessonOrder}
+                        className="lesson-detail-content-order"
+                      />
+                      <input type="text" readOnly value={lesson.lessonName} />
+
+                      <div className="lesson-sidebar-right">
+                        <i className="fa-solid fa-angle-down"></i>
+                      </div>
+                    </li>
+                    <EditLessonQuiz />
+                  </div>
                 ))}
             </ul>
           </div>

@@ -1,0 +1,30 @@
+.quiz-info-wrap{
+    border-bottom: 1px solid black;
+   padding-top: 12px;
+}
+
+.quiz-info-header{
+    font-size:32px;
+    font-weight:bolder;
+    
+}
+
+.quiz-info-btn{
+    background-color: black;
+    color: white;
+    padding: 5px 5px;
+    border-radius: 3px;
+}
+
+.quiz-info-btn:hover{
+    opacity: 0.8;
+}
+
+.quiz-info-overview{
+    margin: 10px 0
+}
+
+.quiz-info-distance{
+    margin: 0  10px
+}
+
