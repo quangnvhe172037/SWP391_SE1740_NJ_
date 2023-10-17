@@ -58,6 +58,15 @@ VALUES
 (3,"$2a$10$quS2hnY5Fglq29NNtu86OeUelo0hTyRElm3FyGaZZR9b/TCqT0Eg.","An","Bui Gia","quangnv1911@gmail.com",0334745645,1,"2003-11-19","",1,"CUSTOMER"),
 (4, "$2a$10$quS2hnY5Fglq29NNtu86OeUelo0hTyRElm3FyGaZZR9b/TCqT0Eg.", "An", "Nguyen Thanh", "quangss310@gmail.com", 0334987654, 1, "2003-11-19","", 1, "EXPERT");
 
+--insert cho userpayment
+INSERT INTO `quizpractice`.'subjectprice' (price, subjectid, status)
+VALUES (100, 1, true),
+(1500,2,true)
+
+Insert into `quizpractice`.'userpayment' (usersid,preid, status,notify,subjectid,purchasedate)
+values(1,2,true,'Success register',2,'2023/09/28'),
+(1,3,false,'Success register',2,'2023/09/28'),
+(1,4,false,'Success register',2,'2023/09/28')
 
 INSERT INTO `quizpractice`.`subjecttopic`
 (`topicid`,
