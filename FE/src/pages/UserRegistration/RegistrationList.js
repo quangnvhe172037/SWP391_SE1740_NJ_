@@ -48,7 +48,7 @@ function UserRes() {
     });
 
     return (
-        <div className="containers">
+        <div className="container">
             <h1>My course</h1>
 
             <div className="row">
@@ -60,7 +60,7 @@ function UserRes() {
                             </div>
                             <div className="course-info">
                                 <h2>Bill ID: {userPayment.billID}</h2>
-                                <p>Access time: {userPayment.notify}</p>
+                                <p>Notify: {userPayment.notify}</p>
                                 <p>Purchase Date: {format(new Date(userPayment.purchase_date), 'dd-MM-yyyy')}</p>
                                 <p>Subject: {userPayment.subject.subjectName}</p>
                                 <p>User: {userPayment.users.username}</p>

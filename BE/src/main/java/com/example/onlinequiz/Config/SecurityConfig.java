@@ -43,6 +43,7 @@ public class SecurityConfig {
             "/lesson/get/data/**",
             "/quiz/get/lesson/**",
             "/quizdata/get/quiz/**",
+            "/myregistration/myRes"
 
 
     };

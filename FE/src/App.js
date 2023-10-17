@@ -24,6 +24,7 @@ import SliderAdd from "./pages/SliderDetail/SliderAdd";
 import Footer from "./components/Footer/Footer";
 import Profile from "./pages/Profile/Profile";
 
+import UserRes from "./pages/UserRegistration/RegistrationList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import Subject from "./components/Subject/Subject";
@@ -97,6 +98,7 @@ const App = () => {
               <Route path="/sliders" element={<SliderList />} />
               <Route path="/posts" element={<PostList />} />
               <Route path="/posts/view/:postId" element={<PostDetail />} />
+              <Route path="/myRegistration" element={<UserRes/>}/>
               <Route path="/posts/edit/:postId" element={<PostEdit />} />
               <Route path="/sliders/edit/*" element={<SliderDetail />} />
               <Route
