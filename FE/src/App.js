@@ -23,8 +23,6 @@ import PostEdit from "./pages/Posts/PostEdit";
 import SliderAdd from "./pages/SliderDetail/SliderAdd";
 import Footer from "./components/Footer/Footer";
 import Profile from "./pages/Profile/Profile";
-
-import UserRes from "./pages/UserRegistration/RegistrationList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import Subject from "./components/Subject/Subject";
@@ -42,6 +40,7 @@ import CreatePostManage from "./pages/Posts/ManagePost/CreatePost/CreatePostMana
 import EditPostMange from "./pages/Posts/ManagePost/EditPost/EditPostMange";
 import PostListManage from "./pages/Posts/ManagePost/PostListManage/PostListManage";
 import PrivateContent from "./components/HandleException/PrivateContent";
+import UserRes from "./pages/UserRegistration/RegistrationList";
 
 
 const App = () => {
@@ -132,6 +131,10 @@ const App = () => {
               <Route
                 path="/marketing/post/manage"
                 element={<PostListManage />}
+              />
+              <Route
+                path="/regis"
+                element={<UserRes />}
               />
             </>
           )}

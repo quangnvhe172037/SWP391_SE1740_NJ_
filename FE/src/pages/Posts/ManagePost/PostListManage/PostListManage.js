@@ -4,6 +4,7 @@ import "./PostListManage.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import ReactPaginate from "react-paginate";
+import PrivateContent from "../../../../components/HandleException/PrivateContent";
 
 const PostListManage = () => {
   const [postList, updatedPostList] = useState([]);
@@ -14,77 +15,77 @@ const PostListManage = () => {
   // const [searchTerm, setSearchTerm] = useState("");
   // const [statusFilter, setStatusFilter] = useState("all");
 
- const [pageNumber, setPageNumber] = useState(0);
- const postsPerPage = 5;
- const pagesVisited = pageNumber * postsPerPage;
+  const [pageNumber, setPageNumber] = useState(0);
+  const postsPerPage = 5;
+  const pagesVisited = pageNumber * postsPerPage;
 
- const displayPosts = () => postList
-   .slice(pagesVisited, pagesVisited + postsPerPage)
-   .map((post) => (
-     // Hiển thị thông tin bài viết ở đây
-     <li className="manage-post-list-element ">
-       <div className="row">
-         <div className="post-list-element-image col-sm-2">
-           <img src={baseUrl + post.image} alt="Image of the picture" />
-         </div>
+  const displayPosts = () => postList
+    .slice(pagesVisited, pagesVisited + postsPerPage)
+    .map((post) => (
+      // Hiển thị thông tin bài viết ở đây
+      <li className="manage-post-list-element ">
+        <div className="row">
+          <div className="post-list-element-image col-sm-2">
+            <img src={baseUrl + post.image} alt="Image of the picture" />
+          </div>
 
-         <div className="col-sm-8 post-list-element-content">
-           <h2 className="post-list-title">{post.title}</h2>
-           <div className="post-list-info">
-             <span>{post.postCateName}</span>
-             <span>{post.updateDate}</span>
-           </div>
-           <div className="post-list-blog">
-             <span>{post.brief}</span>
-           </div>
-         </div>
+          <div className="col-sm-8 post-list-element-content">
+            <h2 className="post-list-title">{post.title}</h2>
+            <div className="post-list-info">
+              <span>{post.postCateName}</span>
+              <span>{post.updateDate}</span>
+            </div>
+            <div className="post-list-blog">
+              <span>{post.brief}</span>
+            </div>
+          </div>
 
-         <div className="col-sm-2 row post-list-action-list">
-           {post.status === true ? (
-             <div
-               title="publish"
-               className="col-sm-4 btn-action post-list-action-btn"
-               onClick={() => handleAction(post.postId, "hide")}
-             >
-               <i className="fa-solid fa-eye-slash"></i>
-             </div>
-           ) : (
-               <div
-                 title="unpublish"
-               className="col-sm-4 btn-action post-list-action-btn"
-               onClick={() => handleAction(post.postId, "show")}
-             >
-               <i className="fa-solid fa-eye"></i>
-             </div>
-           )}
+          <div className="col-sm-2 row post-list-action-list">
+            {post.status === true ? (
+              <div
+                title="publish"
+                className="col-sm-4 btn-action post-list-action-btn"
+                onClick={() => handleAction(post.postId, "hide")}
+              >
+                <i className="fa-solid fa-eye-slash"></i>
+              </div>
+            ) : (
+              <div
+                title="unpublish"
+                className="col-sm-4 btn-action post-list-action-btn"
+                onClick={() => handleAction(post.postId, "show")}
+              >
+                <i className="fa-solid fa-eye"></i>
+              </div>
+            )}
 
-           <div
-             className="col-md-4 post-list-action-btn"
-             onClick={() => handleDelete(post.postId)}
-           >
-             <i className="fa-solid fa-trash"></i>
-           </div>
+            <div
+              className="col-md-4 post-list-action-btn"
+              onClick={() => handleDelete(post.postId)}
+            >
+              <i className="fa-solid fa-trash"></i>
+            </div>
 
-           <div className="col-md-4 post-list-action-btn">
-             <Link
-               to={`/marketing/post/edit/${post.postId}`}
-               onClick={(e) => {
-                 window.scrollTo(0, 0);
-               }}
-             >
-               <i className="fa-solid fa-pen-to-square"></i>
-             </Link>
-           </div>
-         </div>
-       </div>
-     </li>
-   ));
+            <div className="col-md-4 post-list-action-btn">
+              <Link
+                to={`/marketing/post/edit/${post.postId}`}
+                onClick={(e) => {
+                  window.scrollTo(0, 0);
+                }}
+              >
+                <i className="fa-solid fa-pen-to-square"></i>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </li>
+    ));
 
- const pageCount = Math.ceil(postList.length / postsPerPage);
+  const pageCount = Math.ceil(postList.length / postsPerPage);
 
- const changePage = ({ selected }) => {
-   setPageNumber(selected);
- };
+  const changePage = ({ selected }) => {
+    setPageNumber(selected);
+  };
 
 
   useEffect(() => {
@@ -99,7 +100,7 @@ const PostListManage = () => {
         }
 
         if (!response.ok) {
-          throw new Error("Network response was not ok");
+          console.log(response.message);
         }
         return response.json();
       })
@@ -122,6 +123,9 @@ const PostListManage = () => {
         const mockData = result;
         updatedPostList(mockData);
         // setFilteredPost(mockData);
+      })
+      .catch((err) => { 
+        
       });
   }, []);
 
@@ -168,7 +172,7 @@ const PostListManage = () => {
       .then((response) => {
         console.log(response);
         if (!response.ok) {
-          throw new Error(console.error());
+          console.log(response.message);
         }
         return response.json();
       })
@@ -196,7 +200,7 @@ const PostListManage = () => {
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error(response.status);
+          console.log(response.message);
         }
         // Nếu xóa thành công, cập nhật lại danh sách posts
         const updatedPost = postList.filter((post) => post.postId !== postId);
@@ -225,22 +229,27 @@ const PostListManage = () => {
   //    setFilteredPost(filtered);
   //  }, [postList, searchTerm, statusFilter]);
 
-  return (
-    <div className="manage-post-list-container">
-      <div className="manage-post-list-header row">
-        <h1 className="manage-post-header col-md-10">My post</h1>
-        <div className="col-md-2">
-          <button type="button" className="manage-post-btn">
-            <Link
-              to="/marketing/post/create"
-              className="manange-post-list-link"
-            >
-              Add new
-            </Link>
-          </button>
+  
+
+  if (user.role !== "MARKETING") {
+    return <PrivateContent />;
+  } else {
+    return (
+      <div className="manage-post-list-container">
+        <div className="manage-post-list-header row">
+          <h1 className="manage-post-header col-md-10">My post</h1>
+          <div className="col-md-2">
+            <button type="button" className="manage-post-btn">
+              <Link
+                to="/marketing/post/create"
+                className="manange-post-list-link"
+              >
+                Add new
+              </Link>
+            </button>
+          </div>
         </div>
-      </div>
-{/* 
+        {/* 
       <div className="manage-post-filter">
         <input
           className="input-filter"
@@ -259,30 +268,30 @@ const PostListManage = () => {
         </select>
       </div> */}
 
-      <div className="manage-post-list-content">
-        <ul className="manage-post-list">{displayPosts()}</ul>
+        <div className="manage-post-list-content">
+          <ul className="manage-post-list">{displayPosts()}</ul>
+        </div>
+        <ReactPaginate
+          breakLabel="..."
+          nextLabel="next >"
+          onPageChange={changePage}
+          pageRangeDisplayed={5}
+          pageCount={pageCount}
+          previousLabel="< previous"
+          renderOnZeroPageCount={null}
+          pageClassName="page-item"
+          pageLinkClassName="page-link"
+          previousClassName="page-item"
+          previousLinkClassName="page-link"
+          nextClassName="page-item"
+          nextLinkClassName="page-link"
+          breakClassName="page-item"
+          breakLinkClassName="page-link"
+          containerClassName="pagination"
+          activeClassName="active"
+        />
       </div>
-      <ReactPaginate
-        breakLabel="..."
-        nextLabel="next >"
-        onPageChange={changePage}
-        pageRangeDisplayed={5}
-        pageCount={pageCount}
-        previousLabel="< previous"
-        renderOnZeroPageCount={null}
-        pageClassName="page-item"
-        pageLinkClassName="page-link"
-        previousClassName="page-item"
-        previousLinkClassName="page-link"
-        nextClassName="page-item"
-        nextLinkClassName="page-link"
-        breakClassName="page-item"
-        breakLinkClassName="page-link"
-        containerClassName="pagination"
-        activeClassName="active"
-      />
-    </div>
-  );
-};
-
+    );
+  };
+}
 export default PostListManage;

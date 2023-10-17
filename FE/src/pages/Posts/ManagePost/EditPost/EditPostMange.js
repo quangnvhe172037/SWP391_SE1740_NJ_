@@ -1,18 +1,15 @@
-import { useState } from "react";
-import { useEffect } from "react";
+
 import jwtDecode from "jwt-decode";
-import { useParams } from "react-router-dom";
 import PostEditComponent from "../../../../components/Post/PostMange/PostEdit";
+import PrivateContent from "../../../../components/HandleException/PrivateContent";
 const EditPostMange = () => {
-  
-    
+  const token = localStorage.getItem("token");
+  const user = jwtDecode(token);
 
-  return (
-    <PostEditComponent
-     
-      />
-    
-  );
+  if (user.role !== "MARKETING") {
+    return <PrivateContent />;
+  } else {
+    return <PostEditComponent />;
+  }
 };
-
 export default EditPostMange;

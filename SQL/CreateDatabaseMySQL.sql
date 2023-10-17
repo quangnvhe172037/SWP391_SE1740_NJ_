@@ -308,6 +308,7 @@ CREATE TABLE IF NOT EXISTS `quizpractice`.`quizresult` (
   `correctanswer` INT NULL DEFAULT NULL,
   `nullanswer` INT NULL DEFAULT NULL,
   `falseanswer` INT NULL DEFAULT NULL,
+  `ispass` BIT(1) NULL DEFAULT FALSE,
   PRIMARY KEY (`resultid`),
   INDEX `usersid` (`usersid` ASC) VISIBLE,
   INDEX `quizid` (`quizid` ASC) VISIBLE,

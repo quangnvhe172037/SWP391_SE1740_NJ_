@@ -1,11 +1,49 @@
-.quiz-result-wrap{
-    padding: 40px 20px;
-    box-shadow: 0 2px 4px rgba(0,0,0,.08), 0 4px 12px rgba(0,0,0,.16);
+.quiz-result-wrap {
+  margin-top: 40px;
 }
 
+.quiz-result-container {
+  padding: 32px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.16);
+  margin: 20px 50px;
+}
 
-.quiz-result-chart{
-    width: 200px;
-    height: 200px;
-    margin: 20px 0 0 120px;
+.quiz-result-chart {
+  width: 200px;
+  height: 200px;
+  margin: 20px 0 0 120px;
+}
+
+.quiz-result-attempt{
+    font-size:40px;
+}
+
+.quiz-result-score {
+  font-size: 32px;
+}
+
+.quiz-result-not {
+  color: red;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.quiz-result-pass {
+  color: green;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.quiz-result-review-wrap {
+    margin-top: 20px;
+}
+
+.quiz-result-review-btn {
+  padding: 8px;
+  background-color: black;
+  color: white;
+}
+
+.quiz-result-review-btn:hover{
+    opacity: 0.8;
 }

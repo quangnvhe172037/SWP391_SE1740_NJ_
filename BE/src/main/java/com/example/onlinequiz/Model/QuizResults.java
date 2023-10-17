@@ -40,4 +40,7 @@ public class QuizResults {
 
     @Column(name = "falseanswer")
     private int falseAnswer = 0;
+
+    @Column(name = "ispass")
+    private Boolean isPass = false;
 }

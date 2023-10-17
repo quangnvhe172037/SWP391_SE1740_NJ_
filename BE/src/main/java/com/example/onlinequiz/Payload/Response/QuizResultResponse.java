@@ -12,9 +12,10 @@ import java.util.Date;
 public class QuizResultResponse {
 private Long resultId;
 private int score;
-private Date dateTaken;
+private String dateTaken;
 private Long quizId;
 private int correctAnswer;
 private int nullAnswer;
 private int falseAnswer;
+private Boolean isPass;
 }
