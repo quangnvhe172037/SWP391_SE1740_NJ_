@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import {faMagnifyingGlass, faSearch} from "@fortawesome/free-solid-svg-icons";
 
 const AccountList = () => {
     const token = localStorage.getItem("token");
@@ -86,96 +86,102 @@ const AccountList = () => {
 
     return (
         <div className="view-container mt-5">
-            <h5>Account List</h5>
-            <input
-                type="text"
-                className="form-control"
-                id="searchEmail"
-                value={searchEmail}
-                onChange={handleSearchChange}
-            />
-            <table className="table mt-3">
-                <thead>
-                <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Email</th>
-                    <th>Mobile</th>
-                    <th>Role <button className="btn" onClick={handleSortByRoleClick}>
-                        {sortByRoleAscending ? "▲" : "▼"}
-                    </button></th>
-                    <th>Gender</th>
-                    <th>Enabled</th>
-                    <th>Edit</th>
-                </tr>
-                </thead>
-                <tbody>
-                {accounts.map((account, index) => (
-                    <tr key={index}>
-                        <td>{account.firstName}</td>
-                        <td>{account.lastName}</td>
-                        <td>{account.email}</td>
-                        <td>{account.mobile}</td>
-                        <td>
-                            {editableAccounts[index] ? (
-                                <select
-                                    value={account.role}
-                                    onChange={(e) => {
-                                        const newAccounts = [...accounts];
-                                        newAccounts[index].role = e.target.value;
-                                        setAccounts(newAccounts);
-                                    }}
-                                >
-                                    <option value="EXPERT">EXPERT</option>
-                                    <option value="ADMIN">ADMIN</option>
-                                    <option value="CUSTOMER">CUSTOMER</option>
-                                    <option value="MARKETING">MARKETING</option>
-                                </select>
-                            ) : (
-                                account.role
-                            )}
-                        </td>
-                        <td>{account.gender ? 'Male' : 'Female'}</td>
-                        <td>
-                            {editableAccounts[index] ? (
-                                <select
-                                    value={account.enabled ? 'true' : 'false'}
-                                    onChange={(e) => {
-                                        const newAccounts = [...accounts];
-                                        newAccounts[index].enabled = e.target.value === 'true';
-                                        setAccounts(newAccounts);
-                                    }}
-                                >
-                                    <option value="true">Yes</option>
-                                    <option value="false">No</option>
-                                </select>
-                            ) : (
-                                account.enabled ? 'Yes' : 'No'
-                            )}
-                        </td>
-                        <td>
-                            {editableAccounts[index] ? (
-                                <button
-                                    className="btn btn-success"
-                                    style={{ border: "1px solid black" }}
-                                    onClick={() => handleSaveClick(index, account.email)}
-                                >
-                                    Save
-                                </button>
-                            ) : (
-                                <button
-                                    className="btn"
-                                    style={{ border: "1px solid black" }}
-                                    onClick={() => handleEditClick(index)}
-                                >
-                                    Edit
-                                </button>
-                            )}
-                        </td>
+            <div className="search-container" style={{display:"flex", alignItems:"center", justifyContent:"space-between"}}>
+                <h5>Account List</h5>
+                <FontAwesomeIcon icon={faSearch}/>
+                <input
+                    type="text"
+                    className="form-control"
+                    id="searchEmail"
+                    value={searchEmail}
+                    onChange={handleSearchChange}
+                    style={{width:"1110px"}}
+                />
+            </div>
+            <div className="table-container" style={{maxHeight:"400px", overflow:"auto"}}>
+                <table className="table mt-3">
+                    <thead>
+                    <tr>
+                        <th style={{ background: '#fff', position: 'sticky', top: 0, zIndex: 1 }}>First Name</th>
+                        <th style={{ background: '#fff', position: 'sticky', top: 0, zIndex: 1 }}>Last Name</th>
+                        <th style={{ background: '#fff', position: 'sticky', top: 0, zIndex: 1 }}>Email</th>
+                        <th style={{ background: '#fff', position: 'sticky', top: 0, zIndex: 1 }}>Mobile</th>
+                        <th style={{ background: '#fff', position: 'sticky', top: 0, zIndex: 1 }}>Role <button className="btn" onClick={handleSortByRoleClick}>
+                            {sortByRoleAscending ? "▲" : "▼"}
+                        </button></th>
+                        <th style={{ background: '#fff', position: 'sticky', top: 0, zIndex: 1 }}>Gender</th>
+                        <th style={{ background: '#fff', position: 'sticky', top: 0, zIndex: 1 }}>Enabled</th>
+                        <th style={{ background: '#fff', position: 'sticky', top: 0, zIndex: 1 }}>Edit</th>
                     </tr>
-                ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    {accounts.map((account, index) => (
+                        <tr key={index}>
+                            <td>{account.firstName}</td>
+                            <td>{account.lastName}</td>
+                            <td>{account.email}</td>
+                            <td>{account.mobile}</td>
+                            <td>
+                                {editableAccounts[index] ? (
+                                    <select
+                                        value={account.role}
+                                        onChange={(e) => {
+                                            const newAccounts = [...accounts];
+                                            newAccounts[index].role = e.target.value;
+                                            setAccounts(newAccounts);
+                                        }}
+                                    >
+                                        <option value="EXPERT">EXPERT</option>
+                                        <option value="ADMIN">ADMIN</option>
+                                        <option value="CUSTOMER">CUSTOMER</option>
+                                        <option value="MARKETING">MARKETING</option>
+                                    </select>
+                                ) : (
+                                    account.role
+                                )}
+                            </td>
+                            <td>{account.gender ? 'Male' : 'Female'}</td>
+                            <td>
+                                {editableAccounts[index] ? (
+                                    <select
+                                        value={account.enabled ? 'true' : 'false'}
+                                        onChange={(e) => {
+                                            const newAccounts = [...accounts];
+                                            newAccounts[index].enabled = e.target.value === 'true';
+                                            setAccounts(newAccounts);
+                                        }}
+                                    >
+                                        <option value="true">Yes</option>
+                                        <option value="false">No</option>
+                                    </select>
+                                ) : (
+                                    account.enabled ? 'Yes' : 'No'
+                                )}
+                            </td>
+                            <td>
+                                {editableAccounts[index] ? (
+                                    <button
+                                        className="btn btn-success"
+                                        style={{ border: "1px solid black" }}
+                                        onClick={() => handleSaveClick(index, account.email)}
+                                    >
+                                        Save
+                                    </button>
+                                ) : (
+                                    <button
+                                        className="btn"
+                                        style={{ border: "1px solid black" }}
+                                        onClick={() => handleEditClick(index)}
+                                    >
+                                        Edit
+                                    </button>
+                                )}
+                            </td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 };
