@@ -4,7 +4,7 @@ import jwtDecode from "jwt-decode";
 import PrivateContent from "../../../../components/HandleException/PrivateContent";
 const CreatePostManage = () => {
   const [updatedImage, setUpdatedImage] = useState(
-    "/img/posts/duongdananh.jpg"
+    "/img/posts/image post null.png"
   );
   const [valueArticle, setValueArticle] = useState("");
   const [postCates, setPostCates] = useState([]);

@@ -107,7 +107,8 @@ INSERT INTO `quizpractice`.`lesson`
 `lessontypeid`,
 `order`)
 VALUES
-(2, "Practice HTML", 1, 1, 1, 2);
+(2, "Practice HTML", 1, 1, 1, 2),
+(6, "Practice Javascript", 1, 3, 1, 6);
 
 INSERT INTO `quizpractice`.`lesson`
 (`lessonid`,
@@ -155,7 +156,8 @@ INSERT INTO `quizpractice`.`quiz`
 `durationtime`,
 `passrate`)
 VALUES
-(1, "Practice HTML", 1, "", 4, 2, 1, "2023-10-09", "01:00:00", 50);
+(1, "Practice HTML", 1, "", 4, 2, 1, "2023-10-09", "01:00:00", 50),
+(2, "Practice Javascript", 1, "", 4, 6, 1, "2023-10-09", "01:00:00", 50);
 
 INSERT INTO `quizpractice`.`quizdata`
 (`sentenceid`,
@@ -219,7 +221,7 @@ INSERT INTO `quizpractice`.`quizresult`
 `ispass`)
 VALUES
 (1, 66, 3, "2023-10-16", 1, 1, 1,1, 1),
-(1, 77, 5, "2023-10-16", 1, 5, 4,8, 1);
+(2, 77, 3, "2023-10-16", 2, 5, 4,8, 1);
 
 
 INSERT INTO `quizpractice`.`sliders`
@@ -231,25 +233,31 @@ INSERT INTO `quizpractice`.`sliders`
 `subjectid`)
 VALUES
 (1, "img/sliders/html-course-banner.png", "Đây là khóa học 1", 1, "Bạn nên học khóa học này 1", 1),
-(2, "img/sliders/html-course-banner.jpg", "Đây là khóa học 2", 1, "Bạn nên học khóa học này 2", 1),
-(3, "img/sliders/download (3).jpg", "Đây là khóa học 3", 1, "Bạn nên học khóa học này 3", 1),
-(4, "img/sliders/download (4).jpg", "Đây là khóa học 4", 1, "Bạn nên học khóa học này 4", 1),
-(5, "img/sliders/download (5).jpg", "Đây là khóa học 5", 1, "Bạn nên học khóa học này 5", 1),
-(6, "img/sliders/download (6).jpg", "Đây là khóa học 6", 1, "Bạn nên học khóa học này 6", 1),
-(7, "img/sliders/download (7).jpg", "Đây là khóa học 7", 1, "Bạn nên học khóa học này 7", 1),
-(8, "img/sliders/download (8).jpg", "Đây là khóa học 8", 1, "Bạn nên học khóa học này 8", 1),
-(9, "img/sliders/download.jpg", "Đây là khóa học 9", 1, "Bạn nên học khóa học này 9", 1),
-(10, "img/sliders/images.jpg", "Đây là khóa học 10", 1, "Bạn nên học khóa học này 10", 1);
+(2, "img/sliders/html-course-banner.jpg", "Đây là khóa học 2", 1, "Bạn nên học khóa học này 2", 1);
 
 
-INSERT INTO postcategory (postcatename) VALUES ('Front-End'),('Back-End'),('No-End');
+
+INSERT INTO postcategory(postcateid  ,postcatename) 
+VALUES (1, "Development"),
+(2, "Business"),
+(3, "Finance & Accounting"),
+(4,"IT & Software"),
+(5,"Office Productivity"),
+(6,"Personal Development"),
+(7,"Design"),
+(8,"Marketing"),
+(9,"Lifestyle"),
+(10,"Photography & Video"),
+(11,"Health & Fitness"),
+(12,"Music"),
+(13,"Teaching & Academics");
 
 
 INSERT INTO post (postdata, postcateid, usersid, image, datecreate, status, updatedate, briefinfor, title)
-VALUES ('Nội dung bài viết 3', 2, 1, 'img/posts/duongdananh2.jpg', '2023-09-29', 1, '2023-09-30', 'Thông tin ngắn gọn sieeuu', 'Tiêu đề bài viết 3'),
- ('Nội dung bài viết 4', 2, 1, 'img/posts/duongdananh3.jpg', '2023-09-29', 1, '2023-09-30', 'Thông tin ngắn gọn sieeuu', 'Tiêu đề bài viết 4'),
-('Nội dung bài viết 5', 2, 1, 'img/posts/duongdananh5.jpg', '2023-09-29', 1, '2023-09-30', 'Thông tin ngắn gọn sieeuu', 'Tiêu đề bài viết 5'),
-('Nội dung bài viết 6', 2, 1, 'img/posts/duongdananh3.jpg', '2023-09-29', 1, '2023-09-30', 'Thông tin ngắn gọn sieeuu', 'Tiêu đề bài viết 6'),
-('Nội dung bài viết 7', 2, 1, 'img/posts/duongdananh2.jpg', '2023-09-29', 1, '2023-09-30', 'Thông tin ngắn gọn sieeuuu', 'Tiêu đề bài viết 7');
+VALUES ('Nội dung bài viết 3', 2, 2, 'img/posts/duongdananh2.jpg', '2023-09-29', 1, '2023-09-30', 'Thông tin ngắn gọn sieeuu', 'Tiêu đề bài viết 3'),
+ ('Nội dung bài viết 4', 2, 2, 'img/posts/duongdananh3.jpg', '2023-09-29', 1, '2023-09-30', 'Thông tin ngắn gọn sieeuu', 'Tiêu đề bài viết 4'),
+('Nội dung bài viết 5', 2, 2, 'img/posts/duongdananh5.jpg', '2023-09-29', 1, '2023-09-30', 'Thông tin ngắn gọn sieeuu', 'Tiêu đề bài viết 5'),
+('Nội dung bài viết 6', 2, 2, 'img/posts/duongdananh3.jpg', '2023-09-29', 1, '2023-09-30', 'Thông tin ngắn gọn sieeuu', 'Tiêu đề bài viết 6'),
+('Nội dung bài viết 7', 2, 2, 'img/posts/duongdananh2.jpg', '2023-09-29', 1, '2023-09-30', 'Thông tin ngắn gọn sieeuuu', 'Tiêu đề bài viết 7');
 
 

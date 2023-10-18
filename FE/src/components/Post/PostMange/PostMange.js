@@ -153,7 +153,7 @@ const PostManage = ({
 
         <div className="create-post-right col-md-3">
           <div className="create-post-image">
-            {updatedImage === "/img/posts/duongdananh.jpg" ? (
+            {updatedImage === "/img/posts/image post null.png" ? (
               <img
                 src={baseURL + updatedImage}
                 alt="Choose some img for slider"

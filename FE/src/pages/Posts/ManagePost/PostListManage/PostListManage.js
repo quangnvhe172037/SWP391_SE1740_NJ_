@@ -19,74 +19,7 @@ const PostListManage = () => {
   const postsPerPage = 5;
   const pagesVisited = pageNumber * postsPerPage;
 
-  const displayPosts = () => postList
-    .slice(pagesVisited, pagesVisited + postsPerPage)
-    .map((post) => (
-      // Hiển thị thông tin bài viết ở đây
-      <li className="manage-post-list-element ">
-        <div className="row">
-          <div className="post-list-element-image col-sm-2">
-            <img src={baseUrl + post.image} alt="Image of the picture" />
-          </div>
-
-          <div className="col-sm-8 post-list-element-content">
-            <h2 className="post-list-title">{post.title}</h2>
-            <div className="post-list-info">
-              <span>{post.postCateName}</span>
-              <span>{post.updateDate}</span>
-            </div>
-            <div className="post-list-blog">
-              <span>{post.brief}</span>
-            </div>
-          </div>
-
-          <div className="col-sm-2 row post-list-action-list">
-            {post.status === true ? (
-              <div
-                title="publish"
-                className="col-sm-4 btn-action post-list-action-btn"
-                onClick={() => handleAction(post.postId, "hide")}
-              >
-                <i className="fa-solid fa-eye-slash"></i>
-              </div>
-            ) : (
-              <div
-                title="unpublish"
-                className="col-sm-4 btn-action post-list-action-btn"
-                onClick={() => handleAction(post.postId, "show")}
-              >
-                <i className="fa-solid fa-eye"></i>
-              </div>
-            )}
-
-            <div
-              className="col-md-4 post-list-action-btn"
-              onClick={() => handleDelete(post.postId)}
-            >
-              <i className="fa-solid fa-trash"></i>
-            </div>
-
-            <div className="col-md-4 post-list-action-btn">
-              <Link
-                to={`/marketing/post/edit/${post.postId}`}
-                onClick={(e) => {
-                  window.scrollTo(0, 0);
-                }}
-              >
-                <i className="fa-solid fa-pen-to-square"></i>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </li>
-    ));
-
-  const pageCount = Math.ceil(postList.length / postsPerPage);
-
-  const changePage = ({ selected }) => {
-    setPageNumber(selected);
-  };
-
+  
 
   useEffect(() => {
     fetch(`http://localhost:8080/marketing/post/manage/${user.userId}`, {
@@ -138,12 +71,13 @@ const PostListManage = () => {
       if (post.postId === postId) {
         // Cập nhật giá trị status thành 0 khi nhấp vào "Hidden"
         post.status = action === "hide" ? 0 : post.status;
-        console.log("check " + post.status);
+        console.log("check status how" + post.status);
       }
 
       if (post.postId === postId) {
         // Cập nhật giá trị status thành 0 khi nhấp vào "Hidden"
         post.status = action === "show" ? 1 : post.status;
+        console.log("check status hide" + post.status);
       }
 
       return post;
@@ -211,6 +145,74 @@ const PostListManage = () => {
         console.error("Error deleting post:", error);
       });
   };
+
+  let displayPosts = () =>
+    postList.slice(pagesVisited, pagesVisited + postsPerPage).map((post) => (
+      // Hiển thị thông tin bài viết ở đây
+      <li className="manage-post-list-element ">
+        <div className="row">
+          <div className="post-list-element-image col-sm-2">
+            <img src={baseUrl + post.image} alt="Image of the picture" />
+          </div>
+
+          <div className="col-sm-8 post-list-element-content">
+            <h2 className="post-list-title">{post.title}</h2>
+            <div className="post-list-info">
+              <span>{post.postCateName}</span>
+              <span>{post.updateDate}</span>
+            </div>
+            <div className="post-list-blog">
+              <span>{post.brief}</span>
+            </div>
+          </div>
+
+          <div className="col-sm-2 row post-list-action-list">
+            {post.status == 1 ? (
+              <div
+                title="hide"
+                className="col-sm-4 btn-action post-list-action-btn"
+                onClick={() => handleAction(post.postId, "hide")}
+              >
+                <i className="fa-solid fa-eye-slash"></i>
+              </div>
+            ) : (
+              <div
+                title="publish"
+                className="col-sm-4 btn-action post-list-action-btn"
+                onClick={() => handleAction(post.postId, "show")}
+              >
+                <i className="fa-solid fa-eye"></i>
+              </div>
+            )}
+
+            <div
+              className="col-md-4 post-list-action-btn"
+              onClick={() => handleDelete(post.postId)}
+            >
+              <i className="fa-solid fa-trash"></i>
+            </div>
+
+            <div className="col-md-4 post-list-action-btn">
+              <Link
+                to={`/marketing/post/edit/${post.postId}`}
+                onClick={(e) => {
+                  window.scrollTo(0, 0);
+                }}
+              >
+                <i className="fa-solid fa-pen-to-square"></i>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </li>
+    ));
+
+  const pageCount = Math.ceil(postList.length / postsPerPage);
+
+  const changePage = ({ selected }) => {
+    setPageNumber(selected);
+  };
+
 
   //  useEffect(() => {
   //    const filtered = postList.filter((post) => {
