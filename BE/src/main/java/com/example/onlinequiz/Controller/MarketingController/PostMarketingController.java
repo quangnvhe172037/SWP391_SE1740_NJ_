@@ -45,7 +45,6 @@ public class PostMarketingController {
 
     ) {
         try {
-            System.out.println("1");
             Posts postChange = postService.getPostById(postId);
             if (postChange != null) {
                 postChange.setPostCategory(postService.getPostCate(cateId));
@@ -135,14 +134,10 @@ public class PostMarketingController {
             @PathVariable Long postId,
             @RequestBody Map<String, Boolean> statusMap
     ) {
-        System.out.println("c");
         try {
             Boolean status = statusMap.get("status");
-            System.out.println(status);
             Posts p = postService.getPostById(postId);
             p.setStatus(status);
-            System.out.println(status);
-            System.out.println(p.isStatus());
             PostListResponse pr = postService.updateStatus(p);
             if (pr != null) {
                 System.out.println(pr.isStatus());

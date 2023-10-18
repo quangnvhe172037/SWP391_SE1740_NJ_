@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./LessonSideBar.css";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import "font-awesome/css/font-awesome.min.css";
-
+  import jwtDecode from "jwt-decode";
 const LessonSidebar = () => {
   const navigate = useNavigate();
   const [topics, setTopics] = useState([]);
@@ -10,7 +10,7 @@ const LessonSidebar = () => {
   const token = localStorage.getItem("token");
   const { subjectId, lessonId } = useParams();
   const [loading, setLoading] = useState(true);
-
+  
   useEffect(() => {
     fetch(`http://localhost:8080/subjecttopic/get/${subjectId}`, {
       headers: {
@@ -73,17 +73,17 @@ const LessonSidebar = () => {
       });
   }, []);
 
-   useEffect(() => {
-     setTopics((prevTopics) =>
-       prevTopics.map((topic) => ({
-         ...topic,
-         isOpen: lessons.some(
-           (lesson) =>
-             lesson.lessonId == lessonId && lesson.topicID == topic.topicID
-         ),
-       }))
-     );
-   }, [lessons, lessonId]);
+  useEffect(() => {
+    setTopics((prevTopics) =>
+      prevTopics.map((topic) => ({
+        ...topic,
+        isOpen: lessons.some(
+          (lesson) =>
+            lesson.lessonId == lessonId && lesson.topicID == topic.topicID
+        ),
+      }))
+    );
+  }, [lessons, lessonId]);
 
 
   useEffect(() => {
@@ -106,63 +106,62 @@ const LessonSidebar = () => {
 
   const nagigateToLesson = (lessonid) => {
     console.log("navigate");
-   navigate(`/subject/${subjectId}/lesson/${lessonid}`);
+    navigate(`/subject/${subjectId}/lesson/${lessonid}`);
   }
 
-  return (
-    <div className="lesson-sidebar col-md-3">
-      <div className="lesson-sidebar-name">
-        <span>Subject content</span>
-      </div>
-      {topics.map((topic) => (
-        <div key={topic.topicID} className="lesson-sidebar-topic">
-          <div
-            className="lesson-topic-content "
-            onClick={() => toggleTopic(topic.topicID)}
-          >
-            <span className="lesson-topic-name lesson-sidebar-left">
-              {topic.topicName}
-            </span>
-            {topic.isOpen ? (
-              <div className="lesson-sidebar-right">
-                <i className="fa-solid fa-angle-up"></i>
-              </div>
-            ) : (
-              <div className="lesson-sidebar-right">
-                <i className="fa-solid fa-angle-down"></i>
+    return (
+      <div className="lesson-sidebar col-md-3">
+        <div className="lesson-sidebar-name">
+          <span>Subject content</span>
+        </div>
+        {topics.map((topic) => (
+          <div key={topic.topicID} className="lesson-sidebar-topic">
+            <div
+              className="lesson-topic-content "
+              onClick={() => toggleTopic(topic.topicID)}
+            >
+              <span className="lesson-topic-name lesson-sidebar-left">
+                {topic.topicName}
+              </span>
+              {topic.isOpen ? (
+                <div className="lesson-sidebar-right">
+                  <i className="fa-solid fa-angle-up"></i>
+                </div>
+              ) : (
+                <div className="lesson-sidebar-right">
+                  <i className="fa-solid fa-angle-down"></i>
+                </div>
+              )}
+            </div>
+
+            {topic.isOpen && (
+              <div className="lesson-list-content">
+                <ul className="lesson-list">
+                  {lessons
+                    .filter((lesson) => lesson.topicID === topic.topicID)
+                    .map((lesson) => (
+                      <li
+                      
+                        key={lesson.lessonId}
+                        className={`lesson-content-detail ${lesson.lessonId == lessonId ? "active-lesson" : ""
+                          }`
+                        }
+                        onClick={() => nagigateToLesson(lesson.lessonId)}
+                      >
+                        <Link
+                          to={`/subject/${subjectId}/lesson/${lesson.lessonId}`}
+                        >
+                          {lesson.lessonName}
+                        </Link>
+                      </li>
+                    ))}
+                </ul>
               </div>
             )}
           </div>
-
-          {topic.isOpen && (
-            <div className="lesson-list-content">
-              <ul className="lesson-list">
-                {lessons
-                  .filter((lesson) => lesson.topicID === topic.topicID)
-                  .map((lesson) => (
-                    <li
-                      
-                      key={lesson.lessonId}
-                      className={`lesson-content-detail ${
-                        lesson.lessonId == lessonId ? "active-lesson" : ""
-                        }`
-                      }
-                      onClick={() => nagigateToLesson(lesson.lessonId)}
-                    >
-                      <Link
-                        to={`/subject/${subjectId}/lesson/${lesson.lessonId}`}
-                      >
-                        {lesson.lessonName}
-                      </Link>
-                    </li>
-                  ))}
-              </ul>
-            </div>
-          )}
-        </div>
-      ))}
-    </div>
-  );
-};
+        ))}
+      </div>
+    );
+  };
 
 export default LessonSidebar;

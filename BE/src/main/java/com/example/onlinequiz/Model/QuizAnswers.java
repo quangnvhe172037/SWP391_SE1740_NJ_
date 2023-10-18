@@ -25,4 +25,7 @@ public class QuizAnswers {
 
     @Column(name = "istrueanswer")
     private boolean isTrueAnswer;
+
+    @Column(name = "explanation", length = 256, columnDefinition = "VARCHAR(256) CHARACTER SET utf8mb4")
+    private String explanation; // Trường giải thích
 }

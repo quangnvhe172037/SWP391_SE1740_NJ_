@@ -1,12 +1,9 @@
 import "react-quill/dist/quill.bubble.css";
 import { useEffect, useState } from "react";
 import jwtDecode from "jwt-decode";
-import { Doughnut, Pie } from "react-chartjs-2";
-import { Chart, ArcElement } from "chart.js";
-import ChartDataLabels from "chartjs-plugin-datalabels";
 import "./QuizResultData.css";
-import { result } from "lodash-es";
-Chart.register(ArcElement);
+import "chart.js/auto";
+import PieChart from "../../../../PipeChart";
 
 const QuizResultData = (prop) => {
   let quizId = prop.quizId;
@@ -42,6 +39,7 @@ const QuizResultData = (prop) => {
           correctAnswer: dataJson.correctAnswer,
           nullAnswer: dataJson.nullAnswer,
           falseAnswer: dataJson.falseAnswer,
+          isPass: dataJson.isPass,
         };
 
         console.log(dataJson.falseAnswer);
@@ -58,34 +56,32 @@ const QuizResultData = (prop) => {
         setQuizInfo(null);
       });
   }, [quizId, token]);
-  console.log(quizInfo != null);
-  console.log(quizInfo);
   return (
     <div className="quiz-result-wrap">
-      <div >
+      <div className="quiz-result-container ">
         {quizInfo != null ? (
           <div className="row">
-            <div className="col-md-5 quiz-result-chart">
-              <Pie
-                data={{
-                  labels: ["Not Answer", "Correct", "False"],
-                  datasets: [
-                    {
-                      label: "Quiz Data",
-                      backgroundColor: ["#d1d7dc", "#3cba9f", "#c45850"],
-                      data: [
-                        quizInfo.nullAnswer,
-                        quizInfo.correctAnswer,
-                        quizInfo.falseAnswer,
-                      ],
-                      hoverOffset: 4,
-                    },
-                  ],
-                }}
+            <div className="quiz-result-chart col-md-5">
+              <PieChart
+                trueAnswer={quizInfo.correctAnswer}
+                falseAnswer={quizInfo.falseAnswer}
+                nullAnswer={quizInfo.nullAnswer}
               />
             </div>
             <div className="col-md-5">
-              <div>Total correct: {quizInfo.correctAnswer}</div>
+              <div>
+                <span className="quiz-result-attempt">Best Attempt:</span>
+                {quizInfo.isPass ? (
+                  <p className="quiz-result-pass">Pass</p>
+                ) : (
+                  <p className="quiz-result-not">Not Pass</p>
+                )}
+              </div>
+              <div className="quiz-result-score">Score: {quizInfo.score}%</div>
+              <div>Date taken: {quizInfo.dateTaken}</div>
+              <div className="quiz-result-review-wrap">
+                <button className="quiz-result-review-btn">Review quiz</button>
+              </div>
             </div>
           </div>
         ) : (

@@ -50,3 +50,13 @@
     background-color: #0056b3; /* Màu nền của nút khi di chuột qua */
     border-color: #0056b3; /* Màu viền của nút khi di chuột qua */
 }
+
+.btn{
+    margin-right: 20px;
+}
+/* In your CSS file, e.g., PracticeList.css */
+.centered-button-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

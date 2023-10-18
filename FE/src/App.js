@@ -11,7 +11,7 @@ import ExpertDashboard from "./pages/ExpertDashboard/ExpertDashboard";
 import AdminDashboard from "./pages/Dashboard/Dashboard";
 import MarketingDashboard from "./pages/MarketingDashboard/MarketingDashboard";
 import Register from "./pages/Register/Register";
-
+import PracticeList from "./pages/Practice/PracticeList";
 import ChangePassword from "./components/ChangePassword/ChangePassword";
 import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 
@@ -23,8 +23,6 @@ import PostEdit from "./pages/Posts/PostEdit";
 import SliderAdd from "./pages/SliderDetail/SliderAdd";
 import Footer from "./components/Footer/Footer";
 import Profile from "./pages/Profile/Profile";
-
-import UserRes from "./pages/UserRegistration/RegistrationList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import Subject from "./components/Subject/Subject";
@@ -42,6 +40,8 @@ import CreatePostManage from "./pages/Posts/ManagePost/CreatePost/CreatePostMana
 import EditPostMange from "./pages/Posts/ManagePost/EditPost/EditPostMange";
 import PostListManage from "./pages/Posts/ManagePost/PostListManage/PostListManage";
 import PrivateContent from "./components/HandleException/PrivateContent";
+import UserRes from "./pages/UserRegistration/RegistrationList";
+import ImportQuiz from "./components/ImportQuiz/ImportQuiz";
 
 
 const App = () => {
@@ -101,6 +101,8 @@ const App = () => {
               <Route path="/myRegistration" element={<UserRes/>}/>
               <Route path="/posts/edit/:postId" element={<PostEdit />} />
               <Route path="/sliders/edit/*" element={<SliderDetail />} />
+              <Route path="/add-question" element={<ImportQuiz />} />
+              <Route path="/practice" element={<PracticeList/>}/>
               <Route
                 path="/sliders/edit/:sliderId"
                 element={<SliderDetail />}
@@ -132,6 +134,10 @@ const App = () => {
               <Route
                 path="/marketing/post/manage"
                 element={<PostListManage />}
+              />
+              <Route
+                path="/regis"
+                element={<UserRes />}
               />
             </>
           )}

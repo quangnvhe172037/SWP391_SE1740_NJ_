@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface PostRepository extends JpaRepository<Posts, Long> {
-    List<Posts> findAllByOrderByDateCreateDesc();
+    List<Posts> findAllByStatusOrderByDateCreateDesc(boolean data);
 
 
     Posts findPostsByPostID(Long postId);
@@ -16,4 +16,6 @@ public interface PostRepository extends JpaRepository<Posts, Long> {
 //    void getPostsByUser
 
     List<Posts> findPostsByUser(Users u);
+
+    List<Posts> findAllByStatusIs(boolean data);
 }

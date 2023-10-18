@@ -113,15 +113,15 @@ const PostEditComponent = () => {
     const formData = new FormData();
     formData.append("title", title);
     formData.append("data", valueArticle);
-      formData.append("cateid", postCate);
-      console.log(updatedImage instanceof File);
-      if (updatedImage instanceof File) {
-          formData.append("image", updatedImage);
-      } else {
-          const emptyFile = new File([""], "empty.jpg", { type: "image/jpeg" });
-          formData.append("image", emptyFile);
-      }
-      console.log(updatedImage);
+    formData.append("cateid", postCate);
+    console.log(updatedImage instanceof File);
+    if (updatedImage instanceof File) {
+      formData.append("image", updatedImage);
+    } else {
+      const emptyFile = new File([""], "empty.jpg", { type: "image/jpeg" });
+      formData.append("image", emptyFile);
+    }
+    console.log(updatedImage);
     console.log(imageData);
     formData.append("brief", brief);
     formData.append("email", user.sub);
@@ -144,7 +144,7 @@ const PostEditComponent = () => {
 
       .then((data) => {
         alert("Succesfully");
-        navigate("/home");
+        navigate("/marketing/post/manage");
       })
       .catch((error) => {
         console.log(error.message);
@@ -195,7 +195,6 @@ const PostEditComponent = () => {
 
         <div className="create-post-right col-md-3">
           <div className="create-post-image">
-            
             <img
               src={imageData}
               alt="Choose some img for slider"

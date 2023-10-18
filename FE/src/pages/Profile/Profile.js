@@ -167,7 +167,7 @@ const Profile = () => {
                             Save changes
                         </button>
                     ) : (
-                        <button className="btn" style={{ borderColor: "black", color: "black" }} onClick={() => setIsEditing(true)}>
+                        <button className="btn" style={{ borderColor: "black", color: "black", margin: "5px" }} onClick={() => setIsEditing(true)}>
                             Edit
                         </button>
                     )}

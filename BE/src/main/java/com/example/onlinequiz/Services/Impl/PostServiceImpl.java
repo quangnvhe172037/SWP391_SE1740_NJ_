@@ -45,12 +45,12 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<Posts> getAllPosts() {
-        return postRepository.findAll();
+        return postRepository.findAllByStatusIs(true);
     }
 
     @Override
     public List<Posts> getAllPostsSortByDate() {
-        return postRepository.findAllByOrderByDateCreateDesc();
+        return postRepository.findAllByStatusOrderByDateCreateDesc(true);
     }
 
     @Override
@@ -114,6 +114,8 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public void updatePost(Posts p) {
+
+        System.out.println(p.isStatus());
         postRepository.save(p);
     }
 

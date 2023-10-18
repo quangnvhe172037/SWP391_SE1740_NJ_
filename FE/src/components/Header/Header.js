@@ -4,8 +4,7 @@ import authapi from "../../api/authapi";
 import jwtDecode from "jwt-decode";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
-// import styles from "./Header.module.css";
-import styles from "../../App.module.css";
+import styles from "./Header.module.css";
 const UserHeader = () => {
   const [currentUser, setCurrentUser] = useState(undefined);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -88,13 +87,13 @@ const UserHeader = () => {
                   }`}
                 >
                   <li>
-                    <Link to="/profile" className="dropdown-item">
+                    <Link to="/profile" className="dropdown-item" style={{padding: "20px"}}>
                       Profile
                     </Link>
                   </li>
                   <li>
-                    <Link to="/account" className="dropdown-item">
-                      Account
+                    <Link to="/account" className="dropdown-item" style={{padding: "20px"}}>
+                      Go to my learning
                     </Link>
                   </li>
                 </ul>
