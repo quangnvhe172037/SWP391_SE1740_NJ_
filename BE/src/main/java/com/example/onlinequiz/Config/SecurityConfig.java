@@ -43,7 +43,8 @@ public class SecurityConfig {
             "/lesson/get/data/**",
             "/quiz/get/lesson/**",
             "/quizdata/get/quiz/**",
-            "/myregistration/myRes",
+            "/myregistration/myRes/**",
+            "/practice/list/**",
             "/api/questions/**"
     };
     // Danh sách các URL cho customer
