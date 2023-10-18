@@ -75,11 +75,12 @@ function PracticeList() {
                             </div>
                             <div className="col-md-2 custom-border center-text">
                                 <p>{item.correctAnswer} Correct</p>
-                                <br/>
-                                <p>{item.nullAnswer} questions</p>
+                                <p>per</p>
+                                <p>{(item.correctAnswer + item.nullAnswer + item.falseAnswer)} questions</p>
                             </div>
                             <div className="col-md-2 custom-border center-text">
-                                <p>{(item.correctAnswer / item.nullAnswer * 100).toFixed(2)}%<br />Correct</p>
+                                <p>{((item.correctAnswer / (item.correctAnswer + item.nullAnswer + item.falseAnswer)) * 100).toFixed(2)}%<br />Correct</p>
+
                             </div>
                             <div className="col-md-2 center-text centered-button-div">
                                 <div className="button-wrapper">
