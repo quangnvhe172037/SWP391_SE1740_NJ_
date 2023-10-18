@@ -82,11 +82,7 @@ function PostList() {
                                             <h2 className="post-title">{post.title}</h2>
 
                                         </Link>
-                                        {typeof post.postCategory.id === 'string' ? (
-                                            <h2>{post.postCategory.id}</h2>
-                                        ) : (
-                                            <p>Invalid ID</p>
-                                        )}
+
                                         <p>{post.briefInfor}}</p>
                                         <span className="date">
                                             {format(new Date(post.dateCreate), 'dd-MM-yyyy')}
