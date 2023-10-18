@@ -79,11 +79,20 @@ public class QuizServiceImpl implements QuizService {
 
         List<String> answers = request.getAnswerOptions();
         String correctAnswer = request.getCorrectAnswer();
-        for(String answer : answers){
+        String explaination = request.getExplanation();
+        for (int i = 0; i < answers.size(); i++) {
+            String answer = answers.get(i);
             QuizAnswers quizAnswers = new QuizAnswers();
             quizAnswers.setAnswerData(answer);
             quizAnswers.setQuizData(quizData);
-            quizAnswers.setTrueAnswer(answer.equals(correctAnswer));
+
+            quizAnswers.setTrueAnswer("A".equalsIgnoreCase(correctAnswer) && i == 0 ||
+                    "B".equalsIgnoreCase(correctAnswer) && i == 1 ||
+                    "C".equalsIgnoreCase(correctAnswer) && i == 2 ||
+                    "D".equalsIgnoreCase(correctAnswer) && i == 3);
+            if (quizAnswers.isTrueAnswer()) {
+                quizAnswers.setExplanation(explaination);
+            }
             quizAnswerRepository.save(quizAnswers);
         }
     }
