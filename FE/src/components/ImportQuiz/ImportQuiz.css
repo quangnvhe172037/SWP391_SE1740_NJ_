@@ -1,0 +1,9 @@
+/* Tùy chỉnh giao diện bên phải */
+.question-list-right {
+    float: right;
+    width: 40%; /* Điều chỉnh chiều rộng tùy theo ý muốn */
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-left: 20px; /* Tạo khoảng cách với form nhập câu hỏi */
+}

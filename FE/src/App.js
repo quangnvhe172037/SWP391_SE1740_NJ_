@@ -41,6 +41,7 @@ import EditPostMange from "./pages/Posts/ManagePost/EditPost/EditPostMange";
 import PostListManage from "./pages/Posts/ManagePost/PostListManage/PostListManage";
 import PrivateContent from "./components/HandleException/PrivateContent";
 import UserRes from "./pages/UserRegistration/RegistrationList";
+import ImportQuiz from "./components/ImportQuiz/ImportQuiz";
 
 
 const App = () => {
@@ -100,6 +101,7 @@ const App = () => {
               <Route path="/myRegistration" element={<UserRes/>}/>
               <Route path="/posts/edit/:postId" element={<PostEdit />} />
               <Route path="/sliders/edit/*" element={<SliderDetail />} />
+              <Route path="/add-question" element={<ImportQuiz />} />
               <Route
                 path="/sliders/edit/:sliderId"
                 element={<SliderDetail />}

@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import {useNavigate} from "react-router-dom";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 const AccountList = () => {
     const token = localStorage.getItem("token");
     const [accounts, setAccounts] = useState([]);
     const [editableAccounts, setEditableAccounts] = useState([]);
-    const [sortByRoleAscending, setSortByRoleAscending] = useState(true); // Thêm state để xác định thứ tự sắp xếp
-    const [searchEmail, setSearchEmail] = useState(""); // Thêm state cho giá trị tìm kiếm
+    const [sortByRoleAscending, setSortByRoleAscending] = useState(true);
+    const [searchEmail, setSearchEmail] = useState("");
+
     const fetchAccounts = async () => {
         try {
             const response = await axios.get('http://localhost:8080/admin/all-accounts', {
@@ -18,11 +19,9 @@ const AccountList = () => {
                 },
             });
             setAccounts(response.data);
-            // Khởi tạo mảng editableAccounts với các phần tử mặc định không có chỉnh sửa
             setEditableAccounts(new Array(response.data.length).fill(false));
         } catch (error) {
             if (error.response && error.response.status === 403) {
-                // Nếu response trả về mã lỗi 403, dẫn người dùng quay lại trang Home
                 localStorage.removeItem("token");
             }
             console.error('Error fetching accounts:', error);
@@ -34,7 +33,6 @@ const AccountList = () => {
     }, []);
 
     const handleEditClick = (index) => {
-        // Cập nhật mảng editableAccounts để chỉ có phần tử tại index được chỉnh sửa
         const newEditableAccounts = [...editableAccounts];
         newEditableAccounts[index] = true;
         setEditableAccounts(newEditableAccounts);
@@ -42,22 +40,18 @@ const AccountList = () => {
 
     const handleSaveClick = async (index, email) => {
         try {
-            // Lấy tài khoản tại index
             const accountToEdit = accounts[index];
-            // Gửi yêu cầu PUT để cập nhật dữ liệu trên máy chủ
-            const response = await axios.put(`http://localhost:8080/admin/update/${email}?editedRole=${accountToEdit.role}&editedEnabled=${accountToEdit.enabled}`,{}, {
+            const response = await axios.put(`http://localhost:8080/admin/update/${email}?editedRole=${accountToEdit.role}&editedEnabled=${accountToEdit.enabled}`, {}, {
                 headers: {
-                    "Content-Type":"application/json",
+                    "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`
                 }
             });
 
-            // Sau khi cập nhật thành công, cập nhật danh sách tài khoản
             const updatedAccounts = [...accounts];
             updatedAccounts[index] = response.data;
             setAccounts(updatedAccounts);
 
-            // Đánh dấu tất cả các hàng là không có chỉnh sửa
             const newEditableAccounts = new Array(updatedAccounts.length).fill(false);
             setEditableAccounts(newEditableAccounts);
         } catch (error) {
@@ -66,9 +60,7 @@ const AccountList = () => {
     };
 
     const handleSortByRoleClick = () => {
-        // Sao chép danh sách tài khoản hiện tại
         const sortedAccounts = [...accounts];
-        // Sắp xếp tài khoản theo vai trò (role)
         sortedAccounts.sort((a, b) => {
             if (sortByRoleAscending) {
                 return a.role.localeCompare(b.role);
@@ -76,31 +68,32 @@ const AccountList = () => {
                 return b.role.localeCompare(a.role);
             }
         });
-        // Cập nhật danh sách tài khoản với thứ tự mới
         setAccounts(sortedAccounts);
-        // Đảo ngược thứ tự sắp xếp (ascending/descending)
         setSortByRoleAscending(!sortByRoleAscending);
     };
 
     const handleSearchChange = (e) => {
-        // Cập nhật giá trị tìm kiếm khi người dùng thay đổi ô nhập liệu
         setSearchEmail(e.target.value);
-        // Lọc danh sách tài khoản dựa trên email và cập nhật danh sách hiển thị
-        const filteredAccounts = accounts.filter(account => account.email.toLowerCase().includes(e.target.value.toLowerCase()));
-        setAccounts(filteredAccounts);
+        // Nếu ô tìm kiếm trống rỗng, khôi phục danh sách tài khoản gốc
+        if (e.target.value === "") {
+            fetchAccounts();
+        } else {
+            // Lọc danh sách tài khoản dựa trên email và cập nhật danh sách hiển thị
+            const filteredAccounts = accounts.filter(account => account.email.toLowerCase().includes(e.target.value.toLowerCase()));
+            setAccounts(filteredAccounts);
+        }
     };
 
     return (
         <div className="view-container mt-5">
             <h5>Account List</h5>
-                <input
-                    type="text"
-                    className="form-control"
-                    id="searchEmail"
-                    value={searchEmail}
-                    onChange={handleSearchChange}
-
-                />
+            <input
+                type="text"
+                className="form-control"
+                id="searchEmail"
+                value={searchEmail}
+                onChange={handleSearchChange}
+            />
             <table className="table mt-3">
                 <thead>
                 <tr>
@@ -164,7 +157,7 @@ const AccountList = () => {
                             {editableAccounts[index] ? (
                                 <button
                                     className="btn btn-success"
-                                    style={{border: "1px solid black"}}
+                                    style={{ border: "1px solid black" }}
                                     onClick={() => handleSaveClick(index, account.email)}
                                 >
                                     Save
@@ -172,7 +165,7 @@ const AccountList = () => {
                             ) : (
                                 <button
                                     className="btn"
-                                    style={{border: "1px solid black"}}
+                                    style={{ border: "1px solid black" }}
                                     onClick={() => handleEditClick(index)}
                                 >
                                     Edit
