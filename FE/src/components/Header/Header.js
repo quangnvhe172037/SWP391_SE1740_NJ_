@@ -73,6 +73,37 @@ const UserHeader = () => {
       <div className="navbar-nav ml-auto">
         {isAuthenticated ? (
           <>
+              {userRole === "ADMIN" && (
+                  <li className="nav-item">
+                      <span className="nav-link">
+                          <Link to="/admin/dashboard" style={{ padding: "20px", color:"black", textDecoration:"none" }}>
+                          Admin Dashboard
+                      </Link>
+                      </span>
+
+                  </li>
+              )}
+              {userRole === "MARKETING" && (
+                  <li className="nav-item">
+                      <span className="nav-link">
+                          <Link to="/marketing/dashboard" style={{ padding: "20px", color:"black", textDecoration:"none" }}>
+                          Admin Dashboard
+                      </Link>
+                      </span>
+
+                  </li>
+              )}
+              {userRole === "EXPERT" && (
+                  <li className="nav-item">
+                      <span className="nav-link">
+                          <Link to="/expert/dashboard" style={{ padding: "20px", color:"black", textDecoration:"none" }}>
+                          Admin Dashboard
+                      </Link>
+                      </span>
+
+                  </li>
+              )}
+
             <li className="nav-item" onClick={toggleDropdown}>
               <span
                 className="nav-link"
@@ -80,6 +111,7 @@ const UserHeader = () => {
               >
                 Hello, {currentUser.sub} <FontAwesomeIcon icon={faAngleDown} />
               </span>
+
               {isDropdownOpen && (
                 <ul
                   className={`${styles["dropdown-menu"]} ${
@@ -109,6 +141,7 @@ const UserHeader = () => {
                 LogOut
               </a>
             </li>
+
           </>
         ) : (
           <>

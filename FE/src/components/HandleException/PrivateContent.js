@@ -1,10 +1,12 @@
+import "../HandleException/PrivateContent.css"
 const PrivateContent = () => {
     return (
-      <div className="">
-        <span>This this the private Content</span>
-        <button type="button" className="">
-          Donate to 0334745645 -MB Bank to get it unlocked
-        </button>
+      <div className="private-content">
+          <div>
+              <h1>401 - Unauthorized</h1>
+              <p>You are not authorized to access this page.</p>
+              {/* Bạn có thể thêm các yêu cầu hoặc nút điều hướng ở đây nếu cần thiết */}
+          </div>
       </div>
     );
 };
