@@ -11,7 +11,7 @@ import ExpertDashboard from "./pages/ExpertDashboard/ExpertDashboard";
 import AdminDashboard from "./pages/Dashboard/Dashboard";
 import MarketingDashboard from "./pages/MarketingDashboard/MarketingDashboard";
 import Register from "./pages/Register/Register";
-
+import PracticeList from "./pages/Practice/PracticeList";
 import ChangePassword from "./components/ChangePassword/ChangePassword";
 import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 
@@ -102,6 +102,7 @@ const App = () => {
               <Route path="/posts/edit/:postId" element={<PostEdit />} />
               <Route path="/sliders/edit/*" element={<SliderDetail />} />
               <Route path="/add-question" element={<ImportQuiz />} />
+              <Route path="/practice" element={<PracticeList/>}/>
               <Route
                 path="/sliders/edit/:sliderId"
                 element={<SliderDetail />}

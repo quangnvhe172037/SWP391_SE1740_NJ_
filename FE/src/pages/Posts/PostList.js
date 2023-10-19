@@ -35,6 +35,7 @@ function PostList() {
                     postID: item.postID,
                     title: item.title,
                     image: item.image,
+                    status: item.status,
                     postCategory: {
                         id: item.postCategory.id,
                         name: item.postCategory.name,
@@ -69,7 +70,7 @@ function PostList() {
 
     return (
         <section className="section posts-entry posts-entry-sm bg-light">
-            <div className="containers">
+            <div className="view-all-post container">
                 <h1 className="posts-entry-title">Tiêu Đề Của Phần</h1>
                 <div className="row">
                     <div className="col-md-9">
@@ -82,11 +83,7 @@ function PostList() {
                                             <h2 className="post-title">{post.title}</h2>
 
                                         </Link>
-                                        {typeof post.postCategory.id === 'string' ? (
-                                            <h2>{post.postCategory.id}</h2>
-                                        ) : (
-                                            <p>Invalid ID</p>
-                                        )}
+
                                         <p>{post.briefInfor}}</p>
                                         <span className="date">
                                             {format(new Date(post.dateCreate), 'dd-MM-yyyy')}
@@ -109,7 +106,7 @@ function PostList() {
                                     onChange={(e) => setSearchTerm(e.target.value)}
                                 />
                             </div>
-                            <div>
+                            <div className="category-box">
                                 <select
                                 value={selectedCategoryId}
                                 onChange={(e) => setSelectedCategoryId(e.target.value)}

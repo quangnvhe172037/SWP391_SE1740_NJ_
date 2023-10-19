@@ -218,7 +218,8 @@ INSERT INTO `quizpractice`.`quizresult`
 `falseanswer`,
 `ispass`)
 VALUES
-(1, 66, 3, "2023-10-16", 1, 1, 1,1, 1);
+(1, 66, 3, "2023-10-16", 1, 1, 1,1, 1),
+(1, 77, 5, "2023-10-16", 1, 5, 4,8, 1);
 
 
 INSERT INTO `quizpractice`.`sliders`
