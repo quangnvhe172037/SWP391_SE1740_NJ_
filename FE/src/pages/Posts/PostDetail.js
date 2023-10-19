@@ -24,23 +24,15 @@ const PostDetail = () => {
             });
     }, [postId]);
 
-    function formatTextToParagraphs(text) {
-        if (text && text.trim() !== '') {
-            const paragraphs = text.split('/n').filter((paragraph) => paragraph.trim() !== '');
-            return paragraphs.map((paragraph, index) => <p key={index}>{paragraph}</p>);
-        } else {
-            return null; // Hoặc hiển thị thông báo khi không có dữ liệu.
-        }
-    }
 
     return (
 
       <div className="container">
         <div className="row">
           <div className="col-lg-8 mx-auto">
-            <hr className="tm-hr-primary tm-mb-30" />
+
             <div className="effect-lily tm-post-link tm-pt-40">
-              <div className="tm-post-link-inner d-flex justify-content-center align-items-center">
+              <div className="tm-post-link-inner align-items-center">
                 {post.image && (
                   <img
                     src={`${Local_URL}${post.image}`}
@@ -63,7 +55,7 @@ const PostDetail = () => {
                 readOnly={true}
                 theme={"bubble"}
               />
-              {/* {formatTextToParagraphs(post.postData)} */}
+
               <p>
                 Author:{" "}
                 {post.user && post.user.lastName + " " + post.user.firstName}

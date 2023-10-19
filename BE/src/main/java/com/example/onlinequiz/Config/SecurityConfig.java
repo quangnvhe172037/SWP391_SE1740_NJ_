@@ -45,6 +45,7 @@ public class SecurityConfig {
             "/quizdata/get/quiz/**",
             "/myregistration/myRes/**",
             "/practice/list/**",
+            "/practice/detail",
             "/api/questions/**"
     };
     // Danh sách các URL cho customer

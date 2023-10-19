@@ -64,6 +64,15 @@ VALUES (100, 1, true),
 (1500,2,true),
 (2000, 3, true);
 
+
+--insert cho quiz result
+insert into quizresult(score, usersid, datetaken, quizid, correctanswer,nullanswer, falseanswer, ispass)
+values(77,4,"2023-05-11",1,5,4,8,1),
+(23,4,"2023-05-11",1,5,4,8,1),
+(45,4,"2023-05-11",1,6,9,1,1),
+(20,4,"2023-05-11",1,12,3,5,1),
+(13,4,"2023-05-11",1,9,1,3,1),
+
 insert into `quizpractice`.`userpayment` (usersid,preid, status,notify,subjectid,purchasedate)
 values(1,1,true,'Success register',2,'2023/09/28'),
 (1,2,false,'Success register',2,'2023/09/28'),
