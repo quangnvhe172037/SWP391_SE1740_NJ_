@@ -1,7 +1,16 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import jwtDecode from "jwt-decode";
+import PrivateContent from "../../components/HandleException/PrivateContent";
 
 const AdminDashboard = () => {
+    const token = localStorage.getItem("token");
+    const user = jwtDecode(token);
+    if (user.role !== "ADMIN") {
+        return (
+            <PrivateContent/>
+        )
+    } else {
     return (
         <div className="admin-container mt-5">
             <div className="row justify-content-center">
@@ -27,7 +36,7 @@ const AdminDashboard = () => {
                 </div>
             </div>
         </div>
-    );
+    );}
 };
 
 export default AdminDashboard;
