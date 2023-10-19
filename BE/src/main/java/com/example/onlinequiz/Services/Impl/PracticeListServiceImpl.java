@@ -1,8 +1,11 @@
 package com.example.onlinequiz.Services.Impl;
 
+import com.example.onlinequiz.Model.QuizResultDetail;
 import com.example.onlinequiz.Model.QuizResults;
+import com.example.onlinequiz.Model.Subjects;
 import com.example.onlinequiz.Model.Users;
 import com.example.onlinequiz.Repo.QuizRepository;
+import com.example.onlinequiz.Repo.QuizResultDetailRepository;
 import com.example.onlinequiz.Repo.QuizResultRepository;
 import com.example.onlinequiz.Repo.SubjectCategoriesRepository;
 import com.example.onlinequiz.Services.PracticeListService;
@@ -26,7 +29,8 @@ public class PracticeListServiceImpl implements PracticeListService {
     @Autowired
     public final SubjectCategoriesRepository subjectCategoriesRepository;
 
-
+    @Autowired
+    public final QuizResultDetailRepository quizResultDetailRepository;
     @Override
     public List<QuizResults> getListQuizResultByQuizID(Users u) {
         List<QuizResults> listQuizResult = quizResultRepository.findByUser(u);
@@ -38,4 +42,15 @@ public class PracticeListServiceImpl implements PracticeListService {
         return listQuizResult;
 
     }
+
+    @Override
+    public List<QuizResults> getListQuizResultDetail(Users u, Subjects s) {
+        List<QuizResults> quizResultsList = quizResultRepository.findByUserAndQuizzes_Subject(u,s);
+        if(quizResultsList == null){
+            System.out.println("error");
+            return null;
+        }
+        return quizResultsList;
+    }
+
 }
