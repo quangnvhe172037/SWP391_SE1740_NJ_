@@ -15,7 +15,7 @@ public interface PostRepository extends JpaRepository<Posts, Long> {
     List<Posts> findPostsByPostCategory(Integer cateId);
 //    void getPostsByUser
 
-    List<Posts> findPostsByUser(Users u);
+    List<Posts> findPostsByUserOrderByPostIDDesc(Users u);
 
     List<Posts> findAllByStatusIs(boolean data);
 }
