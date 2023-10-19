@@ -8,4 +8,6 @@ public interface SubjectService {
     List<Subjects> getAllSubject();
 
     Subjects getSubjectById(Long id);
+
+    Subjects save(Subjects subjects);
 }
