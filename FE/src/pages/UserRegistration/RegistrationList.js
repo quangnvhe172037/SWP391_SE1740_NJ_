@@ -5,6 +5,7 @@ import "./Registration.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import jwtDecode from "jwt-decode";
+import PrivateContent from "../../components/HandleException/PrivateContent";
 
 const API_URL = "http://localhost:8080";
 
@@ -51,62 +52,70 @@ function UserRes() {
         return userPayment.subject.subjectName.toLowerCase().includes(searchText.toLowerCase());
     });
 
-    return (
-        <div className="container">
-            <h1>My course</h1>
+    if (user.role !== "CUSTOMER") {
+        return (
+            <PrivateContent/>
+        )
+    } else {
+        return (
+            <div className="container">
+                <h1>My course</h1>
 
-            <div className="row">
+                <div className="row">
 
-                <div className="col-md-9">
-                    <div className='card-body'>
-                    {filteredUserPayments.length === 0 ? (
-                        <p>No data found</p>
-                    ) : (
-                        filteredUserPayments.map((userPayment) => (
-                            <div key={userPayment.billID} className="course-card">
-                                <div className="course-image">
-                                    <img src={userPayment.subjectImage} alt="" />
-                                </div>
-                                <div className="course-info">
-                                    <h2>Bill ID: {userPayment.billID}</h2>
-                                    <p>Notify: {userPayment.notify}</p>
-                                    <p>Purchase Date: {format(new Date(userPayment.purchase_date), 'dd-MM-yyyy')}</p>
-                                    <p>Subject: {userPayment.subject.subjectName}</p>
-                                    <p>User: {userPayment.users.username}</p>
-                                </div>
-                                <div className="course-details">
-                                    <button className={`btn ${userPayment.status === true ? 'btn-primary' : 'btn-secondary'} status-button`}>
-                                        {userPayment.status === true ? 'Paid' : 'Pending'}
-                                    </button>
-                                    <button className="btn btn-success view-button">View</button>
-                                </div>
-                            </div>
-                        ))
-                    )}
-</div>
-                </div>
-                <div className="col-md-3 sidebar">
-                    <h3 className="mb-3">Sidebar</h3>
-
-                    <div className="search-box">
-                        <div className="input-group mb-2">
-                            <input
-                                type="text"
-                                className="form-control"
-                                placeholder="Tìm kiếm..."
-                                value={searchText}
-                                onChange={handleSearchChange}
-                            />
-                            <div className="input-group-append">
-                                <button type="button" className="btn btn-primary custom-search-button">Tìm</button>
-                            </div>
+                    <div className="col-md-9">
+                        <div className='card-body'>
+                            {filteredUserPayments.length === 0 ? (
+                                <p>No data found</p>
+                            ) : (
+                                filteredUserPayments.map((userPayment) => (
+                                    <div key={userPayment.billID} className="course-card">
+                                        <div className="course-image">
+                                            <img src={userPayment.subjectImage} alt=""/>
+                                        </div>
+                                        <div className="course-info">
+                                            <h2>Bill ID: {userPayment.billID}</h2>
+                                            <p>Notify: {userPayment.notify}</p>
+                                            <p>Purchase
+                                                Date: {format(new Date(userPayment.purchase_date), 'dd-MM-yyyy')}</p>
+                                            <p>Subject: {userPayment.subject.subjectName}</p>
+                                            <p>User: {userPayment.users.username}</p>
+                                        </div>
+                                        <div className="course-details">
+                                            <button
+                                                className={`btn ${userPayment.status === true ? 'btn-primary' : 'btn-secondary'} status-button`}>
+                                                {userPayment.status === true ? 'Paid' : 'Pending'}
+                                            </button>
+                                            <button className="btn btn-success view-button">View</button>
+                                        </div>
+                                    </div>
+                                ))
+                            )}
                         </div>
+                    </div>
+                    <div className="col-md-3 sidebar">
+                        <h3 className="mb-3">Sidebar</h3>
 
+                        <div className="search-box">
+                            <div className="input-group mb-2">
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Tìm kiếm..."
+                                    value={searchText}
+                                    onChange={handleSearchChange}
+                                />
+                                <div className="input-group-append">
+                                    <button type="button" className="btn btn-primary custom-search-button">Tìm</button>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    );
+        );
+    }
 }
 
 export default UserRes;

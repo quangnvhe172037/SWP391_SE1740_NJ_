@@ -15,7 +15,7 @@ const PostDetail = () => {
 
     useEffect(() => {
         // Truy vấn dữ liệu của bài viết từ API sử dụng postId
-        axios.get(`${API_URL}posts/view/${postId}`)
+        axios.get(${API_URL}posts/view/${postId})
             .then((response) => {
                 setPost(response.data);
             })
@@ -43,7 +43,7 @@ const PostDetail = () => {
               </div>
 
             </div>
-            <div className="blog-entry mt-4">
+            <div className="blog-entry-detail mt-4">
               {post.title && <h2 className="post-title">{post.title}</h2>}
               {post.dateCreate && (
                 <div className="date">
