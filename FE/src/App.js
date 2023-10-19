@@ -1,5 +1,12 @@
-import React, {useState, useEffect} from "react";
-import {Routes, Route, Link, Navigate, useLocation, useNavigate} from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import {
+  Routes,
+  Route,
+  Link,
+  Navigate,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import jwtDecode from "jwt-decode";
@@ -23,8 +30,8 @@ import PostEdit from "./pages/Posts/PostEdit";
 import SliderAdd from "./pages/SliderDetail/SliderAdd";
 import Footer from "./components/Footer/Footer";
 import Profile from "./pages/Profile/Profile";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faAngleDown} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import Subject from "./components/Subject/Subject";
 import AccountList from "./components/AccountList/AccountList";
 
@@ -43,109 +50,105 @@ import PrivateContent from "./components/HandleException/PrivateContent";
 import UserRes from "./pages/UserRegistration/RegistrationList";
 import ImportQuiz from "./components/ImportQuiz/ImportQuiz";
 
-
 const App = () => {
-    const [currentUser, setCurrentUser] = useState(undefined);
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const [userRole, setUserRole] = useState(null);
-    const location = useLocation();
-    const navigate = useNavigate();
+  const [currentUser, setCurrentUser] = useState(undefined);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [userRole, setUserRole] = useState(null);
+  const location = useLocation();
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        const token = localStorage.getItem("token");
-        if (token) {
-            try {
-                const user = jwtDecode(token);
-                console.log(token);
-                console.log(user);
-                setCurrentUser(user);
-                setIsAuthenticated(true);
-                setUserRole(user.role); // Lấy và lưu trữ vai trò của người dùng
-            } catch (error) {
-                console.error("Invalid token:", error);
-                setCurrentUser(undefined);
-                setIsAuthenticated(false);
-                setUserRole(null);
-                localStorage.removeItem("token");
-            }
-        } else {
-            setIsAuthenticated(false);
-            setUserRole(null);
-        }
-    }, [location]);
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      try {
+        const user = jwtDecode(token);
+        console.log(token);
+        console.log(user);
+        setCurrentUser(user);
+        setIsAuthenticated(true);
+        setUserRole(user.role); // Lấy và lưu trữ vai trò của người dùng
+      } catch (error) {
+        console.error("Invalid token:", error);
+        setCurrentUser(undefined);
+        setIsAuthenticated(false);
+        setUserRole(null);
+        localStorage.removeItem("token");
+      }
+    } else {
+      setIsAuthenticated(false);
+      setUserRole(null);
+    }
+  }, [location]);
 
-    return (
-        <div>
-            <UserHeader/>
+  return (
+    <div>
+      <UserHeader />
 
-            <div className="container mt-3 wrap" style={{minHeight: "70vh"}}>
-                <Routes>
-                    {/* All */}
-                    <Route path="/private" element={<PrivateContent/>}/>
-                    <Route path="/" element={<Home/>}/>
-                    <Route path="/terms" element={<Term/>}/>
-                    <Route path="/home" element={<Home/>}/>
-                    <Route path="/login" element={<Login/>}/>
-                    <Route path="/register" element={<Register/>}/>
-                    <Route path="/change-password" element={<ChangePassword/>}/>
-                    <Route path="/profile" element={<Profile/>}/>
-                    <Route path="/register/verifyEmail/" element={<VerifyEmail/>}/>
-                    <Route path="/forgot-password" element={<ForgotPassword/>}/>
+      <div className="container mt-3 wrap" style={{ minHeight: "70vh" }}>
+        <Routes>
+          {/* All */}
+          <Route path="/private" element={<PrivateContent />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/terms" element={<Term />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/change-password" element={<ChangePassword />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/register/verifyEmail/" element={<VerifyEmail />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
 
-                    {isAuthenticated && (
-                        <>
-                            <Route path="/sliders" element={<SliderList/>}/>
-                            <Route path="/posts" element={<PostList/>}/>
-                            <Route path="/posts/view/:postId" element={<PostDetail/>}/>
-                            <Route path="/myRegistration" element={<UserRes/>}/>
-                            <Route path="/posts/edit/:postId" element={<PostEdit/>}/>
-                            <Route path="/sliders/edit/*" element={<SliderDetail/>}/>
-                            <Route path="/add-question" element={<ImportQuiz/>}/>
-                            <Route
-                                path="/sliders/edit/:sliderId"
-                                element={<SliderDetail/>}
-                            />
-                            <Route
-                                path="/marketing/dashboard"
-                                element={<MarketingDashboard/>}
-                            />
-                            <Route path="/admin/dashboard" element={<AdminDashboard/>}/>
-                            <Route path="/expert/dashboard" element={<ExpertDashboard/>}/>
-                            <Route path="/sliders/add" element={<SliderAdd/>}/>
-                            <Route path="/subject" element={<Subject/>}/>
-                            <Route
-                                path="/subject/:subjectId/lesson/:lessonId"
-                                element={<Lesson/>}
-                            />
-                            <Route
-                                path="/marketing/post/create"
-                                element={<CreatePostManage/>}
-                            />
-                            <Route
-                                path="/marketing/post/edit/:postId"
-                                element={<EditPostMange/>}
-                            />
-                            <Route
-                                path="/expert/subject/:subjectId/manage"
-                                element={<LessonDetail/>}
-                            />
-                            <Route
-                                path="/marketing/post/manage"
-                                element={<PostListManage/>}
-                            />
-                            <Route
-                                path="/regis"
-                                element={<UserRes/>}
-                            />
-                            <Route path="/account-list" element={<AccountList/>}/>
-                        </>
-                    )}
-                </Routes>
-            </div>
-            <Footer/>
-        </div>
-    );
+          {isAuthenticated && (
+            <>
+              <Route path="/sliders" element={<SliderList />} />
+              <Route path="/posts" element={<PostList />} />
+              <Route path="/posts/view/:postId" element={<PostDetail />} />
+              <Route path="/myRegistration" element={<UserRes />} />
+              <Route path="/posts/edit/:postId" element={<PostEdit />} />
+              <Route path="/sliders/edit/*" element={<SliderDetail />} />
+              <Route path="/add-question" element={<ImportQuiz />} />
+              <Route
+                path="/sliders/edit/:sliderId"
+                element={<SliderDetail />}
+              />
+              <Route
+                path="/marketing/dashboard"
+                element={<MarketingDashboard />}
+              />
+              <Route path="/admin/dashboard" element={<AdminDashboard />} />
+              <Route path="/expert/dashboard" element={<ExpertDashboard />} />
+              <Route path="/sliders/add" element={<SliderAdd />} />
+              <Route path="/subject" element={<Subject />} />
+              <Route
+                path="/subject/:subjectId/lesson/:lessonId"
+                element={<Lesson />}
+              />
+              <Route
+                path="/marketing/post/create"
+                element={<CreatePostManage />}
+              />
+              <Route
+                path="/marketing/post/edit/:postId"
+                element={<EditPostMange />}
+              />
+              <Route
+                path="/expert/subject/:subjectId/manage"
+                element={<LessonDetail />}
+              />
+              <Route
+                path="/marketing/post/manage"
+                element={<PostListManage />}
+              />
+              <Route path="/regis" element={<UserRes />} />
+              <Route path="/account-list" element={<AccountList />} />
+            </>
+          )}
+        </Routes>
+      </div>
+      <Footer />
+    </div>
+  );
 };
 
 export default App;

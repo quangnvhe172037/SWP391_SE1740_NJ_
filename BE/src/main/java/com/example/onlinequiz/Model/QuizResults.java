@@ -11,36 +11,36 @@ import java.util.Date;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "quizresult")
+@Table(name = "quiz_result")
 public class QuizResults {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "resultid")
+    @Column(name = "result_id")
     private Long resultID;
 
     @Column(name = "score")
     private int score;
 
     @ManyToOne
-    @JoinColumn(name = "usersid")
+    @JoinColumn(name = "user_id")
     private Users user;
 
-    @Column(name = "datetaken")
+    @Column(name = "date_taken")
     private Date dateTaken;
 
     @ManyToOne
-    @JoinColumn(name = "quizid")
+    @JoinColumn(name = "quiz_id")
     private Quizzes quizzes;
 
-    @Column(name = "correctanswer")
+    @Column(name = "correct_answer")
     private int correctAnswer = 0;
 
-    @Column(name = "nullanswer")
+    @Column(name = "null_answer")
     private int nullAnswer = 0;
 
-    @Column(name = "falseanswer")
+    @Column(name = "false_answer")
     private int falseAnswer = 0;
 
-    @Column(name = "ispass")
+    @Column(name = "is_pass")
     private Boolean isPass = false;
 }

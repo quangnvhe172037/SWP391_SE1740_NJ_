@@ -16,15 +16,15 @@ import java.util.Date;
 @Table(name = "subject")
 public class Subjects {
     @Id
-    @Column(name = "subjectid")
+    @Column(name = "subject_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long subjectID;
 
-    @Column(name = "subjectname", length = 256, columnDefinition = "VARCHAR(256) CHARACTER SET utf8mb4")
+    @Column(name = "subject_name", length = 256, columnDefinition = "VARCHAR(256) CHARACTER SET utf8mb4")
     private String subjectName;
 
     @ManyToOne
-    @JoinColumn(name = "cateid")
+    @JoinColumn(name = "cate_id")
     private SubjectCategories subjectCategory;
 
     @Column(name = "status")
@@ -36,6 +36,6 @@ public class Subjects {
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "createdate")
+    @Column(name = "create_date")
     private Date create_date;
 }

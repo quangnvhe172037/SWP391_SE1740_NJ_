@@ -17,9 +17,16 @@ function UserRes() {
     // const [startDate, setStartDate] = useState(""); // Trạng thái ngày bắt đầu
     // const [endDate, setEndDate] = useState(""); // Trạng thái ngày kết thúc
     console.log(user);
+    console.log("check");
+    console.log(API_URL + '/myregistration/myRes' + '?userid=' + user.userId);
     useEffect(() => {
-        axios.get(API_URL + '/myregistration/myRes' + '?userid=' + user.userId)
+        axios .get(API_URL + '/myregistration/myRes' + '?userid=' + user.userId, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
             .then(response => {
+                console.log(response);
                 const data = response.data.map(item => ({
                     billID: item.billID,
                     status: item.status,

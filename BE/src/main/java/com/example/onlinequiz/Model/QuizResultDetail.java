@@ -9,22 +9,22 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "quizresultdetail")
+@Table(name = "quiz_result_detail")
 public class QuizResultDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "quizexamdetail")
+    @Column(name = "quiz_exam_detail")
     private Long quizExamDetail;
 
     @ManyToOne
-    @JoinColumn(name = "resultid")
+    @JoinColumn(name = "result_id")
     private QuizResults quizResult;
 
     @ManyToOne
-    @JoinColumn(name = "useranswer")
+    @JoinColumn(name = "user_answer")
     private QuizAnswers userAnswer;
 
     @ManyToOne
-    @JoinColumn(name = "sentenceid")
+    @JoinColumn(name = "sentence_id")
     private QuizData quizData;
 }

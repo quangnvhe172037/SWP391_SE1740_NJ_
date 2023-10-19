@@ -21,6 +21,7 @@ public class UserRegistrationImpl implements UserRegistrationService {
     @Override
     public List<UserPayment> getUserPayment(Users u) {
         List<UserPayment> listUserPayment = userRegistrationsRepository.findByUsers(u);
+        System.out.println(listUserPayment.toString());
         if(listUserPayment == null){
             return null;
         }else{

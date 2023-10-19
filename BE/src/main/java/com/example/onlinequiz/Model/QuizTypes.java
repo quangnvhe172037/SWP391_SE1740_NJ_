@@ -9,14 +9,14 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "quiztype")
+@Table(name = "quiz_type")
 public class QuizTypes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "quiztypeid")
+    @Column(name = "quiz_type_id")
     private Long quizTypeID;
 
-    @Column(name = "quiztypename")
+    @Column(name = "quiz_type_name")
     private String quizTypeName;
 
 }
