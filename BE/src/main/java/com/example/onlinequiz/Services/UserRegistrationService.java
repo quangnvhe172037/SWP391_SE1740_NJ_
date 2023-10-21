@@ -11,5 +11,9 @@ public interface UserRegistrationService {
     List<UserPayment> findAll();
     List<UserPayment> getUserPayment(Users u);
 
+    public UserPayment findByBillID (int billID);
+
+    public UserPayment save(UserPayment userPayment);
+
 
 }

@@ -1,3 +1,5 @@
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import React, { useState, useEffect } from "react";
 import {
   Routes,
@@ -49,7 +51,8 @@ import PostListManage from "./pages/Posts/ManagePost/PostListManage/PostListMana
 import PrivateContent from "./components/HandleException/PrivateContent";
 import UserRes from "./pages/UserRegistration/RegistrationList";
 import ImportQuiz from "./components/ImportQuiz/ImportQuiz";
-import UserRegisterList from "./components/UserRegisterList/UserRegisterList";
+import UserRegistrationList from "./components/UserRegistrationList/UserRegistrationList";
+import UserRegistrationDetail from "./components/UserRegistrationList/UserRegistrationDetail/UserRegistrationDetail";
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -84,6 +87,7 @@ const App = () => {
 
   return (
     <div>
+      <ToastContainer />
       <UserHeader />
 
       <div className="container mt-3 wrap" style={{ minHeight: "70vh" }}>
@@ -122,7 +126,11 @@ const App = () => {
               <Route path="/admin/dashboard" element={<AdminDashboard />} />
               <Route
                 path="/user-registration-list"
-                element={<UserRegisterList />}
+                element={<UserRegistrationList />}
+              />
+              <Route
+                path="/user-registration-list/:billID"
+                element={<UserRegistrationDetail />}
               />
               <Route path="/expert/dashboard" element={<ExpertDashboard />} />
               <Route path="/sliders/add" element={<SliderAdd />} />

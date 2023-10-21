@@ -22,6 +22,12 @@ public class UserRegistrationImpl implements UserRegistrationService {
         return userRegistrationsRepository.findAll();
     }
 
+    public UserPayment findByBillID (int billID) {
+        return userRegistrationsRepository.findByBillID(billID);
+    }
+
+    public UserPayment save(UserPayment userPayment) {return userRegistrationsRepository.save(userPayment);}
+
     @Override
     public List<UserPayment> getUserPayment(Users u) {
         List<UserPayment> listUserPayment = userRegistrationsRepository.findByUsers(u);

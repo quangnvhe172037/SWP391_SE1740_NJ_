@@ -28,7 +28,7 @@ public class UserPayment {
     private String notify;
 
     @Column(name = "purchase_date")
-    private Date purchase_date;
+    private Date purchaseDate;
 
     @ManyToOne
     @JoinColumn(name = "subject_id")
