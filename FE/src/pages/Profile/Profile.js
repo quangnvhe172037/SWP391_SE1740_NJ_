@@ -103,7 +103,7 @@ const Profile = () => {
                             <td>
                                 <input
                                     type="text"
-                                    name="firstName"
+                                    name="lastName"
                                     value={`${profileData.lastName}`}
                                     onChange={handleInputChange}
                                     className="form-control"
@@ -148,7 +148,7 @@ const Profile = () => {
                                 <input
                                     type="password"
                                     name="password"
-                                    value="*****************"
+                                    value="No, you can not do that!"
                                     onChange={handleInputChange}
                                     // className="form-control"
                                     readOnly

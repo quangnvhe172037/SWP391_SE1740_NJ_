@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route, Link, Navigate, useLocation } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  Link,
+  Navigate,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import jwtDecode from "jwt-decode";
@@ -43,13 +50,13 @@ import PrivateContent from "./components/HandleException/PrivateContent";
 import UserRes from "./pages/UserRegistration/RegistrationList";
 import ImportQuiz from "./components/ImportQuiz/ImportQuiz";
 
-
 const App = () => {
   const [currentUser, setCurrentUser] = useState(undefined);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [userRole, setUserRole] = useState(null);
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -89,7 +96,6 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/change-password" element={<ChangePassword />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/account-list" element={<AccountList />} />
           <Route path="/register/verifyEmail/" element={<VerifyEmail />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/Subjects" element={<ForgotPassword />} />
@@ -99,11 +105,10 @@ const App = () => {
               <Route path="/sliders" element={<SliderList />} />
               <Route path="/posts" element={<PostList />} />
               <Route path="/posts/view/:postId" element={<PostDetail />} />
-              <Route path="/myRegistration" element={<UserRes/>}/>
+              <Route path="/myRegistration" element={<UserRes />} />
               <Route path="/posts/edit/:postId" element={<PostEdit />} />
               <Route path="/sliders/edit/*" element={<SliderDetail />} />
               <Route path="/add-question" element={<ImportQuiz />} />
-              <Route path="/practice" element={<PracticeList/>}/>
               <Route
                 path="/sliders/edit/:sliderId"
                 element={<SliderDetail />}
@@ -136,10 +141,8 @@ const App = () => {
                 path="/marketing/post/manage"
                 element={<PostListManage />}
               />
-              <Route
-                path="/regis"
-                element={<UserRes />}
-              />
+              <Route path="/regis" element={<UserRes />} />
+              <Route path="/account-list" element={<AccountList />} />
             </>
           )}
         </Routes>

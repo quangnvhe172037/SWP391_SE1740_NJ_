@@ -11,13 +11,13 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "subjectcategory")
+@Table(name = "subject_category")
 public class SubjectCategories {
     @Id
-    @Column(name = "cateid")
+    @Column(name = "cate_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int cateID;
 
-    @Column(name = "catename", length = 256, columnDefinition = "VARCHAR(256) CHARACTER SET utf8mb4")
+    @Column(name = "cate_name", length = 256, columnDefinition = "VARCHAR(256) CHARACTER SET utf8mb4")
     private String cateName;
 }

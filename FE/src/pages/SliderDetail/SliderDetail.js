@@ -3,6 +3,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import SliderImage from "./SliderImage";
 import SlidersData from "./SlidersData";
 import "./SliderDetail.css";
+import jwtDecode from "jwt-decode";
+import PrivateContent from "../../components/HandleException/PrivateContent";
 
 const SliderDetail = () => {
   const { sliderId } = useParams();
@@ -109,67 +111,73 @@ const SliderDetail = () => {
         console.error("Error updating slider data:", error);
       });
   };
+  const user = jwtDecode(token);
+  if (user.role !== "MARKETING") {
+    return (
+        <PrivateContent/>
+    )
+  } else {
+    return (
+        <div className="slider-wrap">
+          <h1>Edit Slider</h1>
+          <br/>
+          <div className="row">
+            <SliderImage
+                baseURL={baseURL}
+                updatedImage={updatedImage}
+                editing={editing}
+                setUpdatedImage={setUpdatedImage}
+                handleSaveImageClick={handleSaveImageClick}
+                currentImage={currentImage}
+            />
 
-  return (
-    <div className="slider-wrap">
-      <h1>Edit Slider</h1>
-      <br />
-      <div className="row">
-        <SliderImage
-          baseURL={baseURL}
-          updatedImage={updatedImage}
-          editing={editing}
-          setUpdatedImage={setUpdatedImage}
-          handleSaveImageClick={handleSaveImageClick}
-          currentImage={currentImage}
-        />
-
-        <SlidersData
-          sliderData={sliderData}
-          updatedTitle={updatedTitle}
-          updatedNote={updatedNote}
-          updatedStatus={updatedStatus}
-          editing={editing}
-          setUpdatedTitle={setUpdatedTitle}
-          setUpdatedNote={setUpdatedNote}
-          setUpdatedStatus={setUpdatedStatus}
-          handleSaveDataClick={handleSaveDataClick}
-          handleEditClick={handleEditClick}
-          updatedSubject={updatedSubject}
-        />
-      </div>
-    </div>
-
-    /* <div className="row slider-detail">
-        <div className="col-md-6 form-data">
-          <SlidersData
-            sliderData={sliderData}
-            updatedTitle={updatedTitle}
-            updatedNote={updatedNote}
-            updatedStatus={updatedStatus}
-            editing={editing}
-            setUpdatedTitle={setUpdatedTitle}
-            setUpdatedNote={setUpdatedNote}
-            setUpdatedStatus={setUpdatedStatus}
-            handleSaveDataClick={handleSaveDataClick}
-            handleEditClick={handleEditClick}
-            updatedSubject={updatedSubject}
-          />
+            <SlidersData
+                sliderData={sliderData}
+                updatedTitle={updatedTitle}
+                updatedNote={updatedNote}
+                updatedStatus={updatedStatus}
+                editing={editing}
+                setUpdatedTitle={setUpdatedTitle}
+                setUpdatedNote={setUpdatedNote}
+                setUpdatedStatus={setUpdatedStatus}
+                handleSaveDataClick={handleSaveDataClick}
+                handleEditClick={handleEditClick}
+                updatedSubject={updatedSubject}
+            />
+          </div>
         </div>
 
-        <div className="col-md-6 form-img">
-          <SliderImage
-            baseURL={baseURL}
-            updatedImage={updatedImage}
-            editing={editing}
-            setUpdatedImage={setUpdatedImage}
-            handleSaveImageClick={handleSaveImageClick}
-            currentImage={currentImage}
-          />
-        </div>
-      </div>
-    </div> */
-  );
+        /* <div className="row slider-detail">
+            <div className="col-md-6 form-data">
+              <SlidersData
+                sliderData={sliderData}
+                updatedTitle={updatedTitle}
+                updatedNote={updatedNote}
+                updatedStatus={updatedStatus}
+                editing={editing}
+                setUpdatedTitle={setUpdatedTitle}
+                setUpdatedNote={setUpdatedNote}
+                setUpdatedStatus={setUpdatedStatus}
+                handleSaveDataClick={handleSaveDataClick}
+                handleEditClick={handleEditClick}
+                updatedSubject={updatedSubject}
+              />
+            </div>
+
+            <div className="col-md-6 form-img">
+              <SliderImage
+                baseURL={baseURL}
+                updatedImage={updatedImage}
+                editing={editing}
+                setUpdatedImage={setUpdatedImage}
+                handleSaveImageClick={handleSaveImageClick}
+                currentImage={currentImage}
+              />
+            </div>
+          </div>
+        </div> */
+    );
+  }
 };
 
 export default SliderDetail;

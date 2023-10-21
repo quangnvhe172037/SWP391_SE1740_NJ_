@@ -1,8 +1,6 @@
 package com.example.onlinequiz.Controller.FourRoleController;
 
-import com.example.onlinequiz.Model.QuizResults;
-import com.example.onlinequiz.Model.SubjectCategories;
-import com.example.onlinequiz.Model.Users;
+import com.example.onlinequiz.Model.*;
 import com.example.onlinequiz.Services.PracticeListService;
 import com.example.onlinequiz.Services.SubjectService;
 import com.example.onlinequiz.Services.UserService;
@@ -42,9 +40,22 @@ public class PracticeListController {
     }
 
 
-//    @GetMapping("subjectCate")
-//    @ResponseBody
-//    public ResponseEntity<List<SubjectCategories>> getSubjetcCategory(){
-//        List<SubjectCategories> listSubjectCate = subjectService
-//    }
+    @GetMapping("/detail")
+    @ResponseBody
+    public ResponseEntity<List<QuizResults>> getQuizResultDetail(
+            @RequestParam Long userid,
+            @RequestParam Long subjectid
+    ){
+
+        Users u = userService.getUserById(userid);
+        Subjects s = subjectService.getSubjectById(subjectid);
+        List<QuizResults> listResult = practiceListService.getListQuizResultDetail(u,s);
+        if(listResult == null){
+            System.out.println("Null result");
+
+        }else{
+            System.out.println("oke");
+        }
+        return ResponseEntity.ok(listResult);
+    }
 }

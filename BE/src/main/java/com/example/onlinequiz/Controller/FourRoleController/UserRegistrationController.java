@@ -27,6 +27,7 @@ public class UserRegistrationController {
     public ResponseEntity<List<UserPayment>> getUserRegistration(
             @RequestParam Long userid
     ) {
+        System.out.println(userid);
         Users u = userService.getUserById(userid);
         List<UserPayment> userPaymentList = registrationService.getUserPayment(u);
         if (userPaymentList == null) {

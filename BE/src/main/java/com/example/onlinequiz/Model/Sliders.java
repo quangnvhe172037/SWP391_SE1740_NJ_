@@ -9,10 +9,11 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "sliders")
 public class Sliders {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "sliderid")
+    @Column(name = "slider_id")
     private Long sliderID;
 
     @Column(name = "title", length = 256, columnDefinition = "VARCHAR(256) CHARACTER SET utf8mb4")
@@ -22,7 +23,7 @@ public class Sliders {
     private String image;
 
     @ManyToOne
-    @JoinColumn(name = "subjectid")
+    @JoinColumn(name = "subject_id")
     private Subjects subject;
 
     @Column(name = "status", length = 256)

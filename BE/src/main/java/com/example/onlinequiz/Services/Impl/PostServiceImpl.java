@@ -123,7 +123,7 @@ public class PostServiceImpl implements PostService {
     public List<PostListResponse> getAllPostByUser(Users u) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-        List<Posts> lp = postRepository.findPostsByUser(u);
+        List<Posts> lp = postRepository.findPostsByUserOrderByPostIDDesc(u);
         List<PostListResponse> postListResponses = new ArrayList<>();
         for (Posts p : lp ) {
             postListResponses.add(
