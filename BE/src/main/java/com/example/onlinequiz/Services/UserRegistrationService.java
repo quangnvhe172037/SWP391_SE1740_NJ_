@@ -7,6 +7,8 @@ import com.example.onlinequiz.Model.Users;
 import java.util.List;
 
 public interface UserRegistrationService {
+
+    List<UserPayment> findAll();
     List<UserPayment> getUserPayment(Users u);
 
 

@@ -42,7 +42,7 @@ import PostListManage from "./pages/Posts/ManagePost/PostListManage/PostListMana
 import PrivateContent from "./components/HandleException/PrivateContent";
 import UserRes from "./pages/UserRegistration/RegistrationList";
 import ImportQuiz from "./components/ImportQuiz/ImportQuiz";
-
+import UserRegisterList from "./components/UserRegisterList/UserRegisterList";
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -99,11 +99,11 @@ const App = () => {
               <Route path="/sliders" element={<SliderList />} />
               <Route path="/posts" element={<PostList />} />
               <Route path="/posts/view/:postId" element={<PostDetail />} />
-              <Route path="/myRegistration" element={<UserRes/>}/>
+              <Route path="/myRegistration" element={<UserRes />} />
               <Route path="/posts/edit/:postId" element={<PostEdit />} />
               <Route path="/sliders/edit/*" element={<SliderDetail />} />
               <Route path="/add-question" element={<ImportQuiz />} />
-              <Route path="/practice" element={<PracticeList/>}/>
+              <Route path="/practice" element={<PracticeList />} />
               <Route
                 path="/sliders/edit/:sliderId"
                 element={<SliderDetail />}
@@ -113,6 +113,10 @@ const App = () => {
                 element={<MarketingDashboard />}
               />
               <Route path="/admin/dashboard" element={<AdminDashboard />} />
+              <Route
+                path="/user-register-list"
+                element={<UserRegisterList />}
+              />
               <Route path="/expert/dashboard" element={<ExpertDashboard />} />
               <Route path="/sliders/add" element={<SliderAdd />} />
               <Route path="/subject" element={<Subject />} />
@@ -136,10 +140,7 @@ const App = () => {
                 path="/marketing/post/manage"
                 element={<PostListManage />}
               />
-              <Route
-                path="/regis"
-                element={<UserRes />}
-              />
+              <Route path="/regis" element={<UserRes />} />
             </>
           )}
         </Routes>

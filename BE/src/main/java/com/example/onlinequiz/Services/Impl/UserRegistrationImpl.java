@@ -17,6 +17,10 @@ public class UserRegistrationImpl implements UserRegistrationService {
     @Autowired
     private final UserRegistrationsRepository userRegistrationsRepository;
 
+    @Override
+    public  List<UserPayment> findAll() {
+        return userRegistrationsRepository.findAll();
+    }
 
     @Override
     public List<UserPayment> getUserPayment(Users u) {
