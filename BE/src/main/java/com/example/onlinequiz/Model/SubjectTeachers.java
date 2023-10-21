@@ -9,18 +9,20 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "subjectteacher")
+@Table(name = "subject_teacher")
 public class SubjectTeachers {
-    @EmbeddedId
-    private SubjectTeacherId id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "subject_teacher_id")
+    private Long subjectTeacherId;
 
     @ManyToOne
-    @MapsId("subjectid")
-    @JoinColumn(name = "subjectid")
+    @MapsId("subject_id")
+    @JoinColumn(name = "subject_id")
     private Subjects subject;
 
     @ManyToOne
-    @MapsId("usersid")
-    @JoinColumn(name = "usersid")
+    @MapsId("user_id")
+    @JoinColumn(name = "user_id")
     private Users expert;
 }

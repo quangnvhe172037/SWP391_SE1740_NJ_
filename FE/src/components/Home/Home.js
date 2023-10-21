@@ -261,7 +261,9 @@ const Home = () => {
                   <Link to={`#`}>
                     <div className="flex justify-between gap-4 items-center flex-wrap sm:flex-nowrap">
                       <div className="order-2 sm:order-1">
-                        <h2 className="text-xl font-bold mb-3">{data.title}</h2>
+                        <h2 className="text-xl font-bold mb-3">
+                          <Link to={`/posts/view/${data.postID}`}>{data.title}</Link>
+                        </h2>
                         <p className="text-sm text-slate-600 mb-3">
                           {data.briefInfor}
                         </p>

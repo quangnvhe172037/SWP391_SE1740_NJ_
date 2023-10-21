@@ -17,10 +17,10 @@ import java.util.List;
 public class Quizzes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "quizid")
+    @Column(name = "quiz_id")
     private Long quizID;
 
-    @Column(name = "quizname", length = 256, columnDefinition = "VARCHAR(256) CHARACTER SET utf8mb4")
+    @Column(name = "quiz_name", length = 256, columnDefinition = "VARCHAR(256) CHARACTER SET utf8mb4")
     private String quizName;
 
     @Column(name = "status")
@@ -30,22 +30,23 @@ public class Quizzes {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "subjectid")
+    @JoinColumn(name = "subject_id")
     private Subjects subject;
 
+    @Column(name = "lesson_id")
     private Long lessonid;
 
     @ManyToOne
-    @JoinColumn(name = "quiztypeid")
+    @JoinColumn(name = "quiz_type_id")
     private QuizTypes quizTypes;
 
-    @Column(name = "datecreate")
+    @Column(name = "date_create")
     private Date dateCreate;
 
-    @Column(name = "durationtime")
+    @Column(name = "duration_time")
     private Time durationTime;
 
-    @Column(name = "passrate")
+    @Column(name = "pass_rate")
     private int passRate;
 
 }

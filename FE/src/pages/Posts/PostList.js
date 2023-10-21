@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { format } from 'date-fns';
+import React, {useState, useEffect} from 'react';
+import {format} from 'date-fns';
 import './style.css';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
+import jwtDecode from "jwt-decode";
+import PrivateContent from "../../components/HandleException/PrivateContent";
 
 const API_URL = 'http://localhost:8080/posts';
 
@@ -35,6 +37,7 @@ function PostList() {
                     postID: item.postID,
                     title: item.title,
                     image: item.image,
+                    status: item.status,
                     postCategory: {
                         id: item.postCategory.id,
                         name: item.postCategory.name,
@@ -66,86 +69,93 @@ function PostList() {
     });
 
 
+    const token = localStorage.getItem("token");
+    const user = jwtDecode(token);
+    if (user.role !== "CUSTOMER") {
+        return (
+            <PrivateContent/>
+        )
+    } else {
+        return (
+            <section className="section posts-entry posts-entry-sm bg-light">
+                <div className="view-all-post container">
+                    <h1 className="posts-entry-title">Tiêu Đề Của Phần</h1>
+                    <div className="row">
+                        <div className="col-md-9">
+                            <div className="row">
+                                {filteredPosts.map((post) => (
+                                    <div key={post.id} className="col-md-4">
+                                        <div className="blog-entry">
+                                            <Link to={`/posts/view/${post.postID}`} className="img-link">
+                                                <img src={post.image} alt={post.title} className="img-fluid"/>
+                                                <h2 className="post-title">{post.title}</h2>
 
-    return (
-        <section className="section posts-entry posts-entry-sm bg-light">
-            <div className="containers">
-                <h1 className="posts-entry-title">Tiêu Đề Của Phần</h1>
-                <div className="row">
-                    <div className="col-md-9">
-                        <div className="row">
-                            {filteredPosts.map((post) => (
-                                <div key={post.id} className="col-md-4">
-                                    <div className="blog-entry">
-                                        <Link to={`/posts/view/${post.postID}`} className="img-link">
-                                            <img src={post.image} alt={post.title} className="img-fluid" />
-                                            <h2 className="post-title">{post.title}</h2>
+                                            </Link>
 
-                                        </Link>
-
-                                        <p>{post.briefInfor}}</p>
-                                        <span className="date">
+                                            <p>{post.briefInfor}</p>
+                                            <span className="date">
                                             {format(new Date(post.dateCreate), 'dd-MM-yyyy')}
                                         </span>
-                                        <p>Author: {post.user.lastName + ' ' + post.user.firstName}</p>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                    <div className="col-md-3">
-                        <div className="category">
-                            <h4>Danh mục</h4>
-                            {/* Ô tìm kiếm */}
-                            <div className="search-box">
-                                <input
-                                    type="text"
-                                    placeholder="Tìm kiếm..."
-                                    value={searchTerm}
-                                    onChange={(e) => setSearchTerm(e.target.value)}
-                                />
-                            </div>
-                            <div>
-                                <select
-                                value={selectedCategoryId}
-                                onChange={(e) => setSelectedCategoryId(e.target.value)}
-                            >
-                                <option value="">Tất cả danh mục</option>
-                                {categories.map((category) => (
-                                    <option key={category.id} value={category.id}>
-                                        {category.name}
-                                    </option>
-                                ))}
-                            </select>
-                            </div>
-                            <h4>Bài viết</h4>
-                            {/* Danh sách bài viết ngẫu nhiên */}
-                            <ul className="list-group">
-                                {randomPosts.map((postR) => (
-                                    <li key={postR.postID} className="list-group-item">
-                                        <div className="row">
-                                            <Link to={`/posts/view/${postR.postID}`}>
-                                                <div className="col-md-4">
-                                                    <img
-                                                        src={postR.image}
-                                                        alt={postR.title}
-                                                        className="img-large"
-                                                    />
-                                                </div>
-                                                <div className="col-md-8">
-                                                    <h6 className="">{postR.title}</h6>
-                                                </div>
-                                            </Link>
+                                            <p>Author: {post.user.lastName + ' ' + post.user.firstName}</p>
                                         </div>
-                                    </li>
+                                    </div>
                                 ))}
-                            </ul>
+                            </div>
+                        </div>
+                        <div className="col-md-3">
+                            <div className="category">
+                                <h4>Danh mục</h4>
+                                {/* Ô tìm kiếm */}
+                                <div className="search-box">
+                                    <input
+                                        type="text"
+                                        placeholder="Tìm kiếm..."
+                                        value={searchTerm}
+                                        onChange={(e) => setSearchTerm(e.target.value)}
+                                    />
+                                </div>
+                                <div className="category-box">
+                                    <select
+                                        value={selectedCategoryId}
+                                        onChange={(e) => setSelectedCategoryId(e.target.value)}
+                                    >
+                                        <option value="">Tất cả danh mục</option>
+                                        {categories.map((category) => (
+                                            <option key={category.id} value={category.id}>
+                                                {category.name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                                <h4>Bài viết</h4>
+                                {/* Danh sách bài viết ngẫu nhiên */}
+                                <ul className="list-group">
+                                    {randomPosts.map((postR) => (
+                                        <li key={postR.postID} className="list-group-item">
+                                            <div className="row">
+                                                <Link to={`/posts/view/${postR.postID}`}>
+                                                    <div className="col-md-4">
+                                                        <img
+                                                            src={postR.image}
+                                                            alt={postR.title}
+                                                            className="img-large"
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-8">
+                                                        <h6 className="">{postR.title}</h6>
+                                                    </div>
+                                                </Link>
+                                            </div>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-    );
+            </section>
+        );
+    }
 }
 
 export default PostList;

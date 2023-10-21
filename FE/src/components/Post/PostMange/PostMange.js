@@ -134,7 +134,7 @@ const PostManage = ({
 
         <div className="col-md-3 create-post-button-wrap">
           <button onClick={handleSaveDataClick} className="create-post-button">
-            Save Draft
+            Save
           </button>
         </div>
       </div>

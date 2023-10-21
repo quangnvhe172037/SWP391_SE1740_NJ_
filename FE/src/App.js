@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route, Link, Navigate, useLocation } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  Link,
+  Navigate,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import jwtDecode from "jwt-decode";
@@ -50,6 +57,7 @@ const App = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [userRole, setUserRole] = useState(null);
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -89,7 +97,6 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/change-password" element={<ChangePassword />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/account-list" element={<AccountList />} />
           <Route path="/register/verifyEmail/" element={<VerifyEmail />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/Subjects" element={<ForgotPassword />} />
@@ -114,7 +121,7 @@ const App = () => {
               />
               <Route path="/admin/dashboard" element={<AdminDashboard />} />
               <Route
-                path="/user-register-list"
+                path="/user-registration-list"
                 element={<UserRegisterList />}
               />
               <Route path="/expert/dashboard" element={<ExpertDashboard />} />
@@ -141,6 +148,7 @@ const App = () => {
                 element={<PostListManage />}
               />
               <Route path="/regis" element={<UserRes />} />
+              <Route path="/account-list" element={<AccountList />} />
             </>
           )}
         </Routes>

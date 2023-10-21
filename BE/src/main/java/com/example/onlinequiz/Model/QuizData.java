@@ -9,14 +9,14 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "quizdata")
+@Table(name = "quiz_data")
 public class QuizData {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "sentenceid")
+    @Column(name = "sentence_id")
     private Long sentenceID;
 
     @ManyToOne
-    @JoinColumn(name = "subjectid")
+    @JoinColumn(name = "subject_id")
     private Subjects subject;
 }

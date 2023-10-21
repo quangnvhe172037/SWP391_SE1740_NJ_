@@ -11,21 +11,21 @@ import java.util.List;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "quizdetail")
+@Table(name = "quiz_detail")
 public class QuizDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "quizdetailid")
+    @Column(name = "quiz_detail_id")
     private Long quizDetailID;
 
     @BatchSize(size = 5)
     @ManyToOne
-    @JoinColumn(name = "sentenceid")
+    @JoinColumn(name = "sentence_id")
     private QuizData quizData;
 
     @BatchSize(size = 5)
     @ManyToOne
-    @JoinColumn(name = "quizid")
+    @JoinColumn(name = "quiz_id")
     private Quizzes quizzes;
 
 

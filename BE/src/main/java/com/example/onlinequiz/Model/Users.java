@@ -22,7 +22,7 @@ import java.util.*;
 @Table(name = "users")
 public class Users implements UserDetails {
     @Id
-    @Column(name = "usersid")
+    @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

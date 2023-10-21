@@ -11,19 +11,21 @@ import javax.security.auth.Subject;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "subjectjoin")
+@Table(name = "subject_join")
 public class SubjectJoin {
-    @EmbeddedId
-    private SubjectJoinId id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "subject_join_id")
+    private Long subjectJoinId;
 
     private boolean is_pass;
 
     @ManyToOne
-    @MapsId("subjectid")
-    @JoinColumn(name = "subjectid")
+    @MapsId("subject_id")
+    @JoinColumn(name = "subject_id")
     private Subjects subject;
 
     @ManyToOne
-    @JoinColumn(name = "usersid")
+    @JoinColumn(name = "user_id")
     private Users user;
 }
