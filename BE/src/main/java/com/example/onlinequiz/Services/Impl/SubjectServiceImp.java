@@ -28,4 +28,9 @@ public class SubjectServiceImp implements SubjectService {
     public Subjects getSubjectById(Long id) {
         return subjectRepository.getSubjectsBySubjectID(id);
     }
+
+    @Override
+    public Subjects save(Subjects subjects) {
+        return subjectRepository.save(subjects);
+    }
 }

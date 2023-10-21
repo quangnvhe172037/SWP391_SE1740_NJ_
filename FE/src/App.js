@@ -98,6 +98,7 @@ const App = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/register/verifyEmail/" element={<VerifyEmail />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/Subjects" element={<ForgotPassword />} />
 
           {isAuthenticated && (
             <>
