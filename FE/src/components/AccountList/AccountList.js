@@ -12,7 +12,7 @@ const AccountList = () => {
     const [editableAccounts, setEditableAccounts] = useState([]);
     const [sortByRoleAscending, setSortByRoleAscending] = useState(true);
     const [searchEmail, setSearchEmail] = useState("");
-
+    const navigate = useNavigate();
     const fetchAccounts = async () => {
         try {
             const response = await axios.get('http://localhost:8080/admin/all-accounts', {
@@ -23,10 +23,17 @@ const AccountList = () => {
             setAccounts(response.data);
             setEditableAccounts(new Array(response.data.length).fill(false));
         } catch (error) {
-            if (error.response && error.response.status === 403) {
-                alert("You are out of the system, please login again!");
+            if (error.response && error.response.status === 400){
+                console.error("Bad request: ", error.response.data);
+                alert("Something error");
+            } else if (error.response && error.response.status === 403) {
+                // Nếu response trả về mã lỗi 403, dẫn người dùng quay lại trang Home
+                alert("You are out of System");
+                navigate("/login");
+                localStorage.removeItem("token");
+            } else {
+                console.error('Error updating profile data:', error);
             }
-            console.error('Error fetching accounts:', error);
         }
     };
 
@@ -57,7 +64,15 @@ const AccountList = () => {
             const newEditableAccounts = new Array(updatedAccounts.length).fill(false);
             setEditableAccounts(newEditableAccounts);
         } catch (error) {
-            console.error('Error updating account:', error);
+            if (error.response && error.response.status === 400) {
+                console.error("Bad request: ", error.response.data);
+                alert("Something error");
+            } else if (error.response && error.response.status === 403) {
+                // Nếu response trả về mã lỗi 403, dẫn người dùng quay lại trang Home
+                alert("You are out of System");
+            } else {
+                console.error('Error updating profile data:', error);
+            }
         }
     };
 
