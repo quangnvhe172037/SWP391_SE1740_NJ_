@@ -19,8 +19,6 @@ const UserRegisterList = () => {
     cateName: true,
     price: true,
     status: true,
-    validFrom: true,
-    validTo: true,
   });
   const [searchValue, setSearchValue] = useState("");
   const [validFrom, setValidFrom] = useState(formatDateToYYYYMMDD(new Date()));
@@ -47,9 +45,7 @@ const UserRegisterList = () => {
           subjectName: item.subject.subjectName,
           cateName: item.subject.subjectCategory.cateName,
           price: item.subjectPrice.price.toString(),
-          status: item.status.toString(),
-          validFrom: "Valid From",
-          validTo: "Valid To",
+          status: item.status ? "Đã đăng kí" : "Chờ xác nhận",
         }));
         setBills(apiBills);
         setBillsView(
@@ -206,18 +202,6 @@ const UserRegisterList = () => {
                   {sortItem.status ? "▲" : "▼"}
                 </span>
               </th>
-              <th>
-                Valid From
-                <span onClick={() => onChangeSortItem("validFrom")}>
-                  {sortItem.validFrom ? "▲" : "▼"}
-                </span>
-              </th>
-              <th>
-                Valid To
-                <span onClick={() => onChangeSortItem("validTo")}>
-                  {sortItem.validTo ? "▲" : "▼"}
-                </span>
-              </th>
             </tr>
           </thead>
           <tbody>
@@ -232,8 +216,6 @@ const UserRegisterList = () => {
                 <td>{item.cateName}</td>
                 <td>{item.price}</td>
                 <td>{item.status}</td>
-                <td>{item.validFrom}</td>
-                <td>{item.validTo}</td>
               </tr>
             ))}
           </tbody>

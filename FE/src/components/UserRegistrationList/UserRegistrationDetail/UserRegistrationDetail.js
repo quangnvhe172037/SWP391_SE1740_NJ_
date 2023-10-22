@@ -191,7 +191,7 @@ const UserRegistrationDetail = () => {
             </select>
           </div>
           <div className="form-group col-12">
-            <label for="exampleFormControlTextarea2">Example textarea</label>
+            <label for="exampleFormControlTextarea2">Notify</label>
             <textarea
               value={notify}
               onChange={handleNotifyChange}
