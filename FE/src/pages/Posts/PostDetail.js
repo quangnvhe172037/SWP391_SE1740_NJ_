@@ -15,7 +15,7 @@ const PostDetail = () => {
 
     useEffect(() => {
         // Truy vấn dữ liệu của bài viết từ API sử dụng postId
-        axios.get(${API_URL}posts/view/${postId})
+        axios.get(`${API_URL}posts/view/${postId}`)
             .then((response) => {
                 setPost(response.data);
             })

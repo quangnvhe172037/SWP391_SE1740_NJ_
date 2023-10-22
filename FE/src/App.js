@@ -49,6 +49,8 @@ import PostListManage from "./pages/Posts/ManagePost/PostListManage/PostListMana
 import PrivateContent from "./components/HandleException/PrivateContent";
 import UserRes from "./pages/UserRegistration/RegistrationList";
 import ImportQuiz from "./components/ImportQuiz/ImportQuiz";
+import SubjectData from "./components/Subject/SubjectData";
+import AddSubject from "./components/Subject/AddSubject";
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -98,7 +100,8 @@ const App = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/register/verifyEmail/" element={<VerifyEmail />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/Subjects" element={<ForgotPassword />} />
+          <Route path="/Subjects" element={<SubjectData />} />
+          <Route path="/addSubject" element={<AddSubject />} />
 
           {isAuthenticated && (
             <>
