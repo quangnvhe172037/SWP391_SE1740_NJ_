@@ -156,7 +156,7 @@ const UserRegisterList = () => {
           />
         </div>
       </div>
-      <div className="row" style={{ padding: "15px" }}>
+      <div className="row" style={{ padding: "15px", overflowX: "auto" }}>
         <table className="table mt-3 table-hover">
           <thead>
             <tr>
