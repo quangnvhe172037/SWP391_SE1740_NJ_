@@ -7,16 +7,9 @@
     <list default="true" id="f42a8f0a-d40f-4bc9-b56d-aa67269e9f4b" name="Changes" comment="Revert &quot;update view lesson&quot;&#10;&#10;This reverts commit 52474196">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BE/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/src/components/HandleException/PrivateContent.js" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/components/HandleException/PrivateContent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/src/components/ImportQuiz/ImportQuiz.js" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/components/ImportQuiz/ImportQuiz.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/src/pages/LessonDetail/LessonDetail.js" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/pages/LessonDetail/LessonDetail.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/src/pages/MarketingDashboard/MarketingDashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/pages/MarketingDashboard/MarketingDashboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/src/pages/Posts/PostDetail.js" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/pages/Posts/PostDetail.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/src/pages/Posts/PostEdit.js" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/pages/Posts/PostEdit.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/src/pages/Posts/PostList.js" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/pages/Posts/PostList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/src/pages/SliderDetail/SliderAdd.js" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/pages/SliderDetail/SliderAdd.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/src/pages/SliderDetail/SliderDetail.js" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/pages/SliderDetail/SliderDetail.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/src/pages/UserRegistration/RegistrationList.js" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/pages/UserRegistration/RegistrationList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE/src/components/AccountList/AccountList.js" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/components/AccountList/AccountList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE/src/components/ChangePassword/ChangePassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/components/ChangePassword/ChangePassword.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE/src/pages/Profile/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/pages/Profile/Profile.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

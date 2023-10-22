@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
-import { Link } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 
 const Profile = () => {
     const token = localStorage.getItem('token'); // Lấy JWT token từ localStorage
     const user = jwtDecode(token); // Giải mã token để lấy thông tin người dùng
-
+    const navigate = useNavigate();
     const [profileData, setProfileData] = useState({
         firstName: '',
         lastName: '',
@@ -60,6 +60,8 @@ const Profile = () => {
                     alert("Something error");
                 } else if (error.response && error.response.status === 403) {
                     // Nếu response trả về mã lỗi 403, dẫn người dùng quay lại trang Home
+                    alert("You are out of System");
+                    navigate("/login");
                     localStorage.removeItem("token");
                 } else {
                     console.error('Error updating profile data:', error);
