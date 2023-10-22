@@ -1,11 +1,15 @@
-const SubjectAdd = () => {
+import { Routes, Route, Link,useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+const AddSubject = () => {
     const [categories, setCategories] = useState([]);
     const [updatedName, setUpdatedName] = useState("");
     const [updatedImage, setUpdatedImage] = useState("");
     const [updateCategory, setUpdateCategory] = useState("");
     const [updatedDescription, setUpdatedDescription] = useState("");
     const [updatedStatus, setUpdatedStatus] = useState(0);
+    const token = localStorage.getItem("token");
     const navigate = useNavigate();
+    const apiCategorySubjects = "http://localhost:8080/categorysubject/all";
     useEffect(() => {
         fetch(apiCategorySubjects).then((response) => {
             if (!response.ok) {
@@ -63,7 +67,7 @@ const SubjectAdd = () => {
             return response.json();
           })
           .then((data) => {
-            navigate("/Subjects");
+            navigate("/sliders");
           })
           .catch((error) => {
             console.error("Error updating slider data:", error);
@@ -179,3 +183,5 @@ const SubjectAdd = () => {
         </div>
     );
 }
+
+export default AddSubject;
