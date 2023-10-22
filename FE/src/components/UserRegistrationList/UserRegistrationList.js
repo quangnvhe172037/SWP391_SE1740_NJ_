@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { formatDateToCustomFormat } from "./UserRegistrationListFunc";
+import {
+  convertToYYYYMMDD,
+  formatDateToCustomFormat,
+  formatDateToYYYYMMDD,
+} from "./UserRegistrationListFunc";
 
 const UserRegisterList = () => {
   const token = localStorage.getItem("token");
@@ -19,6 +23,8 @@ const UserRegisterList = () => {
     validTo: true,
   });
   const [searchValue, setSearchValue] = useState("");
+  const [validFrom, setValidFrom] = useState(formatDateToYYYYMMDD(new Date()));
+  const [validTo, setValidTo] = useState(formatDateToYYYYMMDD(new Date()));
 
   useEffect(() => {
     const fetchBills = async () => {
@@ -46,7 +52,18 @@ const UserRegisterList = () => {
           validTo: "Valid To",
         }));
         setBills(apiBills);
-        setBillsView(apiBills);
+        setBillsView(
+          apiBills.filter((item) => {
+            return (
+              new Date(convertToYYYYMMDD(item.purchaseDate)).getDate() ===
+                new Date().getDate() &&
+              new Date(convertToYYYYMMDD(item.purchaseDate)).getMonth() ===
+                new Date().getMonth() &&
+              new Date(convertToYYYYMMDD(item.purchaseDate)).getFullYear() ===
+                new Date().getFullYear()
+            );
+          })
+        );
       } catch (error) {
         if (error.response && error.response.status === 403) {
           localStorage.removeItem("token");
@@ -90,105 +107,138 @@ const UserRegisterList = () => {
 
   const handleSearchChange = (e) => {
     console.log(e.target.value);
-    setSearchValue(e.target.value);
-    // Nếu ô tìm kiếm trống rỗng, khôi phục danh sách tài khoản gốc
-    e.target.value === ""
-      ? setBillsView(bills)
-      : setBillsView(
-          bills.filter((item) =>
-            item.email.toLowerCase().includes(e.target.value.toLowerCase())
-          )
-        );
+    let searchValueF = searchValue;
+    let validFromF = validFrom;
+    let validToF = validTo;
+    if (e.target.name === "email") searchValueF = e.target.value;
+    if (e.target.name === "validFrom") validFromF = e.target.value;
+    if (e.target.name === "validTo") validToF = e.target.value;
+
+    const lstTemp = bills.filter(
+      (item) =>
+        item.email.toLowerCase().includes(searchValueF.toLowerCase()) &&
+        new Date(convertToYYYYMMDD(item.purchaseDate)) >=
+          new Date(validFromF) &&
+        new Date(convertToYYYYMMDD(item.purchaseDate)) <= new Date(validToF)
+    );
+    setSearchValue(searchValueF);
+    setValidFrom(validFromF);
+    setValidTo(validToF);
+    setBillsView(lstTemp);
   };
 
   return (
-    <div className="view-container mt-5">
+    <div className="view-container mt-5 container">
       <h2 className="font-weight-bold h3">User Registration List</h2>
-      <input
-        type="text"
-        className="form-control"
-        id="searchEmail"
-        value={searchValue}
-        placeholder="Enter Email"
-        onChange={handleSearchChange}
-      />
-      <table className="table mt-3 table-hover">
-        <thead>
-          <tr>
-            <th>
-              Id
-              <span onClick={() => onChangeSortItem("billID")}>
-                {sortItem.billID ? "▲" : "▼"}
-              </span>
-            </th>
-            <th>
-              Email
-              <span onClick={() => onChangeSortItem("email")}>
-                {sortItem.email ? "▲" : "▼"}
-              </span>
-            </th>
-            <th>
-              Registration Time
-              <span onClick={() => onChangeSortItem("purchaseDate")}>
-                {sortItem.purchaseDate ? "▲" : "▼"}
-              </span>
-            </th>
-            <th>
-              Subject
-              <span onClick={() => onChangeSortItem("subjectName")}>
-                {sortItem.subjectName ? "▲" : "▼"}
-              </span>
-            </th>
-            <th>
-              Package
-              <span onClick={() => onChangeSortItem("cateName")}>
-                {sortItem.cateName ? "▲" : "▼"}
-              </span>
-            </th>
-            <th>
-              Cost
-              <span onClick={() => onChangeSortItem("price")}>
-                {sortItem.price ? "▲" : "▼"}
-              </span>
-            </th>
-            <th>
-              Status
-              <span onClick={() => onChangeSortItem("status")}>
-                {sortItem.status ? "▲" : "▼"}
-              </span>
-            </th>
-            <th>
-              Valid From
-              <span onClick={() => onChangeSortItem("validFrom")}>
-                {sortItem.validFrom ? "▲" : "▼"}
-              </span>
-            </th>
-            <th>
-              Valid To
-              <span onClick={() => onChangeSortItem("validTo")}>
-                {sortItem.validTo ? "▲" : "▼"}
-              </span>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {billsView.map((item) => (
+      <div className="row">
+        <div className="col-md-6">
+          <input
+            name="email"
+            type="text"
+            className="form-control w-100"
+            value={searchValue}
+            placeholder="Enter Email"
+            onChange={handleSearchChange}
+          />
+        </div>
+        <div className="col-md-3">
+          <input
+            type="date"
+            className="form-control w-100"
+            name="validFrom"
+            value={validFrom}
+            onChange={handleSearchChange}
+          />
+        </div>
+        <div className="col-md-3">
+          <input
+            type="date"
+            className="form-control w-100"
+            name="validTo"
+            value={validTo}
+            onChange={handleSearchChange}
+          />
+        </div>
+      </div>
+      <div className="row" style={{ padding: "15px" }}>
+        <table className="table mt-3 table-hover">
+          <thead>
             <tr>
-              <td>
-                <Link to={item.billID}>{item.billID}</Link>
-              </td>
-              <td>{item.email}</td>
-              <td>{item.purchaseDate}</td>
-              <td>{item.subjectName}</td>
-              <td>{item.cateName}</td>
-              <td>{item.price}</td>
-              <td>{item.status}</td>
-              <td>{item.validFrom}</td>
-              <td>{item.validTo}</td>
+              <th>
+                Id
+                <span onClick={() => onChangeSortItem("billID")}>
+                  {sortItem.billID ? "▲" : "▼"}
+                </span>
+              </th>
+              <th>
+                Email
+                <span onClick={() => onChangeSortItem("email")}>
+                  {sortItem.email ? "▲" : "▼"}
+                </span>
+              </th>
+              <th>
+                Registration Time
+                <span onClick={() => onChangeSortItem("purchaseDate")}>
+                  {sortItem.purchaseDate ? "▲" : "▼"}
+                </span>
+              </th>
+              <th>
+                Subject
+                <span onClick={() => onChangeSortItem("subjectName")}>
+                  {sortItem.subjectName ? "▲" : "▼"}
+                </span>
+              </th>
+              <th>
+                Package
+                <span onClick={() => onChangeSortItem("cateName")}>
+                  {sortItem.cateName ? "▲" : "▼"}
+                </span>
+              </th>
+              <th>
+                Cost
+                <span onClick={() => onChangeSortItem("price")}>
+                  {sortItem.price ? "▲" : "▼"}
+                </span>
+              </th>
+              <th>
+                Status
+                <span onClick={() => onChangeSortItem("status")}>
+                  {sortItem.status ? "▲" : "▼"}
+                </span>
+              </th>
+              <th>
+                Valid From
+                <span onClick={() => onChangeSortItem("validFrom")}>
+                  {sortItem.validFrom ? "▲" : "▼"}
+                </span>
+              </th>
+              <th>
+                Valid To
+                <span onClick={() => onChangeSortItem("validTo")}>
+                  {sortItem.validTo ? "▲" : "▼"}
+                </span>
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {billsView.map((item) => (
+              <tr key={item.billID}>
+                <td>
+                  <Link to={item.billID}>{item.billID}</Link>
+                </td>
+                <td>{item.email}</td>
+                <td>{item.purchaseDate}</td>
+                <td>{item.subjectName}</td>
+                <td>{item.cateName}</td>
+                <td>{item.price}</td>
+                <td>{item.status}</td>
+                <td>{item.validFrom}</td>
+                <td>{item.validTo}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
