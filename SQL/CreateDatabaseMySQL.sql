@@ -115,7 +115,7 @@ DEFAULT CHARACTER SET = utf8mb4;
 CREATE TABLE IF NOT EXISTS `quiz_practice`.`lesson` (
   `lesson_id` BIGINT NOT NULL AUTO_INCREMENT,
   `lesson_name` VARCHAR(256) CHARACTER SET 'utf8mb4'  NULL DEFAULT NULL,
-  `status` bit,
+  `status` BIT NULL DEFAULT NULL,
   `order` INT NULL DEFAULT NULL,
   `video_link` VARCHAR(256) NULL DEFAULT NULL,
   `topic_id` BIGINT NULL DEFAULT NULL,
@@ -436,7 +436,7 @@ CREATE TABLE IF NOT EXISTS `quiz_practice`.`user_payment` (
   `bill_id` BIGINT NOT NULL AUTO_INCREMENT,
   `user_id` BIGINT NULL DEFAULT NULL,
   `pre_id` BIGINT NULL DEFAULT NULL,
-  `status` BIT NULL DEFAULT NULL,
+  `status` TINYINT NULL DEFAULT NULL,
   `notify` VARCHAR(256) CHARACTER SET 'utf8mb4'  NULL DEFAULT NULL,
   `subject_id` BIGINT NULL DEFAULT NULL,
   `purchase_date` DATETIME NOT NULL,

@@ -51,6 +51,8 @@ public class SecurityConfig {
     };
     // Danh sách các URL cho customer
     private static final String[] CUSTOMER_URL = {
+            "/user/subject/get",
+            "/user/subject/get/**"
 
     };
     // Danh sách các URL cho expert

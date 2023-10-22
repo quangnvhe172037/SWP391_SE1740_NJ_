@@ -57,7 +57,6 @@ public class QuizController {
             @RequestParam Long quizId,
             @RequestParam Long userId
             ) {
-        System.out.println("check");
         Quizzes q = quizService.getQuizById(quizId);
         Users u = userService.getUserById(userId);
         QuizResultResponse qr = quizResultService.getQuizResult(q, u);
@@ -69,6 +68,7 @@ public class QuizController {
                 return ResponseEntity.notFound().build();
             }
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }

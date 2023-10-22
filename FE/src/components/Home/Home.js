@@ -211,7 +211,7 @@ const Home = () => {
                     />
                   </div>
                   <h2 className="font-semibold py-2 text-sm truncate text-center">
-                    <Link to={`/subject/${data.subjectID}/lesson/1`}>{data.subjectName}</Link>
+                    <Link to={`/subject/${data.subjectID}`}>{data.subjectName}</Link>
                   </h2>
                 </div>
               ))}

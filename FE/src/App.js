@@ -51,6 +51,7 @@ import UserRes from "./pages/UserRegistration/RegistrationList";
 import ImportQuiz from "./components/ImportQuiz/ImportQuiz";
 import SubjectData from "./components/Subject/SubjectData";
 import AddSubject from "./components/Subject/AddSubject";
+import SubjectDetail from "./pages/SubjectDetail/SubjectDetail";
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -146,6 +147,7 @@ const App = () => {
               />
               <Route path="/regis" element={<UserRes />} />
               <Route path="/account-list" element={<AccountList />} />
+              <Route path="/subject/:subjectId" element={<SubjectDetail />} />
             </>
           )}
         </Routes>

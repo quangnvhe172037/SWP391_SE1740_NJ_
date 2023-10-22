@@ -93,9 +93,9 @@ INSERT INTO `quiz_practice`.`subject_topic`
 `order`,
 `subject_id`)
 VALUES
-(1, "HTML Development", 4, 1),
-(2, "Javascript Development", 4, 2),
-(3, "Bootstrap Development", 4, 3);
+(1, "HTML Development", 4, 4),
+(2, "Javascript Development", 4, 4),
+(3, "Bootstrap Development", 4, 4);
 
 
 -- 5. Insert to lesson_type
@@ -121,12 +121,13 @@ INSERT INTO `quiz_practice`.`lesson`
 `lesson_type_id`,
 `lesson_content`)
 VALUES
-(1, "Introduect to HTML", 1, 1,"salY_Sm6mv4?si=tcrUkJTunS_4oocG", 1, 2, 1),
-(2, "Practice HTML", 1, 2, "",1, 2, ""),
-(3, "Note about HTML", 1, 3,"", 1,3, "Bạn cần hoàn thành bài trên"),
-(4, "Introduce to CSS", 1, 4,"", 2, 3, "Bạn cần làm bài này"),
-(5, "Introduce to Boostrap", 1, 5, "",3, 3, "Bạn cần làm bài này"),
-(6, "Practice Javascript", 1, 6,"", 3, 2, "");
+(1, "Introduect to HTML", 1, 1,"salY_Sm6mv4?si=tcrUkJTunS_4oocG", 1, 2, null),
+(2, "Practice HTML", 1, 2, null,1, 1, null),
+(3, "Note about HTML", 1, 3, null, 1,3, "Bạn cần hoàn thành bài trên"),
+(4, "Introduce to CSS", 1, 4,null, 2, 3, "Bạn cần làm bài này"),
+(5, "Introduce to Boostrap", 1, 5, null,3, 3, "Bạn cần làm bài này"),
+(6, "Practice Javascript", 1, 6, null, 3, 1, null);
+
 
 
 -- 7. Insert to post_category
@@ -256,8 +257,8 @@ INSERT INTO `quiz_practice`.`quiz_result`
 `false_answer`,
 `is_pass`)
 VALUES
-(1,77,4,"2023-05-11",1,5,4,8,1),
- (2, 23,4,"2023-05-11",2,5,4,8,1);
+(1,77,3,"2023-05-11",1,5,4,8,1),
+ (2, 23,3,"2023-05-11",2,5,4,8,1);
 -- (45,4,"2023-05-11",3,6,9,1,1),
 -- (20,4,"2023-05-11",4,12,3,5,1),
 -- (13,4,"2023-05-11",5,9,1,3,1);
@@ -306,7 +307,7 @@ INSERT INTO `quiz_practice`.`user_payment`
 `purchase_date`)
 VALUES(1,3,1,true,'Success register',2,'2023-09-28'),
 (2,3,2,false,'Success register',2,'2023-09-28'),
-(3,3,3,false,'Success register',2,'2023-09-28');
+(3,3,3,false,'Success register',4,'2023-09-28');
 
 
 -- 23. Insert to verification_token

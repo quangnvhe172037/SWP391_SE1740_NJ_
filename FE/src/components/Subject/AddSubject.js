@@ -1,6 +1,8 @@
+
 import { Routes, Route, Link,useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from "react";
 const AddSubject = () => {
+
     const [categories, setCategories] = useState([]);
     const [updatedName, setUpdatedName] = useState("");
     const [updatedImage, setUpdatedImage] = useState("");
@@ -11,6 +13,7 @@ const AddSubject = () => {
     const navigate = useNavigate();
     const apiCategorySubjects = "http://localhost:8080/categorysubject/all";
     useEffect(() => {
+        const token = localStorage.getItem("token");
         fetch(apiCategorySubjects).then((response) => {
             if (!response.ok) {
                 throw new Error("Network response was not ok");
