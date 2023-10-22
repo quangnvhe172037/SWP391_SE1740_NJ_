@@ -1,7 +1,8 @@
 .subject-detail-lesson {
   width: 100%;
-
-  padding: 0;
+  box-shadow: 0 2px 4px rgba(0,0,0,.08), 0 4px 12px rgba(0,0,0,.08);
+   
+  padding: 16px;
   font-family: Udemy Sans ",-apple-system,BlinkMacSystemFont,Roboto," Segoe UI
     ",Helvetica,Arial,sans-serif," Apple Color Emoji "," Segoe UI Emoji ","
     Segoe UI Symbol;
@@ -16,8 +17,7 @@
 }
 
 .subject-detail-lesson-name {
-  padding: 16px;
-  height: 56px;
+  padding: 16px 16px 0px 16px;
   font-weight: 700;
   line-height: 1.2;
 }
@@ -29,7 +29,7 @@
 }
 
 .subject-detail-subject-detail-topic {
-  
+  margin-top: 20px;
 }
 
 .subject-detail-topic-content {
@@ -98,4 +98,15 @@
 .active-lesson {
   background-color: #d1d7dc; /* Màu sắc của bài học hiện tại */
   font-weight: bold; /* Các thuộc tính CSS khác */
+}
+
+.subject-detail-lesson-name{
+}
+
+.subject-detail-content-name-title{
+  margin-bottom: 20px;
+}
+
+.subject-detail-content{
+  font-size: 36px;
 }

@@ -17,6 +17,7 @@ public class UserPayment {
     @Id
     @Column(name = "bill_id")
     private Long billID;
+
     @ManyToOne
     @JoinColumn(name = "pre_id")
     private SubjectPrice subjectPrice;
@@ -28,7 +29,7 @@ public class UserPayment {
     private String notify;
 
     @Column(name = "purchase_date")
-    private Date purchase_date;
+    private Date purchaseDate;
 
     @ManyToOne
     @JoinColumn(name = "subject_id")
