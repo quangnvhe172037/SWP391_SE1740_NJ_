@@ -10,4 +10,8 @@ import java.util.List;
 
 public interface UserRegistrationsRepository extends JpaRepository<UserPayment, Long> {
         List<UserPayment> findByUsers(Users u);
+
+        UserPayment findByBillID(int BillID);
+
+        UserPayment save(UserPayment userPayment);
 }

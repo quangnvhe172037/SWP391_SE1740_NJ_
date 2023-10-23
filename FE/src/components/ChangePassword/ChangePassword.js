@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {useNavigate} from "react-router-dom"; // Import Bootstrap CSS
 const token = localStorage.getItem('token');
 
 const ChangePassword = () => {
@@ -11,7 +12,7 @@ const ChangePassword = () => {
     const [message, setMessage] = useState('');
     const [passwordsMatch, setPasswordsMatch] = useState(true);
     const [isPasswordStrong, setIsPasswordStrong] = useState(true);
-
+    const navigate = useNavigate();
     const handleChange = (e) => {
         const { name, value } = e.target;
         if (name === 'email') setEmail(value);
@@ -60,11 +61,17 @@ const ChangePassword = () => {
                 setPasswordsMatch(true);
                 setIsPasswordStrong(true);
                 // Handle errors or display error message to the user
-                if (error.response && error.response.status === 403) {
+                if (error.response && error.response.status === 400){
+                    console.error("Bad request: ", error.response.data);
+                    alert("Something error");
+                } else if (error.response && error.response.status === 403) {
                     // Nếu response trả về mã lỗi 403, dẫn người dùng quay lại trang Home
+                    alert("You are out of System");
+                    navigate("/login");
                     localStorage.removeItem("token");
+                } else {
+                    console.error('Error updating profile data:', error);
                 }
-
             });
     };
 

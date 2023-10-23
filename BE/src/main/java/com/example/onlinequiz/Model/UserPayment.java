@@ -11,14 +11,15 @@ import java.util.Date;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "userpayment")
+@Table(name = "user_payment")
 public class UserPayment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "billid")
+    @Column(name = "bill_id")
     private Long billID;
+
     @ManyToOne
-    @JoinColumn(name = "preid")
+    @JoinColumn(name = "pre_id")
     private SubjectPrice subjectPrice;
 
     @Column(name = "status")
@@ -27,14 +28,14 @@ public class UserPayment {
     @Column(name = "notify", length = 256, columnDefinition = "VARCHAR(256) CHARACTER SET utf8mb4")
     private String notify;
 
-    @Column(name = "purchasedate")
-    private Date purchase_date;
+    @Column(name = "purchase_date")
+    private Date purchaseDate;
 
     @ManyToOne
-    @JoinColumn(name = "subjectid")
+    @JoinColumn(name = "subject_id")
     private Subjects subject;
 
     @ManyToOne
-    @JoinColumn(name = "usersid")
+    @JoinColumn(name = "user_id")
     private Users users;
 }

@@ -7,7 +7,13 @@ import com.example.onlinequiz.Model.Users;
 import java.util.List;
 
 public interface UserRegistrationService {
+
+    List<UserPayment> findAll();
     List<UserPayment> getUserPayment(Users u);
+
+    public UserPayment findByBillID (int billID);
+
+    public UserPayment save(UserPayment userPayment);
 
 
 }

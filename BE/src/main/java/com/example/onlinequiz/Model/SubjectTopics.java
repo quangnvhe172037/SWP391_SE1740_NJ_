@@ -9,20 +9,20 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "subjecttopic")
+@Table(name = "subject_topic")
 public class SubjectTopics {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "topicid")
+    @Column(name = "topic_id")
     private Long topicID;
 
-    @Column(name = "topicname", length = 256, columnDefinition = "VARCHAR(256) CHARACTER SET utf8mb4")
+    @Column(name = "topic_name", length = 256, columnDefinition = "VARCHAR(256) CHARACTER SET utf8mb4")
     private String topicName;
 
     @Column(name = "order")
     private Integer order;
 
     @ManyToOne
-    @JoinColumn(name = "subjectid")
+    @JoinColumn(name = "subject_id")
     private Subjects subject;
 }

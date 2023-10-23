@@ -1,5 +1,10 @@
+import { useParams } from "react-router-dom";
+
 const AddNewQuiz = () => {
-  return <div className=""></div>;
+  const { subjectId } = useParams();
+  return <div className="">
+    
+  </div>;
 };
 
 export default AddNewQuiz;

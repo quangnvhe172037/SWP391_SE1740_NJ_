@@ -13,10 +13,10 @@ import lombok.NoArgsConstructor;
 public class Lessons {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "lessonid")
+    @Column(name = "lesson_id")
     private Long lessonID;
 
-    @Column(name = "lessonname", length = 256, columnDefinition = "VARCHAR(256) CHARACTER SET utf8mb4")
+    @Column(name = "lesson_name", length = 256, columnDefinition = "VARCHAR(256) CHARACTER SET utf8mb4")
     private String lessonName;
 
     @Column(name = "status")
@@ -25,18 +25,18 @@ public class Lessons {
     @Column(name = "order")
     private Integer order;
 
-    @Column(name = "videolink", length = 256)
+    @Column(name = "video_link", length = 256)
     private String videoLink;
 
 
-    @Column(name = "lessoncontent")
+    @Column(name = "lesson_content")
     private String lessonContent;
 
     @ManyToOne
-    @JoinColumn(name = "topicid")
+    @JoinColumn(name = "topic_id")
     private SubjectTopics topic;
 
     @OneToOne
-    @JoinColumn(name = "lessontypeid")
+    @JoinColumn(name = "lesson_type_id")
     private LessonType lessonType;
 }

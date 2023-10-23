@@ -11,7 +11,8 @@ const SubjectData = () => {
     const [subjects, setSubjects] = useState([]);
     const [paginationsubjects, setPaginationSubjects] = useState([]);
     const [categories, setCategories] = useState([]);
-    const [pageNum,setPageNum] = useState(1);
+    const [totalPage, setTotalPage] = useState(0);
+    const [pageNum, setPageNum] = useState(1);
     const apiSubjects = "http://localhost:8080/subjects/all";
     const apiCategorySubjects = "http://localhost:8080/categorysubject/all";
     useEffect(() => {
@@ -74,10 +75,10 @@ const SubjectData = () => {
     const handleSubmit = (e) => {
         const list = [];
         list = subjects;
-        if(Number(category) != 0){
+        if (Number(category) != 0) {
             list = subjects.filter(n => n.subjectCategory.cateID == Number(category));
         }
-        if(search.length > 0){
+        if (search.length > 0) {
             list = subjects.filter(n => n.subjectName.trim().toLowerCase().includes(search.trim().toLowerCase()))
         }
         setTotalPage(list.length % 3 == 0 ? (list.length / 3) : (Math.floor(list.length / 3) + 1));
@@ -107,26 +108,31 @@ const SubjectData = () => {
                 </div>
 
             </form>
-            <table>
+            <div>
+                <button className="add-btn modify-btn btn ">
+                    <Link to={`/addSubject`}>Add new subject</Link>
+                </button>
+            </div>
+            <table className="table table-striped" border={'4px'}>
                 <thead>
                     <tr>
-                        <td>ID</td>
-                        <td>Image</td>
-                        <td>Name</td>
-                        <td>CategoryName</td>
-                        <td>Status</td>
-                        <td>Created Date</td>
+                        <td scope="col" className="slider-table-header">ID</td>
+                        <td scope="col" className="slider-table-header">Image</td>
+                        <td scope="col" className="slider-table-header">Name</td>
+                        <td scope="col" className="slider-table-header">CategoryName</td>
+                        <td scope="col" className="slider-table-header">Status</td>
+                        <td scope="col" className="slider-table-header">Created Date</td>
                     </tr>
                 </thead>
                 <tbody>
-                    {paginationsubjects.slice((pageNum - 1) * 3,Math.min(pageNum * 3,courses.length) + 1).map((item, index) => (
-                        <tr>
-                            <td>{item.subjectID}</td>
-                            <td><img src={item.image} /></td>
-                            <td>{item.subjectName}</td>
-                            <td>{item.subjectCategory.cateName}</td>
-                            <td>{item.status ? 'active' : 'deactive'}</td>
-                            <td>{DayJs.from(item.create_date)}</td>
+                    {paginationsubjects.slice((pageNum - 1) * 3, Math.min(pageNum * 3, paginationsubjects.length) + 1).map((item, index) => (
+                        <tr scope="row">
+                            <td className="slider-table-data">{item.subjectID}</td>
+                            <td className="slider-table-data"><img src={item.image} /></td>
+                            <td className="slider-table-data">{item.subjectName}</td>
+                            <td className="slider-table-data">{item.subjectCategory.cateName}</td>
+                            <td className="slider-table-data">{item.status ? 'active' : 'deactive'}</td>
+                            <td className="slider-table-data">{DayJs.from(item.create_date)}</td>
                         </tr>
                     ))}
                 </tbody>

@@ -10,7 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name = "examlevel")
+@Table(name = "exam_level")
 public class ExamLevel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,6 +18,6 @@ public class ExamLevel {
 
     private int numQuest;
 
-    @JoinColumn(name = "quizid")
+    @JoinColumn(name = "quiz_id")
     private Quizzes quizzes;
 }

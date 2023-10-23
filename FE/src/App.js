@@ -1,5 +1,14 @@
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import React, { useState, useEffect } from "react";
-import { Routes, Route, Link, Navigate, useLocation } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  Link,
+  Navigate,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import jwtDecode from "jwt-decode";
@@ -42,6 +51,11 @@ import PostListManage from "./pages/Posts/ManagePost/PostListManage/PostListMana
 import PrivateContent from "./components/HandleException/PrivateContent";
 import UserRes from "./pages/UserRegistration/RegistrationList";
 import ImportQuiz from "./components/ImportQuiz/ImportQuiz";
+import SubjectData from "./components/Subject/SubjectData";
+import AddSubject from "./components/Subject/AddSubject";
+import SubjectDetail from "./pages/SubjectDetail/SubjectDetail";
+import UserRegistrationList from "./components/UserRegistrationList/UserRegistrationList";
+import UserRegistrationDetail from "./components/UserRegistrationList/UserRegistrationDetail/UserRegistrationDetail";
 
 
 const App = () => {
@@ -50,6 +64,7 @@ const App = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [userRole, setUserRole] = useState(null);
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -76,6 +91,7 @@ const App = () => {
 
   return (
     <div>
+      <ToastContainer />
       <UserHeader />
 
       <div className="container mt-3 wrap" style={{ minHeight: "70vh" }}>
@@ -89,21 +105,21 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/change-password" element={<ChangePassword />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/account-list" element={<AccountList />} />
           <Route path="/register/verifyEmail/" element={<VerifyEmail />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/Subjects" element={<ForgotPassword />} />
+          <Route path="/Subjects" element={<SubjectData />} />
 
           {isAuthenticated && (
             <>
               <Route path="/sliders" element={<SliderList />} />
               <Route path="/posts" element={<PostList />} />
               <Route path="/posts/view/:postId" element={<PostDetail />} />
-              <Route path="/myRegistration" element={<UserRes/>}/>
+              <Route path="/myRegistration" element={<UserRes />} />
               <Route path="/posts/edit/:postId" element={<PostEdit />} />
               <Route path="/sliders/edit/*" element={<SliderDetail />} />
               <Route path="/add-question" element={<ImportQuiz />} />
-              <Route path="/practice" element={<PracticeList/>}/>
+              <Route path="/practice" element={<PracticeList />} />
+
               <Route
                 path="/sliders/edit/:sliderId"
                 element={<SliderDetail />}
@@ -113,6 +129,14 @@ const App = () => {
                 element={<MarketingDashboard />}
               />
               <Route path="/admin/dashboard" element={<AdminDashboard />} />
+              <Route
+                path="/user-registration-list"
+                element={<UserRegistrationList />}
+              />
+              <Route
+                path="/user-registration-list/:billID"
+                element={<UserRegistrationDetail />}
+              />
               <Route path="/expert/dashboard" element={<ExpertDashboard />} />
               <Route path="/sliders/add" element={<SliderAdd />} />
               <Route path="/subject" element={<Subject />} />
@@ -136,10 +160,11 @@ const App = () => {
                 path="/marketing/post/manage"
                 element={<PostListManage />}
               />
-              <Route
-                path="/regis"
-                element={<UserRes />}
-              />
+              <Route path="/regis" element={<UserRes />} />
+              <Route path="/account-list" element={<AccountList />} />
+
+              <Route path="/subject/:subjectId" element={<SubjectDetail />} />
+              <Route path="/add/subject" element={<AddSubject />} />
             </>
           )}
         </Routes>

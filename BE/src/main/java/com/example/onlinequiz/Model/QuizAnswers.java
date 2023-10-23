@@ -9,21 +9,21 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "quizanswer")
+@Table(name = "quiz_answer")
 public class QuizAnswers {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "answerid")
+    @Column(name = "answer_id")
     private Long answerID;
 
-    @Column(name = "answerdata", length = 256, columnDefinition = "VARCHAR(256) CHARACTER SET utf8mb4")
+    @Column(name = "answer_data", length = 256, columnDefinition = "VARCHAR(256) CHARACTER SET utf8mb4")
     private String answerData;
 
     @ManyToOne
-    @JoinColumn(name = "sentenceid")
+    @JoinColumn(name = "sentence_id")
     private QuizData quizData;
 
-    @Column(name = "istrueanswer")
+    @Column(name = "is_true_answer")
     private boolean isTrueAnswer;
 
     @Column(name = "explanation", length = 256, columnDefinition = "VARCHAR(256) CHARACTER SET utf8mb4")

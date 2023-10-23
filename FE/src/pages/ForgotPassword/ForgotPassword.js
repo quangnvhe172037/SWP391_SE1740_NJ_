@@ -52,7 +52,7 @@ const ForgotPassword = () => {
                         <button type="submit" className="btn" style={{ borderColor: "black", color: "black" }}>
                             {isLoading ? (
                                 <>
-                                    <span className="fa fa-spinner fa-spin"></span> Loading...
+                                    <span className="fa fa-spinner fa-spin"></span> It will take few second...
                                 </>
                             ) : 'Reset password'}</button>
                     </form>

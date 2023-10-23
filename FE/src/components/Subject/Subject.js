@@ -32,7 +32,6 @@ const Subject = () => {
                 }
                 return response.json();
             })
-
             .then((dataJson) => {
                 const data = dataJson.map((item) => ({
                     sliderID: item.sliderID,
@@ -46,7 +45,6 @@ const Subject = () => {
                 }));
                 return data;
             })
-
             .then((result) => {
                 const data = result;
                 setSliders(data);
@@ -216,7 +214,6 @@ const Subject = () => {
                                 Search
                             </button>
                         </div>
-
                     </form>
                     <div className='grid grid-flow-col auto-cols-[60%] snap-x overflow-y-auto md:grid-flow-row md:grid-cols-3 lg:grid-cols-4 gap-6 pb-5'>
                         {courses.slice((pageNum - 1) * 3,Math.min(pageNum * 3,courses.length) + 1).map((data, index) => (
