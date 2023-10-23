@@ -103,11 +103,14 @@ const PostManage = ({
 
       .then((data) => {
         alert("Succesfully");
-        navigate("/marketing/post/manage");
+        console.log("test alert");
+       
+        console.log("test navigate");
       })
       .catch((error) => {
         console.error("Error updating slider data:", error);
       });
+     navigate("/marketing/post/manage");
   };
   const checkFormCompletion = () => {
     // Kiểm tra xem tất cả các trường đã được nhập đầy đủ hay chưa
