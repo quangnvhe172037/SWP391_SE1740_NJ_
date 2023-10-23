@@ -5,11 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f42a8f0a-d40f-4bc9-b56d-aa67269e9f4b" name="Changes" comment="Revert &quot;update view lesson&quot;&#10;&#10;This reverts commit 52474196">
+      <change afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Exception/InvalidRoleException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Exception/PasswordMismatchException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BE/src/test/java/com/example/onlinequiz/Service/EmailServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BE/src/test/java/com/example/onlinequiz/Service/QuizServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BE/src/test/java/com/example/onlinequiz/Service/UserServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BE/src/test/java/com/example/onlinequiz/Service/ValidateTokenTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_engine_5_9_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_engine_5_8_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_mockito_mockito_junit_jupiter_4_8_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_mockito_mockito_junit_jupiter_3_3_3.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BE/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BE/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/src/components/AccountList/AccountList.js" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/components/AccountList/AccountList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/src/components/ChangePassword/ChangePassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/components/ChangePassword/ChangePassword.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/src/pages/Profile/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/pages/Profile/Profile.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,9 +25,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="JavaScript File" />
         <option value="CSS File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -74,9 +80,83 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="Spring Boot.OnlineQuizApplication">
-    <configuration name="generated-requests | #1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" requestIdentifier="#1" runType="Run single request">
-      <method v="2" />
+  <component name="RunManager" selected="JUnit.ValidateTokenTest">
+    <configuration name="QuizServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="OnlineQuiz" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.onlinequiz.Service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.onlinequiz.Service" />
+      <option name="MAIN_CLASS_NAME" value="com.example.onlinequiz.Service.QuizServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="QuizServiceTest.testAddQuestionWithNullRequest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="OnlineQuiz" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.onlinequiz.Service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.onlinequiz.Service" />
+      <option name="MAIN_CLASS_NAME" value="com.example.onlinequiz.Service.QuizServiceTest" />
+      <option name="METHOD_NAME" value="testAddQuestionWithNullRequest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="OnlineQuiz" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.onlinequiz.Service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.onlinequiz.Service" />
+      <option name="MAIN_CLASS_NAME" value="com.example.onlinequiz.Service.UserServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ValidateTokenTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="OnlineQuiz" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.onlinequiz.Service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.onlinequiz.Service" />
+      <option name="MAIN_CLASS_NAME" value="com.example.onlinequiz.Service.ValidateTokenTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ValidateTokenTest.testValidateTokenWithValidToken" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="OnlineQuiz" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.onlinequiz.Service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.onlinequiz.Service" />
+      <option name="MAIN_CLASS_NAME" value="com.example.onlinequiz.Service.ValidateTokenTest" />
+      <option name="METHOD_NAME" value="testValidateTokenWithValidToken" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <configuration name="OnlineQuizApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="OnlineQuiz" />
@@ -87,7 +167,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="HTTP Request.generated-requests | #1" />
+        <item itemvalue="JUnit.ValidateTokenTest" />
+        <item itemvalue="JUnit.ValidateTokenTest.testValidateTokenWithValidToken" />
+        <item itemvalue="JUnit.QuizServiceTest" />
+        <item itemvalue="JUnit.QuizServiceTest.testAddQuestionWithNullRequest" />
+        <item itemvalue="JUnit.UserServiceTest" />
       </list>
     </recent_temporary>
   </component>
@@ -133,6 +217,8 @@
       <workItem from="1697616712206" duration="4315000" />
       <workItem from="1697626598123" duration="9362000" />
       <workItem from="1697674085937" duration="9579000" />
+      <workItem from="1697958009906" duration="810000" />
+      <workItem from="1698006482346" duration="10616000" />
     </task>
     <servers />
   </component>
