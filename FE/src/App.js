@@ -1,3 +1,5 @@
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import React, { useState, useEffect } from "react";
 import {
   Routes,
@@ -49,9 +51,14 @@ import PostListManage from "./pages/Posts/ManagePost/PostListManage/PostListMana
 import PrivateContent from "./components/HandleException/PrivateContent";
 import UserRes from "./pages/UserRegistration/RegistrationList";
 import ImportQuiz from "./components/ImportQuiz/ImportQuiz";
+<<<<<<< Updated upstream
 import SubjectData from "./components/Subject/SubjectData";
 import AddSubject from "./components/Subject/AddSubject";
 import SubjectDetail from "./pages/SubjectDetail/SubjectDetail";
+=======
+import UserRegistrationList from "./components/UserRegistrationList/UserRegistrationList";
+import UserRegistrationDetail from "./components/UserRegistrationList/UserRegistrationDetail/UserRegistrationDetail";
+>>>>>>> Stashed changes
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -86,6 +93,7 @@ const App = () => {
 
   return (
     <div>
+      <ToastContainer />
       <UserHeader />
 
       <div className="container mt-3 wrap" style={{ minHeight: "70vh" }}>
@@ -113,6 +121,10 @@ const App = () => {
               <Route path="/posts/edit/:postId" element={<PostEdit />} />
               <Route path="/sliders/edit/*" element={<SliderDetail />} />
               <Route path="/add-question" element={<ImportQuiz />} />
+<<<<<<< Updated upstream
+=======
+              <Route path="/practice" element={<PracticeList />} />
+>>>>>>> Stashed changes
               <Route
                 path="/sliders/edit/:sliderId"
                 element={<SliderDetail />}
@@ -122,6 +134,14 @@ const App = () => {
                 element={<MarketingDashboard />}
               />
               <Route path="/admin/dashboard" element={<AdminDashboard />} />
+              <Route
+                path="/user-registration-list"
+                element={<UserRegistrationList />}
+              />
+              <Route
+                path="/user-registration-list/:billID"
+                element={<UserRegistrationDetail />}
+              />
               <Route path="/expert/dashboard" element={<ExpertDashboard />} />
               <Route path="/sliders/add" element={<SliderAdd />} />
               <Route path="/subject" element={<Subject />} />
@@ -147,7 +167,10 @@ const App = () => {
               />
               <Route path="/regis" element={<UserRes />} />
               <Route path="/account-list" element={<AccountList />} />
+<<<<<<< Updated upstream
               <Route path="/subject/:subjectId" element={<SubjectDetail />} />
+=======
+>>>>>>> Stashed changes
             </>
           )}
         </Routes>
