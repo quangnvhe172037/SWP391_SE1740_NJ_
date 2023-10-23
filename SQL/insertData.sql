@@ -305,9 +305,9 @@ INSERT INTO `quiz_practice`.`user_payment`
 `notify`,
 `subject_id`,
 `purchase_date`)
-VALUES(1,3,1,true,'Success register',2,'2023-09-28'),
-(2,3,2,false,'Success register',2,'2023-09-28'),
-(3,3,3,false,'Success register',4,'2023-09-28');
+VALUES(1,3,1,0,'Success register',2,'2023-09-28'),
+(2,3,2,1,'Success register',2,'2023-09-28'),
+(3,3,3,1,'Success register',4,'2023-09-28');
 
 
 -- 23. Insert to verification_token

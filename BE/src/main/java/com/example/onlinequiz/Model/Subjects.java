@@ -37,5 +37,5 @@ public class Subjects {
     private String description;
 
     @Column(name = "create_date")
-    private Date create_date;
+    private Date createDate;
 }

@@ -14,7 +14,7 @@ import javax.security.auth.Subject;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class UserPaymanetServiceImpl implements UserPaymentService {
+public class UserPaymentServiceImpl implements UserPaymentService {
 
     @Autowired
     private final UserPaymentRepository userPaymentRepository;

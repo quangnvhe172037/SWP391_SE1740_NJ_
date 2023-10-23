@@ -2,76 +2,17 @@ import React, { useState, useEffect } from "react";
 import "./SubjectLessson.css";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import "font-awesome/css/font-awesome.min.css";
-const LessonSidebar = () => {
+const LessonSidebar = (prop) => {
   const navigate = useNavigate();
-  const [topics, setTopics] = useState([]);
-  const [lessons, setLessons] = useState([]);
-  const token = localStorage.getItem("token");
+
+  let topics = prop.topics;
+  let setTopics = prop.setTopics;
+  let lessons = prop.lessons;
+  let setLessons = prop.setLessons;
   const { subjectId} = useParams();
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetch(`http://localhost:8080/subjecttopic/get/${subjectId}`, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-
-      .then((dataJson) => {
-        const data = dataJson.map((item) => ({
-          topicID: item.topicID,
-          topicName: item.topicName,
-          isOpen: false,
-        }));
-        return data;
-      })
-
-      .then((result) => {
-        const mockData = result;
-        console.log(mockData);
-        setTopics(mockData);
-      });
-  }, []);
-
-  useEffect(() => {
-    fetch(`http://localhost:8080/lesson/get/${subjectId}`, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-
-      .then((dataJson) => {
-        const data = dataJson.map((item) => ({
-          topicID: item.topic.topicID,
-          topicName: item.topic.topicName,
-          lessonId: item.lessonID,
-          lessonName: item.lessonName,
-        }));
-
-        return data;
-      })
-
-      .then((result) => {
-        const mockData = result;
-        console.log(mockData);
-        setLessons(mockData);
-      });
-  }, []);
-
+  
 
   useEffect(() => {
     // Mô phỏng thời gian load dữ liệu (có thể thay bằng fetch thực tế)
@@ -93,14 +34,21 @@ const LessonSidebar = () => {
 
 
   return (
-    <div className="subject-detail-lesson col-md-3">
+    <div className="subject-detail-lesson col-md-12">
       <div className="subject-detail-lesson-name">
-        <span>Subject content </span>
-        <span>Total topic: {topics.length}</span>
-        <span>Total lesson: {lessons.length}</span>
+        <div className="subject-detail-content-name-title">
+          <h2 className="subject-detail-content">Subject content </h2>
+        </div>
+        <div className="subject-detail-content-name-title">
+          <span>Total topic: {topics.length}</span>
+          <span>Total lesson: {lessons.length}</span>
+        </div>
       </div>
       {topics.map((topic) => (
-        <div key={topic.topicID} className="subject-detail-subject-detail-topic">
+        <div
+          key={topic.topicID}
+          className="subject-detail-subject-detail-topic"
+        >
           <div
             className="subject-detail-topic-content "
             onClick={() => toggleTopic(topic.topicID)}
@@ -128,11 +76,8 @@ const LessonSidebar = () => {
                     <li
                       key={lesson.lessonId}
                       className={`subject-detail-lesson-content-detail `}
-                     
                     >
-                      
-                        {lesson.lessonName}
-                      
+                      {lesson.lessonName}
                     </li>
                   ))}
               </ul>

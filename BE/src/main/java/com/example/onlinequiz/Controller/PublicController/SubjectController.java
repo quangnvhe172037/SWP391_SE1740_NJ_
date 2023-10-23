@@ -50,7 +50,7 @@ public class SubjectController {
             subjects = objectMapper.readValue(subjectsJson, Subjects.class);
             String image = fileUploadService.uploadFile(file);
             subjects.setImage(image);
-            subjects.setCreate_date(new Date());
+            subjects.setCreateDate(new Date());
             subjectService.save(subjects);
             return ResponseEntity.ok(subjects);
         } catch (Exception e) {
