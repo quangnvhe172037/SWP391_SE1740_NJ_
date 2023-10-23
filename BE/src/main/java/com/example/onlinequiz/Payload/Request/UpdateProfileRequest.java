@@ -8,4 +8,8 @@ import lombok.*;
 public class UpdateProfileRequest {
     public String firstName, lastName, mobile;
     public Boolean gender;
+
+    public UpdateProfileRequest() {
+
+    }
 }

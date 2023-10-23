@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "./Register.css"
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faSpinner} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import "./Register.css";
 
 const Registration = () => {
     const [formData, setFormData] = useState({
@@ -12,6 +12,7 @@ const Registration = () => {
         password: "",
         confirmPassword: "",
         role: "CUSTOMER",
+        agreeTerms: false,
     });
 
     const [message, setMessage] = useState("");
@@ -22,36 +23,51 @@ const Registration = () => {
         return regex.test(password);
     };
 
-    const handleInputChange = (event) => {
-        const { name, value } = event.target;
+    const resetForm = () => {
         setFormData({
-            ...formData,
-            [name]: value,
+            firstName: "",
+            lastName: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+            role: "CUSTOMER",
+            agreeTerms: false,
         });
+        setMessage("");
+    };
+
+    const handleInputChange = (event) => {
+        const { name, value, type, checked } = event.target;
+
+        if (type === "checkbox") {
+            setFormData({
+                ...formData,
+                [name]: checked,
+            });
+        } else {
+            setFormData({
+                ...formData,
+                [name]: value,
+            });
+        }
 
         if (name === "password") {
             if (!isStrongPassword(value)) {
-                setMessage("Password is not strong enough (contain at least 8 characters, uppercase, number, special character).");
+                setMessage("Password is not strong enough (must contain at least 8 characters, uppercase, number, special character).");
             } else {
                 setMessage("");
             }
-        }
-
-        if (name === "role") {
-            document.querySelector('input[name="role"]').value = value;
         }
     };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+
         if (!formData.agreeTerms) {
             setMessage("You must agree to the Terms and Conditions.");
             return;
         }
-        if (formData.password !== formData.confirmPassword) {
-            setMessage("Confirm Password does not match!");
-            return;
-        }
+
         if (formData.password !== formData.confirmPassword) {
             setMessage("Confirm Password does not match!");
             return;
@@ -67,6 +83,10 @@ const Registration = () => {
             });
 
             setMessage(response.data.message);
+
+            if (response.status === 200) {
+                resetForm();
+            }
         } catch (error) {
             if (error.response && error.response.status === 400) {
                 setMessage(error.response.data.message);
@@ -136,29 +156,25 @@ const Registration = () => {
                                         onChange={handleInputChange}
                                     />
                                 </div>
-                                <input
-                                    type="hidden"
-                                    name="role"
-                                    value={formData.role}
-                                />
+                                <div className="form-check">
+                                    <input
+                                        type="checkbox"
+                                        className="form-check-input"
+                                        name="agreeTerms"
+                                        checked={formData.agreeTerms}
+                                        onChange={handleInputChange}
+                                    />
+                                    <label className="form-check-label" htmlFor="agreeTerms">
+                                        I agree to the <a href="/terms" target="_blank">Terms and Conditions</a>
+                                    </label>
+                                </div>
                                 {isLoading ? (
                                     <div className="text-center">
-                                        <p>It will take few second...<FontAwesomeIcon icon={faSpinner} spin size="3px"/></p>
+                                        <p>It will take a few seconds... <FontAwesomeIcon icon={faSpinner} spin size="3px"/></p>
                                     </div>
                                 ) : (
                                     <div>
                                         {message && <div className="alert mt-2">{message}</div>}
-                                        <div className="form-check">
-                                            <input
-                                                type="checkbox"
-                                                className="form-check-input"
-                                                name="agreeTerms"
-                                                onChange={handleInputChange}
-                                            />
-                                            <label className="form-check-label" htmlFor="agreeTerms">
-                                                I agree to the <a href="/terms" target="_blank">Terms and Conditions</a>
-                                            </label>
-                                        </div>
                                         <button type="submit" className="btn btn-primary" style={{ backgroundColor: "black", color: "white", border: "1px solid", height: "35px", width: "100px", marginLeft: "75px" }}>
                                             Register
                                         </button>
