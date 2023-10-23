@@ -58,7 +58,7 @@ public class SubjectServiceImp implements SubjectService {
 
         SubjectPrice getSubjectPrice = subjectPriceRepository.findBySubjectAndAndStatus(getSubject, true);
 
-        UserPayment getUserPayment = userPaymentRepository.findByUsersAndSubjectAndSubjectPriceAndStatus(getUser, getSubject, getSubjectPrice, 1);
+        UserPayment getUserPayment = userPaymentRepository.findByUsersAndSubjectAndSubjectPriceAndStatus(getUser, getSubject, getSubjectPrice, true);
         SubjectDetailResponse dataResponse;
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -73,13 +73,11 @@ public class SubjectServiceImp implements SubjectService {
                     getSubjectPrice.getPreID(),
                     getSubjectPrice.getPrice(),
                     getUserPayment.getBillID(),
-                    getUserPayment.getStatus(),
+                    getUserPayment.isStatus(),
                     formatter.format(getUserPayment.getPurchaseDate())
 
             );
         }else{
-            System.out.println(getSubject.getSubjectID());
-            System.out.println(getSubjectPrice.getPreID());
             dataResponse = new SubjectDetailResponse(
                     getSubject.getSubjectID(),
                     getSubject.getSubjectName(),

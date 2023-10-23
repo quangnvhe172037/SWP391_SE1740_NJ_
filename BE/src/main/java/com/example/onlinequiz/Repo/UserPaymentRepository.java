@@ -13,5 +13,5 @@ public interface UserPaymentRepository extends JpaRepository<UserPayment, Long> 
 
     boolean existsBySubjectAndUsers(Subjects s, Users u);
 
-    UserPayment findByUsersAndSubjectAndSubjectPriceAndStatus(Users u, Subjects s, SubjectPrice sp, int i);
+    UserPayment findByUsersAndSubjectAndSubjectPriceAndStatus(Users u, Subjects s, SubjectPrice sp, boolean i);
 }

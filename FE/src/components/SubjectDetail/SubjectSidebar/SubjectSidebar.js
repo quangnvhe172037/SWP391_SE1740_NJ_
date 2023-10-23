@@ -17,7 +17,7 @@ const SubjectSidebar = (prop) => {
   return (
     <div className="subject-detail-sidebar-wrap">
       <div>
-        <img src={`/${image}`} alt="the class" />
+        <img src={`/${image}`} alt="the class" className="img-fluid"/>
       </div>
 
       {billId == null ? (

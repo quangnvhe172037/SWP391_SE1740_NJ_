@@ -22,7 +22,7 @@ public class SubjectDetailResponse {
 
     // Thông tin thanh toán
     private Long billId;
-    private int status;
+    private boolean status;
     private String purchaseDate;
 
     public SubjectDetailResponse(Long subjectId, String subjectName, String description, String img, String createDate, Long preId, Long price) {

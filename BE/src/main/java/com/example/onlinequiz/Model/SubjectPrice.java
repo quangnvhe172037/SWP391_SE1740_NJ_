@@ -19,7 +19,7 @@ public class SubjectPrice {
     private Long preID;
 
     @Column(name = "price")
-    private Long price;
+    private Long price = 0L;
 
     @ManyToOne
     @JoinColumn(name = "subject_id")

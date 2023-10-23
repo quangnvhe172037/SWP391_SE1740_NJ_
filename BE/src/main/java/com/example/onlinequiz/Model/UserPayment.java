@@ -23,7 +23,7 @@ public class UserPayment {
     private SubjectPrice subjectPrice;
 
     @Column(name = "status")
-    private int status;
+    private boolean status;
 
     @Column(name = "notify", length = 256, columnDefinition = "VARCHAR(256) CHARACTER SET utf8mb4")
     private String notify;

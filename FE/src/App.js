@@ -51,14 +51,12 @@ import PostListManage from "./pages/Posts/ManagePost/PostListManage/PostListMana
 import PrivateContent from "./components/HandleException/PrivateContent";
 import UserRes from "./pages/UserRegistration/RegistrationList";
 import ImportQuiz from "./components/ImportQuiz/ImportQuiz";
-<<<<<<< Updated upstream
 import SubjectData from "./components/Subject/SubjectData";
 import AddSubject from "./components/Subject/AddSubject";
 import SubjectDetail from "./pages/SubjectDetail/SubjectDetail";
-=======
 import UserRegistrationList from "./components/UserRegistrationList/UserRegistrationList";
 import UserRegistrationDetail from "./components/UserRegistrationList/UserRegistrationDetail/UserRegistrationDetail";
->>>>>>> Stashed changes
+
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -110,7 +108,6 @@ const App = () => {
           <Route path="/register/verifyEmail/" element={<VerifyEmail />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/Subjects" element={<SubjectData />} />
-          <Route path="/addSubject" element={<AddSubject />} />
 
           {isAuthenticated && (
             <>
@@ -121,10 +118,8 @@ const App = () => {
               <Route path="/posts/edit/:postId" element={<PostEdit />} />
               <Route path="/sliders/edit/*" element={<SliderDetail />} />
               <Route path="/add-question" element={<ImportQuiz />} />
-<<<<<<< Updated upstream
-=======
               <Route path="/practice" element={<PracticeList />} />
->>>>>>> Stashed changes
+
               <Route
                 path="/sliders/edit/:sliderId"
                 element={<SliderDetail />}
@@ -167,10 +162,9 @@ const App = () => {
               />
               <Route path="/regis" element={<UserRes />} />
               <Route path="/account-list" element={<AccountList />} />
-<<<<<<< Updated upstream
+
               <Route path="/subject/:subjectId" element={<SubjectDetail />} />
-=======
->>>>>>> Stashed changes
+              <Route path="/add/subject" element={<AddSubject />} />
             </>
           )}
         </Routes>
