@@ -37,7 +37,7 @@ public class UserRegistrationAdminController {
         boolean status = (Boolean) requestData.get("status");
         String notify = (String) requestData.get("notify");
         UserPayment userPayment = userRegistrationService.findByBillID(id);
-        userPayment.setStatus(status);
+//        userPayment.setStatus(npm sstatus);
         userPayment.setNotify(notify);
         return ResponseEntity.ok(userRegistrationService.save(userPayment));
     }

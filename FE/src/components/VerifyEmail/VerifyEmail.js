@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import "../../components/VerifyEmail/VerifyEmail.css"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faDoorClosed, faDoorOpen} from "@fortawesome/free-solid-svg-icons";
 const VerifyEmail = () => {
     const [token, setToken] = useState('');
     const [response, setResponse] = useState('');
@@ -27,24 +29,31 @@ const VerifyEmail = () => {
     };
 
     return (
-        <div>
+        <div className="centered-content">
             <h1>Welcome to quizzi</h1>
             {response === 'This account has already been verified, please login' ? (
                 <div>
-                    <p>This account has already been verified, please login.</p>
+                    <p>This account has already been verified, please login.<FontAwesomeIcon icon={faDoorOpen}/></p>
+
                     {/* Hiển thị nút hoặc liên kết để đến trang đăng nhập */}
                 </div>
             ) : response === 'Invalid verification token' ? (
                 <div>
-                    <p>Invalid verification token. Please try again.</p>
+                    <p>Invalid verification token. Please try again.<FontAwesomeIcon icon={faDoorClosed}/></p>
+
                     {/* Hiển thị nút hoặc liên kết để quay lại trang xác minh email */}
                 </div>
             ) : response === 'This account has been verified, please login' ? (
                 <div>
-                    <p>This account has been verified, please login</p>
+                    <p>This account has been verified, please login<FontAwesomeIcon icon={faDoorOpen}/></p>
                     {/* Hiển thị nút hoặc liên kết để quay lại trang xác minh email */}
                 </div>
-            ): null}
+            ):  (
+                <div>
+                    <p>Token is expired. Please register again.<FontAwesomeIcon icon={faDoorClosed}/></p>
+                    {/* Hiển thị nút hoặc liên kết để quay lại trang xác minh email */}
+                </div>
+            )}
         </div>
     );
 };

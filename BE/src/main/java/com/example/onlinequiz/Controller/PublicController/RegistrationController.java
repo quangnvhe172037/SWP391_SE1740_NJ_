@@ -73,6 +73,8 @@ public class RegistrationController {
         String verificationResult = userService.validateaToken(token);
         if (verificationResult.equalsIgnoreCase("valid")) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("This account has been verified, please login");
+        } else if(verificationResult.equalsIgnoreCase("Token already expired")){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Token has been expired, register again.");
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid verification token");
     }
