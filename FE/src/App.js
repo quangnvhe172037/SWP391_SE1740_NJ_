@@ -107,7 +107,6 @@ const App = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/register/verifyEmail/" element={<VerifyEmail />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/Subjects" element={<SubjectData />} />
 
           {isAuthenticated && (
             <>
@@ -165,6 +164,8 @@ const App = () => {
 
               <Route path="/subject/:subjectId" element={<SubjectDetail />} />
               <Route path="/add/subject" element={<AddSubject />} />
+
+              <Route path="/expert/subjects" element={<SubjectData />} />
             </>
           )}
         </Routes>

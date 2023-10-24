@@ -87,7 +87,7 @@ const UserHeader = () => {
                   <li className="nav-item">
                       <span className="nav-link">
                           <Link to="/marketing/dashboard" style={{ padding: "20px", color:"black", textDecoration:"none" }}>
-                          Admin Dashboard
+                          Marketing Dashboard
                       </Link>
                       </span>
 
@@ -97,7 +97,7 @@ const UserHeader = () => {
                   <li className="nav-item">
                       <span className="nav-link">
                           <Link to="/expert/dashboard" style={{ padding: "20px", color:"black", textDecoration:"none" }}>
-                          Admin Dashboard
+                          Expert Dashboard
                       </Link>
                       </span>
 

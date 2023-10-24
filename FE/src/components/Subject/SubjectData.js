@@ -86,79 +86,108 @@ const SubjectData = () => {
         e.preventDefault();
     }
     return (
-        <>
-            <form onSubmit={handleSubmit} className="pb-12 flex items-center">
-                <div className="grow flex border border-purple-200 rounded">
-                    <input onChange={handleSearch}
-                        type="text"
-                        className="block w-full px-4 py-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                        placeholder="Search..."
-                    />
-                    <select onChange={handleChange} className="block w-full px-4 py-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40" >
-                        <option value={0}>All</option>
-                        {
-                            categories.map((data, index) => (
-                                <option value={data.id}>{data.name}</option>
-                            ))
-                        }
-                    </select>
-                    <button type="submit" className="px-4 text-white bg-purple-600 border-l rounded ">
-                        Search
-                    </button>
-                </div>
-
-            </form>
-            <div>
-                <button className="add-btn modify-btn btn ">
-                    <Link to={`/addSubject`}>Add new subject</Link>
-                </button>
-            </div>
-            <table className="table table-striped" border={'4px'}>
-                <thead>
-                    <tr>
-                        <td scope="col" className="slider-table-header">ID</td>
-                        <td scope="col" className="slider-table-header">Image</td>
-                        <td scope="col" className="slider-table-header">Name</td>
-                        <td scope="col" className="slider-table-header">CategoryName</td>
-                        <td scope="col" className="slider-table-header">Status</td>
-                        <td scope="col" className="slider-table-header">Created Date</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    {paginationsubjects.slice((pageNum - 1) * 3, Math.min(pageNum * 3, paginationsubjects.length) + 1).map((item, index) => (
-                        <tr scope="row">
-                            <td className="slider-table-data">{item.subjectID}</td>
-                            <td className="slider-table-data"><img src={item.image} /></td>
-                            <td className="slider-table-data">{item.subjectName}</td>
-                            <td className="slider-table-data">{item.subjectCategory.cateName}</td>
-                            <td className="slider-table-data">{item.status ? 'active' : 'deactive'}</td>
-                            <td className="slider-table-data">{DayJs.from(item.create_date)}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-            <div className="pb-12">
-                <ReactPaginate
-                    breakLabel="..."
-                    nextLabel="next >"
-                    onPageChange={handlePageClick}
-                    pageRangeDisplayed={5}
-                    pageCount={totalPage}
-                    previousLabel="< previous"
-                    renderOnZeroPageCount={null}
-                    pageClassName="page-item"
-                    pageLinkClassName="page-link"
-                    previousClassName="page-item"
-                    previousLinkClassName="page-link"
-                    nextClassName="page-item"
-                    nextLinkClassName="page-link"
-                    breakClassName="page-item"
-                    breakLinkClassName="page-link"
-                    containerClassName="pagination"
-                    activeClassName="active"
-                />
-            </div>
-        </>
+      <>
+        <form onSubmit={handleSubmit} className="pb-12 flex items-center">
+          <div className="grow flex border border-purple-200 rounded">
+            <input
+              onChange={handleSearch}
+              type="text"
+              className="block w-full px-4 py-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+              placeholder="Search..."
+            />
+            <select
+              onChange={handleChange}
+              className="block w-full px-4 py-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+            >
+              <option value={0}>All</option>
+              {categories.map((data, index) => (
+                <option value={data.id}>{data.name}</option>
+              ))}
+            </select>
+            <button
+              type="submit"
+              className="px-4 text-white bg-purple-600 border-l rounded "
+            >
+              Search
+            </button>
+          </div>
+        </form>
+        <div>
+          <button className="add-btn modify-btn btn ">
+            <Link to={`/add/subject`}>Add new subject</Link>
+          </button>
+        </div>
+        <table className="table table-striped" border={"4px"}>
+          <thead>
+            <tr>
+              <td scope="col" className="slider-table-header">
+                ID
+              </td>
+              <td scope="col" className="slider-table-header">
+                Image
+              </td>
+              <td scope="col" className="slider-table-header">
+                Name
+              </td>
+              <td scope="col" className="slider-table-header">
+                CategoryName
+              </td>
+              <td scope="col" className="slider-table-header">
+                Status
+              </td>
+              <td scope="col" className="slider-table-header">
+                Created Date
+              </td>
+            </tr>
+          </thead>
+          <tbody>
+            {paginationsubjects
+              .slice(
+                (pageNum - 1) * 3,
+                Math.min(pageNum * 3, paginationsubjects.length) + 1
+              )
+              .map((item, index) => (
+                <tr scope="row">
+                  <td className="slider-table-data">{item.subjectID}</td>
+                      <td className="slider-table-data" style={{ width: '200px' }}> 
+                    <img  src={`/${item.image}`} />
+                  </td>
+                  <td className="slider-table-data">{item.subjectName}</td>
+                  <td className="slider-table-data">
+                    {item.subjectCategory.cateName}
+                  </td>
+                  <td className="slider-table-data">
+                    {item.status ? "active" : "deactive"}
+                  </td>
+                  <td className="slider-table-data">
+                    {DayJs.from(item.create_date)}
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+        <div className="pb-12">
+          <ReactPaginate
+            breakLabel="..."
+            nextLabel="next >"
+            onPageChange={handlePageClick}
+            pageRangeDisplayed={5}
+            pageCount={totalPage}
+            previousLabel="< previous"
+            renderOnZeroPageCount={null}
+            pageClassName="page-item"
+            pageLinkClassName="page-link"
+            previousClassName="page-item"
+            previousLinkClassName="page-link"
+            nextClassName="page-item"
+            nextLinkClassName="page-link"
+            breakClassName="page-item"
+            breakLinkClassName="page-link"
+            containerClassName="pagination"
+            activeClassName="active"
+          />
+        </div>
+      </>
     );
 }
 

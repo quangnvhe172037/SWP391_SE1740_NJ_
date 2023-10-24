@@ -70,7 +70,7 @@ const AddSubject = () => {
             return response.json();
           })
           .then((data) => {
-            navigate("/sliders");
+            navigate("/expert/subjects");
           })
           .catch((error) => {
             console.error("Error updating slider data:", error);
@@ -176,7 +176,7 @@ const AddSubject = () => {
                                 </button>
 
                                 <button className="btn sliderBtn btn-back">
-                                    <Link to={"/Subjects"}>Back to Subject list</Link>
+                                    <Link to={"/expert/subjects"}>Back to Subject list</Link>
                                 </button>
                             </div>
                         </div>

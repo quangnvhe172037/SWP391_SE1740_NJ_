@@ -56,8 +56,13 @@ public class SubjectServiceImp implements SubjectService {
         Users getUser = userRepository.getById(userId);
         Subjects getSubject = subjectRepository.getSubjectsBySubjectID(subjectId);
 
+        if(getUser == null){
+            return null;
+        }
         SubjectPrice getSubjectPrice = subjectPriceRepository.findBySubjectAndAndStatus(getSubject, true);
-
+        if(getSubjectPrice == null){
+            return null;
+        }
         UserPayment getUserPayment = userPaymentRepository.findByUsersAndSubjectAndSubjectPriceAndStatus(getUser, getSubject, getSubjectPrice, true);
         SubjectDetailResponse dataResponse;
         Date date = new Date();

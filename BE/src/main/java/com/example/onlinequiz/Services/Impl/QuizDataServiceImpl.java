@@ -30,6 +30,7 @@ public class QuizDataServiceImpl implements QuizDataService {
 
     @Autowired
     private final QuizQuestionRepository quizQuestionRepository;
+
     @Override
     public List<QuizData> getAllQuizData(Long id) {
         Quizzes q = new Quizzes();
@@ -37,11 +38,11 @@ public class QuizDataServiceImpl implements QuizDataService {
         List<QuizData> quizData;
         System.out.println(id);
 
-            q = quizRepository.findByQuizID(id);
-            qd = quizDetailRepository.getAllByQuizzes(q);
-            quizData = qd.stream()
-                    .map(QuizDetail::getQuizData)
-                    .collect(Collectors.toList());
+        q = quizRepository.findByQuizID(id);
+        qd = quizDetailRepository.getAllByQuizzes(q);
+        quizData = qd.stream()
+                .map(QuizDetail::getQuizData)
+                .collect(Collectors.toList());
 
         return quizData;
     }
@@ -55,7 +56,6 @@ public class QuizDataServiceImpl implements QuizDataService {
 //
 //        return;
 //    }
-
 
 
 }
