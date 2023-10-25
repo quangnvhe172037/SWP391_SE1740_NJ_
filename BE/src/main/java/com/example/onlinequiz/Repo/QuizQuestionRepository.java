@@ -11,4 +11,6 @@ import java.util.List;
 @Repository
 public interface QuizQuestionRepository extends JpaRepository<QuizQuestions, Long> {
     QuizQuestions getByQuizData(QuizData quizData);
+
+    List<QuizQuestions> findByQuizData(QuizData quizData);
 }

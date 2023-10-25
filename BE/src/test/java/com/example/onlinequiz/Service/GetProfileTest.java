@@ -149,4 +149,46 @@ public class GetProfileTest {
 
         assertNull(response);
     }
+    @Test
+    void testGetUserProfileByEmailWithMissingAttributes() {
+        String email = "test@example.com";
+        Users testUser = new Users();
+        testUser.setEmail(email);
+
+        when(userRepository.findByEmail(email)).thenReturn(Optional.of(testUser));
+
+        ProfileResponse response = userService.getUserProfileByEmail(email);
+
+        assertEquals("", response.getFirstName());
+        assertEquals("", response.getLastName());
+        assertEquals(false, response.isGender());
+        assertNull(response.getPassword());
+        assertEquals("", response.getMobile());
+    }
+
+    @Test
+    void testGetUserProfileByEmailWithEmptyEmail() {
+        String email = "";
+        ProfileResponse response = userService.getUserProfileByEmail(email);
+
+        assertNull(response);
+    }
+
+    @Test
+    void testGetUserProfileByEmailWithMissingAttributesAndEmptyEmail() {
+        String email = "";
+        Users testUser = new Users();
+        testUser.setEmail(email);
+
+        when(userRepository.findByEmail(email)).thenReturn(Optional.of(testUser));
+
+        ProfileResponse response = userService.getUserProfileByEmail(email);
+
+        assertEquals("", response.getFirstName());
+        assertEquals("", response.getLastName());
+        assertEquals(false, response.isGender());
+        assertNull(response.getPassword());
+        assertEquals("", response.getMobile());
+    }
+
 }

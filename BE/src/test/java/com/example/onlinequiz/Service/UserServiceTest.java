@@ -118,7 +118,59 @@ public class UserServiceTest {
         // Act and Assert
         assertThrows(InvalidRoleException.class, () -> userService.registerUser(request));
     }
+    @Test
+    public void testRegisterUser_WithEmptyFirstName_ShouldThrowException() {
+        // Arrange
+        RegistrationRequest request = new RegistrationRequest("", "Doe", "johndoe@example.com", "password", "USER", false);
 
+        // Act and Assert
+        assertThrows(IllegalArgumentException.class, () -> userService.registerUser(request));
+    }
+
+    @Test
+    public void testRegisterUser_WithEmptyLastName_ShouldThrowException() {
+        // Arrange
+        RegistrationRequest request = new RegistrationRequest("John", "", "johndoe@example.com", "password", "USER", false);
+
+        // Act and Assert
+        assertThrows(IllegalArgumentException.class, () -> userService.registerUser(request));
+    }
+
+    @Test
+    public void testRegisterUser_WithEmptyEmail_ShouldThrowException() {
+        // Arrange
+        RegistrationRequest request = new RegistrationRequest("John", "Doe", "", "password", "USER", false);
+
+        // Act and Assert
+        assertThrows(IllegalArgumentException.class, () -> userService.registerUser(request));
+    }
+
+    @Test
+    public void testRegisterUser_WithEmptyPassword_ShouldThrowException() {
+        // Arrange
+        RegistrationRequest request = new RegistrationRequest("John", "Doe", "johndoe@example.com", "", "USER", false);
+
+        // Act and Assert
+        assertThrows(IllegalArgumentException.class, () -> userService.registerUser(request));
+    }
+
+    @Test
+    public void testRegisterUser_WithEmptyRole_ShouldThrowException() {
+        // Arrange
+        RegistrationRequest request = new RegistrationRequest("John", "Doe", "johndoe@example.com", "password", "", false);
+
+        // Act and Assert
+        assertThrows(InvalidRoleException.class, () -> userService.registerUser(request));
+    }
+
+    @Test
+    public void testRegisterUser_WithNullRole_ShouldThrowException() {
+        // Arrange
+        RegistrationRequest request = new RegistrationRequest("John", "Doe", "johndoe@example.com", "password", null, false);
+
+        // Act and Assert
+        assertThrows(InvalidRoleException.class, () -> userService.registerUser(request));
+    }
 }
 
 

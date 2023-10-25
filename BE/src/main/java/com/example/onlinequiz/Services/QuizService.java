@@ -4,6 +4,8 @@ import com.example.onlinequiz.Model.Quizzes;
 import com.example.onlinequiz.Payload.Request.QuizRequest;
 import com.example.onlinequiz.Payload.Response.QuizInfoResponse;
 
+import java.util.List;
+
 public interface QuizService {
 
     Quizzes getQuizByLessonId(Long id);
@@ -13,4 +15,6 @@ public interface QuizService {
     QuizInfoResponse getQuizInfoById(Long Id);
 
     public void addQuestion(QuizRequest request, String subjectName);
+
+    List<QuizRequest> getQuestionsBySubjectName(String subjectName);
 }

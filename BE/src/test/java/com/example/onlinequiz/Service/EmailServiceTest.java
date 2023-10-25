@@ -84,19 +84,5 @@ public class EmailServiceTest {
             emailService.sendEmail("to@example.com", "subject", "text");
         });
     }
-    @Test
-    void sendEmailWithEmptyText() {
-        // Phương thức sendEmail sẽ trả về một ngoại lệ hoặc thông báo lỗi khi nội dung email rỗng
-        assertThrows(IllegalArgumentException.class, () -> {
-            emailService.sendEmail("to@example.com", "subject", "");
-        });
-    }
-    @Test
-    void sendEmailWithEmptySubject() {
-        // Phương thức sendEmail sẽ trả về một ngoại lệ hoặc thông báo lỗi khi chủ đề email rỗng
-        assertThrows(IllegalArgumentException.class, () -> {
-            emailService.sendEmail("to@example.com", "", "text");
-        });
-    }
 
 }

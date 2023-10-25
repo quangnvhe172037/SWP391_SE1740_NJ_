@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -32,6 +34,7 @@ public class QuizServiceImpl implements QuizService {
 
     @Autowired
     private final QuizAnswerRepository quizAnswerRepository;
+
     @Override
     public Quizzes getQuizByLessonId(Long id) {
         return quizRepository.getQuizzesByLessonid(id);
@@ -94,6 +97,60 @@ public class QuizServiceImpl implements QuizService {
                 quizAnswers.setExplanation(explaination);
             }
             quizAnswerRepository.save(quizAnswers);
+        }
+    }
+
+    @Override
+    public List<QuizRequest> getQuestionsBySubjectName(String subjectName) {
+        // Sử dụng subjectRepository để tìm môn học dựa trên tên
+        Subjects subject = subjectRepository.findBySubjectName(subjectName);
+
+        if (subject != null) {
+            // Sử dụng quizDataRepository để lấy danh sách câu hỏi dựa trên môn học
+            List<QuizData> quizDataList = quizDataRepository.findBySubjectId(subject);
+
+            List<QuizRequest> questions = new ArrayList<>();
+
+            // Lặp qua danh sách câu hỏi và tạo các đối tượng QuizRequest
+            for (QuizData quizData : quizDataList) {
+                List<QuizQuestions> quizQuestionsList = quizQuestionRepository.findByQuizData(quizData);
+
+                for (QuizQuestions question : quizQuestionsList) {
+                    List<QuizAnswers> answers = quizAnswerRepository.findByQuizData(quizData);
+
+                    QuizRequest quizRequest = new QuizRequest();
+                    quizRequest.setQuestionData(question.getQuestionData());
+
+                    List<String> answerOptions = new ArrayList<>();
+                    String correctAnswer = "";
+
+                    for (int i = 0; i < answers.size(); i++) {
+                        answerOptions.add(answers.get(i).getAnswerData());
+                        if (answers.get(i).isTrueAnswer()) {
+                            if (i == 0) {
+                                correctAnswer = "A";
+                            } else if (i == 1) {
+                                correctAnswer = "B";
+                            } else if (i == 2) {
+                                correctAnswer = "C";
+                            } else if (i == 3) {
+                                correctAnswer = "D";
+                            }
+                            quizRequest.setExplanation(answers.get(i).getExplanation());
+                        }
+                    }
+
+                    quizRequest.setAnswerOptions(answerOptions);
+                    quizRequest.setCorrectAnswer(correctAnswer);
+
+                    questions.add(quizRequest);
+                }
+            }
+
+            return questions;
+        } else {
+            // Trả về danh sách rỗng nếu không tìm thấy môn học
+            return Collections.emptyList();
         }
     }
 }

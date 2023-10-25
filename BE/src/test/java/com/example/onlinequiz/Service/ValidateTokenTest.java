@@ -68,4 +68,144 @@ public class ValidateTokenTest {
         verify(tokenRepository, never()).delete(any(VerificationToken.class));
         verify(userRepository, never()).save(any(Users.class));
     }
+    @Test
+    public void testValidateTokenWithNullToken() {
+        when(tokenRepository.findByToken(null)).thenReturn(null);
+
+        String result = userService.validateaToken(null);
+
+        assertEquals("Invalid verification token", result);
+        verify(tokenRepository, never()).delete(any(VerificationToken.class));
+        verify(userRepository, never()).save(any(Users.class));
+    }
+
+    @Test
+    public void testValidateTokenWithValidTokenAndAlreadyEnabledUser() {
+        VerificationToken validToken = new VerificationToken();
+        Users user = new Users();
+        user.setEnabled(true);
+        validToken.setUser(user);
+
+        when(tokenRepository.findByToken(anyString())).thenReturn(validToken);
+
+        String result = userService.validateaToken("ddff5da1-6d6d-4139-84b2-55b4ae1e801d");
+
+        assertEquals("User is already enabled", result);
+        verify(tokenRepository, never()).delete(any(VerificationToken.class));
+        verify(userRepository, never()).save(any(Users.class));
+    }
+
+    @Test
+    public void testValidateTokenWithExpiredTokenAndAlreadyEnabledUser() {
+        VerificationToken expiredToken = new VerificationToken();
+        expiredToken.setExpirationTime(new Date(System.currentTimeMillis() - 1000000));
+        Users user = new Users();
+        user.setEnabled(true);
+        expiredToken.setUser(user);
+
+        when(tokenRepository.findByToken(anyString())).thenReturn(expiredToken);
+
+        String result = userService.validateaToken("ddff5da1-6d6d-4139-84b2-55b4ae1e801d");
+
+        assertEquals("User is already enabled", result);
+        verify(tokenRepository, never()).delete(expiredToken);
+        verify(userRepository, never()).save(any(Users.class));
+    }
+
+    @Test
+    public void testValidateTokenWithExpiredTokenAndDisabledUser() {
+        VerificationToken expiredToken = new VerificationToken();
+        expiredToken.setExpirationTime(new Date(System.currentTimeMillis() - 1000000));
+        Users user = new Users();
+        user.setEnabled(false);
+        expiredToken.setUser(user);
+
+        when(tokenRepository.findByToken(anyString())).thenReturn(expiredToken);
+
+        String result = userService.validateaToken("ddff5da1-6d6d-4139-84b2-55b4ae1e801d");
+
+        assertEquals("Token already expired", result);
+        verify(tokenRepository).delete(expiredToken);
+        verify(userRepository, never()).save(any(Users.class));
+    }
+
+    @Test
+    public void testValidateTokenWithValidTokenAndDisabledUser() {
+        VerificationToken validToken = new VerificationToken();
+        Users user = new Users();
+        user.setEnabled(false);
+        validToken.setUser(user);
+
+        when(tokenRepository.findByToken(anyString())).thenReturn(validToken);
+        when(userRepository.save(any(Users.class))).thenReturn(new Users());
+
+        String result = userService.validateaToken("ddff5da1-6d6d-4139-84b2-55b4ae1e801d");
+
+        assertEquals("valid", result);
+        assertTrue(validToken.getUser().isEnabled());
+    }
+
+    @Test
+    public void testValidateTokenWithNullExpirationTime() {
+        VerificationToken validToken = new VerificationToken();
+        Users user = new Users();
+        user.setEnabled(false);
+        validToken.setUser(user);
+        validToken.setExpirationTime(null);
+
+        when(tokenRepository.findByToken(anyString())).thenReturn(validToken);
+
+        String result = userService.validateaToken("ddff5da1-6d6d-4139-84b2-55b4ae1e801d");
+
+        assertEquals("Token expiration time is missing", result);
+        verify(tokenRepository, never()).delete(any(VerificationToken.class));
+        verify(userRepository, never()).save(any(Users.class));
+    }
+
+    @Test
+    public void testValidateTokenWithValidTokenAndExpirationTimeInTheFuture() {
+        VerificationToken validToken = new VerificationToken();
+        Users user = new Users();
+        user.setEnabled(false);
+        validToken.setUser(user);
+        validToken.setExpirationTime(new Date(System.currentTimeMillis() + 1000000));
+
+        when(tokenRepository.findByToken(anyString())).thenReturn(validToken);
+        when(userRepository.save(any(Users.class))).thenReturn(new Users());
+
+        String result = userService.validateaToken("ddff5da1-6d6d-4139-84b2-55b4ae1e801d");
+
+        assertEquals("valid", result);
+        assertTrue(validToken.getUser().isEnabled());
+    }
+
+    @Test
+    public void testValidateTokenWithExpiredTokenAndNullUser() {
+        VerificationToken expiredToken = new VerificationToken();
+        expiredToken.setExpirationTime(new Date(System.currentTimeMillis() - 1000000));
+        expiredToken.setUser(null);
+
+        when(tokenRepository.findByToken(anyString())).thenReturn(expiredToken);
+
+        String result = userService.validateaToken("ddff5da1-6d6d-4139-84b2-55b4ae1e801d");
+
+        assertEquals("Token already expired", result);
+        verify(tokenRepository).delete(expiredToken);
+        verify(userRepository, never()).save(any(Users.class));
+    }
+
+    @Test
+    public void testValidateTokenWithValidTokenAndNullUser() {
+        VerificationToken validToken = new VerificationToken();
+        validToken.setUser(null);
+
+        when(tokenRepository.findByToken(anyString())).thenReturn(validToken);
+
+        String result = userService.validateaToken("ddff5da1-6d6d-4139-84b2-55b4ae1e801d");
+
+        assertEquals("Invalid verification token", result);
+        verify(tokenRepository, never()).delete(any(VerificationToken.class));
+        verify(userRepository, never()).save(any(Users.class));
+    }
+
 }

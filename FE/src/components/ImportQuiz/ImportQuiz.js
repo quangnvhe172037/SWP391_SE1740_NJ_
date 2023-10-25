@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import QuestionForm from "./QuestionForm";
 import jwtDecode from "jwt-decode";
 import PrivateContent from "../HandleException/PrivateContent";
+import axios from "axios"; // Import Axios
 
 const QuizForm = () => {
     const [questions, setQuestions] = useState([]);
@@ -9,11 +10,10 @@ const QuizForm = () => {
 
     const loadQuestions = async () => {
         try {
-            const response = await fetch('/api/questions');
+            const response = await axios.post('http://localhost:8080/api/questions/FER'); // Sử dụng Axios
 
-            if (response.ok) {
-                const data = await response.json();
-                setQuestions(data);
+            if (response.status === 200) { // Kiểm tra trạng thái HTTP
+                setQuestions(response.data);
             }
         } catch (error) {
             console.error('Lỗi khi tải danh sách câu hỏi:', error);
@@ -31,14 +31,14 @@ const QuizForm = () => {
     const user = jwtDecode(token);
     if (user.role !== "EXPERT") {
         return (
-            <PrivateContent/>
+            <PrivateContent />
         )
     } else {
         return (
-            <div className="container" style={{display: "flex"}}>
+            <div className="container" style={{ display: "flex" }}>
                 <div className="left-panel col-md-6">
                     <h1>Thêm câu hỏi</h1>
-                    <QuestionForm onAddQuestion={handleAddQuestion}/>
+                    <QuestionForm onAddQuestion={handleAddQuestion} />
                 </div>
                 <div className="right-panel col-md-6">
                     <h1>Danh sách câu hỏi đã thêm</h1>

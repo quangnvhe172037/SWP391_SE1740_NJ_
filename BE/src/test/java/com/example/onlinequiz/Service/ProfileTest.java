@@ -144,4 +144,97 @@ public class ProfileTest {
 
         verify(userRepository, never()).save(any());
     }
+    @Test
+    void testUpdateUserProfileEmptyLastName() {
+        String email = "test@example.com";
+        UpdateProfileRequest request = new UpdateProfileRequest();
+        request.setLastName("");  // Họ rỗng
+
+        Users existingUser = new Users();
+        existingUser.setEmail(email);
+
+        when(userRepository.findByEmail(email)).thenReturn(Optional.of(existingUser));
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            userService.updateUserProfile(email, request);
+        });
+
+        verify(userRepository, never()).save(any());
+    }
+
+    @Test
+    void testUpdateUserProfileEmptyPhoneAndGender() {
+        String email = "test@example.com";
+        UpdateProfileRequest request = new UpdateProfileRequest();
+        request.setMobile("");  // Số điện thoại rỗng
+        request.setGender(null);  // Giới tính rỗng
+
+        Users existingUser = new Users();
+        existingUser.setEmail(email);
+
+        when(userRepository.findByEmail(email)).thenReturn(Optional.of(existingUser));
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            userService.updateUserProfile(email, request);
+        });
+
+        verify(userRepository, never()).save(any());
+    }
+
+    @Test
+    void testUpdateUserProfileEmptyFirstNameAndLastName() {
+        String email = "test@example.com";
+        UpdateProfileRequest request = new UpdateProfileRequest();
+        request.setFirstName("");  // Tên rỗng
+        request.setLastName("");   // Họ rỗng
+
+        Users existingUser = new Users();
+        existingUser.setEmail(email);
+
+        when(userRepository.findByEmail(email)).thenReturn(Optional.of(existingUser));
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            userService.updateUserProfile(email, request);
+        });
+
+        verify(userRepository, never()).save(any());
+    }
+
+    @Test
+    void testUpdateUserProfileWithNullRequest() {
+        String email = "test@example.com";
+
+        Users existingUser = new Users();
+        existingUser.setEmail(email);
+
+        when(userRepository.findByEmail(email)).thenReturn(Optional.of(existingUser));
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            userService.updateUserProfile(email, null);
+        });
+
+        verify(userRepository, never()).save(any());
+    }
+
+    @Test
+    void testUpdateUserProfileValidNameAndPhone() {
+        String email = "test@example.com";
+        UpdateProfileRequest request = new UpdateProfileRequest();
+        request.setFirstName("NewFirstName");
+        request.setLastName("NewLastName");
+        request.setMobile("1234567890");
+
+        Users existingUser = new Users();
+        existingUser.setEmail(email);
+
+        when(userRepository.findByEmail(email)).thenReturn(Optional.of(existingUser));
+
+        userService.updateUserProfile(email, request);
+
+        verify(userRepository, times(1)).save(existingUser);
+        assertEquals(request.getFirstName(), existingUser.getFirstName());
+        assertEquals(request.getLastName(), existingUser.getLastName());
+        assertEquals(request.getMobile(), existingUser.getMobile());
+    }
+
 }
