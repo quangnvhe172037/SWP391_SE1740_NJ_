@@ -16,5 +16,5 @@ public interface QuizService {
 
     public void addQuestion(QuizRequest request, String subjectName);
 
-    List<QuizRequest> getQuestionsBySubjectName(String subjectName);
+//    List<QuizRequest> getQuestionsBySubjectName(String subjectName);
 }

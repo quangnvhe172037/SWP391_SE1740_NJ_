@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {useNavigate} from "react-router-dom"; // Import Bootstrap CSS
+import {useNavigate} from "react-router-dom";
+import jwtDecode from "jwt-decode"; // Import Bootstrap CSS
 const token = localStorage.getItem('token');
 
 const ChangePassword = () => {
-    const [email, setEmail] = useState('');
+    const token = localStorage.getItem('token');
+    const user = jwtDecode(token);
+    const [email, setEmail] = useState(user.sub);
     const [oldPassword, setOldPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -92,6 +95,7 @@ const ChangePassword = () => {
                                         value={email}
                                         onChange={handleChange}
                                         required
+                                        readOnly="true"
                                     />
                                 </div>
                                 <div className="form-group">
