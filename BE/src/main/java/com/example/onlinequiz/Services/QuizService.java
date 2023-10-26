@@ -15,6 +15,4 @@ public interface QuizService {
     QuizInfoResponse getQuizInfoById(Long Id);
 
     public void addQuestion(QuizRequest request, String subjectName);
-
-//    List<QuizRequest> getQuestionsBySubjectName(String subjectName);
 }

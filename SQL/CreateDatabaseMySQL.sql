@@ -195,7 +195,7 @@ CREATE TABLE IF NOT EXISTS `quiz_practice`.`quiz_answer` (
   `answer_data` VARCHAR(256) CHARACTER SET 'utf8mb4'  NULL DEFAULT NULL,
   `sentence_id` BIGINT NULL DEFAULT NULL,
   `is_true_answer` BIT(1) NULL DEFAULT NULL,
-  `explanation` BIT(1) NULL DEFAULT NULL,
+  `explanation` VARCHAR(256) NULL DEFAULT NULL,
   PRIMARY KEY (`answer_id`),
   INDEX `sentence_id` (`sentence_id` ASC) VISIBLE,
   CONSTRAINT `quiz_answer_ibfk_1`
