@@ -66,44 +66,57 @@ function UserRes() {
         )
     } else {
         return (
-
-            <div className="container">
-                <h1>My course</h1>
-                <div className="search-box mb-3">
-                    <div className="input-group">
-                        <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Tìm kiếm theo subject name.."
-                            value={searchText}
-                            onChange={handleSearchChange}
-                        />
-                        <div className="input-group-append">
-                            <button type="button" className="btn btn-primary custom-search-button">Tìm</button>
-                        </div>
-                    </div>
+          <div className="container">
+            <h1>My course</h1>
+            <div className="search-box mb-3">
+              <div className="input-group">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Tìm kiếm theo subject name.."
+                  value={searchText}
+                  onChange={handleSearchChange}
+                />
+                <div className="input-group-append">
+                  <button
+                    type="button"
+                    className="btn btn-primary custom-search-button"
+                  >
+                    Tìm
+                  </button>
                 </div>
-                <div className="row">
-                    {filteredUserPayments.length === 0 ? (
-                        <p>No data found</p>
-                    ) : (
-                        filteredUserPayments.map((userPayment) => (
-                            <div key={userPayment.billID} className="course-card col-md-3">
-                                <div className="post">
-                                    <div className="post-image">
-                                        <img src={Local_URL + userPayment.subjectImage} alt="" />
-                                    </div>
-                                    <p>Subject: {userPayment.subject.subjectName}</p>
-                                    <p>Purchase Date: {format(new Date(userPayment.purchase_date), 'dd-MM-yyyy')}</p>
-                                </div>
-                            </div>
-                        ))
-                    )}
-                </div>
+              </div>
             </div>
-
-
-
+            <div className="row">
+              {filteredUserPayments.length === 0 ? (
+                <p>No data found</p>
+              ) : (
+                filteredUserPayments.map((userPayment) => (
+                  <div
+                    key={userPayment.billID}
+                    className="course-card col-md-3"
+                  >
+                    <div className="post">
+                      <div className="post-image">
+                        <img
+                          src={Local_URL +'/' + userPayment.subject.subjectImage}
+                          alt=""
+                        />
+                      </div>
+                      <p>Subject: {userPayment.subject.subjectName}</p>
+                      <p>
+                        Purchase Date:{" "}
+                        {format(
+                          new Date(userPayment.purchase_date),
+                          "dd-MM-yyyy"
+                        )}
+                      </p>
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+          </div>
         );
     }
 }

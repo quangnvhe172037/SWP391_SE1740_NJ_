@@ -1,5 +1,18 @@
 package com.example.onlinequiz.Payload.Response;
 
-public class QuizSentenceResponse {
+import com.example.onlinequiz.Model.QuizAnswers;
+import com.example.onlinequiz.Model.QuizQuestions;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.util.List;
+
+@Setter
+@Getter
+@AllArgsConstructor
+public class QuizSentenceResponse {
+    private Long sentenceId;
+    private List<QuizAnswers> quizAnswers;
+    private QuizQuestions quizQuestions;
 }

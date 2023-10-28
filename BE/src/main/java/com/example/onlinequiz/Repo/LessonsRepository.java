@@ -17,4 +17,6 @@ public interface LessonsRepository extends JpaRepository<Lessons, Long> {
 
     Lessons getLessonsByLessonIDOrderByOrder(Long id);
 
+    Subjects findByLessonID(Long id);
+
 }

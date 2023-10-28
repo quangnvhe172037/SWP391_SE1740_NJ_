@@ -57,6 +57,8 @@ public class SecurityConfig {
     };
     // Danh sách các URL cho expert
     private static final String[] EXPERT_URL = {
+            "/api/questions/get/lesson/**",
+            "/api/questions/add/lesson/**"
     };
 
     private static final String[] MARKETING_URL = {

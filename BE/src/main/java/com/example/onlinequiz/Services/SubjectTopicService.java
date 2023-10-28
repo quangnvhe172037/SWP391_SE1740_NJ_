@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface SubjectTopicService {
     List<SubjectTopics> getTopics(Long id);
+
+    SubjectTopics getSubjectTopic(Long id);
 }

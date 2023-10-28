@@ -4,6 +4,7 @@ import com.example.onlinequiz.Model.*;
 import com.example.onlinequiz.Payload.Request.QuizRequest;
 import com.example.onlinequiz.Payload.Response.QuizInfoResponse;
 import com.example.onlinequiz.Payload.Response.QuizInfoResponse;
+import com.example.onlinequiz.Payload.Response.QuizSentenceResponse;
 import com.example.onlinequiz.Repo.*;
 import com.example.onlinequiz.Services.QuizService;
 import lombok.RequiredArgsConstructor;
@@ -98,5 +99,33 @@ public class QuizServiceImpl implements QuizService {
             }
             quizAnswerRepository.save(quizAnswers);
         }
+    }
+
+    @Override
+    public List<QuizDetail> getQuizDetailByQuiz(Quizzes q) {
+        return quizDetailRepository.getAllByQuizzes(q);
+    }
+
+    @Override
+    public List<QuizSentenceResponse> getListQuizDataByQuizDetail(List<QuizDetail> qd) {
+        try{
+            List<QuizData> quizDataList = quizDataRepository.getAllByQuizDetailIsIn(qd);
+
+            List<QuizSentenceResponse> data = new ArrayList<>();
+            for (QuizData quizData: quizDataList
+                 ) {
+                data.add(new QuizSentenceResponse(
+                        quizData.getSentenceID(),
+                        quizData.getQuizAnswers(),
+                        quizData.getQuizQuestions()
+                ));
+            }
+
+            return data;
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+
     }
 }

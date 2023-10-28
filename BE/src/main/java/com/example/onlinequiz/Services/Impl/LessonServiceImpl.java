@@ -38,5 +38,15 @@ public class LessonServiceImpl implements LessonService {
         return lessonsRepository.getLessonsByLessonIDOrderByOrder(id);
     }
 
+    @Override
+    public Subjects getSubjectByLesson(Long id) {
 
+        return lessonsRepository.findByLessonID(id);
+
+    }
+
+    @Override
+    public void addNewLesson(Lessons l) {
+        lessonsRepository.save(l);
+    }
 }

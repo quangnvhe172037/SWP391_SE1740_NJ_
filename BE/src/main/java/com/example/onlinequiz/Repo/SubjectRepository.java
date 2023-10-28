@@ -7,4 +7,6 @@ public interface SubjectRepository extends JpaRepository<Subjects, Integer> {
     Subjects getSubjectsBySubjectID(Long id);
 
     Subjects findBySubjectName(String subjectName);
+
+
 }

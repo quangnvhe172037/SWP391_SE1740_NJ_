@@ -36,15 +36,20 @@ public class QuizDataServiceImpl implements QuizDataService {
         Quizzes q = new Quizzes();
         List<QuizDetail> qd;
         List<QuizData> quizData;
-        System.out.println(id);
 
         q = quizRepository.findByQuizID(id);
         qd = quizDetailRepository.getAllByQuizzes(q);
-        quizData = qd.stream()
-                .map(QuizDetail::getQuizData)
-                .collect(Collectors.toList());
 
+//        quizData = qd.stream()
+//                .map(QuizDetail::getQuizData)
+//                .collect(Collectors.toList());
+        quizData = quizDataRepository.getAllByQuizDetailIsIn(qd);
         return quizData;
+    }
+
+    @Override
+    public void addNewQuizData(QuizData quizData) {
+        quizDataRepository.save(quizData);
     }
 
 //    @Override

@@ -28,4 +28,10 @@ public class SubjectTopicServiceImp implements SubjectTopicService {
 
         return subjectTopicRepository.getAllBySubjectOrderByOrder(s);
     }
+
+    @Override
+    public SubjectTopics getSubjectTopic(Long id) {
+
+        return subjectTopicRepository.getById(id);
+    }
 }
