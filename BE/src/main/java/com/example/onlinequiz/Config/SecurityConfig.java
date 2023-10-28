@@ -95,6 +95,11 @@ public class SecurityConfig {
             "/quiz/result/get/**",
             "/quiz/get/lesson/**"
     };
+
+    private static final String[] MarketingAdmin_URL = {
+            "manage/dashboard"
+    };
+
     // Cấu hình bộ lọc bảo mật
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -108,6 +113,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests().requestMatchers(EXPERT_URL).hasAuthority("EXPERT").and()
                 .authorizeHttpRequests().requestMatchers(CUSTOMER_URL).hasAuthority("CUSTOMER").and()
                 .authorizeHttpRequests().requestMatchers(MARKETING_URL).hasAuthority("MARKETING").and()
+                .authorizeHttpRequests().requestMatchers(MarketingAdmin_URL).hasAnyAuthority("MARKETING", "ADMIN").and()
                 .authorizeHttpRequests().requestMatchers(FourRole_URL).hasAnyAuthority("CUSTOMER", "EXPERT", "ADMIN" , "MARKETING")
                 .anyRequest().authenticated().and()
                 // Quản lý phiên làm việc (session)

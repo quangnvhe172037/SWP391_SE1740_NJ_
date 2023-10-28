@@ -13,4 +13,6 @@ public interface SubjectService {
     Subjects save(Subjects subjects);
 
     SubjectDetailResponse getSubjectDetail(Long userId, Long subjectId);
+
+    Long countAllSubject();
 }

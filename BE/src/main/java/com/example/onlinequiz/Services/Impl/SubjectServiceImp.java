@@ -97,5 +97,10 @@ public class SubjectServiceImp implements SubjectService {
         return dataResponse;
     }
 
+    @Override
+    public Long countAllSubject() {
+        return subjectRepository.count();
+    }
+
 
 }
