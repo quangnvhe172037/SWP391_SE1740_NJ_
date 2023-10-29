@@ -18,7 +18,6 @@ import { useEffect, useState } from "react";
      })
        .then((response) => {
          if (!response.ok) {
-           console.log(response.message);
          }
          return response.json();
        })
@@ -35,7 +34,6 @@ import { useEffect, useState } from "react";
            countQues: dataJson.countQues,
          };
 
-         console.log(dataJson.quizName);
          return data;
        })
 
@@ -44,7 +42,6 @@ import { useEffect, useState } from "react";
          setQuizInfo(mockData);
        })
        .catch((error) => {
-         console.log("object");
        });
   }, [quizId, token]);
 
@@ -60,7 +57,7 @@ import { useEffect, useState } from "react";
       <div className="quiz-info-overview">
         {quizInfo.countQues} question
         <span className="quiz-info-distance">|</span>
-        {quizInfo.durationTime} time
+        {quizInfo.durationTime} minutes
         <span className="quiz-info-distance">|</span>
         {quizInfo.passRate}% correct required to pass
       </div>

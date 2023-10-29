@@ -13,4 +13,10 @@ public interface LessonService {
     Subjects getSubjectByLesson(Long id);
 
     void addNewLesson(Lessons l);
+
+    void deleteLesson(Long id);
+
+    void updateOrderLesson(Long id, Integer order, String name);
+
+
 }

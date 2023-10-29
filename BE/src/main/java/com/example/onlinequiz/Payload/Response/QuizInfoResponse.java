@@ -15,7 +15,7 @@ public class QuizInfoResponse {
     private boolean status;
     private String description;
     private Date dateCreate;
-    private Date durationTime;
+    private int durationTime;
     private int passRate;
     private int countQues;
 }

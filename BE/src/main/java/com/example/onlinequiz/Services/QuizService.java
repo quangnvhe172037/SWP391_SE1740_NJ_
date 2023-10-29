@@ -22,4 +22,6 @@ public interface QuizService {
     List<QuizDetail> getQuizDetailByQuiz(Quizzes q);
 
     List<QuizSentenceResponse> getListQuizDataByQuizDetail(List<QuizDetail> qd);
+
+    void addNewQuiz(Quizzes q);
 }

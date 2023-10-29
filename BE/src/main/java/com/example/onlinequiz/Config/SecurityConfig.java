@@ -58,7 +58,17 @@ public class SecurityConfig {
     // Danh sách các URL cho expert
     private static final String[] EXPERT_URL = {
             "/api/questions/get/lesson/**",
-            "/api/questions/add/lesson/**"
+            "/api/questions/add/lesson/**",
+            "/api/expert/lesson/delete/**",
+            "/api/expert/subject/delete/topic/**",
+            "/api/expert/subject/update/order/**",
+            "/api/expert/subject/add/topic/**",
+            "/api/expert/subject/edit/topic/**",
+            "/api/expert/lesson/add/quiz/**",
+            "/api/expert/lesson/add/video/**",
+            "/api/expert/lesson/add/article/**",
+
+
     };
 
     private static final String[] MARKETING_URL = {
@@ -96,6 +106,7 @@ public class SecurityConfig {
             "/quiz/get/lesson/**"
     };
 
+    // Danh sach cac url cho admin va marketing
     private static final String[] MarketingAdmin_URL = {
             "manage/dashboard"
     };

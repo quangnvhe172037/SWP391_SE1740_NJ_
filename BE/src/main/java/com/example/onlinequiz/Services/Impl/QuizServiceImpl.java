@@ -128,4 +128,9 @@ public class QuizServiceImpl implements QuizService {
         }
 
     }
+
+    @Override
+    public void addNewQuiz(Quizzes q) {
+        quizRepository.save(q);
+    }
 }

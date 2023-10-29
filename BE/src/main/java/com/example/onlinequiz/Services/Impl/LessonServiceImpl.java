@@ -28,14 +28,14 @@ public class LessonServiceImpl implements LessonService {
     @Override
     public List<Lessons> getLessons(Long id) {
         Subjects s = subjectRepository.getSubjectsBySubjectID(id);
-        List<SubjectTopics> st = subjectTopicRepository.getAllBySubjectOrderByOrder(s);
-        return lessonsRepository.findAllByTopicInAndStatusIsTrue(st);
+        List<SubjectTopics> st = subjectTopicRepository.getAllBySubjectAndStatusIsTrueOrderByOrder(s);
+        return lessonsRepository.findAllByTopicInAndStatusIsTrueOrderByOrder(st);
     }
 
     @Override
     public Lessons getLessonData(Long id) {
 
-        return lessonsRepository.getLessonsByLessonIDOrderByOrder(id);
+        return lessonsRepository.getLessonsByLessonID(id);
     }
 
     @Override
@@ -48,5 +48,22 @@ public class LessonServiceImpl implements LessonService {
     @Override
     public void addNewLesson(Lessons l) {
         lessonsRepository.save(l);
+    }
+
+    @Override
+    public void deleteLesson(Long lessonId) {
+        Lessons lesson = lessonsRepository.getLessonsByLessonID(lessonId);
+        lesson.setStatus(false);
+        lessonsRepository.save(lesson);
+
+
+    }
+
+    @Override
+    public void updateOrderLesson(Long lessonId, Integer order, String name) {
+        Lessons lesson = lessonsRepository.getLessonsByLessonID(lessonId);
+        lesson.setOrder(order);
+        lesson.setLessonName(name);
+        lessonsRepository.save(lesson);
     }
 }

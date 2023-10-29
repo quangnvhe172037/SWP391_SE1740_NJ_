@@ -1,9 +1,6 @@
 package com.example.onlinequiz.Services.Impl;
 
-import com.example.onlinequiz.Model.SubjectPrice;
-import com.example.onlinequiz.Model.Subjects;
-import com.example.onlinequiz.Model.UserPayment;
-import com.example.onlinequiz.Model.Users;
+import com.example.onlinequiz.Model.*;
 import com.example.onlinequiz.Payload.Response.SubjectDetailResponse;
 import com.example.onlinequiz.Repo.*;
 import com.example.onlinequiz.Services.SubjectService;
@@ -101,6 +98,8 @@ public class SubjectServiceImp implements SubjectService {
     public Long countAllSubject() {
         return subjectRepository.count();
     }
+
+
 
 
 }

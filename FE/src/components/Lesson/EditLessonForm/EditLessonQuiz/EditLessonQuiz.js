@@ -2,44 +2,49 @@ import { useEffect, useState } from "react";
 import "./EditLessonQuiz.css";
 import jwtDecode from "jwt-decode";
 import { useNavigate, useParams } from "react-router-dom";
+import Popup from "reactjs-popup";
 const EditLessonQuiz = (prop) => {
-  //   const [questions, setQuestions] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const lessonId = prop.lessonId;
   const { subjectId } = useParams();
+  console.log(subjectId);
   const [questions, setQuestions] = useState([]);
   const token = localStorage.getItem("token");
   const user = jwtDecode(token);
+
   
-  useEffect(() => {
-    fetch(`http://localhost:8080/api/questions/get/lesson/${lessonId}`, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
+
+  const GetData = () => {
+    useEffect(() => {
+      console.log("check lessonId: " + lessonId);
+      fetch(`http://localhost:8080/api/questions/get/lesson/${lessonId}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
 
-      .then((dataJson) => {
-        const data = dataJson.map((item) => ({
-          sentenceId: item.sentenceId,
-          quizAnswers: [item.quizAnswers],
-          quizQuestion: item.quizQuestions,
-        }));
-        return data;
-      })
+        .then((dataJson) => {
+          const data = dataJson.map((item) => ({
+            sentenceId: item.sentenceId,
+            quizAnswers: [item.quizAnswers],
+            quizQuestion: item.quizQuestions,
+          }));
+          return data;
+        })
 
-      .then((result) => {
-        const mockData = result;
-        setQuestions(mockData);
-      });
-  }, [subjectId, lessonId]);
-
+        .then((result) => {
+          const mockData = result;
+          setQuestions(mockData);
+        });
+    }, []);
+  };
   const addQuestion = () => {
     setShowForm(true);
   };
@@ -72,7 +77,8 @@ const EditLessonQuiz = (prop) => {
       ],
       quizQuestions: { questionData: form.get("question") },
     };
-    
+    console.log(JSON.stringify(dataToSend));
+
     fetch(
       `http://localhost:8080/api/questions/add/lesson/${lessonId}?subjectId=${subjectId}`,
       {
@@ -96,62 +102,74 @@ const EditLessonQuiz = (prop) => {
     window.location.reload();
   };
 
-  const handleExit = () => { 
+  const handleExit = () => {
     setShowForm(false);
 
     window.location.reload();
-  }
+  };
 
-  const handleDelete = () => { 
-
-  }
+  const handleDelete = () => {};
 
   return (
     <div>
-      <button onClick={addQuestion}>Add new question</button>
-
-      {showForm ? (
-        <form onSubmit={handleSubmit}>
-          <input name="question" placeholder="Enter the question" />
-
-          <div>
-            <input type="radio" name="correct1" value="answer1" />
-            <input name="answer1" placeholder="Answer 1" />
-            <input name="explanation1" placeholder="Explanation" />
-          </div>
-
-          <div>
-            <input type="radio" name="correct1" value="answer2" />
-            <input name="answer2" placeholder="Answer 2" />
-            <input name="explanation2" placeholder="Explanation" />
-          </div>
-          <div>
-            <input type="radio" name="correct1" value="answer3" />
-            <input name="answer3" placeholder="Answer 3" />
-            <input name="explanation3" placeholder="Explanation" />
-          </div>
-
-          <div>
-            <input type="radio" name="correct1" value="answer4" />
-            <input name="answer4" placeholder="Answer 4" />
-            <input name="explanation4" placeholder="Explanation" />
-          </div>
-
-          <button type="submit">Save</button>
-          <button type="button" onClick={handleExit}>
-            Exit
+      <Popup
+        trigger={
+          <button className="button" onClick={GetData()}>
+            {" "}
+            Add new lesson quiz{" "}
           </button>
-        </form>
-      ) : (
-        <ul>
-          {questions.map((q) => (
-            <li key={q.quizQuestion.questionID}>
-              {q.quizQuestion.questionData}
-              
-            </li>
-          ))}
-        </ul>
-      )}
+        }
+        modal
+        nested
+      >
+        {(close) => (
+          <div>
+            <button onClick={addQuestion}>Add new Question</button>
+
+            {showForm ? (
+              <form onSubmit={handleSubmit}>
+                <input name="question" placeholder="Enter the question" />
+
+                <div>
+                  <input type="radio" name="correct1" value="answer1" />
+                  <input name="answer1" placeholder="Answer 1" />
+                  <input name="explanation1" placeholder="Explanation" />
+                </div>
+
+                <div>
+                  <input type="radio" name="correct1" value="answer2" />
+                  <input name="answer2" placeholder="Answer 2" />
+                  <input name="explanation2" placeholder="Explanation" />
+                </div>
+                <div>
+                  <input type="radio" name="correct1" value="answer3" />
+                  <input name="answer3" placeholder="Answer 3" />
+                  <input name="explanation3" placeholder="Explanation" />
+                </div>
+
+                <div>
+                  <input type="radio" name="correct1" value="answer4" />
+                  <input name="answer4" placeholder="Answer 4" />
+                  <input name="explanation4" placeholder="Explanation" />
+                </div>
+
+                <button type="submit" onClick={handleSubmit}>Save</button>
+                <button type="button" onClick={handleExit}>
+                  Exit
+                </button>
+              </form>
+            ) : (
+              <ul>
+                {questions.map((q) => (
+                  <li key={q.quizQuestion.questionID}>
+                    {q.quizQuestion.questionData}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        )}
+      </Popup>
     </div>
   );
 };

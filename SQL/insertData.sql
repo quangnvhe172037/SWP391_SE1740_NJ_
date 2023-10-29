@@ -90,12 +90,13 @@ VALUES
 INSERT INTO `quiz_practice`.`subject_topic`
 (`topic_id`,
 `topic_name`,
-`order`,
+`status`,
+`subject_topic_order`,
 `subject_id`)
 VALUES
-(1, "HTML Development", 4, 4),
-(2, "Javascript Development", 4, 4),
-(3, "Bootstrap Development", 4, 4);
+(1, "HTML Development",true, 1, 4),
+(2, "Javascript Development",true, 2, 4),
+(3, "Bootstrap Development",true, 3, 4);
 
 
 -- 5. Insert to lesson_type
@@ -115,18 +116,18 @@ INSERT INTO `quiz_practice`.`lesson`
 (`lesson_id`,
 `lesson_name`,
 `status`,
-`order`,
+`lesson_order`,
 `video_link`,
 `topic_id`,
 `lesson_type_id`,
 `lesson_content`)
 VALUES
-(1, "Introduect to HTML", 1, 1,"salY_Sm6mv4?si=tcrUkJTunS_4oocG", 1, 2, null),
-(2, "Practice HTML", 1, 2, null,1, 1, null),
-(3, "Note about HTML", 1, 3, null, 1,3, "Bạn cần hoàn thành bài trên"),
-(4, "Introduce to CSS", 1, 4,null, 2, 3, "Bạn cần làm bài này"),
-(5, "Introduce to Boostrap", 1, 5, null,3, 3, "Bạn cần làm bài này"),
-(6, "Practice Javascript", 1, 6, null, 3, 1, null);
+(1, "Introduect to HTML", true, 1,"salY_Sm6mv4?si=tcrUkJTunS_4oocG", 1, 2, null),
+(2, "Practice HTML", true, 2, null,1, 1, null),
+(3, "Note about HTML", true, 3, null, 1,3, "Bạn cần hoàn thành bài trên"),
+(4, "Introduce to CSS", true, 4,null, 2, 3, "Bạn cần làm bài này"),
+(5, "Introduce to Boostrap", true, 5, null,3, 3, "Bạn cần làm bài này"),
+(6, "Practice Javascript", true, 6, null, 3, 1, null);
 
 
 
@@ -224,8 +225,8 @@ INSERT INTO `quiz_practice`.`quiz`
 `duration_time`,
 `pass_rate`)
 VALUES
- (1, "Practice HTML", 1, "", 4, 2, 1, "2023-10-09", "01:00:00", 50),
- (2, "Practice Javascript", 1, "", 4, 6, 1, "2023-10-09", "01:00:00", 50);
+ (1, "Practice HTML", 1, "", 4, 2, 1, "2023-10-09", 60, 50),
+ (2, "Practice Javascript", 1, "", 4, 6, 1, "2023-10-09", 60, 50);
 -- (3, "Practice Javascript no 2", 1, "", 4, "", 1, "2023-10-09", "01:00:00", 50),
 -- (4, "Practice Javascript no 3", 1, "", 4,"" , 1, "2023-10-09", "01:00:00", 50),
 -- (5, "Practice Javascript no 4", 1, "", 4, "", 1, "2023-10-09", "01:00:00", 50);

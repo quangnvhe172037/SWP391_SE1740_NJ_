@@ -9,4 +9,5 @@ public interface SubjectRepository extends JpaRepository<Subjects, Integer> {
     Subjects findBySubjectName(String subjectName);
 
 
+
 }
