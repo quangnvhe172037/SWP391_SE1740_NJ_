@@ -6,11 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="f42a8f0a-d40f-4bc9-b56d-aa67269e9f4b" name="Changes" comment="Revert &quot;update view lesson&quot;&#10;&#10;This reverts commit 52474196">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Config/SwaggerConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Controller/ExpertController/ExpertQuizController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Controller/ExpertController/ExpertQuizController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Repo/QuizDataRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Repo/QuizDataRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Services/Impl/QuizServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Services/Impl/QuizServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Services/QuizService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Services/QuizService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -221,7 +216,12 @@
       <workItem from="1698196410239" duration="853000" />
       <workItem from="1698197731612" duration="1458000" />
       <workItem from="1698289245215" duration="3471000" />
-      <workItem from="1698309876253" duration="3114000" />
+      <workItem from="1698309876253" duration="4672000" />
+      <workItem from="1698315026764" duration="344000" />
+      <workItem from="1698331771670" duration="1783000" />
+      <workItem from="1698366058493" duration="6000" />
+      <workItem from="1698541138770" duration="13068000" />
+      <workItem from="1698569883951" duration="359000" />
     </task>
     <servers />
   </component>

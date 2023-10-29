@@ -1,11 +1,13 @@
 package com.example.onlinequiz.Services.Impl;
 
 import com.example.onlinequiz.Model.*;
+import com.example.onlinequiz.Payload.Response.QuestionResponse;
 import com.example.onlinequiz.Repo.*;
 import com.example.onlinequiz.Services.QuizDataService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -31,6 +33,9 @@ public class QuizDataServiceImpl implements QuizDataService {
     @Autowired
     private final QuizQuestionRepository quizQuestionRepository;
 
+    @Autowired
+    private final SubjectRepository subjectRepository;
+
     @Override
     public List<QuizData> getAllQuizData(Long id) {
         Quizzes q = new Quizzes();
@@ -52,6 +57,47 @@ public class QuizDataServiceImpl implements QuizDataService {
         quizDataRepository.save(quizData);
     }
 
+    @Override
+    public List<QuestionResponse> getQuestionBySubjectName(String subjectName) {
+        Subjects subject = subjectRepository.findBySubjectName(subjectName);
+        if (subject == null) {
+            return new ArrayList<>();
+        }
+
+        List<QuizData> quizDataList = quizDataRepository.findBySubject(subject);
+        List<QuestionResponse> questionResponses = new ArrayList<>();
+
+        for (QuizData quizData : quizDataList) {
+            List<QuizAnswers> quizAnswers = quizAnswerRepository.findByQuizData(quizData);
+            List<String> answerOptions = new ArrayList<>();
+            String explanation = null;
+            String correctAnswer = ""; // Để lưu trữ câu trả lời đúng
+
+            for (int i = 0; i < quizAnswers.size(); i++) {
+                answerOptions.add(quizAnswers.get(i).getAnswerData());
+                if (quizAnswers.get(i).isTrueAnswer()) {
+                    // Ánh xạ câu trả lời đúng thành A, B, C, D
+                    correctAnswer = Character.toString((char) ('A' + i));
+                    explanation = quizAnswers.get(i).getExplanation();
+                }
+            }
+
+            List<QuizQuestions> quizQuestions = quizQuestionRepository.findByQuizData(quizData);
+
+            // Kiểm tra xem danh sách câu hỏi có ít nhất một câu hỏi hay không
+            if (!quizQuestions.isEmpty()) {
+                String questionData = quizQuestions.get(0).getQuestionData(); // Lấy câu hỏi đầu tiên
+
+                QuestionResponse questionResponse = new QuestionResponse(questionData, answerOptions, explanation, correctAnswer);
+                questionResponses.add(questionResponse);
+            }
+        }
+
+        return questionResponses;
+    }
+
+}
+
 //    @Override
 //    public Object getQuizData(Long id) {
 //        QuizData quizData = quizDataRepository.getReferenceById(id);
@@ -62,5 +108,3 @@ public class QuizDataServiceImpl implements QuizDataService {
 //        return;
 //    }
 
-
-}

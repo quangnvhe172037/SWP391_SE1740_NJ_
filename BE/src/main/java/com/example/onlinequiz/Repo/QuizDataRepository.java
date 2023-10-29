@@ -15,5 +15,7 @@ public interface QuizDataRepository  extends JpaRepository<QuizData, Long> {
     List<QuizData> getAllByQuizDetailIsIn(List<QuizDetail> qd);
 
 
+    List<QuizData> findBySubject_SubjectName(String subjectName);
 
+    List<QuizData> findBySubject(Subjects subjects);
 }

@@ -4,6 +4,7 @@ import com.example.onlinequiz.Model.*;
 import com.example.onlinequiz.Payload.Request.QuizAnswerRequest;
 import com.example.onlinequiz.Payload.Request.QuizRequest;
 import com.example.onlinequiz.Payload.Request.QuizSentenceRequest;
+import com.example.onlinequiz.Payload.Response.QuestionResponse;
 import com.example.onlinequiz.Payload.Response.QuizSentenceResponse;
 import com.example.onlinequiz.Services.*;
 import lombok.AllArgsConstructor;
@@ -40,13 +41,16 @@ public class ExpertQuizController {
     @Autowired
     private final QuizQuestionService quizQuestionService;
 
-
-
-
+    //api add question
     @PostMapping("/add/{subjectName}")
     public ResponseEntity<String> addQuestion(@RequestBody QuizRequest questionDTO, @PathVariable String subjectName) {
         quizService.addQuestion(questionDTO, subjectName);
         return ResponseEntity.ok("Question add Successfully");
+    }
+    //api get question
+    @GetMapping("/get/{subjectName}")
+    public List<QuestionResponse> getQuestionBySubjectName(@PathVariable String subjectName){
+        return quizDataService.getQuestionBySubjectName(subjectName);
     }
 
     // Get all the quiz answer of this lesson to show
