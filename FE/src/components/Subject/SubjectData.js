@@ -5,7 +5,27 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { Routes, Route, Link } from 'react-router-dom';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+import { Col, Row } from "react-bootstrap";
 const SubjectData = () => {
+    const style = {
+        margin: 'auto',
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: '100%',
+        bgcolor: 'background.paper',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 4,
+    };
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
     const [search, setSearch] = useState("");
     const [category, setCategory] = useState("0");
     const [subjects, setSubjects] = useState([]);
@@ -60,10 +80,10 @@ const SubjectData = () => {
             })
     }, [])
 
-    const handleSearch = (e) => {
-        const value = e.target.value;
-        setSearch(value);
-    }
+    // const handleSearch = (e) => {
+    //     const value = e.target.value;
+    //     setSearch(value);
+    // }
     const handleChange = (e) => {
         const value = e.target.value;
         setCategory(value);
@@ -73,8 +93,7 @@ const SubjectData = () => {
         setPageNum(page);
     }
     const handleSubmit = (e) => {
-        const list = [];
-        list = subjects;
+        let list = [...subjects];
         if (Number(category) != 0) {
             list = subjects.filter(n => n.subjectCategory.cateID == Number(category));
         }
@@ -89,8 +108,11 @@ const SubjectData = () => {
         <>
             <form onSubmit={handleSubmit} className="pb-12 flex items-center">
                 <div className="grow flex border border-purple-200 rounded">
-                    <input onChange={handleSearch}
+                    <input onChange={(e) => {
+                        setSearch(e.target.value)
+                    }}
                         type="text"
+                        value={search}
                         className="block w-full px-4 py-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
                         placeholder="Search..."
                     />
@@ -98,7 +120,7 @@ const SubjectData = () => {
                         <option value={0}>All</option>
                         {
                             categories.map((data, index) => (
-                                <option value={data.id}>{data.name}</option>
+                                <option key={index} value={data.id}>{data.name}</option>
                             ))
                         }
                     </select>
@@ -122,6 +144,7 @@ const SubjectData = () => {
                         <td scope="col" className="slider-table-header">CategoryName</td>
                         <td scope="col" className="slider-table-header">Status</td>
                         <td scope="col" className="slider-table-header">Created Date</td>
+                        <td scope="col" className="slider-table-header">Action</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -133,6 +156,37 @@ const SubjectData = () => {
                             <td className="slider-table-data">{item.subjectCategory.cateName}</td>
                             <td className="slider-table-data">{item.status ? 'active' : 'deactive'}</td>
                             <td className="slider-table-data">{DayJs.from(item.create_date)}</td>
+                            <td className="slider-table-data">
+                                <Button onClick={handleOpen}>Detail</Button>
+                                <Modal
+                                    open={open}
+                                    onClose={handleClose}
+                                    aria-labelledby="modal-modal-title"
+                                    aria-describedby="modal-modal-description"
+                                >
+                                    <Box sx={style} >
+                                        <div style={{textAlign: "center"}}>
+                                            <Typography id="modal-modal-description" sx={{ mt: 2 }} style={{marginLeft:'24%'}}>
+                                                <img src={item.image} />
+                                            </Typography>
+                                            <Typography id="modal-modal-title" variant="h6" component="h2">
+                                                {item.subjectCategory.cateName}
+                                            </Typography>
+                                            <Typography id="modal-modal-title" variant="h2" component="h2">
+                                                {item.subjectName}
+                                            </Typography>
+                                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                                                {item.description}
+                                            </Typography>
+                                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                                                {item.status ? 'active' : 'deactive'}
+                                            </Typography>
+
+                                        </div>
+                                    </Box>
+                                </Modal>
+                            </td>
+
                         </tr>
                     ))}
                 </tbody>

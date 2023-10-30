@@ -13,8 +13,8 @@ const Subject = () => {
     const [search, setSearch] = useState("");
     const [category, setCategory] = useState("1");
     const [courseTemp, setCourseTemp] = useState([]);
-    const [totalPage,setTotalPage] = useState(0);
-    const [pageNum,setPageNum] = useState(1);
+    const [totalPage, setTotalPage] = useState(0);
+    const [pageNum, setPageNum] = useState(1);
 
     // Xử lí api
     const apiSlider = "http://localhost:8080/sliders";
@@ -216,7 +216,7 @@ const Subject = () => {
                         </div>
                     </form>
                     <div className='grid grid-flow-col auto-cols-[60%] snap-x overflow-y-auto md:grid-flow-row md:grid-cols-3 lg:grid-cols-4 gap-6 pb-5'>
-                        {courses.slice((pageNum - 1) * 3,Math.min(pageNum * 3,courses.length) + 1).map((data, index) => (
+                        {courses.slice((pageNum - 1) * 3, Math.min(pageNum * 3, courses.length) + 1).map((data, index) => (
                             <div className='snap-center snap-always'>
                                 <div className='relative'>
                                     <div className='absolute bottom-3 flex justify-between items-center w-full px-3'>
@@ -239,7 +239,9 @@ const Subject = () => {
                                     </div>
                                     <img className='rounded-xl' style={{ height: '200px' }} src={data.image} alt='' />
                                 </div>
-                                <h2 className='font-semibold py-2 text-sm truncate text-center'>{data.subjectName}</h2>
+                                <h2 className='font-semibold py-2 text-sm truncate text-center'>
+                                    <Link to={`/subject/${data.subjectID}`}>{data.subjectName}</Link>
+                                </h2>
                             </div>
                         ))}
                     </div>
