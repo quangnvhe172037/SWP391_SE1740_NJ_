@@ -12,5 +12,7 @@ public interface QuizDataService {
 
     List<QuestionResponse> getQuestionBySubjectName(String subjectName);
 
+    QuizData findById(Long id);
+
 //    Object getQuizData(Long id);
 }

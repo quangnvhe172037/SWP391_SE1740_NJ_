@@ -19,4 +19,9 @@ public class QuizQuestionServiceImpl implements QuizQuestionService {
     public void addNewQuestion(QuizQuestions quizQuestion) {
         quizQuestionRepository.save(quizQuestion);
     }
+
+    @Override
+    public QuizQuestions findByQuestionId(Long id) {
+        return quizQuestionRepository.findQuizQuestionsByQuestionID(id);
+    }
 }

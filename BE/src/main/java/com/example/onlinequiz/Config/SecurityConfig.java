@@ -67,6 +67,13 @@ public class SecurityConfig {
             "/api/expert/lesson/add/quiz/**",
             "/api/expert/lesson/add/video/**",
             "/api/expert/lesson/add/article/**",
+            "/api/expert/lesson/get/article/**",
+            "/api/expert/lesson/get/video/**",
+            "/api/expert/lesson/update/article/**",
+            "/api/expert/lesson/update/video/**",
+            "/api/questions/update/quiz/data/**",
+            "/api/questions/get/quiz/sentence/**"
+
 
 
     };

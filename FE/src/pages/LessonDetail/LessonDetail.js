@@ -13,7 +13,6 @@ import EditLessonQuiz from "../../components/Lesson/EditLessonForm/EditLessonQui
 import EditLessonVideo from "../../components/Lesson/EditLessonForm/EditLessonVideo/EditLessonVideo";
 import EditLessonArticle from "../../components/Lesson/EditLessonForm/EditLessonArticle/EditLessonArticle";
 
-
 const LessonDetail = () => {
   const { subjectId } = useParams();
 
@@ -23,8 +22,6 @@ const LessonDetail = () => {
   const token = localStorage.getItem("token");
   const user = jwtDecode(token);
   const [showAddLesson, setShowAddLesson] = useState(null);
-
-
 
   useEffect(() => {
     fetch(`http://localhost:8080/subjecttopic/get/${subjectId}`, {
@@ -90,7 +87,7 @@ const LessonDetail = () => {
       });
   }, []);
 
-  const handleUpdateOrderLesson = (updateLessonId, order) => { 
+  const handleUpdateOrderLesson = (updateLessonId, order) => {
     fetch(
       `http://localhost:8080/api/expert/lesson/update/order/${updateLessonId}?order=${order}`,
       {
@@ -118,7 +115,7 @@ const LessonDetail = () => {
         console.error("Error updating post:", error);
         // Nếu có lỗi xảy ra trong quá trình gửi yêu cầu, bạn có thể khôi phục giá trị status
       });
-  }
+  };
 
   const handleUpdateOrderTopic = (updateTopicId, order) => {
     fetch(
@@ -150,34 +147,35 @@ const LessonDetail = () => {
       });
   };
 
-const handleDeleteTopic = (topicDeleteId) => {
-  fetch(`http://localhost:8080/api/expert/subject/delete/topic/${topicDeleteId}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  })
-    .then((response) => {
-      console.log(response);
-      if (!response.ok) {
-        console.log(response.message);
+  const handleDeleteTopic = (topicDeleteId) => {
+    fetch(
+      `http://localhost:8080/api/expert/subject/delete/topic/${topicDeleteId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       }
-      return response.text();
-    })
-    .then((data) => {
-      // Xử lý phản hồi từ máy chủ (nếu cần)
-      console.log("Posts updated:", data);
-      window.location.reload();
-      alert("Delete successfully");
-    })
-    .catch((error) => {
-      console.error("Error updating post:", error);
-      // Nếu có lỗi xảy ra trong quá trình gửi yêu cầu, bạn có thể khôi phục giá trị status
-    });
-};
-
-
+    )
+      .then((response) => {
+        console.log(response);
+        if (!response.ok) {
+          console.log(response.message);
+        }
+        return response.text();
+      })
+      .then((data) => {
+        // Xử lý phản hồi từ máy chủ (nếu cần)
+        console.log("Posts updated:", data);
+        window.location.reload();
+        alert("Delete successfully");
+      })
+      .catch((error) => {
+        console.error("Error updating post:", error);
+        // Nếu có lỗi xảy ra trong quá trình gửi yêu cầu, bạn có thể khôi phục giá trị status
+      });
+  };
 
   const handleDeleteLesson = (lessonDeleteId) => {
     fetch(`http://localhost:8080/api/expert/lesson/delete/${lessonDeleteId}`, {
@@ -203,60 +201,55 @@ const handleDeleteTopic = (topicDeleteId) => {
       .catch((error) => {
         console.error("Error updating post:", error);
         // Nếu có lỗi xảy ra trong quá trình gửi yêu cầu, bạn có thể khôi phục giá trị status
-        
       });
-  }
-
- 
+  };
 
   if (user.role !== "EXPERT") {
     return <PrivateContent />;
   } else {
     return (
-      <div className="col-md-12 lesson-detail-container">
+      <div className="lesson-detail-container">
         <div className="lesson-detail-header">
-          <span>Curriculum</span>
+          <span className="lesson-detail-header-left">Curriculum</span>
           <AddNewTopic />
         </div>
 
         {topics.map((topic) => (
           <div key={topic.topicID} className="lesson-detail-section">
             <div className="lesson-detail-header-name">
-              <span className="" style={{ width: "200px" }}>
-                Topic
-                <input
-                  type="text"
-                  readOnly
-                  value={topic.topicOrder}
-                  className="lesson-detail-content-order"
+              <div className="lesson-detail-topic-left">
+                <span className="" style={{ width: "200px" }}>
+                  Topic {topic.topicOrder}: {topic.topicName}
+                </span>
+                <button
+                  className="lesson-detail-topic-icon"
+                  onClick={() => handleDeleteTopic(topic.topicID)}
+                >
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+
+                <EditSubjectTopic
+                  topicId={topic.topicID}
+                  topicName={topic.topicName}
+                  topicOrder={topic.topicOrder}
                 />
-                :
-                <input
-                  type="text"
-                  readOnly
-                  value={topic.topicName}
-                  className=""
-                />
-              </span>
-              <div onClick={() => handleDeleteTopic(topic.topicID)}>
-                Delete topic
               </div>
 
-              <EditSubjectTopic
-                topicId={topic.topicID}
-                topicName={topic.topicName}
-                topicOrder={topic.topicOrder}
-              />
+              <div className="lesson-detail-topic-right">
+                <button
+                  className="lesson-detail-lesson-add-btn"
+                  onClick={() =>
+                    setShowAddLesson(
+                      showAddLesson === topic.topicID ? null : topic.topicID
+                    )
+                  }
+                >
+                  New Lesson
+                </button>
+              </div>
+            </div>
 
-              <button
-                onClick={() =>
-                  setShowAddLesson(
-                    showAddLesson === topic.topicID ? null : topic.topicID
-                  )
-                }
-              >
-                Add New Lesson
-              </button>
+            <div className="">
               {showAddLesson === topic.topicID && (
                 <div className="add-lesson-options">
                   <AddLessonQuiz topic={topic.topicID} />
@@ -264,9 +257,6 @@ const handleDeleteTopic = (topicDeleteId) => {
                   <AddLessonArticle topic={topic.topicID} />
                 </div>
               )}
-            </div>
-
-            <div className="">
               <ul className="lesson-section-content">
                 {lessons
                   .filter((lesson) => lesson.topicID === topic.topicID)
@@ -276,22 +266,12 @@ const handleDeleteTopic = (topicDeleteId) => {
                         key={lesson.lessonId}
                         className="lesson-detail-content"
                       >
-                        <span>Lecture</span>
-                        <input
-                          type="text"
-                          readOnly
-                          value={lesson.lessonOrder}
-                          onChange={(e) =>
-                            handleUpdateOrderLesson(
-                              lesson.lessonId,
-                              e.target.value
-                            )
-                          }
-                          className="lesson-detail-content-order"
-                        />
-                        <input type="text" readOnly value={lesson.lessonName} />
+                        <span className="lesson-detail-lecture-name">
+                          Lecture {lesson.lessonOrder}: {lesson.lessonName}
+                        </span>
 
                         <div className="lesson-sidebar-right">
+                          
                           {lesson.lessonType === 1 && (
                             <EditLessonQuiz lessonId={lesson.lessonId} />
                           )}
@@ -301,13 +281,11 @@ const handleDeleteTopic = (topicDeleteId) => {
                           {lesson.lessonType === 3 && (
                             <EditLessonArticle lessonId={lesson.lessonId} />
                           )}
-                          <div
+                          <button
                             onClick={() => handleDeleteLesson(lesson.lessonId)}
                           >
-                            Delete
-                          </div>
-
-                          <i className="fa-solid fa-angle-down"></i>
+                            <i class="fa-solid fa-trash"></i>
+                          </button>
                         </div>
                       </li>
                     </div>

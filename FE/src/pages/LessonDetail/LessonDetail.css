@@ -1,30 +1,53 @@
 .lesson-detail-container {
-  border: 1px solid black;
   max-width: 100%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.16);
+  margin: 10px 10%;
 }
 
 .lesson-detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 20px;
+}
+
+.lesson-detail-header-left {
   color: #2d2f31;
-  border-bottom: 1px solid #d1d7dc;
+
   height: 96px;
   padding: 24px;
   font-weight: 700;
-  font-size: 1.8rem;
+  font-size: 48px;
   line-height: 1.35;
   font-family: Georgia;
-  text-align: center;
 }
 
 .lesson-detail-section {
   background-color: #f7f9fa;
   margin: 20px;
   overflow: hidden;
+  padding: 0 20px;
 }
 
 .lesson-detail-header-name {
   font-weight: 700;
   margin: 40px 10px 10px 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.lesson-detail-lesson-add-btn {
+  padding: 0px 12px;
+  height: 36px;
+  border: 1px solid black;
+  background-color: black;
+  color: white;
+  font-weight: 400;
+}
+
+.lesson-detail-topic-left {
+  font-weight: 600;
+  font-size: 20px;
 }
 
 .lesson-section-content {
@@ -42,9 +65,36 @@
   color: #2d2f31;
   font-weight: 400;
   line-height: 1.4;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
 }
 
 .lesson-detail-content-order {
   width: 20px;
-  text-align:center;
+  text-align: center;
+}
+
+.lesson-detail-lecture-name {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.lesson-detail-topic-icon {
+  margin: 0 10px;
+}
+
+.add-lesson-options {
+  display: flex;
+  justify-content: end;
+}
+
+.add-lesson-btn-choice{
+  margin: 10px 20px;
+}
+
+.add-lesson-btn-choice:hover{
+  opacity: 0.7;
 }

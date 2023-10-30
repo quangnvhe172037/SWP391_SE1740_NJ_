@@ -30,12 +30,12 @@ public class ExpertSubjectController {
 
     }
 
-    // Update order of subject topic
+     //Update order of subject topic
     @PutMapping("/update/order/{subjectTopicId}")
     public ResponseEntity<String> updateSubjectTopicOrder(
             @PathVariable Long subjectTopicId,
-            @RequestParam Integer order,
-            @RequestParam String name
+            @RequestParam String name,
+            @RequestParam Integer order
     ) {
         try {
             subjectTopicService.updateOrderSubjectTopic(subjectTopicId, order, name);
@@ -49,7 +49,7 @@ public class ExpertSubjectController {
 
     // Add new subject topic
     @PostMapping("/add/topic/{subjectId}")
-    public ResponseEntity<String> updateSubjectTopicOrder(
+    public ResponseEntity<String> addNewSubjectTopic(
             @PathVariable Long subjectId,
             @RequestParam String topicName,
             @RequestParam Integer topicOrder
@@ -65,15 +65,16 @@ public class ExpertSubjectController {
     }
 
     // Edit data of the topic subject
-    @PutMapping("/api/expert/subject/edit/topic/{subjectTopicId}")
+    @PutMapping("/edit/topic/{subjectTopicId}")
     public ResponseEntity<String> updateSubjectTopicData(
             @PathVariable Long subjectTopicId,
             @RequestParam String topicName,
             @RequestParam Integer topicOrder
     ) {
         try {
-
-            return ResponseEntity.ok("delete successfully");
+            System.out.println("updateSubjectTopicData");
+            subjectTopicService.updateSubjectTopic(subjectTopicId, topicName, topicOrder);
+            return ResponseEntity.ok("update successfully");
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

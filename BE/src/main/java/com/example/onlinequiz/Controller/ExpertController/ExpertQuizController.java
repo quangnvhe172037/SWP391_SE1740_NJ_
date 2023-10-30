@@ -1,9 +1,7 @@
 package com.example.onlinequiz.Controller.ExpertController;
 
 import com.example.onlinequiz.Model.*;
-import com.example.onlinequiz.Payload.Request.QuizAnswerRequest;
-import com.example.onlinequiz.Payload.Request.QuizRequest;
-import com.example.onlinequiz.Payload.Request.QuizSentenceRequest;
+import com.example.onlinequiz.Payload.Request.*;
 import com.example.onlinequiz.Payload.Response.QuestionResponse;
 import com.example.onlinequiz.Payload.Response.QuizSentenceResponse;
 import com.example.onlinequiz.Services.*;
@@ -47,9 +45,10 @@ public class ExpertQuizController {
         quizService.addQuestion(questionDTO, subjectName);
         return ResponseEntity.ok("Question add Successfully");
     }
+
     //api get question
     @GetMapping("/get/{subjectName}")
-    public List<QuestionResponse> getQuestionBySubjectName(@PathVariable String subjectName){
+    public List<QuestionResponse> getQuestionBySubjectName(@PathVariable String subjectName) {
         return quizDataService.getQuestionBySubjectName(subjectName);
     }
 
@@ -83,7 +82,7 @@ public class ExpertQuizController {
             @RequestBody QuizSentenceRequest quizSentenceRequest
 
     ) {
-        System.out.println(quizSentenceRequest.getQuizQuestions().getQuestionData());
+
         try {
             Quizzes q = quizService.getQuizByLessonId(lessonId);
 
@@ -118,6 +117,61 @@ public class ExpertQuizController {
             quizQuestion.setQuizData(quizData);
             quizQuestion.setQuestionData(quizSentenceRequest.getQuizQuestions().getQuestionData());
             quizQuestionService.addNewQuestion(quizQuestion);
+
+            return ResponseEntity.ok(data);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
+    }
+
+    @PutMapping("/update/quiz/data/{sentenceId}")
+    public ResponseEntity<String> updateArticleLesson(
+            @PathVariable Long sentenceId,
+            @RequestBody UpdateQuizSentenceRequest quizSentenceRequest
+
+    ) {
+
+        try {
+            QuizData quizData = quizDataService.findById(sentenceId);
+
+            QuizQuestions q = quizQuestionService.findByQuestionId(quizSentenceRequest.getQuizQuestion().getQuestionId());
+            q.setQuestionData(quizSentenceRequest.getQuizQuestion().getQuestionData());
+
+            for (UpdateQuizAnswerRequest quizAnswerRequest : quizSentenceRequest.getQuizAnswers()
+            ) {
+                QuizAnswers quizAnswer = quizAnswerService.findAllByAnswerId(quizAnswerRequest.getAnswerId());
+                quizAnswer.setAnswerData(quizAnswerRequest.getAnswerData());
+                quizAnswer.setQuizData(quizData);
+                quizAnswer.setTrueAnswer(quizAnswerRequest.isTrueAnswer());
+                quizAnswer.setExplanation(quizAnswerRequest.getExplanation());
+                quizAnswerService.addNewAnswer(quizAnswer);
+            }
+
+
+            return ResponseEntity.ok("oke");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
+    }
+
+    @GetMapping("/get/quiz/sentence/{sentenceId}")
+    public ResponseEntity<QuizSentenceResponse> addNewQuizSentence(
+            @PathVariable Long sentenceId
+
+    ) {
+
+        try {
+            QuizData quizData = quizDataService.findById(sentenceId);
+            QuizSentenceResponse data = new QuizSentenceResponse(
+                            quizData.getSentenceID(),
+                            quizData.getQuizAnswers(),
+                            quizData.getQuizQuestions()
+
+                    );
 
             return ResponseEntity.ok(data);
         } catch (Exception e) {

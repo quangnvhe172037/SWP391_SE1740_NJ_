@@ -2,7 +2,9 @@ package com.example.onlinequiz.Controller.ExpertController;
 
 import com.example.onlinequiz.Model.*;
 import com.example.onlinequiz.Payload.Request.*;
+import com.example.onlinequiz.Payload.Response.ArticleLessonResponse;
 import com.example.onlinequiz.Payload.Response.QuizSentenceResponse;
+import com.example.onlinequiz.Payload.Response.VideoLessonResponse;
 import com.example.onlinequiz.Services.LessonService;
 import com.example.onlinequiz.Services.QuizService;
 import com.example.onlinequiz.Services.SubjectService;
@@ -181,6 +183,97 @@ public class ExpertLessonController {
             lesson.setTopic(subjectTopic);
             lesson.setLessonContent(article);
             lesson.setLessonType(new LessonType(3, "content"));
+            lessonService.addNewLesson(lesson);
+
+
+            return ResponseEntity.ok(lesson);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
+    }
+
+    @GetMapping("/get/article/{lessonId}")
+    public ResponseEntity<ArticleLessonResponse> getArticleLesson(
+            @PathVariable Long lessonId
+
+    ) {
+
+        try {
+           Lessons lesson = lessonService.getLessonData(lessonId);
+            ArticleLessonResponse response = new ArticleLessonResponse(lessonId,lesson.getLessonName(), lesson.getOrder(), lesson.getLessonContent());
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
+    }
+
+    @GetMapping("/get/video/{lessonId}")
+    public ResponseEntity<VideoLessonResponse> getVideoLesson(
+            @PathVariable Long lessonId
+
+    ) {
+
+        try {
+            Lessons lesson = lessonService.getLessonData(lessonId);
+            VideoLessonResponse response = new VideoLessonResponse(lessonId, lesson.getLessonName(), lesson.getOrder(), lesson.getVideoLink());
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
+    }
+
+    @PutMapping("/update/video/{lessonId}")
+    public ResponseEntity<Lessons> updateVideoLesson(
+            @PathVariable Long lessonId,
+            @RequestBody AddNewLessonVideoRequest request
+
+    ) {
+
+        try {
+            String lessonName = request.getLessonName();
+            Integer lessonOrder = request.getLessonOrder();
+            String video = request.getVideo();
+
+            Lessons lesson = lessonService.getLessonData(lessonId);
+            lesson.setLessonName(lessonName);
+            lesson.setOrder(lessonOrder);
+
+            lesson.setVideoLink(video);
+            lessonService.addNewLesson(lesson);
+
+
+            return ResponseEntity.ok(lesson);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
+    }
+
+    // Add new lesson article
+    @PutMapping("/update/article/{lessonId}")
+    public ResponseEntity<Lessons> updateArticleLesson(
+            @PathVariable Long lessonId,
+            @RequestBody AddNewLessonArticleRequest request
+
+    ) {
+
+        try {
+            String lessonName = request.getLessonName();
+            Integer lessonOrder = request.getLessonOrder();
+            String article = request.getArticle();
+
+
+            Lessons lesson = lessonService.getLessonData(lessonId);
+            lesson.setLessonName(lessonName);
+            lesson.setOrder(lessonOrder);
+            lesson.setLessonContent(article);
             lessonService.addNewLesson(lesson);
 
 

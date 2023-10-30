@@ -3,6 +3,8 @@ import jwtDecode from "jwt-decode";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import { useParams } from "react-router-dom";
+import './AddNewTopic.css'
+
 const AddNewTopic = () => {
   const { subjectId } = useParams();
   const [topicName, setTopicName] = useState("");
@@ -11,6 +13,11 @@ const AddNewTopic = () => {
   const user = jwtDecode(token);
 
   const handleSubmit = () => {
+    if (topicName === '' || topicOrder === '') {
+      alert("Do not empty");
+      return;
+    }
+
     fetch(
       `http://localhost:8080/api/expert/subject/add/topic/${subjectId}?topicName=${topicName}&topicOrder=${parseInt(
         topicOrder
@@ -43,44 +50,48 @@ const AddNewTopic = () => {
   };
 
   return (
-    <div className="">
+    <div className="lesson-detail-header-right">
       <Popup
-        trigger={<button className="button"> Add new topic </button>}
+        trigger={
+          <button className="button lesson-detail-header-right-button">
+            New topic
+          </button>
+        }
         modal
         nested
       >
         {(close) => (
           <div className="modal-data">
-            <button className="close-data" onClick={close}>
-              &times;
-            </button>
-            <div className="header-data"> Add new topic </div>
-            <div className="content-data">
-              <div>
-                <span>Topic name:</span>
-                <input
-                  type="text"
-                  value={topicName}
-                  required
-                  placeholder="Topic name"
-                  onChange={(e) => setTopicName(e.target.value)}
-                />
-              </div>
-
-              <div>
-                <span>Order:</span>
-                <input
-                  type="number"
-                  min={1}
-                  value={topicOrder}
-                  required
-                  placeholder="Order"
-                  onChange={(e) => setOrder(e.target.value)}
-                />
-              </div>
+           
+            <div className="header-data lesson-detail-new-topic-header">
+              Add new topic
             </div>
-            <div className="actions">
-              <button className="button" onClick={() => handleSubmit()}>
+            <div className="content-data lesson-detail-new-topic-content">
+              <input
+                type="text"
+                className=" add-subject-topic-input"
+                value={topicName}
+                required
+                placeholder="Topic name"
+                onChange={(e) => setTopicName(e.target.value)}
+              />
+
+              <input
+                className="add-subject-topic-input"
+                type="number"
+                min={1}
+                value={topicOrder}
+                required
+                placeholder="Order"
+                onChange={(e) => setOrder(e.target.value)}
+              />
+            </div>
+            <div className="actions add-subject-topic-btn-wrap">
+              <button onClick={close}>Cancel</button>
+              <button
+                className="button add-subject-topic-btn lesson-detail-lesson-add-btn"
+                onClick={() => handleSubmit()}
+              >
                 Save
               </button>
             </div>

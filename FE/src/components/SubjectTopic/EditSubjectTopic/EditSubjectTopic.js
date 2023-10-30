@@ -42,51 +42,54 @@ const EditSubjectTopic = (prop) => {
   };
 
   return (
-    <div className="">
-      <Popup
-        trigger={<button className="button"> Edit topic </button>}
-        modal
-        nested
-      >
-        {(close) => (
-          <div className="modal-data">
-            <button className="close-data" onClick={close}>
-              &times;
-            </button>
-            <div className="header-data"> Add new topic </div>
-            <div className="content-data">
-              <div>
-                <span>Topic name:</span>
-                <input
-                  type="text"
-                  value={topicName}
-                  required
-                  placeholder="Topic name"
-                  onChange={(e) => setTopicName(e.target.value)}
-                />
-              </div>
-
-              <div>
-                <span>Order:</span>
-                <input
-                  type="number"
-                  min={1}
-                  value={topicOrder}
-                  required
-                  placeholder="Order"
-                  onChange={(e) => setOrder(e.target.value)}
-                />
-              </div>
-            </div>
-            <div className="actions">
-              <button className="button" onClick={() => handleSubmit()}>
-                Save
-              </button>
-            </div>
+    <Popup
+      trigger={
+        <button className="button lesson-detail-topic-icon">
+          <i class="fa-solid fa-pen-to-square"></i>
+        </button>
+      }
+      modal
+      nested
+    >
+      {(close) => (
+        <div className="modal-data">
+          <div className="header-data lesson-detail-new-topic-header">
+            Edit topic
           </div>
-        )}
-      </Popup>
-    </div>
+          <div className="content-data lesson-detail-new-topic-content">
+            <input
+              type="text"
+              className=" add-subject-topic-input"
+              value={topicName}
+              required
+              placeholder="Topic name"
+              onChange={(e) => setTopicName(e.target.value)}
+            />
+
+
+            <input
+              type="number"
+              min={1}
+              className=" add-subject-topic-input"
+              value={topicOrder}
+              required
+              placeholder="Order"
+              onChange={(e) => setOrder(e.target.value)}
+            />
+          </div>
+          
+          <div className="actions add-subject-topic-btn-wrap">
+            <button onClick={close}>Cancel</button>
+            <button
+              className="button add-subject-topic-btn lesson-detail-lesson-add-btn"
+              onClick={() => handleSubmit()}
+            >
+              Save
+            </button>
+          </div>
+        </div>
+      )}
+    </Popup>
   );
 };
 

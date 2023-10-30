@@ -226,10 +226,8 @@ INSERT INTO `quiz_practice`.`quiz`
 `pass_rate`)
 VALUES
  (1, "Practice HTML", 1, "", 4, 2, 1, "2023-10-09", 60, 50),
- (2, "Practice Javascript", 1, "", 4, 6, 1, "2023-10-09", 60, 50);
--- (3, "Practice Javascript no 2", 1, "", 4, "", 1, "2023-10-09", "01:00:00", 50),
--- (4, "Practice Javascript no 3", 1, "", 4,"" , 1, "2023-10-09", "01:00:00", 50),
--- (5, "Practice Javascript no 4", 1, "", 4, "", 1, "2023-10-09", "01:00:00", 50);
+ (2, "Practice Javascript", 1, "", 4, 6, 1, "2023-10-09", 60, 50),
+  (3, "Practice Final", 1, "", 4, null, 1, "2023-10-09", 60, 50);
 
 
 -- 14. Insert to quiz_detail 
@@ -266,6 +264,9 @@ VALUES
 
 
 -- 17. Insert to quiz_result_detail
+
+
+
 -- 18. Insert to sliders
 
 INSERT INTO `quiz_practice`.`sliders`
@@ -281,6 +282,8 @@ VALUES
 
 
 -- 19. Insert to subject_join
+
+
 -- 20. Insert to subject_price
 
 
@@ -296,6 +299,9 @@ VALUES
 
 
 -- 21. Insert to subject_teacher
+
+
+
 -- 22. Insert to user_payment
 
 INSERT INTO `quiz_practice`.`user_payment`

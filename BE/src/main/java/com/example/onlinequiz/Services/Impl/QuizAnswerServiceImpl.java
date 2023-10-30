@@ -19,4 +19,9 @@ public class QuizAnswerServiceImpl implements QuizAnswerService {
     public void addNewAnswer(QuizAnswers quizAnswer) {
         quizAnswerRepository.save(quizAnswer);
     }
+
+    @Override
+    public QuizAnswers findAllByAnswerId(Long id) {
+        return quizAnswerRepository.findQuizAnswersByAnswerID(id);
+    }
 }

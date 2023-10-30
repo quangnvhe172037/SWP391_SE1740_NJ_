@@ -18,4 +18,6 @@ public interface QuizDataRepository  extends JpaRepository<QuizData, Long> {
     List<QuizData> findBySubject_SubjectName(String subjectName);
 
     List<QuizData> findBySubject(Subjects subjects);
+
+    QuizData findQuizDataBySentenceID(Long id);
 }

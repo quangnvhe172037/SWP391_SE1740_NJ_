@@ -1,0 +1,37 @@
+.lesson-detail-header-right-button{
+
+    padding: 10px 20px;
+    background-color: black;
+    color: white;
+}
+
+.lesson-detail-new-topic-header{
+    font-weight: bold;
+    font-size: 28px;
+    text-align: center;
+    margin: 10px 0;
+}
+.lesson-detail-new-topic-content{
+    font-size:20px;
+    margin: 10px 20px;
+
+}
+
+.add-subject-topic-btn-wrap{
+    display: flex;
+    justify-content: end;
+}
+
+.add-subject-topic-input{
+    border: 1px solid black;
+    padding: 10px;
+    margin: 10px 10px;
+    width: 100%;
+    
+}
+
+.add-subject-topic-btn{
+    text-align: center;
+    margin: 0 20px;
+    
+}

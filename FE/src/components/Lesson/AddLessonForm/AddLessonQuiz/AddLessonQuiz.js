@@ -59,79 +59,76 @@ const AddLessonQuiz = (prop) => {
   return (
     <div>
       <Popup
-        trigger={<button className="button"> Add quiz lesson </button>}
+        trigger={
+          <button className="button add-lesson-btn-choice">
+            <i class="fa-solid fa-plus"></i>
+            Quiz
+          </button>
+        }
         modal
         nested
       >
         {(close) => (
           <div className="modal-data">
-            <button className="close-data" onClick={close}>
-              &times;
-            </button>
-            <div className="header-data"> Add new quiz lesson </div>
-            <div className="content-data">
-              <div>
-                <span>Lesson name:</span>
-                <input
-                  type="text"
-                  value={lessonName}
-                  required
-                  placeholder="Lesson name"
-                  onChange={(e) => setLessonName(e.target.value)}
-                />
-              </div>
-
-              <div>
-                <span>Order:</span>
-                <input
-                  type="number"
-                  min={1}
-                  value={lessonOrder}
-                  required
-                  placeholder="Order"
-                  onChange={(e) => setOrder(e.target.value)}
-                />
-              </div>
-
-              
-
-              <div>
-                <span>Description:</span>
-                <input
-                  type="text"
-                  value={quizDescription}
-                  required
-                  placeholder="Quiz description"
-                  onChange={(e) => setQuizDescription(e.target.value)}
-                />
-              </div>
-
-              <div>
-                <span>Duration time (minutes):</span>
-                <input
-                  type="number"
-                  value={durationTime}
-                  required
-                  placeholder="Duration time"
-                  onChange={(e) => setDurationTime(e.target.value)}
-                />
-              </div>
-
-              <div>
-                <span>Pass rate:</span>
-                <input
-                  type="number"
-                  value={passRate}
-                  required
-                  min={0}
-                  max={100}
-                  placeholder="Pass rate"
-                  onChange={(e) => setPassRate(e.target.value)}
-                />
-              </div>
+            <div className="header-data lesson-detail-new-topic-header">
+              Add new quiz lesson
             </div>
-            <div className="actions">
-              <button className="button" onClick={() => handleSubmit()}>
+            <div className="content-data lesson-detail-new-topic-content">
+              <input
+                type="text"
+                value={lessonName}
+                required
+                className=" add-subject-topic-input"
+                placeholder="Lesson name"
+                onChange={(e) => setLessonName(e.target.value)}
+              />
+
+              <input
+                type="number"
+                min={1}
+                className=" add-subject-topic-input"
+                value={lessonOrder}
+                required
+                placeholder="Order"
+                onChange={(e) => setOrder(e.target.value)}
+              />
+
+              <input
+                className=" add-subject-topic-input"
+                type="text"
+                value={quizDescription}
+                required
+                placeholder="Quiz description"
+                onChange={(e) => setQuizDescription(e.target.value)}
+              />
+
+              <input
+                type="number"
+                className=" add-subject-topic-input"
+                value={durationTime}
+                required
+                placeholder="Duration time (in minutes)"
+                onChange={(e) => setDurationTime(e.target.value)}
+              />
+
+              <input
+                type="number"
+                value={passRate}
+                className=" add-subject-topic-input"
+                required
+                min={0}
+                max={100}
+                placeholder="Pass rate"
+                onChange={(e) => setPassRate(e.target.value)}
+              />
+            </div>
+
+            <div className="actions add-subject-topic-btn-wrap">
+              <button onClick={close}>Cancel</button>
+              <button
+                className="button add-subject-topic-btn lesson-detail-lesson-add-btn"
+                onClick={() => handleSubmit()}
+              >
                 Save
               </button>
             </div>

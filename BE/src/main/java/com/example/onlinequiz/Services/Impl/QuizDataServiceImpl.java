@@ -96,6 +96,11 @@ public class QuizDataServiceImpl implements QuizDataService {
         return questionResponses;
     }
 
+    @Override
+    public QuizData findById(Long id) {
+        return quizDataRepository.findQuizDataBySentenceID(id);
+    }
+
 }
 
 //    @Override

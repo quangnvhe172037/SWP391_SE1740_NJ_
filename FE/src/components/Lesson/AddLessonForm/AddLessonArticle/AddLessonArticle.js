@@ -48,62 +48,56 @@ const AddLessonArticle = (prop) => {
   return (
     <div className="">
       <Popup
-        trigger={<button className="button"> Add New Lesson Article </button>}
+        trigger={
+          <button className="button add-lesson-btn-choice">
+            <i class="fa-solid fa-plus"></i> Article
+          </button>
+        }
         modal
         nested
       >
         {(close) => (
           <div className="modal-data">
-            <button className="close-data" onClick={close}>
-              &times;
-            </button>
-            <div className="header-data"> Lesson Article</div>
-            <div className="content-data">
-              <div>
-                <span>Lesson name:</span>
-                <input
-                  type="text"
-                  value={lessonName}
-                  required
-                  placeholder="Lesson name"
-                  onChange={(e) => setLessonName(e.target.value)}
-                />
-              </div>
-
-              <div>
-                <span>Order:</span>
-                <input
-                  type="number"
-                  min={1}
-                  value={lessonOrder}
-                  required
-                  placeholder="Order"
-                  onChange={(e) => setOrder(e.target.value)}
-                />
-              </div>
-              <div  className="add-lesson-article-quill" >
-                <ReactQuill
-                theme="snow"
-                className="creat-post-quill"
-                
-                value={valueArticle}
-                onChange={setValueArticle}
-                required
-              />
-              </div>
-              
+            <div className="header-data lesson-detail-new-topic-header">
+              Lesson Article
             </div>
-            <div className="actions">
-              <button className="button" onClick={() => handleSubmit()}>
-                Save
-              </button>
+            <div className="content-data lesson-detail-new-topic-content">
+              <input
+                type="text"
+                value={lessonName}
+                className=" add-subject-topic-input"
+                required
+                placeholder="Lesson name"
+                onChange={(e) => setLessonName(e.target.value)}
+              />
+
+              <input
+                type="number"
+                className=" add-subject-topic-input"
+                min={1}
+                value={lessonOrder}
+                required
+                placeholder="Order"
+                onChange={(e) => setOrder(e.target.value)}
+              />
+
+              <div className="add-lesson-article-quill">
+                <ReactQuill
+                  theme="snow"
+                  className="creat-post-quill"
+                  value={valueArticle}
+                  onChange={setValueArticle}
+                  required
+                />
+              </div>
+            </div>
+            <div className="actions add-subject-topic-btn-wrap">
+              <button onClick={close}>Cancel</button>
               <button
-                className="button"
-                onClick={() => {
-                  close();
-                }}
+                className="button add-subject-topic-btn lesson-detail-lesson-add-btn"
+                onClick={() => handleSubmit()}
               >
-                close modal
+                Save
               </button>
             </div>
           </div>
