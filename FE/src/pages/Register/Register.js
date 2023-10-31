@@ -143,7 +143,7 @@ const Registration = () => {
                                 />
                                 {isLoading ? (
                                     <div className="text-center">
-                                        <p>It will take few second...<FontAwesomeIcon icon={faSpinner} spin size="3px"/></p>
+                                        <p>Loading...<FontAwesomeIcon icon={faSpinner} spin size="3px"/></p>
                                     </div>
                                 ) : (
                                     <div>

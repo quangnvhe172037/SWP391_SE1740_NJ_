@@ -37,7 +37,7 @@ public class QuizController {
     public ResponseEntity<Quizzes> getLesson(
             @PathVariable Long lessonId
     ) {
-        System.out.println("Quiz Controller 1");
+
         Quizzes q = quizService.getQuizByLessonId(lessonId);
         try {
             if (q != null) {
@@ -56,21 +56,28 @@ public class QuizController {
     public ResponseEntity<QuizResultResponse> getQuizResult(
             @RequestParam Long quizId,
             @RequestParam Long userId
-            ) {
-        Quizzes q = quizService.getQuizById(quizId);
-        Users u = userService.getUserById(userId);
-        QuizResultResponse qr = quizResultService.getQuizResult(q, u);
-        try {
-            if (qr != null) {
+    ) {
 
-                return ResponseEntity.ok(qr);
-            } else {
-                return ResponseEntity.notFound().build();
+        try {
+            Quizzes q = quizService.getQuizById(quizId);
+            if (q != null) {
+                Users u = userService.getUserById(userId);
+                if (u != null) {
+                    QuizResultResponse qr = quizResultService.getQuizResult(q, u);
+                    if (qr != null) {
+
+                        return ResponseEntity.ok(qr);
+                    } else {
+                        return ResponseEntity.notFound().build();
+                    }
+                }
             }
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 
     // Lấy dữ liệu của quiz dự theo quizId

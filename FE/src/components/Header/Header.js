@@ -47,127 +47,203 @@ const UserHeader = () => {
   };
   return (
     <div>
-    <nav
-      className="navbar navbar-expand"
-      style={{
-        backgroundColor: "white",
-        boxShadow: "0 2px 4px lightgrey",
-        borderBottom: "1px solid black",
-        height: "72px",
-      }}
-    >
-      <Link
-        to={"/"}
-        className="navbar-brand"
-        style={{ color: "black", fontSize: "1.4rem", fontWeight: "700" }}
+      <nav
+        className="navbar navbar-expand"
+        style={{
+          backgroundColor: "white",
+          boxShadow: "0 2px 4px lightgrey",
+          borderBottom: "1px solid black",
+          height: "72px",
+        }}
       >
-        Quizzi Learn Is Never Late
-      </Link>
-      <div className="navbar-nav mr-auto">
-        <li className="nav-item">
-          <Link to={"/home"} className="nav-link" style={{ color: "black" }}>
-            Home
-          </Link>
-        </li>
-      </div>
-      <div className="navbar-nav ml-auto">
-        {isAuthenticated ? (
-          <>
+        <Link
+          to={"/"}
+          className="navbar-brand"
+          style={{ color: "black", fontSize: "1.4rem", fontWeight: "700" }}
+        >
+          Quizzi Learn Is Never Late
+        </Link>
+        <div className="navbar-nav mr-auto">
+          <li className="nav-item">
+            <Link to={"/home"} className="nav-link" style={{ color: "black" }}>
+              Home
+            </Link>
+          </li>
+        </div>
+        <div className="navbar-nav ml-auto">
+          {isAuthenticated ? (
+            <>
               {userRole === "ADMIN" && (
-                  <li className="nav-item">
-                      <span className="nav-link">
-                          <Link to="/admin/dashboard" style={{ padding: "20px", color:"black", textDecoration:"none" }}>
-                          Admin Dashboard
-                      </Link>
-                      </span>
-
-                  </li>
+                <li className="nav-item">
+                  <span className="nav-link">
+                    <Link
+                      to="/account-list"
+                      style={{
+                        padding: "20px",
+                        color: "black",
+                        textDecoration: "none",
+                      }}
+                      // className="btn"
+                      // style={{ border: "1px solid black" }}
+                    >
+                      View Account List
+                    </Link>
+                    <a
+                      href="https://sandbox.vnpayment.vn/merchantv2/Users/Login.htm?ReturnUrl=%2fmerchantv2%2fUsers%2fLogout.htm"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        padding: "20px",
+                        color: "black",
+                        textDecoration: "none",
+                      }}
+                      // className="btn"
+                      // style={{ border: "1px solid black", marginLeft: "10px" }}
+                    >
+                      View money
+                    </a>
+                    <Link
+                      to="/admin/dashboard"
+                      style={{
+                        padding: "20px",
+                        color: "black",
+                        textDecoration: "none",
+                      }}
+                    >
+                      Admin Dashboard
+                    </Link>
+                  </span>
+                </li>
               )}
               {userRole === "MARKETING" && (
-                  <li className="nav-item">
-                      <span className="nav-link">
-                          <Link to="/marketing/dashboard" style={{ padding: "20px", color:"black", textDecoration:"none" }}>
-                          Admin Dashboard
-                      </Link>
-                      </span>
+                <li className="nav-item">
+                  <span className="nav-link">
+                    <Link
+                      to={"/sliders"}
+                      className="btn"
+                      style={{
+                        padding: "20px",
+                        color: "black",
+                        textDecoration: "none",
+                      }}
+                    >
+                      View Slider List
+                    </Link>
 
-                  </li>
+                    <Link
+                      to={"/marketing/post/manage"}
+                      className="btn"
+                      style={{
+                        padding: "20px",
+                        color: "black",
+                        textDecoration: "none",
+                      }}
+                    >
+                      View My Post
+                    </Link>
+
+                    <Link
+                      to="/marketing/dashboard"
+                      style={{
+                        padding: "20px",
+                        color: "black",
+                        textDecoration: "none",
+                      }}
+                    >
+                      Marketing Dashboard
+                    </Link>
+                  </span>
+                </li>
               )}
               {userRole === "EXPERT" && (
-                  <li className="nav-item">
-                      <span className="nav-link">
-                          <Link to="/expert/dashboard" style={{ padding: "20px", color:"black", textDecoration:"none" }}>
-                          Admin Dashboard
-                      </Link>
-                      </span>
-
-                  </li>
+                <li className="nav-item">
+                  <span className="nav-link">
+                    <Link
+                      to="/expert/dashboard"
+                      style={{
+                        padding: "20px",
+                        color: "black",
+                        textDecoration: "none",
+                      }}
+                    >
+                      Expert Dashboard
+                    </Link>
+                  </span>
+                </li>
               )}
 
-            <li className="nav-item" onClick={toggleDropdown}>
-              <span
-                className="nav-link"
-                style={{ color: "black", cursor: "pointer" }}
-              >
-                Hello, {currentUser.sub} <FontAwesomeIcon icon={faAngleDown} />
-              </span>
-
-              {isDropdownOpen && (
-                <ul
-                  className={`${styles["dropdown-menu"]} ${
-                    isDropdownOpen ? "" : styles["dropdown-menu-closed"]
-                  }`}
+              <li className="nav-item" onClick={toggleDropdown}>
+                <span
+                  className="nav-link"
+                  style={{ color: "black", cursor: "pointer" }}
                 >
-                  <li>
-                    <Link to="/profile" className="dropdown-item" style={{padding: "20px"}}>
-                      Profile
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/account" className="dropdown-item" style={{padding: "20px"}}>
-                      Go to my learning
-                    </Link>
-                  </li>
-                </ul>
-              )}
-            </li>
-            <li className="nav-item">
-              <a
-                href="/login"
-                className="nav-link"
-                onClick={logOut}
-                style={{ color: "black" }}
-              >
-                LogOut
-              </a>
-            </li>
+                  Hello, {currentUser.sub}{" "}
+                  <FontAwesomeIcon icon={faAngleDown} />
+                </span>
 
-          </>
-        ) : (
-          <>
-            <li className="nav-item">
-              <Link
-                to={"/login"}
-                className="nav-link"
-                style={{ color: "black" }}
-              >
-                Login
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
-                to={"/register"}
-                className="nav-link"
-                style={{ color: "black" }}
-              >
-                Sign Up
-              </Link>
-            </li>
-          </>
-        )}
-      </div>
+                {isDropdownOpen && (
+                  <ul
+                    className={`${styles["dropdown-menu"]} ${
+                      isDropdownOpen ? "" : styles["dropdown-menu-closed"]
+                    }`}
+                  >
+                    <li>
+                      <Link
+                        to="/profile"
+                        className="dropdown-item"
+                        style={{ padding: "20px" }}
+                      >
+                        Profile
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/myRegistration"
+                        className="dropdown-item"
+                        style={{ padding: "20px" }}
+                      >
+                        Go to my learning
+                      </Link>
+                    </li>
+                  </ul>
+                )}
+              </li>
+              <li className="nav-item">
+                <a
+                  href="/login"
+                  className="nav-link"
+                  onClick={logOut}
+                  style={{ color: "black" }}
+                >
+                  LogOut
+                </a>
+              </li>
+            </>
+          ) : (
+            <>
+              <li className="nav-item">
+                <Link
+                  to={"/login"}
+                  className="nav-link"
+                  style={{ color: "black" }}
+                >
+                  Login
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link
+                  to={"/register"}
+                  className="nav-link"
+                  style={{ color: "black" }}
+                >
+                  Sign Up
+                </Link>
+              </li>
+            </>
+          )}
+        </div>
       </nav>
-      </div>
+    </div>
   );
 };
 

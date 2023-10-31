@@ -13,6 +13,7 @@ const AccountList = () => {
     const [sortByRoleAscending, setSortByRoleAscending] = useState(true);
     const [searchEmail, setSearchEmail] = useState("");
     const navigate = useNavigate();
+    const [currentRole, setCurrentRole] = useState('ADMIN'); // Vai trò hiện tạiFE
     const fetchAccounts = async () => {
         try {
             const response = await axios.get('http://localhost:8080/admin/all-accounts', {

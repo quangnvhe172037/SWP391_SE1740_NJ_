@@ -43,14 +43,14 @@ const VerifyEmail = () => {
 
                     {/* Hiển thị nút hoặc liên kết để quay lại trang xác minh email */}
                 </div>
-            ) : response === 'This account has been verified, please login' ? (
+            ) : response === 'Token has been expired, register again.' ? (
                 <div>
-                    <p>This account has been verified, please login<FontAwesomeIcon icon={faDoorOpen}/></p>
+                    <p>Token is expired. Please register again.<FontAwesomeIcon icon={faDoorClosed}/></p>
                     {/* Hiển thị nút hoặc liên kết để quay lại trang xác minh email */}
                 </div>
             ):  (
                 <div>
-                    <p>Token is expired. Please register again.<FontAwesomeIcon icon={faDoorClosed}/></p>
+                    <p>This account has been verified, please login.<FontAwesomeIcon icon={faDoorOpen}/></p>
                     {/* Hiển thị nút hoặc liên kết để quay lại trang xác minh email */}
                 </div>
             )}

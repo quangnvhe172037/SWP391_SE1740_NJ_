@@ -19,7 +19,10 @@ public class SubjectTopics {
     @Column(name = "topic_name", length = 256, columnDefinition = "VARCHAR(256) CHARACTER SET utf8mb4")
     private String topicName;
 
-    @Column(name = "order")
+    @Column(name = "status")
+    private boolean status = true;
+
+    @Column(name = "subject_topic_order")
     private Integer order;
 
     @ManyToOne

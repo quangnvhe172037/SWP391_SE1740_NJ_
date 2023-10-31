@@ -38,4 +38,5 @@ public class UserPayment {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private Users users;
+
 }

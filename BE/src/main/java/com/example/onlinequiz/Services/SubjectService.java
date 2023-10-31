@@ -1,5 +1,6 @@
 package com.example.onlinequiz.Services;
 
+import com.example.onlinequiz.Model.SubjectTopics;
 import com.example.onlinequiz.Model.Subjects;
 import com.example.onlinequiz.Payload.Response.SubjectDetailResponse;
 
@@ -13,4 +14,7 @@ public interface SubjectService {
     Subjects save(Subjects subjects);
 
     SubjectDetailResponse getSubjectDetail(Long userId, Long subjectId);
+
+    Long countAllSubject();
+
 }

@@ -17,4 +17,5 @@ public interface QuizDetailRepository  extends JpaRepository<QuizDetail, Long> {
 //    List<QuizDetail> getAllByQuizID(Long id);
 
 
+
 }

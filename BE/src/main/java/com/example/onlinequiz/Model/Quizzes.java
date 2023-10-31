@@ -24,7 +24,7 @@ public class Quizzes {
     private String quizName;
 
     @Column(name = "status")
-    private boolean status;
+    private boolean status = true;
 
     @Column(name = "description", length = 256, columnDefinition = "VARCHAR(256) CHARACTER SET utf8mb4")
     private String description;
@@ -44,7 +44,7 @@ public class Quizzes {
     private Date dateCreate;
 
     @Column(name = "duration_time")
-    private Time durationTime;
+    private Integer durationTime;
 
     @Column(name = "pass_rate")
     private int passRate;

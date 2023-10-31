@@ -31,4 +31,8 @@ public interface UserService {
     Users getUserByEmail(String email);
 
     Users getUserById(Long id);
+
+    Long countAllUser();
+
+    Long countNewUser();
 }

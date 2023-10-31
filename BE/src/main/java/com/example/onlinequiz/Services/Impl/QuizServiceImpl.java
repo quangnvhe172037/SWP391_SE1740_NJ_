@@ -1,15 +1,19 @@
 package com.example.onlinequiz.Services.Impl;
 
 import com.example.onlinequiz.Model.*;
+import com.example.onlinequiz.Payload.Request.DeleteQuestRequest;
 import com.example.onlinequiz.Payload.Request.QuizRequest;
 import com.example.onlinequiz.Payload.Response.QuizInfoResponse;
 import com.example.onlinequiz.Payload.Response.QuizInfoResponse;
+import com.example.onlinequiz.Payload.Response.QuizSentenceResponse;
 import com.example.onlinequiz.Repo.*;
 import com.example.onlinequiz.Services.QuizService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -32,6 +36,7 @@ public class QuizServiceImpl implements QuizService {
 
     @Autowired
     private final QuizAnswerRepository quizAnswerRepository;
+
     @Override
     public Quizzes getQuizByLessonId(Long id) {
         return quizRepository.getQuizzesByLessonid(id);
@@ -63,8 +68,8 @@ public class QuizServiceImpl implements QuizService {
     }
 
     @Override
-    public void addQuestion(QuizRequest request, String subjectName) {
-        Subjects subjects = subjectRepository.findBySubjectName(subjectName);
+    public void addQuestion(QuizRequest request, Long subjectName) {
+        Subjects subjects = subjectRepository.getSubjectsBySubjectID(subjectName);
         if (subjects == null) {
             throw new RuntimeException("Subject not found");
         }
@@ -73,7 +78,7 @@ public class QuizServiceImpl implements QuizService {
         quizDataRepository.save(quizData);
 
         QuizQuestions questions = new QuizQuestions();
-        questions.setQuestionData(request.getQuestionData());
+        questions.setQuestionData(request.getQuestion());
         questions.setQuizData(quizData);
         quizQuestionRepository.save(questions);
 
@@ -94,6 +99,57 @@ public class QuizServiceImpl implements QuizService {
                 quizAnswers.setExplanation(explaination);
             }
             quizAnswerRepository.save(quizAnswers);
+        }
+    }
+
+    @Override
+    public List<QuizDetail> getQuizDetailByQuiz(Quizzes q) {
+        return quizDetailRepository.getAllByQuizzes(q);
+    }
+
+    @Override
+    public List<QuizSentenceResponse> getListQuizDataByQuizDetail(List<QuizDetail> qd) {
+        try {
+            List<QuizData> quizDataList = quizDataRepository.getAllByQuizDetailIsIn(qd);
+
+            List<QuizSentenceResponse> data = new ArrayList<>();
+            for (QuizData quizData : quizDataList
+            ) {
+                data.add(new QuizSentenceResponse(
+                        quizData.getSentenceID(),
+                        quizData.getQuizAnswers(),
+                        quizData.getQuizQuestions()
+                ));
+            }
+
+            return data;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+
+    }
+
+    @Override
+    public void addNewQuiz(Quizzes q) {
+        quizRepository.save(q);
+    }
+    public void deleteQuestion(DeleteQuestRequest request) {
+        QuizData quizData = quizDataRepository.findQuizDataBySentenceID(request.getQuesId());
+        if(quizData != null){
+            QuizQuestions question = quizQuestionRepository.findQuizQuestionsByQuestionID(quizData.getQuizQuestions().getQuestionID());
+            if(question != null){
+                List<QuizAnswers> answers = quizAnswerRepository.findByQuizData(quizData);
+                for(QuizAnswers quizAnswers : answers){
+                    quizAnswerRepository.delete(quizAnswers);
+                }
+                quizQuestionRepository.delete(question);
+                quizDataRepository.delete(quizData);
+            } else {
+                throw new RuntimeException("Question not found");
+            }
+        } else {
+            throw new RuntimeException("Subject not found");
         }
     }
 }

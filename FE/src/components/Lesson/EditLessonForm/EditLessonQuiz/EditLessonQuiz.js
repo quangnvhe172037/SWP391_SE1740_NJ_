@@ -1,82 +1,184 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./EditLessonQuiz.css";
-const EditLessonQuiz= (prop) => {
-//   const [questions, setQuestions] = useState([]);
+import jwtDecode from "jwt-decode";
+import { useNavigate, useParams } from "react-router-dom";
+import Popup from "reactjs-popup";
+import EditQuizInfo from "../EditQuizInfo/EditQuizInfo";
+const EditLessonQuiz = (prop) => {
   const [showForm, setShowForm] = useState(false);
+  const lessonId = prop.lessonId;
+  const { subjectId } = useParams();
+  const [questions, setQuestions] = useState([]);
+  const token = localStorage.getItem("token");
+  const user = jwtDecode(token);
+  const [seed, setSeed] = useState(1);
 
-    const initialQuestions = [
-      {
-        question: "Câu hỏi mẫu 1",
-        answers: ["Đáp án 1", "Đáp án 2", "Đáp án 3", "Đáp án 4"],
-        explanation: "Giải thích câu hỏi 1",
-        correctAnswer: "answer2",
-      },
-      {
-        question: "Câu hỏi mẫu 2",
-        answers: ["Đáp án 1", "Đáp án 2", "Đáp án 3", "Đáp án 4"],
-        explanation: "Giải thích câu hỏi 2",
-        correctAnswer: "answer3",
-      },
-    ];
+  const reset = () => {
+    setSeed(Math.random());
+  };
 
-    const [questions, setQuestions] = useState(initialQuestions);
-    
+  const GetData = () => {
+    useEffect(() => {
+      console.log("check lessonId: " + lessonId);
+      fetch(`http://localhost:8080/api/questions/get/lesson/${lessonId}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((response) => {
+          if (!response.ok) {
+            // throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+
+        .then((dataJson) => {
+          const data = dataJson.map((item) => ({
+            sentenceId: item.sentenceId,
+            quizAnswers: [item.quizAnswers],
+            quizQuestion: item.quizQuestions,
+          }));
+          return data;
+        })
+
+        .then((result) => {
+          const mockData = result;
+          setQuestions(mockData);
+        });
+    }, [seed]);
+  };
   const addQuestion = () => {
     setShowForm(true);
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const question = formData.get("question");
-    const answers = [];
-    for (let i = 0; i < 4; i++) {
-      answers.push(formData.get(`answer${i + 1}`));
-    }
-    const explanation = formData.get("explanation");
-    const correctAnswer = formData.get("correct");
+    const form = new FormData(e.target);
+    const dataToSend = {
+      quizAnswers: [
+        {
+          answerData: form.get("answer1"),
+          explanation: form.get("explanation1"),
+          trueAnswer: form.get("correct1") === "answer1",
+        },
+        {
+          answerData: form.get("answer2"),
+          explanation: form.get("explanation2"),
+          trueAnswer: form.get("correct2") === "answer2",
+        },
+        {
+          answerData: form.get("answer3"),
+          explanation: form.get("explanation3"),
+          trueAnswer: form.get("correct3") === "answer3",
+        },
+        {
+          answerData: form.get("answer4"),
+          explanation: form.get("explanation4"),
+          trueAnswer: form.get("correct4") === "answer4",
+        },
+      ],
+      quizQuestions: { questionData: form.get("question") },
+    };
 
-    setQuestions((prevQuestions) => [
-      ...prevQuestions,
+    fetch(
+      `http://localhost:8080/api/questions/add/lesson/${lessonId}?subjectId=${subjectId}`,
       {
-        question,
-        answers,
-        explanation,
-        correctAnswer,
-      },
-    ]);
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(dataToSend),
+      }
+    )
+      .then((response) => {
+        if (!response.ok) {
+        }
+        return response.json();
+      })
+      .then((data) => {
+        alert("Update successful");
+        reset();
+      })
+      .catch((error) => {});
     setShowForm(false);
   };
 
+  const handleExit = () => {
+    setShowForm(false);
+
+    reset();
+  };
+
+  const handleDelete = () => {};
+
   return (
     <div>
-      <button onClick={addQuestion}>Thêm câu hỏi</button>
+      <Popup
+        trigger={
+          <button className="button" onClick={GetData()}>
+            <i class="fa-solid fa-pen-to-square"></i>
+          </button>
+        }
+        modal
+        nested
+      >
+        {(close) => (
+          <div>
+            <h2>Question List</h2>
+            <button onClick={addQuestion}>Add new Question</button>
 
-      {showForm ? (
-        <form onSubmit={handleSubmit}>
-          <input name="question" placeholder="Nhập câu hỏi" />
+            {showForm ? (
+              <form onSubmit={handleSubmit}>
+                <input name="question" placeholder="Enter the question" />
 
-          <input name="answer1" placeholder="Đáp án 1" />
-          <input name="answer2" placeholder="Đáp án 2" />
-          <input name="answer3" placeholder="Đáp án 3" />
-          <input name="answer4" placeholder="Đáp án 4" />
+                <div>
+                  <input type="radio" name="correct1" />
+                  <input name="answer1" placeholder="Answer 1" />
+                  <input name="explanation1" placeholder="Explanation" />
+                </div>
 
-          <input type="radio" name="correct" value="answer1" />
-          <input type="radio" name="correct" value="answer2" />
-          <input type="radio" name="correct" value="answer3" />
-          <input type="radio" name="correct" value="answer4" />
+                <div>
+                  <input type="radio" name="correct1" value="answer2" />
+                  <input name="answer2" placeholder="Answer 2" />
+                  <input name="explanation2" placeholder="Explanation" />
+                </div>
+                <div>
+                  <input type="radio" name="correct1" value="answer3" />
+                  <input name="answer3" placeholder="Answer 3" />
+                  <input name="explanation3" placeholder="Explanation" />
+                </div>
 
-          <input name="explanation" placeholder="Giải thích" />
+                <div>
+                  <input type="radio" name="correct1" value="answer4" />
+                  <input name="answer4" placeholder="Answer 4" />
+                  <input name="explanation4" placeholder="Explanation" />
+                </div>
 
-          <button type="submit">Lưu câu hỏi</button>
-        </form>
-      ) : (
-        <ul>
-          {questions.map((q) => (
-            <li key={q.question}>{q.question}</li>
-          ))}
-        </ul>
-      )}
+                <button type="submit">Save</button>
+                <button type="button" onClick={handleExit}>
+                  Exit
+                </button>
+              </form>
+            ) : (
+              <div>
+                <ul>
+                  {questions.map((q) => (
+                    <li key={q.quizQuestion.questionID}>
+                      {q.quizQuestion.questionData}
+                      <button className="button">
+                        <EditQuizInfo
+                          sentenceId ={q.sentenceId}
+                        />
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        )}
+      </Popup>
     </div>
   );
 };
