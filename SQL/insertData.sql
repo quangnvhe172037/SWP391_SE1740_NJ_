@@ -161,7 +161,15 @@ VALUES
 (1, 4),
 (2, 4),
 (3, 4),
-(4, 4);
+(4, 4),
+(5, 4),
+(6, 4),
+(7, 4),
+(8, 4),
+(9, 4),
+(10, 4),
+(11, 4),
+(12, 4);
 
 
 -- 10. Insert to quiz_answer
@@ -181,10 +189,10 @@ VALUES
 ( 6, "The correct element for the largest heading is <heading>", 2, 0, ""),
 ( 7, "The correct element for the largest heading is <h6>", 2, 0, ""),
 ( 8, "The correct element for the largest heading is <head>", 2, 0, ""),
-( 9, "Web network", 2, 0, ""),
-( 10, "Web server", 2, 0, ""),
-( 11, "Web browser", 2, 1, ""),
-( 12, "Web matrix", 2, 0, "");
+( 9, "Web network", 3, 0, ""),
+( 10, "Web server", 3, 0, ""),
+( 11, "Web browser", 3, 1, ""),
+( 12, "Web matrix", 3, 0, "");
 
 
 -- 11. Insert to quiz_question
@@ -239,7 +247,16 @@ INSERT INTO `quiz_practice`.`quiz_detail`
 VALUES
 (1, 1, 1),
 (2, 2, 1),
-(3, 3, 1);
+(3, 3, 1),
+(4, 4, 1),
+(5, 5, 1),
+(6, 6, 1),
+(7, 7, 1),
+(8, 8, 1),
+(9, 9, 1),
+(10, 10, 1),
+(11, 11, 1),
+(12, 12, 1);
 
 
 -- 15. Insert to exam_level

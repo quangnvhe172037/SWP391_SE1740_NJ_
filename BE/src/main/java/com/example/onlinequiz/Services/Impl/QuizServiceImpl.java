@@ -104,7 +104,7 @@ public class QuizServiceImpl implements QuizService {
 
     @Override
     public List<QuizDetail> getQuizDetailByQuiz(Quizzes q) {
-        return quizDetailRepository.getAllByQuizzes(q);
+        return quizDetailRepository.findAllByQuizzes(q);
     }
 
     @Override

@@ -56,6 +56,7 @@ import AddSubject from "./components/Subject/AddSubject";
 import SubjectDetail from "./pages/SubjectDetail/SubjectDetail";
 import UserRegistrationList from "./components/UserRegistrationList/UserRegistrationList";
 import UserRegistrationDetail from "./components/UserRegistrationList/UserRegistrationDetail/UserRegistrationDetail";
+import QuizAttempt from "./pages/QuizAttempt/QuizAttempt";
 
 
 const App = () => {
@@ -167,7 +168,7 @@ const App = () => {
 
               <Route path="/expert/subjects" element={<SubjectData />} />
 
-              
+              <Route path="/quiz/take/:quizId" element={<QuizAttempt />} />
             </>
           )}
         </Routes>

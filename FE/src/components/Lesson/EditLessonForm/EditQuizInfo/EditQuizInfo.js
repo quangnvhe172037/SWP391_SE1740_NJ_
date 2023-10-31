@@ -50,6 +50,9 @@ const EditQuizInfo = (prop) => {
 
   const handleSubmit = (e) => {
     const form = new FormData(e.target);
+   
+
+    
       const dataToSend = {
         sentenceId: prop.sentenceId,
         quizAnswers: [
@@ -57,25 +60,29 @@ const EditQuizInfo = (prop) => {
             answerId: questions.quizAnswers[0].answerID,
             answerData: form.get("answer1"),
             explanation: form.get("explanation1"),
-            trueAnswer: form.get("correct1") === "answer1",
+            trueAnswer:
+              document.getElementById("edit-quiz-info-radio1").checked === true,
           },
           {
             answerId: questions.quizAnswers[1].answerID,
             answerData: form.get("answer2"),
             explanation: form.get("explanation2"),
-            trueAnswer: form.get("correct2") === "answer2",
+            trueAnswer:
+              document.getElementById("edit-quiz-info-radio2").checked === true,
           },
           {
             answerId: questions.quizAnswers[2].answerID,
             answerData: form.get("answer3"),
             explanation: form.get("explanation3"),
-            trueAnswer: form.get("correct3") === "answer3",
+            trueAnswer:
+              document.getElementById("edit-quiz-info-radio3").checked === true,
           },
           {
             answerId: questions.quizAnswers[3].answerID,
             answerData: form.get("answer4"),
             explanation: form.get("explanation4"),
-            trueAnswer: form.get("correct4") === "answer4",
+            trueAnswer:
+              document.getElementById("edit-quiz-info-radio4").checked === true,
           },
         ],
         quizQuestion: {
@@ -84,7 +91,7 @@ const EditQuizInfo = (prop) => {
         },
       };
 
-      console.log(questions);
+      
     fetch(
       `http://localhost:8080/api/questions/update/quiz/data/${prop.sentenceId}`,
       {
@@ -103,7 +110,6 @@ const EditQuizInfo = (prop) => {
       })
       .then((data) => {
         alert("Update successful");
-        reset();
       })
       .catch((error) => {});
   };
@@ -112,7 +118,7 @@ const EditQuizInfo = (prop) => {
     reset();
   };
 
-  const handleDelete = () => {};
+
 
   return (
     <div>
@@ -141,7 +147,8 @@ const EditQuizInfo = (prop) => {
                   <div>
                     <input
                       type="radio"
-                      name="correct1"
+                      id="edit-quiz-info-radio1"
+                      name="correct"
                       defaultChecked={questions.quizAnswers?.[0]?.trueAnswer}
                     />
                     <input
@@ -158,7 +165,8 @@ const EditQuizInfo = (prop) => {
                   <div>
                     <input
                       type="radio"
-                      name="correct2"
+                      id="edit-quiz-info-radio2"
+                      name="correct"
                       defaultChecked={questions.quizAnswers?.[1]?.trueAnswer}
                     />
                     <input
@@ -175,7 +183,8 @@ const EditQuizInfo = (prop) => {
                   <div>
                     <input
                       type="radio"
-                      name="correct3"
+                      id="edit-quiz-info-radio3"
+                      name="correct"
                       defaultChecked={questions.quizAnswers?.[2]?.trueAnswer}
                     />
                     <input
@@ -192,7 +201,8 @@ const EditQuizInfo = (prop) => {
                   <div>
                     <input
                       type="radio"
-                      name="correct4"
+                      name="correct"
+                      id="edit-quiz-info-radio4"
                       defaultChecked={questions.quizAnswers?.[3]?.trueAnswer}
                     />
                     <input

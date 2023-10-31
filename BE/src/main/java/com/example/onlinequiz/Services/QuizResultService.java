@@ -8,4 +8,6 @@ import com.example.onlinequiz.Payload.Response.QuizResultResponse;
 public interface QuizResultService {
 
     QuizResultResponse getQuizResult(Quizzes q, Users u);
+
+    void addNewQuizResult(Long quizId, Long userId);
 }

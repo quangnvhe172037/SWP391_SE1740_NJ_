@@ -43,7 +43,7 @@ public class QuizDataServiceImpl implements QuizDataService {
         List<QuizData> quizData;
 
         q = quizRepository.findByQuizID(id);
-        qd = quizDetailRepository.getAllByQuizzes(q);
+        qd = quizDetailRepository.findAllByQuizzes(q);
 
 //        quizData = qd.stream()
 //                .map(QuizDetail::getQuizData)

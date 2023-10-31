@@ -1,0 +1,38 @@
+.quiz-attempt-wrap {
+    marign-bottom: 10px;
+}
+
+.quiz-attempt-right {
+  border: 1px solid black;
+  padding: 10px;
+  height: 500px;
+  overflow: scroll;
+  
+}
+
+.quiz-attempt-navigate-box {
+  border: 1px solid black;
+  padding: 8px 10px;
+  width: 100%;
+  text-align: center;
+}
+
+.quiz-attempt-navigate-button-wrap {
+  margin-top: 32px;
+}
+
+.quiz-attempt-navigate-button-element {
+    flex: 1 0 16%; /* Điều chỉnh giá trị flex để điều chỉnh kích thước nút */
+  max-width: 16%; /* Đảm bảo chỉ có 6 nút trên một dòng */
+  margin: 5px; 
+}
+
+.quiz-attempt-navigate-content-wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.quiz-attempt-navigate-header{
+    font-size: 24px;
+    font-weight: bold;
+}
