@@ -72,8 +72,8 @@ public class SubjectServiceImp implements SubjectService {
                     getSubject.getDescription(),
                     getSubject.getImage(),
                     formatter.format(getSubject.getCreateDate()),
-                    getSubjectPrice.getPreID(),
-                    getSubjectPrice.getPrice(),
+                    getSubjectPrice != null ? getSubjectPrice.getPreID() : 0,
+                    getSubjectPrice != null ? getSubjectPrice.getPrice() : 0,
                     getUserPayment.getBillID(),
                     getUserPayment.isStatus(),
                     formatter.format(getUserPayment.getPurchaseDate())
@@ -86,8 +86,8 @@ public class SubjectServiceImp implements SubjectService {
                     getSubject.getDescription(),
                     getSubject.getImage(),
                     formatter.format(getSubject.getCreateDate()),
-                    getSubjectPrice.getPreID(),
-                    getSubjectPrice.getPrice()
+                    getSubjectPrice != null ? getSubjectPrice.getPreID() : 0,
+                    getSubjectPrice != null ? getSubjectPrice.getPrice() : 0
             );
         }
 

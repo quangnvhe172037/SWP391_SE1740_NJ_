@@ -314,6 +314,109 @@ const Subject = () => {
       </section>
     </>
   );
+    var settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        prevArrow: <SampleNextArrow />,
+        nextArrow: <SamplePrevArrow />
+    };
+    return (
+        <>
+            <section className='tuyn-slick mb-14'>
+                <Slider {...settings}>
+                    {sliders.map((item, index) => (
+                        <div key={index}>
+                            <div
+                                className='flex justify-between h-[270px] items-center rounded-xl '
+                                style={{ backgroundImage: `linear-gradient(to right)` }}
+                            >
+                                <div className='hidden md:block w-full'>
+                                    <img className='rounded-xl w-full' style={{ height: '800px' }} src={item.image} alt='' />
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </Slider>
+            </section>
+            <section className='md:px-4 lg:px-9'>
+                <section>
+                    <form onSubmit={handleSubmit} className="pb-12 flex items-center">
+                        <div className="grow flex border border-purple-200 rounded">
+                            <input onChange={handleSearch}
+                                type="text"
+                                className="block w-full px-4 py-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                                placeholder="Search..."
+                            />
+                            <select onChange={handleChange} className="block w-full px-4 py-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40" >
+                                {
+                                    categories.map((data, index) => (
+                                        <option value={data.id}>{data.name}</option>
+                                    ))
+                                }
+                            </select>
+                            <button type="submit" className="px-4 text-white bg-purple-600 border-l rounded ">
+                                Search
+                            </button>
+                        </div>
+                    </form>
+                    <div className='grid grid-flow-col auto-cols-[60%] snap-x overflow-y-auto md:grid-flow-row md:grid-cols-3 lg:grid-cols-4 gap-6 pb-5'>
+                        {courses.slice((pageNum - 1) * 3, Math.min(pageNum * 3, courses.length) + 1).map((data, index) => (
+                            <div className='snap-center snap-always'>
+                                <div className='relative'>
+                                    <div className='absolute bottom-3 flex justify-between items-center w-full px-3'>
+                                        <div className=' w-9 h-9  flex justify-center items-center rounded-xl bg-white'>
+                                            <svg
+                                                xmlns='http://www.w3.org/2000/svg'
+                                                className='h-4 w-4'
+                                                fill='none'
+                                                viewBox='0 0 24 24'
+                                                stroke='currentColor'
+                                                strokeWidth={2}
+                                            >
+                                                <path
+                                                    strokeLinecap='round'
+                                                    strokeLinejoin='round'
+                                                    d='M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z'
+                                                />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <img className='rounded-xl' style={{ height: '200px' }} src={data.image} alt='' />
+                                </div>
+                                <h2 className='font-semibold py-2 text-sm truncate text-center'>
+                                    <Link to={`/subject/${data.subjectID}`}>{data.subjectName}</Link>
+                                </h2>
+                            </div>
+                        ))}
+                    </div>
+                    <div className="pb-12">
+                        <ReactPaginate
+                            breakLabel="..."
+                            nextLabel="next >"
+                            onPageChange={handlePageClick}
+                            pageRangeDisplayed={5}
+                            pageCount={totalPage}
+                            previousLabel="< previous"
+                            renderOnZeroPageCount={null}
+                            pageClassName="page-item"
+                            pageLinkClassName="page-link"
+                            previousClassName="page-item"
+                            previousLinkClassName="page-link"
+                            nextClassName="page-item"
+                            nextLinkClassName="page-link"
+                            breakClassName="page-item"
+                            breakLinkClassName="page-link"
+                            containerClassName="pagination"
+                            activeClassName="active"
+                        />
+                    </div>
+                </section>
+            </section>
+        </>
+    );
 };
 
 export default Subject;
