@@ -58,8 +58,8 @@ public class QuizDataServiceImpl implements QuizDataService {
     }
 
     @Override
-    public List<QuestionResponse> getQuestionBySubjectName(String subjectName) {
-        Subjects subject = subjectRepository.findBySubjectName(subjectName);
+    public List<QuestionResponse> getQuestionBySubjectName(Long subjectName) {
+        Subjects subject = subjectRepository.getSubjectsBySubjectID(subjectName);
         if (subject == null) {
             return new ArrayList<>();
         }
@@ -88,7 +88,7 @@ public class QuizDataServiceImpl implements QuizDataService {
             if (!quizQuestions.isEmpty()) {
                 String questionData = quizQuestions.get(0).getQuestionData(); // Lấy câu hỏi đầu tiên
 
-                QuestionResponse questionResponse = new QuestionResponse(questionData, answerOptions, explanation, correctAnswer);
+                QuestionResponse questionResponse = new QuestionResponse(quizData.getSentenceID(), questionData, answerOptions, explanation, correctAnswer);
                 questionResponses.add(questionResponse);
             }
         }

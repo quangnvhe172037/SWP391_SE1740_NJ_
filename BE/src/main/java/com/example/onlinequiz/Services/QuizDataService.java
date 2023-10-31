@@ -10,7 +10,7 @@ public interface QuizDataService {
 
     void addNewQuizData(QuizData quizData);
 
-    List<QuestionResponse> getQuestionBySubjectName(String subjectName);
+    List<QuestionResponse> getQuestionBySubjectName(Long subjectName);
 
     QuizData findById(Long id);
 

@@ -1,0 +1,4 @@
+.getquiz {
+    max-height: 200px; /* Đặt chiều cao tối đa của phần tử chứa bảng */
+    overflow: auto; /* Kích hoạt thanh cuộn nếu nội dung vượt quá chiều cao tối đa */
+}

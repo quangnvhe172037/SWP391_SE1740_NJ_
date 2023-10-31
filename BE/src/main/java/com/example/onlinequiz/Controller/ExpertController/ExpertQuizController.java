@@ -1,7 +1,14 @@
 package com.example.onlinequiz.Controller.ExpertController;
 
 import com.example.onlinequiz.Model.*;
+
 import com.example.onlinequiz.Payload.Request.*;
+
+import com.example.onlinequiz.Payload.Request.DeleteQuestRequest;
+import com.example.onlinequiz.Payload.Request.QuizAnswerRequest;
+import com.example.onlinequiz.Payload.Request.QuizRequest;
+import com.example.onlinequiz.Payload.Request.QuizSentenceRequest;
+
 import com.example.onlinequiz.Payload.Response.QuestionResponse;
 import com.example.onlinequiz.Payload.Response.QuizSentenceResponse;
 import com.example.onlinequiz.Services.*;
@@ -41,16 +48,23 @@ public class ExpertQuizController {
 
     //api add question
     @PostMapping("/add/{subjectName}")
-    public ResponseEntity<String> addQuestion(@RequestBody QuizRequest questionDTO, @PathVariable String subjectName) {
+    public ResponseEntity<String> addQuestion(@RequestBody QuizRequest questionDTO, @PathVariable Long subjectName) {
         quizService.addQuestion(questionDTO, subjectName);
         return ResponseEntity.ok("Question add Successfully");
     }
 
     //api get question
     @GetMapping("/get/{subjectName}")
-    public List<QuestionResponse> getQuestionBySubjectName(@PathVariable String subjectName) {
+    public List<QuestionResponse> getQuestionBySubjectName(@PathVariable Long subjectName){
         return quizDataService.getQuestionBySubjectName(subjectName);
     }
+    //api delete question
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> deleteQuestion(@RequestBody DeleteQuestRequest request) {
+        quizService.deleteQuestion(request);
+        return ResponseEntity.ok("Question deleted successfully");
+    }
+
 
     // Get all the quiz answer of this lesson to show
     @GetMapping("/get/lesson/{lessonId}")

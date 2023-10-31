@@ -12,4 +12,5 @@ public interface QuizAnswerRepository extends JpaRepository<QuizAnswers, Long> {
     List<QuizAnswers> findByQuizData(QuizData quizData);
 
     QuizAnswers findQuizAnswersByAnswerID(Long id);
+
 }
