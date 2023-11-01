@@ -20,9 +20,9 @@ public class Lessons {
     private String lessonName;
 
     @Column(name = "status")
-    private boolean status;
+    private boolean status = true;
 
-    @Column(name = "order")
+    @Column(name = "lesson_order")
     private Integer order;
 
     @Column(name = "video_link", length = 256)

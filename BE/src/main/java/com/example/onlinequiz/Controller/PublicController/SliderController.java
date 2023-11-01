@@ -117,12 +117,13 @@ public class SliderController {
             Sliders sliderChange = sliderService.findSlider(sliderId);
 
             if (sliderChange != null) {
-
-                // Cập nhật dữ liệu của slider từ updatedSliderData
                 sliderChange.setStatus(status);
-                sliderChange.setNote(note);
-                sliderChange.setTitle(title);
-                // Lưu slider đã cập nhật vào cơ sở dữ liệu
+                if(note != null){
+                    sliderChange.setNote(note);
+                }
+                if(title != null){
+                    sliderChange.setTitle(title);
+                }
                 sliderChange = sliderService.save(sliderChange);
 
                 return ResponseEntity.ok(sliderChange);

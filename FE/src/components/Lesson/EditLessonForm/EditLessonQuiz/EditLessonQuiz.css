@@ -1,0 +1,68 @@
+.edit-lesson-quiz-header-wrap{
+    margin-bottom: 20px;
+    height: auto;
+}
+
+.edit-lesson-quiz-header{
+    font-size: 36px;
+    font-weight: bolder;
+    text-align: center;
+}
+
+.edit-lesson-quiz-add-btn-wrap{
+    margin: 0 0 0 auto;
+    height: auto;
+
+}
+
+.edit-lesson-quiz-add-btn{
+    float: right;
+    background-color:black;
+    color: white;
+    padding: 10px 20px;
+}
+
+.edit-lesson-quiz-list{
+    margin: 60px 20px 20px 20px;
+    height: 500px;
+    padding: 20px;
+    overflow: scroll;
+    box-shadow: 0 2px 4px rgba(0,0,0,.08), 0 4px 12px rgba(0,0,0,.16);
+}
+
+.edit-lesson-quiz-btn-edit{
+    margin: 0 16px;
+}
+
+.edit-lesson-quiz-btn-add-sentence{
+    background-color: black;
+    color: white;
+    width: 70px;
+    padding: 8px 18px;
+    text-align: center;
+    margin: 0 12px;
+}
+
+.edit-lesson-form-element{
+    border: 1px solid black;
+    padding: 10px;
+    margin: 16px 0;
+}
+
+.edit-lesson-form-question{
+    width: 100%;
+    padding: 10px 0;
+}
+
+.edit-lesson-form-element > input{
+    padding: 0 4px;
+}
+
+.edit-lesson-form-explain{
+    
+}
+
+.edit-lesson-quiz-form-btn-wrap{
+    text-align: center;
+    margin-top: 40px;
+}

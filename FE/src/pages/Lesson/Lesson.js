@@ -4,6 +4,7 @@ import LessonSideBar from "../../components/Lesson/LessonSideBar/LessonSideBar";
 import jwtDecode from "jwt-decode";
 import PrivateContent from "../../components/HandleException/PrivateContent";
 import { useParams } from "react-router-dom";
+import NotFoundException from "../../components/HandleException/Error-404/Error-404";
 const Lesson = () => {
     const { subjectId, lessonId } = useParams();
   const token = localStorage.getItem("token");
@@ -40,10 +41,15 @@ const Lesson = () => {
  }, [lessonId, subjectId]);
   
   if (
-    user.role !== "CUSTOMER" ||
-    (!checkLesson)
+    user.role !== "CUSTOMER" 
+    
   ) {
     return <PrivateContent />;
+  }
+    
+  else if ((!checkLesson)) {
+    return <NotFoundException/>
+  
   } else {
     return (
       <div className="row">

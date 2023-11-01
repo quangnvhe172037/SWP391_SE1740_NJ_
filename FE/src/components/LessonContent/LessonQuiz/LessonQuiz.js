@@ -8,7 +8,6 @@ const LessonQuiz = (prop) => {
   const [quizInfo, setQuizInfo] = useState({});
   const token = localStorage.getItem("token");
   let lessonId = prop.lessonId;
-  console.log("LessonQuiz data" + lessonId);
 
   useEffect(() => {
     fetch(`http://localhost:8080/quiz/get/lesson/${lessonId}`, {
@@ -19,7 +18,7 @@ const LessonQuiz = (prop) => {
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Network response was not ok");
+          
         }
         return response.json();
       })

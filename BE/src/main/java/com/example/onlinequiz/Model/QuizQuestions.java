@@ -1,5 +1,6 @@
 package com.example.onlinequiz.Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,5 +22,6 @@ public class QuizQuestions {
 
     @OneToOne
     @JoinColumn(name = "sentence_id")
+    @JsonBackReference
     private QuizData quizData;
 }

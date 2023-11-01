@@ -1,11 +1,13 @@
 package com.example.onlinequiz.Services.Impl;
 
 import com.example.onlinequiz.Model.*;
+import com.example.onlinequiz.Payload.Response.QuestionResponse;
 import com.example.onlinequiz.Repo.*;
 import com.example.onlinequiz.Services.QuizDataService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -30,21 +32,122 @@ public class QuizDataServiceImpl implements QuizDataService {
 
     @Autowired
     private final QuizQuestionRepository quizQuestionRepository;
+
+    @Autowired
+    private final SubjectRepository subjectRepository;
+
+    @Autowired
+    private final QuizResultDetailRepository quizResultDetailRepository;
+
     @Override
     public List<QuizData> getAllQuizData(Long id) {
         Quizzes q = new Quizzes();
         List<QuizDetail> qd;
         List<QuizData> quizData;
-        System.out.println(id);
 
-            q = quizRepository.findByQuizID(id);
-            qd = quizDetailRepository.getAllByQuizzes(q);
-            quizData = qd.stream()
-                    .map(QuizDetail::getQuizData)
-                    .collect(Collectors.toList());
+        q = quizRepository.findByQuizID(id);
+        qd = quizDetailRepository.findAllByQuizzes(q);
 
+//        quizData = qd.stream()
+//                .map(QuizDetail::getQuizData)
+//                .collect(Collectors.toList());
+        quizData = quizDataRepository.getAllByQuizDetailIsIn(qd);
         return quizData;
     }
+
+    @Override
+    public void addNewQuizData(QuizData quizData) {
+        quizDataRepository.save(quizData);
+    }
+
+    @Override
+    public List<QuestionResponse> getQuestionBySubjectName(Long subjectName) {
+        Subjects subject = subjectRepository.getSubjectsBySubjectID(subjectName);
+        if (subject == null) {
+            return new ArrayList<>();
+        }
+
+        List<QuizData> quizDataList = quizDataRepository.findBySubject(subject);
+        List<QuestionResponse> questionResponses = new ArrayList<>();
+
+        for (QuizData quizData : quizDataList) {
+            List<QuizAnswers> quizAnswers = quizAnswerRepository.findByQuizData(quizData);
+            List<String> answerOptions = new ArrayList<>();
+            String explanation = null;
+            String correctAnswer = ""; // Để lưu trữ câu trả lời đúng
+
+            for (int i = 0; i < quizAnswers.size(); i++) {
+                answerOptions.add(quizAnswers.get(i).getAnswerData());
+                if (quizAnswers.get(i).isTrueAnswer()) {
+                    // Ánh xạ câu trả lời đúng thành A, B, C, D
+                    correctAnswer = Character.toString((char) ('A' + i));
+                    explanation = quizAnswers.get(i).getExplanation();
+                }
+            }
+
+            List<QuizQuestions> quizQuestions = quizQuestionRepository.findByQuizData(quizData);
+
+            // Kiểm tra xem danh sách câu hỏi có ít nhất một câu hỏi hay không
+            if (!quizQuestions.isEmpty()) {
+                String questionData = quizQuestions.get(0).getQuestionData(); // Lấy câu hỏi đầu tiên
+
+                QuestionResponse questionResponse = new QuestionResponse(quizData.getSentenceID(), questionData, answerOptions, explanation, correctAnswer);
+                questionResponses.add(questionResponse);
+            }
+        }
+
+        return questionResponses;
+    }
+
+    @Override
+    public QuizData findById(Long id) {
+        return quizDataRepository.findQuizDataBySentenceID(id);
+    }
+
+    @Override
+    public String deleteSentenceLesson(Long sentenceId, Long lessonId) {
+        try{
+            QuizData quizData = quizDataRepository.findQuizDataBySentenceID(sentenceId);
+            List<QuizAnswers> quizAnswers = quizAnswerRepository.findByQuizData(quizData);
+            QuizQuestions quizQuestion = quizQuestionRepository.getByQuizData(quizData);
+            List<QuizDetail> quizDetailList = quizDetailRepository.findAllByQuizData(quizData);
+
+            List<QuizResultDetail> quizResultDetailList = quizResultDetailRepository.findAllByQuizData(quizData);
+            if(quizResultDetailList != null){
+                return "Can not delete because some student have do this test";
+            }
+
+            for (QuizDetail quizDetail: quizDetailList
+            ) {
+                quizDetailRepository.delete(quizDetail);
+            }
+
+            for (QuizAnswers quizAnswer : quizAnswers
+            ) {
+                quizAnswerRepository.delete(quizAnswer);
+            }
+
+            quizQuestionRepository.delete(quizQuestion);
+            quizDataRepository.delete(quizData);
+            return "Delete success";
+        }catch (Exception e){
+            System.out.println("deleteSentece - quizDataService");
+            return "Delete fail";
+        }
+
+    }
+
+    @Override
+    public Boolean checkExistQuiz(QuizData quizData) {
+        List<QuizResultDetail> quizResultDetailList = quizResultDetailRepository.findAllByQuizData(quizData);
+        if(quizResultDetailList == null){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+}
 
 //    @Override
 //    public Object getQuizData(Long id) {
@@ -56,6 +159,3 @@ public class QuizDataServiceImpl implements QuizDataService {
 //        return;
 //    }
 
-
-
-}

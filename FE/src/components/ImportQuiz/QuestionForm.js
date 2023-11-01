@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './QuestionForm.css';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
 function QuestionForm({ onAddQuestion }) {
     const [question, setQuestion] = useState('');
@@ -10,46 +12,133 @@ function QuestionForm({ onAddQuestion }) {
     const [correctAnswer, setCorrectAnswer] = useState('');
     const [explanation, setExplanation] = useState('');
     const [previewQuestion, setPreviewQuestion] = useState(null);
+    const { subjectId } = useParams();
+    const token = localStorage.getItem("token");
+    const [questionData, setQuestionData] = useState({
+        question: '',
+        answerOptions: ['', '', '', ''],
+        correctAnswer: '',
+        explanation: '',
+    });
 
-    const handleAddQuestion = () => {
-        const questionData = {
-            question,
-            answerOptions: [answerA, answerB, answerC, answerD],
-            correctAnswer,
-            explanation,
-        };
+    const addQuestionToServer = async () => {
+        if (
+            !questionData.question ||
+            !questionData.answerOptions[0] ||
+            !questionData.answerOptions[1] ||
+            !questionData.answerOptions[2] ||
+            !questionData.answerOptions[3] ||
+            !questionData.correctAnswer ||
+            !questionData.explanation
+        ) {
+            alert('Please fill in all the question details.');
+            return;
+        }
 
-        setPreviewQuestion(questionData);
-        onAddQuestion(questionData);
+        try {
+            const response = await axios.post(`http://localhost:8080/api/questions/add/${subjectId}`, questionData, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            if (response.status === 200) {
+                alert('Question added successfully.');
+                window.location.reload();
+            }
+        } catch (error) {
+            console.error('Error when adding a question:', error);
+        }
+    };
+
+    const handleInputChange = (event, index) => {
+        const { name, value } = event.target;
+        if (name === 'question') {
+            setQuestionData((prevData) => ({ ...prevData, question: value }));
+        } else if (name === 'answerOptions') {
+            setQuestionData((prevData) => {
+                const updatedAnswerOptions = [...prevData.answerOptions];
+                updatedAnswerOptions[index] = value;
+                return { ...prevData, answerOptions: updatedAnswerOptions };
+            });
+        } else {
+            setQuestionData((prevData) => ({ ...prevData, [name]: value }));
+        }
     };
 
     return (
-        <div className="question-form">
+        <div className="import-quiz">
+            <h1>Add Question</h1>
             <div className="form-group">
-                <label>Câu hỏi</label>
-                <input type="text" className="form-control" value={question} onChange={(e) => setQuestion(e.target.value)} />
+                <label>Question</label>
+                <input
+                    type="text"
+                    className="form-control"
+                    name="question"
+                    value={questionData.question}
+                    onChange={handleInputChange}
+                />
             </div>
-            <div className="form-group answer-group">
-                <label>Đáp án A</label>
-                <input type="text" className="form-control" value={answerA} onChange={(e) => setAnswerA(e.target.value)} />
-                <label>Đáp án B</label>
-                <input type="text" className="form-control" value={answerB} onChange={(e) => setAnswerB(e.target.value)} />
+            <div className="form-group-answer" style={{ display: 'flex', alignItems: 'center' }}>
+                <label>A</label>
+                <input
+                    type="text"
+                    className="form-control"
+                    name="answerOptions"
+                    value={questionData.answerOptions[0]}
+                    onChange={(e) => handleInputChange(e, 0)}
+                />
+                <label>B</label>
+                <input
+                    type="text"
+                    className="form-control"
+                    name="answerOptions"
+                    value={questionData.answerOptions[1]}
+                    onChange={(e) => handleInputChange(e, 1)}
+                />
             </div>
-            <div className="form-group answer-group">
-                <label>Đáp án C</label>
-                <input type="text" className="form-control" value={answerC} onChange={(e) => setAnswerC(e.target.value)} />
-                <label>Đáp án D</label>
-                <input type="text" className="form-control" value={answerD} onChange={(e) => setAnswerD(e.target.value)} />
+
+            <div className="form-group-answer" style={{ display: 'flex', alignItems: 'center' }}>
+                <label>C</label>
+                <input
+                    type="text"
+                    className="form-control"
+                    name="answerOptions"
+                    value={questionData.answerOptions[2]}
+                    onChange={(e) => handleInputChange(e, 2)}
+                />
+                <label>D</label>
+                <input
+                    type="text"
+                    className="form-control"
+                    name="answerOptions"
+                    value={questionData.answerOptions[3]}
+                    onChange={(e) => handleInputChange(e, 3)}
+                />
             </div>
             <div className="form-group">
-                <label>Đáp án đúng</label>
-                <input type="text" className="form-control" value={correctAnswer} onChange={(e) => setCorrectAnswer(e.target.value)} />
+                <label>Correct answer</label>
+                <input
+                    type="text"
+                    className="form-control"
+                    name="correctAnswer"
+                    value={questionData.correctAnswer}
+                    onChange={handleInputChange}
+                />
             </div>
             <div className="form-group">
-                <label>Lời giải thích</label>
-                <textarea className="form-control" value={explanation} onChange={(e) => setExplanation(e.target.value)} />
+                <label>Explaination</label>
+                <textarea
+                    className="form-control"
+                    name="explanation"
+                    value={questionData.explanation}
+                    onChange={handleInputChange}
+                />
             </div>
-            <button className="btn btn-primary" onClick={handleAddQuestion}>Thêm</button>
+            <button className="btn " onClick={addQuestionToServer} style={{backgroundColor: "white", color: "black", border: "1px solid black"}}>
+                Add
+            </button>
         </div>
     );
 }

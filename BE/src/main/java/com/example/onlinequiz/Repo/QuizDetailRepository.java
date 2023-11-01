@@ -13,8 +13,11 @@ public interface QuizDetailRepository  extends JpaRepository<QuizDetail, Long> {
 //    QuizDetail getByQuizID(Long id);
 
     int countQuizDetailByQuizzes(Quizzes q);
-    List<QuizDetail> getAllByQuizzes(Quizzes q);
+    List<QuizDetail> findAllByQuizzes(Quizzes q);
+
+    List<QuizDetail> findAllByQuizData(QuizData quizData);
 //    List<QuizDetail> getAllByQuizID(Long id);
+
 
 
 }

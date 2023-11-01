@@ -46,17 +46,43 @@ public class SecurityConfig {
             "/myregistration/myRes/**",
             "/myregistration/myRes",
             "/practice/list/**",
-            "/practice/detail",
-            "/api/questions/**"
+            "/practice/list",
+            "/practice/view/**",
+
     };
     // Danh sách các URL cho customer
     private static final String[] CUSTOMER_URL = {
             "/user/subject/get",
-            "/user/subject/get/**"
+            "/user/subject/get/**",
+            "/attempt/quiz/**",
+            "/attempt/quiz/add/result/**",
+            "/attempt/quiz/update/result/**",
+            "/attempt/quiz/review/**",
+
 
     };
     // Danh sách các URL cho expert
     private static final String[] EXPERT_URL = {
+            "/api/questions/get/lesson/**",
+            "/api/questions/add/lesson/**",
+            "/api/expert/lesson/delete/**",
+            "/api/expert/subject/delete/topic/**",
+            "/api/expert/subject/update/order/**",
+            "/api/expert/subject/add/topic/**",
+            "/api/expert/subject/edit/topic/**",
+            "/api/expert/lesson/add/quiz/**",
+            "/api/expert/lesson/add/video/**",
+            "/api/expert/lesson/add/article/**",
+            "/api/expert/lesson/get/article/**",
+            "/api/expert/lesson/get/video/**",
+            "/api/expert/lesson/update/article/**",
+            "/api/expert/lesson/update/video/**",
+            "/api/questions/update/quiz/data/**",
+            "/api/questions/get/quiz/sentence/**",
+            "/api/questions/delete/sentence/**",
+            "/api/questions/**"
+
+
     };
 
     private static final String[] MARKETING_URL = {
@@ -91,8 +117,16 @@ public class SecurityConfig {
             "/quiz/get/**",
             "/quiz/result/get",
             "/quiz/result/get/**",
-            "/quiz/get/lesson/**"
+            "/quiz/get/lesson/**",
+            "/quiz/result/view/**",
+
     };
+
+    // Danh sach cac url cho admin va marketing
+    private static final String[] MarketingAdmin_URL = {
+            "manage/dashboard"
+    };
+
     // Cấu hình bộ lọc bảo mật
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -106,6 +140,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests().requestMatchers(EXPERT_URL).hasAuthority("EXPERT").and()
                 .authorizeHttpRequests().requestMatchers(CUSTOMER_URL).hasAuthority("CUSTOMER").and()
                 .authorizeHttpRequests().requestMatchers(MARKETING_URL).hasAuthority("MARKETING").and()
+                .authorizeHttpRequests().requestMatchers(MarketingAdmin_URL).hasAnyAuthority("MARKETING", "ADMIN").and()
                 .authorizeHttpRequests().requestMatchers(FourRole_URL).hasAnyAuthority("CUSTOMER", "EXPERT", "ADMIN" , "MARKETING")
                 .anyRequest().authenticated().and()
                 // Quản lý phiên làm việc (session)

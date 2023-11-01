@@ -5,17 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f42a8f0a-d40f-4bc9-b56d-aa67269e9f4b" name="Changes" comment="Revert &quot;update view lesson&quot;&#10;&#10;This reverts commit 52474196">
-      <change afterPath="$PROJECT_DIR$/FE/src/components/VerifyEmail/VerifyEmail.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_engine_5_8_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_mockito_mockito_junit_jupiter_3_3_3.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Controller/AdminController/UserRegistrationAdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Controller/AdminController/UserRegistrationAdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Controller/PublicController/RegistrationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Controller/PublicController/RegistrationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Event/Listener/RegistrationCompleteEventListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Event/Listener/RegistrationCompleteEventListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BE/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/src/components/VerifyEmail/VerifyEmail.js" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/components/VerifyEmail/VerifyEmail.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/src/pages/ForgotPassword/ForgotPassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/pages/ForgotPassword/ForgotPassword.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/src/pages/Register/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/pages/Register/Register.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Controller/ExpertController/ExpertQuizController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Controller/ExpertController/ExpertQuizController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Services/Impl/QuizServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Services/Impl/QuizServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Services/QuizService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/onlinequiz/Services/QuizService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE/src/components/ImportQuiz/GetQuiz.css" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/components/ImportQuiz/GetQuiz.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE/src/components/ImportQuiz/GetQuiz.js" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/components/ImportQuiz/GetQuiz.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE/src/components/ImportQuiz/QuestionForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/components/ImportQuiz/QuestionForm.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,9 +22,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
-        <option value="Class" />
         <option value="CSS File" />
+        <option value="Class" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -81,6 +78,36 @@
   }
 }</component>
   <component name="RunManager" selected="Spring Boot.OnlineQuizApplication">
+    <configuration name="EmailServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="OnlineQuiz" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.onlinequiz.Service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.onlinequiz.Service" />
+      <option name="MAIN_CLASS_NAME" value="com.example.onlinequiz.Service.EmailServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProfileTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="OnlineQuiz" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.onlinequiz.Service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.onlinequiz.Service" />
+      <option name="MAIN_CLASS_NAME" value="com.example.onlinequiz.Service.ProfileTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="QuizServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="OnlineQuiz" />
       <extension name="coverage">
@@ -92,22 +119,6 @@
       <option name="PACKAGE_NAME" value="com.example.onlinequiz.Service" />
       <option name="MAIN_CLASS_NAME" value="com.example.onlinequiz.Service.QuizServiceTest" />
       <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="QuizServiceTest.testAddQuestionWithNullRequest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="OnlineQuiz" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.example.onlinequiz.Service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.example.onlinequiz.Service" />
-      <option name="MAIN_CLASS_NAME" value="com.example.onlinequiz.Service.QuizServiceTest" />
-      <option name="METHOD_NAME" value="testAddQuestionWithNullRequest" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -142,22 +153,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ValidateTokenTest.testValidateTokenWithValidToken" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="OnlineQuiz" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.example.onlinequiz.Service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.example.onlinequiz.Service" />
-      <option name="MAIN_CLASS_NAME" value="com.example.onlinequiz.Service.ValidateTokenTest" />
-      <option name="METHOD_NAME" value="testValidateTokenWithValidToken" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="OnlineQuizApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="OnlineQuiz" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.onlinequiz.OnlineQuizApplication" />
@@ -165,13 +160,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
+      <deployment type="dockerfile">
+        <settings />
+      </deployment>
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ValidateTokenTest" />
-        <item itemvalue="JUnit.ValidateTokenTest.testValidateTokenWithValidToken" />
-        <item itemvalue="JUnit.QuizServiceTest" />
-        <item itemvalue="JUnit.QuizServiceTest.testAddQuestionWithNullRequest" />
+        <item itemvalue="JUnit.ProfileTest" />
+        <item itemvalue="JUnit.EmailServiceTest" />
         <item itemvalue="JUnit.UserServiceTest" />
+        <item itemvalue="JUnit.ValidateTokenTest" />
+        <item itemvalue="JUnit.QuizServiceTest" />
       </list>
     </recent_temporary>
   </component>
@@ -219,6 +220,30 @@
       <workItem from="1697674085937" duration="9579000" />
       <workItem from="1697958009906" duration="810000" />
       <workItem from="1698006482346" duration="14216000" />
+      <workItem from="1698044237433" duration="13169000" />
+      <workItem from="1698074027608" duration="3025000" />
+      <workItem from="1698114020923" duration="88000" />
+      <workItem from="1698130541473" duration="1262000" />
+      <workItem from="1698150955938" duration="6676000" />
+      <workItem from="1698189655573" duration="1759000" />
+      <workItem from="1698196410239" duration="853000" />
+      <workItem from="1698197731612" duration="1458000" />
+      <workItem from="1698289245215" duration="3471000" />
+      <workItem from="1698309876253" duration="4672000" />
+      <workItem from="1698315026764" duration="344000" />
+      <workItem from="1698331771670" duration="1783000" />
+      <workItem from="1698366058493" duration="6000" />
+      <workItem from="1698541138770" duration="13068000" />
+      <workItem from="1698569883951" duration="359000" />
+      <workItem from="1698570276475" duration="3707000" />
+      <workItem from="1698580543277" duration="599000" />
+      <workItem from="1698670283344" duration="6446000" />
+      <workItem from="1698710374722" duration="17334000" />
+      <workItem from="1698730710684" duration="1277000" />
+      <workItem from="1698759016795" duration="144000" />
+      <workItem from="1698766081978" duration="142000" />
+      <workItem from="1698801754368" duration="4872000" />
+      <workItem from="1698843753782" duration="1199000" />
     </task>
     <servers />
   </component>

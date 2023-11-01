@@ -114,6 +114,7 @@ const PostListManage = () => {
         // Xử lý phản hồi từ máy chủ (nếu cần)
         console.log("Posts updated:", data);
         displayPosts();
+        alert("Update successfully");
       })
       .catch((error) => {
         console.error("Error updating post:", error);
@@ -140,6 +141,7 @@ const PostListManage = () => {
         const updatedPost = postList.filter((post) => post.postId !== postId);
         updatedPostList(updatedPost);
         displayPosts();
+        alert("Delete successfully");
       })
       .catch((error) => {
         console.error("Error deleting post:", error);

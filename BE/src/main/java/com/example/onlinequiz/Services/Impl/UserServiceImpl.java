@@ -171,5 +171,23 @@ public class UserServiceImpl implements UserService {
     public Users getUserById(Long id) {
         return userRepository.findById(id).get();
     }
+
+    @Override
+    public Long countAllUser() {
+        return userRepository.count();
+    }
+
+    @Override
+    public Long countNewUser() {
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        Date firstDayOfMonth = calendar.getTime();
+
+        // Lấy thời điểm hiện tại
+        Date currentDate = new Date();
+
+        return userRepository.countAllByCreateDateBetween(firstDayOfMonth, currentDate);
+    }
 }
 

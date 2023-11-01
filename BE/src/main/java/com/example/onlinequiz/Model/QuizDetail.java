@@ -1,5 +1,6 @@
 package com.example.onlinequiz.Model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.BatchSize;
@@ -19,12 +20,14 @@ public class QuizDetail {
     private Long quizDetailID;
 
     @BatchSize(size = 5)
-    @ManyToOne
+    @OneToOne
+    @JsonManagedReference
     @JoinColumn(name = "sentence_id")
     private QuizData quizData;
 
     @BatchSize(size = 5)
     @ManyToOne
+    @JsonManagedReference
     @JoinColumn(name = "quiz_id")
     private Quizzes quizzes;
 

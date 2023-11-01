@@ -6,6 +6,7 @@ import SubjectInfo from "../../components/SubjectDetail/SubjectInfo/SubjectInfo"
 import SubjectSidebar from "../../components/SubjectDetail/SubjectSidebar/SubjectSidebar";
 import SubjectDecription from "../../components/SubjectDetail/SubjectDescription/SubjectDecription";
 import './SubjectDetail.css'
+import PrivateContent from "../../components/HandleException/PrivateContent";
 
 const SubjectDetail = () => {
   const token = localStorage.getItem("token");
@@ -15,6 +16,10 @@ const SubjectDetail = () => {
   const [lessons, setLessons] = useState([]);
   const api = "http://localhost:8080/user/subject/get";
   const [subject, setSubject] = useState({});
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   try {
     useEffect(() => {
@@ -125,39 +130,44 @@ const SubjectDetail = () => {
       });
   }, []);
 
-
-  return (
-    <div className="row subject-detail-page-wrap">
-      <div className="col-md-9">
-        <SubjectInfo
-          subjectName={subject.subjectName}
-          description={subject.description}
-          createDate={subject.createDate}
-        />
-        <SubjectLesson
-          setLessons={setLessons}
-          lessons={lessons}
-          topics={topics}
-          setTopics={setTopics}
-        />
-        <SubjectDecription description={subject.description} />
+  if (
+    user.role !== "CUSTOMER"
+  ) {
+    return <PrivateContent />;
+  } else {
+    return (
+      <div className="row subject-detail-page-wrap">
+        <div className="col-md-9">
+          <SubjectInfo
+            subjectName={subject.subjectName}
+            description={subject.description}
+            createDate={subject.createDate}
+          />
+          <SubjectLesson
+            setLessons={setLessons}
+            lessons={lessons}
+            topics={topics}
+            setTopics={setTopics}
+          />
+          <SubjectDecription description={subject.description} />
+        </div>
+        <div className="col-md-3">
+          <SubjectSidebar
+            image={subject.image}
+            preId={subject.preId}
+            price={subject.price}
+            billId={subject.billId}
+            purchaseDate={subject.purchaseDate}
+            lessonId={
+              lessons && lessons.length > 0
+                ? lessons[0].lessonId
+                : null
+            }
+          />
+        </div>
       </div>
-      <div className="col-md-3">
-        <SubjectSidebar
-          image={subject.image}
-          preId={subject.preId}
-          price={subject.price}
-          billId={subject.billId}
-          purchaseDate={subject.purchaseDate}
-          lessonId={
-            lessons && lessons.length > 0
-              ? lessons[0].lessonId
-              : null
-          }
-        />
-      </div>
-    </div>
-  );
-};
+    );
+  };
+}
 
 export default SubjectDetail;

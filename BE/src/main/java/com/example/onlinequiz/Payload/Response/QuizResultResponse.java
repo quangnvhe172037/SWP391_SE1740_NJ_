@@ -18,4 +18,8 @@ private int correctAnswer;
 private int nullAnswer;
 private int falseAnswer;
 private Boolean isPass;
+
+    public QuizResultResponse() {
+
+    }
 }

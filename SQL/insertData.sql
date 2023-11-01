@@ -90,12 +90,13 @@ VALUES
 INSERT INTO `quiz_practice`.`subject_topic`
 (`topic_id`,
 `topic_name`,
-`order`,
+`status`,
+`subject_topic_order`,
 `subject_id`)
 VALUES
-(1, "HTML Development", 4, 4),
-(2, "Javascript Development", 4, 4),
-(3, "Bootstrap Development", 4, 4);
+(1, "HTML Development",true, 1, 4),
+(2, "Javascript Development",true, 2, 4),
+(3, "Bootstrap Development",true, 3, 4);
 
 
 -- 5. Insert to lesson_type
@@ -115,18 +116,18 @@ INSERT INTO `quiz_practice`.`lesson`
 (`lesson_id`,
 `lesson_name`,
 `status`,
-`order`,
+`lesson_order`,
 `video_link`,
 `topic_id`,
 `lesson_type_id`,
 `lesson_content`)
 VALUES
-(1, "Introduect to HTML", 1, 1,"salY_Sm6mv4?si=tcrUkJTunS_4oocG", 1, 2, null),
-(2, "Practice HTML", 1, 2, null,1, 1, null),
-(3, "Note about HTML", 1, 3, null, 1,3, "Bạn cần hoàn thành bài trên"),
-(4, "Introduce to CSS", 1, 4,null, 2, 3, "Bạn cần làm bài này"),
-(5, "Introduce to Boostrap", 1, 5, null,3, 3, "Bạn cần làm bài này"),
-(6, "Practice Javascript", 1, 6, null, 3, 1, null);
+(1, "Introduect to HTML", true, 1,"salY_Sm6mv4?si=tcrUkJTunS_4oocG", 1, 2, null),
+(2, "Practice HTML", true, 2, null,1, 1, null),
+(3, "Note about HTML", true, 3, null, 1,3, "Bạn cần hoàn thành bài trên"),
+(4, "Introduce to CSS", true, 4,null, 2, 3, "Bạn cần làm bài này"),
+(5, "Introduce to Boostrap", true, 5, null,3, 3, "Bạn cần làm bài này"),
+(6, "Practice Javascript", true, 6, null, 3, 1, null);
 
 
 
@@ -159,8 +160,16 @@ INSERT INTO `quiz_practice`.`quiz_data`
 VALUES
 (1, 4),
 (2, 4),
-(3, 4),
-(4, 4);
+(3, 4);
+-- (4, 4),
+-- (5, 4),
+-- (6, 4),
+-- (7, 4),
+-- (8, 4),
+-- (9, 4),
+-- (10, 4),
+-- (11, 4),
+-- (12, 4);
 
 
 -- 10. Insert to quiz_answer
@@ -180,10 +189,10 @@ VALUES
 ( 6, "The correct element for the largest heading is <heading>", 2, 0, ""),
 ( 7, "The correct element for the largest heading is <h6>", 2, 0, ""),
 ( 8, "The correct element for the largest heading is <head>", 2, 0, ""),
-( 9, "Web network", 2, 0, ""),
-( 10, "Web server", 2, 0, ""),
-( 11, "Web browser", 2, 1, ""),
-( 12, "Web matrix", 2, 0, "");
+( 9, "Web network", 3, 0, ""),
+( 10, "Web server", 3, 0, ""),
+( 11, "Web browser", 3, 1, ""),
+( 12, "Web matrix", 3, 0, "");
 
 
 -- 11. Insert to quiz_question
@@ -224,11 +233,9 @@ INSERT INTO `quiz_practice`.`quiz`
 `duration_time`,
 `pass_rate`)
 VALUES
- (1, "Practice HTML", 1, "", 4, 2, 1, "2023-10-09", "01:00:00", 50),
- (2, "Practice Javascript", 1, "", 4, 6, 1, "2023-10-09", "01:00:00", 50);
--- (3, "Practice Javascript no 2", 1, "", 4, "", 1, "2023-10-09", "01:00:00", 50),
--- (4, "Practice Javascript no 3", 1, "", 4,"" , 1, "2023-10-09", "01:00:00", 50),
--- (5, "Practice Javascript no 4", 1, "", 4, "", 1, "2023-10-09", "01:00:00", 50);
+ (1, "Practice HTML", 1, "", 4, 2, 1, "2023-10-09", 1, 50),
+ (2, "Practice Javascript", 1, "", 4, 6, 1, "2023-10-09", 60, 50),
+  (3, "Practice Final", 1, "", 4, null, 1, "2023-10-09", 60, 50);
 
 
 -- 14. Insert to quiz_detail 
@@ -241,6 +248,15 @@ VALUES
 (1, 1, 1),
 (2, 2, 1),
 (3, 3, 1);
+-- (4, 4, 1),
+-- (5, 5, 1),
+-- (6, 6, 1),
+-- (7, 7, 1),
+-- (8, 8, 1),
+-- (9, 9, 1),
+-- (10, 10, 1),
+-- (11, 11, 1),
+-- (12, 12, 1);
 
 
 -- 15. Insert to exam_level
@@ -255,16 +271,20 @@ INSERT INTO `quiz_practice`.`quiz_result`
 `correct_answer`,
 `null_answer`,
 `false_answer`,
-`is_pass`)
+`is_pass`,
+`is_done`)
 VALUES
-(1,77,3,"2023-05-11",1,5,4,8,1),
- (2, 23,3,"2023-05-11",2,5,4,8,1);
+(1,77,3,"2023-05-11",1,5,4,8,1, 1),
+ (2, 23,3,"2023-05-11",2,5,4,8,1, 1);
 -- (45,4,"2023-05-11",3,6,9,1,1),
 -- (20,4,"2023-05-11",4,12,3,5,1),
 -- (13,4,"2023-05-11",5,9,1,3,1);
 
 
 -- 17. Insert to quiz_result_detail
+
+
+
 -- 18. Insert to sliders
 
 INSERT INTO `quiz_practice`.`sliders`
@@ -280,6 +300,8 @@ VALUES
 
 
 -- 19. Insert to subject_join
+
+
 -- 20. Insert to subject_price
 
 
@@ -295,6 +317,9 @@ VALUES
 
 
 -- 21. Insert to subject_teacher
+
+
+
 -- 22. Insert to user_payment
 
 INSERT INTO `quiz_practice`.`user_payment`

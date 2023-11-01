@@ -1,5 +1,6 @@
 package com.example.onlinequiz.Payload.Response;
 
+import com.example.onlinequiz.Model.UserPayment;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

@@ -176,9 +176,9 @@ const Home = () => {
         <section className="md:px-4 lg:px-9">
           <section>
             <div className="flex justify-between pb-5">
-              <h1 className="text-xl font-extrabold">Khóa học nổi bật</h1>
+              <h1 className="text-xl font-extrabold">Featured Courses</h1>
               <Link to={"/subject"} className=" text-orange-600 font-bold">
-                Xem tất cả
+                View all
               </Link>
             </div>
             <div className="grid grid-flow-col auto-cols-[60%] snap-x overflow-y-auto md:grid-flow-row md:grid-cols-3 lg:grid-cols-4 gap-6 pb-5">
@@ -221,9 +221,9 @@ const Home = () => {
         <section className="md:px-4 lg:px-9">
           <section>
             <div className="flex justify-between pb-5">
-              <h1 className="text-xl font-extrabold">Bài viết nổi bật</h1>
+              <h1 className="text-xl font-extrabold">Blog</h1>
               <Link to={"/posts"} className=" text-orange-600 font-bold">
-                Xem tất cả
+                View all
               </Link>
             </div>
             <div className="grid grid-flow-col auto-cols-[60%] snap-x overflow-y-auto md:grid-flow-row md:grid-cols-3 lg:grid-cols-4 gap-6 pb-5">

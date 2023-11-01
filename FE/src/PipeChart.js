@@ -6,7 +6,7 @@ const PieChart = (prop) => {
   const falseAnswer = prop.falseAnswer;
   const nullAnswer = prop.nullAnswer;
   const data = {
-    labels: ["True Answer", "Null Answer", "False Answer"],
+    labels: ["True Answer", "False Answer", "Null Answer"],
     datasets: [
       {
         labels: "Test result",
