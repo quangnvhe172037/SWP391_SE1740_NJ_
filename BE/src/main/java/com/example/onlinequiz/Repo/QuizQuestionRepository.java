@@ -16,6 +16,8 @@ public interface QuizQuestionRepository extends JpaRepository<QuizQuestions, Lon
 
     List<QuizQuestions> findByQuizData(QuizData quizData);
 
+
+
     QuizQuestions findQuizQuestionsByQuestionID(Long id);
 
 }

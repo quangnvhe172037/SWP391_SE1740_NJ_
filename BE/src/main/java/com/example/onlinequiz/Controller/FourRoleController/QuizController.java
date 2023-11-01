@@ -57,13 +57,12 @@ public class QuizController {
             @RequestParam Long quizId,
             @RequestParam Long userId
     ) {
-
         try {
             Quizzes q = quizService.getQuizById(quizId);
             if (q != null) {
                 Users u = userService.getUserById(userId);
                 if (u != null) {
-                    QuizResultResponse qr = quizResultService.getQuizResult(q, u);
+                    QuizResultResponse qr = quizResultService.getQuizResultResponse(q, u);
                     if (qr != null) {
 
                         return ResponseEntity.ok(qr);
@@ -83,10 +82,11 @@ public class QuizController {
     // Lấy dữ liệu của quiz dự theo quizId
     @GetMapping("/get/{quizId}")
     public ResponseEntity<QuizInfoResponse> getQuizInfo(
-            @PathVariable Long quizId
+            @PathVariable Long quizId,
+            @RequestParam Long userId
     ) {
 
-        QuizInfoResponse q = quizService.getQuizInfoById(quizId);
+        QuizInfoResponse q = quizService.getQuizInfoById(quizId, userId);
         try {
             if (q != null) {
 
@@ -99,5 +99,23 @@ public class QuizController {
         }
     }
 
+    @GetMapping("/result/view/{resultId}")
+    public ResponseEntity<QuizResultResponse> getQuizUserResult(
+            @PathVariable Long resultId
+    ) {
+        try {
+
+            QuizResultResponse qr = quizResultService.getUserQuizResultResponse(resultId);
+            if (qr != null) {
+                return ResponseEntity.ok(qr);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch ( Exception e) {
+            System.out.println("QuizController - GetQuizUserResult" +e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
+    }
 
 }

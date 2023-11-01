@@ -7,6 +7,7 @@ import com.example.onlinequiz.Payload.Request.UpdateQuestionRequest;
 import com.example.onlinequiz.Payload.Response.QuizInfoResponse;
 import com.example.onlinequiz.Payload.Response.QuizInfoResponse;
 import com.example.onlinequiz.Payload.Response.QuizSentenceResponse;
+import com.example.onlinequiz.Payload.Response.QuizSentenceUserResponse;
 import com.example.onlinequiz.Repo.*;
 import com.example.onlinequiz.Services.QuizService;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,8 @@ public class QuizServiceImpl implements QuizService {
     private final QuizRepository quizRepository;
 
     @Autowired
+    private final UserRepository userRepository;
+    @Autowired
     private final QuizDetailRepository quizDetailRepository;
 
     @Autowired
@@ -36,7 +39,12 @@ public class QuizServiceImpl implements QuizService {
     private final QuizQuestionRepository quizQuestionRepository;
 
     @Autowired
+    private final QuizResultRepository quizResultRepository;
+    @Autowired
     private final QuizAnswerRepository quizAnswerRepository;
+
+    @Autowired
+    private final QuizResultDetailRepository quizResultDetailRepository;
 
     @Override
     public Quizzes getQuizByLessonId(Long id) {
@@ -50,8 +58,18 @@ public class QuizServiceImpl implements QuizService {
     }
 
     @Override
-    public QuizInfoResponse getQuizInfoById(Long id) {
+    public QuizInfoResponse getQuizInfoById(Long id, Long userId) {
         Quizzes q = quizRepository.findByQuizID(id);
+        Users user = userRepository.getById(userId);
+
+        QuizResults quizResult = quizResultRepository.findFirstByQuizzesAndUserOrderByScoreDesc(q, user);
+        Long isDone;
+        if(quizResult.getIsDone() == false){
+            isDone = quizResult.getResultID();
+        }else{
+            isDone = null;
+        }
+
         int count = quizDetailRepository.countQuizDetailByQuizzes(q);
         QuizInfoResponse quizInfoResponse = new QuizInfoResponse(
                 q.getQuizID(),
@@ -61,7 +79,9 @@ public class QuizServiceImpl implements QuizService {
                 q.getDateCreate(),
                 q.getDurationTime(),
                 q.getPassRate(),
-                count
+                count,
+                isDone
+
         );
 
 
@@ -125,6 +145,46 @@ public class QuizServiceImpl implements QuizService {
             return data;
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            return null;
+        }
+
+    }
+
+    @Override
+    public List<QuizSentenceUserResponse> getListAnswerQuizUser(List<QuizDetail> qd, QuizResults quizResults) {
+        try {
+            List<QuizData> quizDataList = quizDataRepository.getAllByQuizDetailIsIn(qd);
+            System.out.println(quizDataList.size());
+            QuizResultDetail quizResultDetail;
+            List<QuizSentenceUserResponse> data = new ArrayList<>();
+
+
+            for (QuizData quizData : quizDataList
+            ) {
+                quizResultDetail = quizResultDetailRepository.findQuizResultDetailByQuizDataAndQuizResult(quizData, quizResults);
+                if(quizResultDetail.getUserAnswer() != null){
+                    data.add(new QuizSentenceUserResponse(
+                            quizData.getSentenceID(),
+                            quizData.getQuizAnswers(),
+                            quizData.getQuizQuestions(),
+                            quizResultDetail.getUserAnswer().getAnswerID()
+                    ));
+                }else{
+                    data.add(new QuizSentenceUserResponse(
+                            quizData.getSentenceID(),
+                            quizData.getQuizAnswers(),
+                            quizData.getQuizQuestions(),
+                            null
+
+
+                    ));
+                }
+
+            }
+
+            return data;
+        } catch (Exception e) {
+            System.out.println( " QuizServiceImpl - getListAnswerQuizUser"+e.getMessage());
             return null;
         }
 

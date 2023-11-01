@@ -3,10 +3,10 @@
 }
 
 .quiz-attempt-right {
-  border: 1px solid black;
+  
   padding: 10px;
-  height: 500px;
-  overflow: scroll;
+  
+ 
   
 }
 
@@ -19,6 +19,11 @@
 
 .quiz-attempt-navigate-button-wrap {
   margin-top: 32px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  padding: 12px;
+  box-shadow: 0 2px 4px rgba(0,0,0,.08), 0 4px 12px rgba(0,0,0,.16);
+  height: 300px;
 }
 
 .quiz-attempt-navigate-button-element {
@@ -33,6 +38,11 @@
 }
 
 .quiz-attempt-navigate-header{
-    font-size: 24px;
+    font-size: 28px;
     font-weight: bold;
+    text-align: center;
+}
+
+.quiz-attempt-answer-choice{
+  display: flex;
 }

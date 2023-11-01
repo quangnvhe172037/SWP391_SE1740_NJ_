@@ -14,5 +14,9 @@ public interface QuizDataService {
 
     QuizData findById(Long id);
 
+    String deleteSentenceLesson(Long sentenceId, Long lessonId);
+
+
+    Boolean checkExistQuiz(QuizData quizData);
 //    Object getQuizData(Long id);
 }

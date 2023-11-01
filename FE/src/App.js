@@ -58,6 +58,8 @@ import UserRegistrationList from "./components/UserRegistrationList/UserRegistra
 import UserRegistrationDetail from "./components/UserRegistrationList/UserRegistrationDetail/UserRegistrationDetail";
 import QuizAttempt from "./pages/QuizAttempt/QuizAttempt";
 import ViewPracticeDetail from "./pages/Practice/ViewPracticeDetail";
+import QuizResultData from "./components/Quiz/QuizResult/QuizResultData/QuizResultData";
+import QuizResultPage from "./pages/QuizResultPage/QuizResultPage";
 
 
 const App = () => {
@@ -120,7 +122,10 @@ const App = () => {
               <Route path="/sliders/edit/*" element={<SliderDetail />} />
               <Route path="/add-question/:subjectId" element={<ImportQuiz />} />
               <Route path="/practice" element={<PracticeList />} />
-              <Route path="/practice/view/:resultid" element={<ViewPracticeDetail />}/>
+              <Route
+                path="/practice/view/:resultid"
+                element={<ViewPracticeDetail />}
+              />
               <Route
                 path="/sliders/edit/:sliderId"
                 element={<SliderDetail />}
@@ -169,7 +174,15 @@ const App = () => {
 
               <Route path="/expert/subjects" element={<SubjectData />} />
 
-              <Route path="/quiz/take/:quizId" element={<QuizAttempt />} />
+              <Route
+                path="/quiz/take/:quizId/:resultId"
+                element={<QuizAttempt />}
+              />
+
+              <Route
+                path="/quiz/result/:resultId"
+                element={<QuizResultPage />}
+              />
             </>
           )}
         </Routes>

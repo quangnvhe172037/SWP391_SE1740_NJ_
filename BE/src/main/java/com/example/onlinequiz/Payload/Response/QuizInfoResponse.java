@@ -18,4 +18,5 @@ public class QuizInfoResponse {
     private int durationTime;
     private int passRate;
     private int countQues;
+    private Long resultId;
 }
