@@ -46,7 +46,8 @@ public class SecurityConfig {
             "/myregistration/myRes/**",
             "/myregistration/myRes",
             "/practice/list/**",
-            "/practice/detail",
+            "/practice/list",
+            "/practice/view/**",
             "/api/questions/**"
     };
     // Danh sách các URL cho customer

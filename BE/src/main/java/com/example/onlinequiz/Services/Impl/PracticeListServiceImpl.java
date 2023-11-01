@@ -51,4 +51,19 @@ public class PracticeListServiceImpl implements PracticeListService {
         return quizResultsList;
     }
 
+    @Override
+    public QuizResults getQuizResultByQuizId(Long resultid) {
+        try{
+            QuizResults quizResults = quizResultRepository.findByResultID(resultid);
+            if(quizResults == null){
+                throw  new RuntimeException("Quiz result not found");
+            }else{
+                return quizResults;
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
 }

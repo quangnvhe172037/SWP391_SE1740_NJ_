@@ -7,6 +7,7 @@ import com.example.onlinequiz.Services.UserService;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,23 +27,10 @@ public class PracticeListController {
     @Autowired
     public final UserService userService;
 
+
     @GetMapping("/list")
     @ResponseBody
-    public ResponseEntity<List<QuizResults>> getUserPracticeList(
-            @RequestParam Long userid
-    ){
-        Users u = userService.getUserById(userid);
-        List<QuizResults> listPractice = practiceListService.getListQuizResultByQuizID(u);
-        if(listPractice == null){
-            return null;
-        }
-        return ResponseEntity.ok(listPractice);
-    }
-
-
-    @GetMapping("/detail")
-    @ResponseBody
-    public ResponseEntity<List<QuizResults>> getQuizResultDetail(
+    public ResponseEntity<List<QuizResults>> getQuizResultByUseridAndSubjectid(
             @RequestParam Long userid,
             @RequestParam Long subjectid
     ){
@@ -58,4 +46,27 @@ public class PracticeListController {
         }
         return ResponseEntity.ok(listResult);
     }
+
+
+    //Practice Detail
+    //View
+    @GetMapping("view/{resultid}")
+    @ResponseBody
+    public ResponseEntity<QuizResults> getQuizResultByID(
+            @PathVariable Long resultid
+    ){
+        try{
+            QuizResults quizResults = practiceListService.getQuizResultByQuizId(resultid);
+            if(quizResults == null){
+                return ResponseEntity.notFound().build();
+            }else{
+                return ResponseEntity.ok(quizResults);
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
+    }
+
 }

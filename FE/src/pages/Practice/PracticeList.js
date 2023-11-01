@@ -4,6 +4,7 @@ import axios from "axios";
 import jwtDecode from "jwt-decode";
 import "./style.css";
 import {format} from "date-fns";
+import {Link} from "react-router-dom";
 const API_URL = "http://localhost:8080";
 
 function PracticeList() {
@@ -12,15 +13,15 @@ function PracticeList() {
     const [practiceList, setPracticeList] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const subjectid = 4;
-    let subjectNameinweb = "";
+    const [subjectNameinweb, setSubjectNameinweb] = useState("");
     useEffect(() => {
-        axios.get(API_URL + "/practice/detail" + "?userid=" + user.userId + "?" + "subjectid=" + subjectid)
+        axios.get(API_URL + "/practice/list" + "?userid=" + user.userId + "&" + "subjectid=" + subjectid)
             .then((response) => {
                 const data = response.data.map((item) => ({
                     resultID: item.resultID,
                     score: item.score,
                     user: {
-                        usersid: item.user.usersid,
+                        usersid: item.user.id,
                         firstName: item.user.firstName,
                         lastName: item.user.lastName,
                     },
@@ -39,10 +40,8 @@ function PracticeList() {
                 }));
 
                 setPracticeList(data);
-                console.log(data[0]);
-                if (data.length > 0) {
-                    subjectNameinweb = data[0].quizzes.subject.subjectName;
-                }
+                setSubjectNameinweb(data[0].quizzes.subjectName);
+                    console.log(subjectNameinweb);
             })
             .catch((error) => {
                 console.error('Error fetching data: ', error);
@@ -63,29 +62,31 @@ function PracticeList() {
                 <div className="col-md-6">
 
                     <div className="col-md-6">
-                        
+                        <h2>{subjectNameinweb}</h2>
                         <input
                             type="text"
                             placeholder="Tìm kiếm theo Quiz Name..."
                             className="form-control"
                             id="search-input"
-                            onChange={handleSearchChange} // Gắn sự kiện onChange vào ô tìm kiếm
+                            onChange={handleSearchChange}
                         />
                     </div>
                 </div>
                 <div className="col-md-6 text-right">
-                    <button className="btn btn-success">New practice</button>
-                    <button className="btn btn-success">Simulation exam</button>
+                    <Link to={"/newPractice/add"}>
+                    <button className="practice btn btn-success f">New practice</button>
+                    </Link>
+                    <button className="practice btn btn-success">Simulation exam</button>
                 </div>
             </div>
             {filteredPracticeList.length === 0 ? (
                 <p>Not Found</p>
             ) : (
                 filteredPracticeList.map((item, index) => (
-                    <div key={index} className="card mb-3">
-                        <div className="card-body">
+                    <div key={index} className="practice card mb-3">
+                        <div className="practice card-body">
                             <div className="row">
-                                <div className="col-md-4 custom-border">
+                                <div className=" col-md-4 custom-border">
                                     <h5 className="mb-3">Quiz name: {item.quizzes.quizName}</h5>
                                     <h6>Date create: {format(new Date(item.quizzes.quizDateCreate), 'dd-MM-yyyy')}</h6>
                                     <h6>Status: {item.isPass === "true" ? "pass" : "not pass"}</h6>
@@ -105,9 +106,9 @@ function PracticeList() {
                                 </div>
                                 <div className="col-md-2 center-text centered-button-div">
                                     <div className="button-wrapper">
-                                        <a href="#" className="btn btn-primary">
+                                        <Link to={"/newPractice/view/" + item.quizzes.quizid}>
                                             View Details
-                                        </a>
+                                        </Link>
                                         <p>Duration: {item.quizzes.quizDuration}</p>
                                     </div>
                                 </div>

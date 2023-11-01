@@ -14,4 +14,5 @@ public interface QuizResultRepository extends JpaRepository<QuizResults, Long> {
 
         List<QuizResults> findByUserAndQuizzes_Subject(Users u, Subjects s);
 
+        QuizResults findByResultID(Long resultid);
 }
