@@ -106,7 +106,7 @@ function PracticeList() {
                                 </div>
                                 <div className="col-md-2 center-text centered-button-div">
                                     <div className="button-wrapper">
-                                        <Link to={"/newPractice/view/" + item.quizzes.quizid}>
+                                        <Link to={"/practice/view/" + item.quizzes.quizid}>
                                             View Details
                                         </Link>
                                         <p>Duration: {item.quizzes.quizDuration}</p>

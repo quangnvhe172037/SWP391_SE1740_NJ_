@@ -1,91 +1,139 @@
-import React, { useState, useEffect} from 'react';
-import {useParams} from "react-router-dom";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+import { format } from 'date-fns';
 
-const API_URL = "";
+const API_URL = 'http://localhost:8080';
+
 function ViewQuizResult() {
     const { resultid } = useParams();
     const [quizResult, setQuizResult] = useState({});
 
-    useEffect(() =>{
-        axios.get()
-        }
+    useEffect(() => {
+        axios
+            .get(`${API_URL}/practice/view/${resultid}`)
+            .then((response) => {
+                const data = response.data; // Lấy dữ liệu từ API
 
-    )
+                // Sử dụng map để bóc tách các trường từ dữ liệu API và lưu vào state
+                const quizResultData = {
+                    resultID: data.resultID,
+                    score: data.score,
+                    user: {
+                        userId: data.user.id,
+                        firstName: data.user.firstName,
+                        lastName: data.user.lastName,
+                        email: data.user.email,
+                    },
+                    dateTaken: data.dateTaken,
+                    quizzes: {
+                        quizID: data.quizzes.quizID,
+                        quizName: data.quizzes.quizName,
+                        description: data.quizzes.description,
+                        subject: {
+                            subjectID: data.quizzes.subject.subjectID,
+                            subjectName: data.quizzes.subject.subjectName,
+                        },
+                        lessonid: data.quizzes.lessonid,
+                        quizTypes: data.quizzes.quizTypes,
+                        dateCreate: data.quizzes.dateCreate,
+                        durationTime: data.quizzes.durationTime,
+                        passRate: data.quizzes.passRate,
+                    },
+                    correctAnswer: data.correctAnswer,
+                    nullAnswer: data.nullAnswer,
+                    falseAnswer: data.falseAnswer,
+                    isPass: data.isPass,
+                };
+
+                // Set state với đối tượng mới
+                setQuizResult(quizResultData);
+            })
+            .catch((error) => {
+                console.error('Error fetching data: ', error);
+            });
+    }, [resultid]);
+
 
     return (
         <div className="container">
             <div className="row justify-content-center">
                 <div className="col-md-6">
-                    <h2 className="text-center">Thông tin bài kiểm tra</h2>
+                    <h2 className="text-center">Quiz result information</h2>
                     <form>
                         <div className="form-group">
-                            <label htmlFor="subjectName">Tên môn học (chỉ đọc):</label>
+                            <label htmlFor="subjectName">Subject name:</label>
                             <input
                                 type="text"
                                 className="form-control"
                                 id="subjectName"
-                                value={subjectNames}
+                                value={quizResult.quizzes && quizResult.quizzes.subject.subjectName} // Truy cập dữ liệu bên trong API
                                 readOnly
                             />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="quizName">Tên bài kiểm tra:</label>
+                            <label htmlFor="quizName">Quiz name:</label>
                             <input
                                 type="text"
                                 className="quizName form-control"
-                                value={quizName}
+                                value={quizResult.quizzes && quizResult.quizzes.quizName}
                                 name="quizName"
                                 readOnly
                             />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="durationTime">Thời gian (hh:mm:ss):</label>
+                            <label htmlFor="durationTime">Date taken:</label>
                             <input
-                                type="time"
-                                step="1"
+                                type="text"
                                 className="durationTime form-control"
-                                value={durationTime}
+                                value={quizResult.quizzes && format(new Date(quizResult.dateTaken), "dd-MM-yyyy")}
                                 name="durationTime"
                                 readOnly
                             />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="passRate">Phần trăm đạt (0-100%):</label>
+                            <label htmlFor="passRate">Pass rate:</label>
                             <input
                                 type="number"
                                 min="0"
                                 max="100"
                                 className="passRate form-control"
-                                value={passRate}
+                                value={quizResult.quizzes && quizResult.quizzes.passRate}
                                 name="passRate"
                                 readOnly
                             />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="examLevel">Mức độ kiểm tra:</label>
-                            <select
+                            <label htmlFor="examLevel">Exam level:</label>
+                            <input
                                 className="form-control"
                                 id="examLevel"
-                                value={examLevel}
+                                value={quizResult.quizzes && quizResult.quizzes.quizTypes}
                                 name="examLevel"
                                 readOnly
-                            >
-                                <option value="easy">Dễ</option>
-                                <option value="medium">Trung bình</option>
-                                <option value="hard">Khó</option>
-                            </select>
+                            />
                         </div>
-                        <button type="submit" className="practice btn btn-primary">
-                            New Practice
+                        <button
+                            className={`practice btn ${
+                                quizResult.isPass ? "btn-success" : "btn-danger"
+                            }`}
+                        >
+                            {quizResult.isPass ? "Pass" : "Not Pass"}
                         </button>
                     </form>
                 </div>
                 <div className="col-md-6">
                     <div style={{ textAlign: 'center' }}>
-                        <p>Số câu đúng: <span id="correctAnswers">{correctAnswers}</span></p>
-                        <p>Số câu sai: <span id="incorrectAnswers">{incorrectAnswers}</span></p>
-                        <p>Số câu không khoanh: <span id="unansweredQuestions">{unansweredQuestions}</span></p>
+                        <p>
+                            True answer: <span id="correctAnswers">{quizResult.correctAnswer}</span>
+                        </p>
+                        <p>
+                            False answer: <span id="incorrectAnswers">{quizResult.falseAnswer}</span>
+                        </p>
+                        <p>
+                            Unselected answer:
+                            <span id="unansweredQuestions">{quizResult.nullAnswer}</span>
+                        </p>
                     </div>
                 </div>
             </div>

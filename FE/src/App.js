@@ -57,6 +57,7 @@ import SubjectDetail from "./pages/SubjectDetail/SubjectDetail";
 import UserRegistrationList from "./components/UserRegistrationList/UserRegistrationList";
 import UserRegistrationDetail from "./components/UserRegistrationList/UserRegistrationDetail/UserRegistrationDetail";
 import QuizAttempt from "./pages/QuizAttempt/QuizAttempt";
+import ViewPracticeDetail from "./pages/Practice/ViewPracticeDetail";
 
 
 const App = () => {
@@ -119,7 +120,7 @@ const App = () => {
               <Route path="/sliders/edit/*" element={<SliderDetail />} />
               <Route path="/add-question/:id" element={<ImportQuiz />} />
               <Route path="/practice" element={<PracticeList />} />
-
+              <Route path="/practice/view/:resultid" element={<ViewPracticeDetail />}/>
               <Route
                 path="/sliders/edit/:sliderId"
                 element={<SliderDetail />}
