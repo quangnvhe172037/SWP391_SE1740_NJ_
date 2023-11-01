@@ -96,9 +96,8 @@ public class QuizServiceImpl implements QuizService {
                     "B".equalsIgnoreCase(correctAnswer) && i == 1 ||
                     "C".equalsIgnoreCase(correctAnswer) && i == 2 ||
                     "D".equalsIgnoreCase(correctAnswer) && i == 3);
-            if (quizAnswers.isTrueAnswer()) {
-                quizAnswers.setExplanation(explaination);
-            }
+            
+            quizAnswers.setExplanation(explaination);
             quizAnswerRepository.save(quizAnswers);
         }
     }
@@ -135,13 +134,14 @@ public class QuizServiceImpl implements QuizService {
     public void addNewQuiz(Quizzes q) {
         quizRepository.save(q);
     }
+
     public void deleteQuestion(DeleteQuestRequest request) {
         QuizData quizData = quizDataRepository.findQuizDataBySentenceID(request.getQuesId());
-        if(quizData != null){
+        if (quizData != null) {
             QuizQuestions question = quizQuestionRepository.findQuizQuestionsByQuestionID(quizData.getQuizQuestions().getQuestionID());
-            if(question != null){
+            if (question != null) {
                 List<QuizAnswers> answers = quizAnswerRepository.findByQuizData(quizData);
-                for(QuizAnswers quizAnswers : answers){
+                for (QuizAnswers quizAnswers : answers) {
                     quizAnswerRepository.delete(quizAnswers);
                 }
                 quizQuestionRepository.delete(question);
@@ -153,6 +153,7 @@ public class QuizServiceImpl implements QuizService {
             throw new RuntimeException("Subject not found");
         }
     }
+
     public void updateQuestion(UpdateQuestionRequest request) {
         QuizQuestions question = quizQuestionRepository.findQuizQuestionsByQuestionID(request.getQuestionId());
 

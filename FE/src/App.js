@@ -118,7 +118,7 @@ const App = () => {
               <Route path="/myRegistration" element={<UserRes />} />
               <Route path="/posts/edit/:postId" element={<PostEdit />} />
               <Route path="/sliders/edit/*" element={<SliderDetail />} />
-              <Route path="/add-question/:id" element={<ImportQuiz />} />
+              <Route path="/add-question/:subjectId" element={<ImportQuiz />} />
               <Route path="/practice" element={<PracticeList />} />
               <Route path="/practice/view/:resultid" element={<ViewPracticeDetail />}/>
               <Route

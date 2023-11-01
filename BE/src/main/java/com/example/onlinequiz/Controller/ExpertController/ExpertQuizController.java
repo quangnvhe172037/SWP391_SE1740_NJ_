@@ -61,8 +61,14 @@ public class ExpertQuizController {
     //api delete question
     @DeleteMapping("/delete")
     public ResponseEntity<String> deleteQuestion(@RequestBody DeleteQuestRequest request) {
-        quizService.deleteQuestion(request);
-        return ResponseEntity.ok("Question deleted successfully");
+        try {
+            quizService.deleteQuestion(request);
+            return ResponseEntity.ok("Question deleted successfully");
+        } catch (Exception e) {
+            // Xử lý lỗi ở đây
+            String errorMessage = "Failed to delete question. " + e.getMessage();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
+        }
     }
 
     @PutMapping("/update")
