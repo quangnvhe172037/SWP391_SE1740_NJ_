@@ -72,11 +72,30 @@ public class ExpertQuizController {
         }
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<String> updateQuestion(@RequestBody UpdateQuestionRequest request) {
-        quizService.updateQuestion(request);
-        return ResponseEntity.ok("Question updated successfully");
-    }
+    @PutMapping("/update/{sentenceId}")
+    public ResponseEntity<String> updateQuestion(@PathVariable Long sentenceId,
+                                                 @RequestBody UpdateQuizSentenceRequest quizSentenceRequest) {
+        try {
+            QuizData quizData = quizDataService.findById(sentenceId);
+            QuizQuestions q = quizQuestionService.findByQuestionId(quizSentenceRequest.getQuizQuestion().getQuestionId());
+            q.setQuestionData(quizSentenceRequest.getQuizQuestion().getQuestionData());
+
+            for (UpdateQuizAnswerRequest quizAnswerRequest : quizSentenceRequest.getQuizAnswers()
+            ) {
+                QuizAnswers quizAnswer = quizAnswerService.findAllByAnswerId(quizAnswerRequest.getAnswerId());
+                quizAnswer.setAnswerData(quizAnswerRequest.getAnswerData());
+                quizAnswer.setQuizData(quizData);
+                quizAnswer.setTrueAnswer(quizAnswerRequest.isTrueAnswer());
+                quizAnswer.setExplanation(quizAnswerRequest.getExplanation());
+                quizAnswerService.addNewAnswer(quizAnswer);
+            }
+
+
+            return ResponseEntity.ok("Update success");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }    }
 
     // Get all the quiz answer of this lesson to show
     @GetMapping("/get/lesson/{lessonId}")

@@ -48,7 +48,7 @@ public class SecurityConfig {
             "/practice/list/**",
             "/practice/list",
             "/practice/view/**",
-            "/api/questions/**"
+
     };
     // Danh sách các URL cho customer
     private static final String[] CUSTOMER_URL = {
@@ -78,8 +78,8 @@ public class SecurityConfig {
             "/api/expert/lesson/update/video/**",
             "/api/questions/update/quiz/data/**",
             "/api/questions/get/quiz/sentence/**",
-            "/api/questions/delete/sentence/**"
-
+            "/api/questions/delete/sentence/**",
+            "/api/questions/**"
 
 
     };

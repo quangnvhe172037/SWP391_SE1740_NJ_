@@ -1,4 +1,22 @@
-.getquiz {
-    max-height: 200px; /* Đặt chiều cao tối đa của phần tử chứa bảng */
-    overflow: auto; /* Kích hoạt thanh cuộn nếu nội dung vượt quá chiều cao tối đa */
+/* QuizComponent.css */
+
+.table-bordered {
+    width: 100%; /* Để bảng tràn đầy khung nhìn của bạn */
 }
+
+.table-bordered th, .table-bordered td {
+    text-align: center; /* Căn giữa nội dung trong các ô bảng */
+    padding: 10px; /* Khoảng cách giữa nội dung và viền của ô */
+    border: 1px solid #000; /* Đặt độ dày và màu sắc viền của ô */
+}
+
+/* Căn chỉnh độ rộng của các cột theo ý muốn, ví dụ: */
+.table-bordered th:first-child, .table-bordered td:first-child {
+    width: 5%;
+}
+
+.table-bordered th:nth-child(2), .table-bordered td:nth-child(2) {
+    width: 20%;
+}
+
+/* Tương tự cho các cột còn lại */

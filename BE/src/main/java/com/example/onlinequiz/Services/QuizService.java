@@ -34,5 +34,4 @@ public interface QuizService {
     void deleteQuestion(DeleteQuestRequest request);
 
 
-    void updateQuestion(UpdateQuestionRequest request);
 }

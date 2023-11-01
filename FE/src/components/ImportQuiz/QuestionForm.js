@@ -13,6 +13,7 @@ function QuestionForm({ onAddQuestion }) {
     const [explanation, setExplanation] = useState('');
     const [previewQuestion, setPreviewQuestion] = useState(null);
     const { subjectId } = useParams();
+    const token = localStorage.getItem("token");
     const [questionData, setQuestionData] = useState({
         question: '',
         answerOptions: ['', '', '', ''],
@@ -38,6 +39,7 @@ function QuestionForm({ onAddQuestion }) {
             const response = await axios.post(`http://localhost:8080/api/questions/add/${subjectId}`, questionData, {
                 headers: {
                     'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
                 },
             });
 
