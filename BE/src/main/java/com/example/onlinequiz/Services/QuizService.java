@@ -5,6 +5,7 @@ import com.example.onlinequiz.Model.QuizDetail;
 import com.example.onlinequiz.Model.Quizzes;
 import com.example.onlinequiz.Payload.Request.DeleteQuestRequest;
 import com.example.onlinequiz.Payload.Request.QuizRequest;
+import com.example.onlinequiz.Payload.Request.UpdateQuestionRequest;
 import com.example.onlinequiz.Payload.Response.QuizInfoResponse;
 import com.example.onlinequiz.Payload.Response.QuizSentenceResponse;
 
@@ -26,4 +27,6 @@ public interface QuizService {
 
     void addNewQuiz(Quizzes q);
     void deleteQuestion(DeleteQuestRequest request);
+
+    void updateQuestion(UpdateQuestionRequest request);
 }

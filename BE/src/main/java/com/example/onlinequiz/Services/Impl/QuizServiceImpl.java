@@ -3,6 +3,7 @@ package com.example.onlinequiz.Services.Impl;
 import com.example.onlinequiz.Model.*;
 import com.example.onlinequiz.Payload.Request.DeleteQuestRequest;
 import com.example.onlinequiz.Payload.Request.QuizRequest;
+import com.example.onlinequiz.Payload.Request.UpdateQuestionRequest;
 import com.example.onlinequiz.Payload.Response.QuizInfoResponse;
 import com.example.onlinequiz.Payload.Response.QuizInfoResponse;
 import com.example.onlinequiz.Payload.Response.QuizSentenceResponse;
@@ -152,4 +153,28 @@ public class QuizServiceImpl implements QuizService {
             throw new RuntimeException("Subject not found");
         }
     }
+    public void updateQuestion(UpdateQuestionRequest request) {
+        QuizQuestions question = quizQuestionRepository.findQuizQuestionsByQuestionID(request.getQuestionId());
+
+        if (question != null) {
+            // Bước 2: Cập nhật nội dung câu hỏi
+            question.setQuestionData(request.getUpdatedQuestionData());
+
+            // Bước 3: Nếu bạn muốn cập nhật đáp án, hãy lấy danh sách đáp án liên quan đến câu hỏi và cập nhật chúng
+            List<QuizAnswers> answers = quizAnswerRepository.findByQuizData(question.getQuizData());
+
+            for (int i = 0; i < answers.size(); i++) {
+                answers.get(i).setAnswerData(request.getUpdatedAnswers().get(i));
+                answers.get(i).setTrueAnswer(request.getUpdatedCorrectAnswer().equals(Integer.toString(i))); // Điều này dựa trên cách bạn lưu trữ câu trả lời đúng
+            }
+
+            // Bước 4: Lưu thay đổi vào cơ sở dữ liệu
+            quizQuestionRepository.save(question);
+            quizAnswerRepository.saveAll(answers);
+        } else {
+            // Xử lý khi không tìm thấy câu hỏi
+            throw new RuntimeException("Question not found");
+        }
+    }
+
 }

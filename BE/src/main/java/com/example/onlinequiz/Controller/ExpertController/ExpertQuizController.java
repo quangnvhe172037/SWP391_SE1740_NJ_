@@ -65,6 +65,11 @@ public class ExpertQuizController {
         return ResponseEntity.ok("Question deleted successfully");
     }
 
+    @PutMapping("/update")
+    public ResponseEntity<String> updateQuestion(@RequestBody UpdateQuestionRequest request) {
+        quizService.updateQuestion(request);
+        return ResponseEntity.ok("Question updated successfully");
+    }
 
     // Get all the quiz answer of this lesson to show
     @GetMapping("/get/lesson/{lessonId}")
