@@ -30,7 +30,9 @@ public interface QuizService {
     List<QuizSentenceUserResponse> getListAnswerQuizUser(List<QuizDetail> qd, QuizResults quizResult);
 
     void addNewQuiz(Quizzes q);
+
     void deleteQuestion(DeleteQuestRequest request);
 
 
     void updateQuestion(UpdateQuestionRequest request);
+}
