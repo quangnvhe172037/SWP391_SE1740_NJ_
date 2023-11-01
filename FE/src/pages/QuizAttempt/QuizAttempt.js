@@ -28,6 +28,9 @@ const QuizAttempt = () => {
   };
 
   useEffect(() => {
+    console.log(
+      `http://localhost:8080/attempt/quiz/${quizId}?resultId=${resultId}&userId=${user.userId}`
+    );
     fetch(
       `http://localhost:8080/attempt/quiz/${quizId}?resultId=${resultId}&userId=${user.userId}`,
       {
@@ -67,17 +70,19 @@ const QuizAttempt = () => {
         };
         setQuizInfo(quizData);
       });
-  }, [seed, selectedQuestion, userAnswers]);
+  }, [selectedQuestion, seed]);
 
   const handleQuestionClick = (e, index) => {
     // e.preventDefault();
 
-    reset();
+   
     sendUserAnswersToBackend();
     setSelectedQuestion(index);
+    reset();
+    
   };
 
-  // Handle the user answer
+ 
   const handleAnswerSelect = (e, index) => {
     const updatedAnswers = [...userAnswers];
     const currentTime = new Date().toISOString();
@@ -159,45 +164,48 @@ const QuizAttempt = () => {
         <div className="row">
           <div className="quiz-attempt-left col-md-9">
             {selectedQuestion !== null && (
-              <div>
-                {/* <label>
-                  Time left:
-                  <Countdown date={quizInfo.dateEnd} onComplete={finalSubmit} />
-                </label> */}
+              <div className="quiz-attempt-content-wrap">
+                <div>
+                  <h2 className="quiz-attempt-ques-title">
+                    Question {selectedQuestion + 1}:
+                  </h2>
+                  <p>{sentences[selectedQuestion].quizQuestion.questionData}</p>
+                </div>
 
-                <h2>Question {selectedQuestion + 1}:</h2>
-                <p>{sentences[selectedQuestion].quizQuestion.questionData}</p>
-                <h4>Answer:</h4>
-                <ul>
-                  {sentences[selectedQuestion].quizAnswers.map(
-                    (answer, index) => (
-                      <li key={answer.answerID}>
-                        <span className="quiz-attempt-answer-choice">
-                          <input
-                            type="radio"
-                            name="quiz-attempt-correct"
-                            defaultChecked={
-                              userAnswers[selectedQuestion] ===
-                                answer.answerID ||
-                              answer.answerID ===
-                                sentences[selectedQuestion].userAnswer
-                            }
-                            onChange={(e) => handleAnswerSelect(e, index)}
-                          />
-                          <label>{answer.answerData}</label>{" "}
-                        </span>
-                      </li>
-                    )
-                  )}
-                </ul>
+                <div className="quiz-attempt-answer-wrap">
+                  <h4>Select one:</h4>
+                  <ul>
+                    {sentences[selectedQuestion].quizAnswers.map(
+                      (answer, index) => (
+                        <li key={answer.answerID}>
+                          <span className="quiz-attempt-answer-choice">
+                            <input
+                              type="radio"
+                              name="quiz-attempt-correct"
+                              defaultChecked={
+                                userAnswers[selectedQuestion] ===
+                                  answer.answerID ||
+                                answer.answerID ===
+                                  sentences[selectedQuestion].userAnswer
+                              }
+                              onChange={(e) => handleAnswerSelect(e, index)}
+                            />
+                            <label>{answer.answerData}</label>{" "}
+                          </span>
+                        </li>
+                      )
+                    )}
+                  </ul>
+                </div>
               </div>
             )}
           </div>
 
           <div className="quiz-attempt-right col-md-3">
-            <h2 className="quiz-attempt-navigate-header">Quiz navigation</h2>
+            
             <div className="quiz-attempt-navigate-button-wrap">
-              <ul className="quiz-attempt-navigate-content-wrap">
+                <h2 className="quiz-attempt-navigate-header">Quiz navigation</h2>
+                <ul className="quiz-attempt-navigate-content-wrap">
                 {sentences.map((item, index) => (
                   <li
                     key={index}
@@ -206,7 +214,7 @@ const QuizAttempt = () => {
                   >
                     <button
                       className={`quiz-attempt-navigate-box ${
-                        sentences[index].userAnswer
+                        item.userAnswer
                           ? "btn btn-primary"
                           : "btn btn-black"
                       }`}
@@ -217,8 +225,14 @@ const QuizAttempt = () => {
                 ))}
               </ul>
             </div>
-            <div>
-              <button onClick={finalSubmit}>Submit</button>
+            <div className="quiz-attempt-handle-submit">
+              <label>
+                Time left:
+                <Countdown date={quizInfo.dateEnd} onComplete={finalSubmit} />
+              </label>
+              <button className="btn btn-dark" onClick={finalSubmit}>
+                Submit
+              </button>
             </div>
           </div>
 

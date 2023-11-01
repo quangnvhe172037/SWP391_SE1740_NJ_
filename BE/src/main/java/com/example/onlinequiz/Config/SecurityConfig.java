@@ -56,7 +56,8 @@ public class SecurityConfig {
             "/user/subject/get/**",
             "/attempt/quiz/**",
             "/attempt/quiz/add/result/**",
-            "/attempt/quiz/update/result/**"
+            "/attempt/quiz/update/result/**",
+            "/attempt/quiz/review/**",
 
 
     };

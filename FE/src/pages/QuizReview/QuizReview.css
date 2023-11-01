@@ -1,0 +1,17 @@
+.quiz-attempt-true-answer{
+    color: green;
+}
+
+.quiz-attempt-false-answer{
+    color: red;
+}
+
+.quiz-review-answer{
+    width: 100%;
+}
+
+.quiz-attempt-review-back{
+    margin-top: 28px;
+    padding-right: 28px;
+    padding-left: 28px;
+}

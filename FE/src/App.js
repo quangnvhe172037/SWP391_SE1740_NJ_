@@ -61,7 +61,11 @@ import ViewPracticeDetail from "./pages/Practice/ViewPracticeDetail";
 import QuizResultData from "./components/Quiz/QuizResult/QuizResultData/QuizResultData";
 import QuizResultPage from "./pages/QuizResultPage/QuizResultPage";
 import NotFound from "./components/NotFound";
+
 import Error404 from "./components/HandleException/Error-404/Error-404";
+
+import QuizReview from "./pages/QuizReview/QuizReview";
+
 
 
 const App = () => {
@@ -182,12 +186,20 @@ const App = () => {
               />
 
               <Route
+                path="/quiz/:quizId/:resultId/review"
+                element={<QuizReview/>}
+              />
+
+              <Route
                 path="/quiz/result/:resultId"
                 element={<QuizResultPage />}
               />
             </>
           )}
+
           <Route path="*" element={<Error404/>}/>
+
+
         </Routes>
       </div>
       <Footer />

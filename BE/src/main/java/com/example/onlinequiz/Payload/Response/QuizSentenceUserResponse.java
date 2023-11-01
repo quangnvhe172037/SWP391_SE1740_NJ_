@@ -16,4 +16,5 @@ public class QuizSentenceUserResponse {
     private List<QuizAnswers> quizAnswers;
     private QuizQuestions quizQuestions;
     private Long userAnswer;
+
 }

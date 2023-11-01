@@ -107,9 +107,6 @@ const EditQuizInfo = (prop) => {
       .catch((error) => {});
   };
 
-  const handleExit = () => {
-    reset();
-  };
 
   return (
     <div>
@@ -122,7 +119,7 @@ const EditQuizInfo = (prop) => {
         modal
         nested
       >
-        {(close) => (
+        {close => (
           <>
             {questions ? (
               <div className="edit-lesson-quiz-header-wrap">
@@ -228,7 +225,7 @@ const EditQuizInfo = (prop) => {
                     <button
                       type="button"
                       className=" edit-quiz-info-btn"
-                      onClick={handleExit}
+                      onClick={close}
                     >
                       Exit
                     </button>

@@ -62,7 +62,7 @@ public class QuizServiceImpl implements QuizService {
         Quizzes q = quizRepository.findByQuizID(id);
         Users user = userRepository.getById(userId);
 
-        QuizResults quizResult = quizResultRepository.findFirstByQuizzesAndUserOrderByScoreDesc(q, user);
+        QuizResults quizResult = quizResultRepository.findFirstByQuizzesAndUserOrderByResultIDDesc(q, user);
         Long isDone;
         if(quizResult.getIsDone() == false){
             isDone = quizResult.getResultID();

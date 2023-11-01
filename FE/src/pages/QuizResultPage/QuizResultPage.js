@@ -1,5 +1,4 @@
 import { useNavigate, useParams } from "react-router-dom";
-import QuizResultData from "../../components/Quiz/QuizResult/QuizResultData/QuizResultData";
 import { useEffect, useState } from "react";
 import jwtDecode from "jwt-decode";
 import { result } from "lodash-es";
@@ -39,8 +38,6 @@ const QuizResultPage = () => {
           isPass: dataJson.isPass,
         };
 
-        console.log(dataJson.falseAnswer);
-        console.log(dataJson.correctAnswer);
         return data;
       })
 
@@ -52,7 +49,8 @@ const QuizResultPage = () => {
         console.log(error.message);
         setQuizInfo(null);
       });
-  }, [resultId, token]);
+  }, [resultId, quizInfo]);
+
   return (
     <div className="quiz-result-wrap">
       <div className="quiz-result-container ">
@@ -77,7 +75,17 @@ const QuizResultPage = () => {
               <div className="quiz-result-score">Score: {quizInfo.score}%</div>
               <div>Date taken: {quizInfo.dateTaken}</div>
               <div className="quiz-result-review-wrap">
-                <button className="quiz-result-review-btn" style={{marginRight : "10px" }}>Review quiz</button>
+                <button
+                  className="quiz-result-review-btn"
+                  style={{ marginRight: "10px" }}
+                  onClick={() => {
+                    navigate(
+                      `/quiz/${quizInfo.quizId}/${quizInfo.resultId}/review`
+                    );
+                  }}
+                >
+                  Review quiz
+                </button>
 
                 <button
                   className="quiz-result-review-btn"
