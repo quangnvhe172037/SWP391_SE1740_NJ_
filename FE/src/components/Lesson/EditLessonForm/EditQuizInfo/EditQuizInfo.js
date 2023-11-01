@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import jwtDecode from "jwt-decode";
 import Popup from "reactjs-popup";
+import "./EditQuizInfo.css";
 const EditQuizInfo = (prop) => {
   const [questions, setQuestions] = useState({});
   const token = localStorage.getItem("token");
@@ -11,87 +12,79 @@ const EditQuizInfo = (prop) => {
     setSeed(Math.random());
   };
 
- 
-    useEffect(() => {
-      fetch(
-        `http://localhost:8080/api/questions/get/quiz/sentence/${prop.sentenceId}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
+  useEffect(() => {
+    fetch(
+      `http://localhost:8080/api/questions/get/quiz/sentence/${prop.sentenceId}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+      .then((response) => {
+        if (!response.ok) {
+          // throw new Error("Network response was not ok");
         }
-      )
-        .then((response) => {
-          if (!response.ok) {
-            // throw new Error("Network response was not ok");
-          }
-          return response.json();
-        })
+        return response.json();
+      })
 
-        .then((dataJson) => {
-          
+      .then((dataJson) => {
+        return dataJson;
+      })
 
-          return dataJson;
-        })
-
-        .then((result) => {
-          const mockData = result;
-          console.log(result);
-          setQuestions(result);
+      .then((result) => {
+        const mockData = result;
+        console.log(result);
+        setQuestions(result);
 
         //   console.log("test sentence ");
         //   console.log(result);
         //   console.log(result.quizQuestion.questionData);
-        });
-    }, [seed]);
- 
-
+      });
+  }, [seed]);
 
   const handleSubmit = (e) => {
     const form = new FormData(e.target);
-   
 
-    
-      const dataToSend = {
-        sentenceId: prop.sentenceId,
-        quizAnswers: [
-          {
-            answerId: questions.quizAnswers[0].answerID,
-            answerData: form.get("answer1"),
-            explanation: form.get("explanation1"),
-            trueAnswer:
-              document.getElementById("edit-quiz-info-radio1").checked === true,
-          },
-          {
-            answerId: questions.quizAnswers[1].answerID,
-            answerData: form.get("answer2"),
-            explanation: form.get("explanation2"),
-            trueAnswer:
-              document.getElementById("edit-quiz-info-radio2").checked === true,
-          },
-          {
-            answerId: questions.quizAnswers[2].answerID,
-            answerData: form.get("answer3"),
-            explanation: form.get("explanation3"),
-            trueAnswer:
-              document.getElementById("edit-quiz-info-radio3").checked === true,
-          },
-          {
-            answerId: questions.quizAnswers[3].answerID,
-            answerData: form.get("answer4"),
-            explanation: form.get("explanation4"),
-            trueAnswer:
-              document.getElementById("edit-quiz-info-radio4").checked === true,
-          },
-        ],
-        quizQuestion: {
-          questionId: questions.quizQuestions.questionID,
-          questionData: form.get("question"),
+    const dataToSend = {
+      sentenceId: prop.sentenceId,
+      quizAnswers: [
+        {
+          answerId: questions.quizAnswers[0].answerID,
+          answerData: form.get("answer1"),
+          explanation: form.get("explanation1"),
+          trueAnswer:
+            document.getElementById("edit-quiz-info-radio1").checked === true,
         },
-      };
+        {
+          answerId: questions.quizAnswers[1].answerID,
+          answerData: form.get("answer2"),
+          explanation: form.get("explanation2"),
+          trueAnswer:
+            document.getElementById("edit-quiz-info-radio2").checked === true,
+        },
+        {
+          answerId: questions.quizAnswers[2].answerID,
+          answerData: form.get("answer3"),
+          explanation: form.get("explanation3"),
+          trueAnswer:
+            document.getElementById("edit-quiz-info-radio3").checked === true,
+        },
+        {
+          answerId: questions.quizAnswers[3].answerID,
+          answerData: form.get("answer4"),
+          explanation: form.get("explanation4"),
+          trueAnswer:
+            document.getElementById("edit-quiz-info-radio4").checked === true,
+        },
+      ],
+      quizQuestion: {
+        questionId: questions.quizQuestions.questionID,
+        questionData: form.get("question"),
+      },
+    };
 
-      
     fetch(
       `http://localhost:8080/api/questions/update/quiz/data/${prop.sentenceId}`,
       {
@@ -106,10 +99,10 @@ const EditQuizInfo = (prop) => {
       .then((response) => {
         if (!response.ok) {
         }
-        return response.json();
+        return response.text();
       })
       .then((data) => {
-        alert("Update successful");
+        alert(data);
       })
       .catch((error) => {});
   };
@@ -117,8 +110,6 @@ const EditQuizInfo = (prop) => {
   const handleExit = () => {
     reset();
   };
-
-
 
   return (
     <div>
@@ -134,35 +125,42 @@ const EditQuizInfo = (prop) => {
         {(close) => (
           <>
             {questions ? (
-              <div>
-                <h2>Question List</h2>
+              <div className="edit-lesson-quiz-header-wrap">
+                <h2 className="edit-lesson-quiz-header">Question List</h2>
 
-                <form onSubmit={handleSubmit}>
+                <form
+                  onSubmit={handleSubmit}
+                  className="edit-quiz-info-form-wrap"
+                >
                   <input
                     name="question"
                     placeholder="Enter the question"
                     value={questions.quizQuestions?.questionData || ""}
+                    className="edit-quiz-info-question"
                   />
 
-                  <div>
+                  <div className="edit-quiz-info-element">
                     <input
                       type="radio"
                       id="edit-quiz-info-radio1"
                       name="correct"
                       defaultChecked={questions.quizAnswers?.[0]?.trueAnswer}
                     />
+
                     <input
                       name="answer1"
+                      className="col-md-7"
                       placeholder="Answer 1"
                       defaultValue={questions.quizAnswers?.[0]?.answerData}
                     />
                     <input
                       name="explanation1"
+                      className="col-md-4"
                       placeholder="Explanation"
                       defaultValue={questions.quizAnswers?.[0]?.explanation}
                     />
                   </div>
-                  <div>
+                  <div className="edit-quiz-info-element">
                     <input
                       type="radio"
                       id="edit-quiz-info-radio2"
@@ -172,15 +170,17 @@ const EditQuizInfo = (prop) => {
                     <input
                       name="answer2"
                       placeholder="Answer 2"
+                      className="col-md-7"
                       defaultValue={questions.quizAnswers?.[1]?.answerData}
                     />
                     <input
                       name="explanation2"
                       placeholder="Explanation"
+                      className="col-md-4"
                       defaultValue={questions.quizAnswers?.[1]?.explanation}
                     />
                   </div>
-                  <div>
+                  <div className="edit-quiz-info-element">
                     <input
                       type="radio"
                       id="edit-quiz-info-radio3"
@@ -190,15 +190,17 @@ const EditQuizInfo = (prop) => {
                     <input
                       name="answer3"
                       placeholder="Answer 3"
+                      className="col-md-7"
                       defaultValue={questions.quizAnswers?.[2]?.answerData}
                     />
                     <input
                       name="explanation3"
                       placeholder="Explanation"
+                      className="col-md-4"
                       defaultValue={questions.quizAnswers?.[2]?.explanation}
                     />
                   </div>
-                  <div>
+                  <div className="edit-quiz-info-element">
                     <input
                       type="radio"
                       name="correct"
@@ -208,19 +210,29 @@ const EditQuizInfo = (prop) => {
                     <input
                       name="answer4"
                       placeholder="Answer 4"
+                      className="col-md-7"
                       defaultValue={questions.quizAnswers?.[3]?.answerData}
                     />
                     <input
                       name="explanation4"
                       placeholder="Explanation"
+                      className="col-md-4"
                       defaultValue={questions.quizAnswers?.[3]?.explanation}
                     />
                   </div>
 
-                  <button type="submit">Save</button>
-                  <button type="button" onClick={handleExit}>
-                    Exit
-                  </button>
+                  <div className="edit-quiz-info-wrap">
+                    <button type="submit" className="edit-quiz-info-btn">
+                      Save
+                    </button>
+                    <button
+                      type="button"
+                      className=" edit-quiz-info-btn"
+                      onClick={handleExit}
+                    >
+                      Exit
+                    </button>
+                  </div>
                 </form>
               </div>
             ) : (

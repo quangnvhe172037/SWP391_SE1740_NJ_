@@ -1,65 +1,194 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "./QuizAttempt.css";
+import jwtDecode from "jwt-decode";
+import CountdownTimer from "../../components/CountdownTimer/CountdownTimer";
+import Countdown from "react-countdown";
+import NotFoundException from "../../components/HandleException/Error-404/Error-404";
 
 const QuizAttempt = () => {
-  const { quizId } = useParams();
+  const { quizId, resultId } = useParams();
+  const navigate = useNavigate();
   const token = localStorage.getItem("token");
   const [selectedQuestion, setSelectedQuestion] = useState(0);
   const [sentences, setSentence] = useState([]);
+  const [quizInfo, setQuizInfo] = useState({});
+  const user = jwtDecode(token);
+  const [userAnswers, setUserAnswers] = useState(
+    sentences.map((sentence) => ({
+      sentenceId: sentence.sentenceId,
+      userAnswer: null,
+      timeSubmit: new Date().toISOString(),
+    }))
+  );
+  const [seed, setSeed] = useState(1);
+  const [handle404, setHandle404] = useState(false);
+  const reset = () => {
+    setSeed(Math.random());
+  };
 
   useEffect(() => {
-    fetch(`http://localhost:8080/attempt/quiz/${quizId}`, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
+    fetch(
+      `http://localhost:8080/attempt/quiz/${quizId}?resultId=${resultId}&userId=${user.userId}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
       .then((response) => {
         if (!response.ok) {
           // throw new Error("Network response was not ok");
+          setHandle404(true);
+          return null;
         }
         return response.json();
       })
 
-      .then((dataJson) => {
-        const data = dataJson.map((item) => ({
+      .then((item) => {
+        console.log(item);
+        if (item === null) {
+          return;
+        }
+        const sentencesData = item.listSentence.map((item) => ({
           sentenceId: item.sentenceId,
           quizAnswers: item.quizAnswers,
           quizQuestion: item.quizQuestions,
+          userAnswer: item.userAnswer,
         }));
-        return data;
-      })
 
-      .then((result) => {
-        const mockData = result;
-        setSentence(mockData);
+        setSentence(sentencesData);
+        const quizData = {
+          quizName: item.quizName,
+          passRate: item.passRate,
+          durationTime: item.durationTime,
+          dateEnd: item.dateEnd,
+        };
+        setQuizInfo(quizData);
       });
-  }, [quizId, token]);
+  }, [seed, selectedQuestion, userAnswers]);
 
   const handleQuestionClick = (e, index) => {
-    e.preventDefault();
+    // e.preventDefault();
+
+    reset();
+    sendUserAnswersToBackend();
     setSelectedQuestion(index);
   };
+
+  // Handle the user answer
+  const handleAnswerSelect = (e, index) => {
+    const updatedAnswers = [...userAnswers];
+    const currentTime = new Date().toISOString();
+    updatedAnswers[selectedQuestion] = {
+      ...updatedAnswers[selectedQuestion],
+      sentenceId: sentences[selectedQuestion].sentenceId,
+      userAnswer: sentences[selectedQuestion].quizAnswers[index].answerID,
+      timeSubmit: currentTime,
+    };
+    setUserAnswers(updatedAnswers);
+    sendUserAnswersToBackend();
+    reset();
+  };
+
+  const sendUserAnswersToBackend = () => {
+    const data = userAnswers;
+    console.log(data);
+    fetch(
+      `http://localhost:8080/attempt/quiz/update/result/${quizId}?resultId=${resultId}&userId=${user.userId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+      }
+    )
+      .then((response) => {
+        if (!response.ok) {
+        }
+        return response.text();
+      })
+      .then((data) => {
+        console.log("User answers saved successfully:", data);
+      })
+      .catch((error) => {
+        console.error("Error saving user answers:", error);
+      });
+    reset();
+  };
+
+  const finalSubmit = () => {
+    const data = userAnswers;
+    console.log(data);
+    fetch(
+      `http://localhost:8080/attempt/quiz/submit/result/${quizId}?resultId=${resultId}&userId=${user.userId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+      }
+    )
+      .then((response) => {
+        if (!response.ok) {
+        }
+        return response.text();
+      })
+      .then((data) => {
+        console.log("User answers saved successfully:", data);
+      })
+      .catch((error) => {
+        console.error("Error saving user answers:", error);
+      });
+    navigate(`/quiz/result/${resultId}`);
+  };
+  if (handle404) {
+    return <NotFoundException />;
+  }
+
   return (
     <div className="quiz-attempt-wrap ">
       {sentences.length === 0 ? (
-        <div>Không có dữ liệu hiển thị</div>
+        <div>Question not found</div>
       ) : (
         <div className="row">
           <div className="quiz-attempt-left col-md-9">
             {selectedQuestion !== null && (
               <div>
-                <h3>Question:</h3>
+                {/* <label>
+                  Time left:
+                  <Countdown date={quizInfo.dateEnd} onComplete={finalSubmit} />
+                </label> */}
+
+                <h2>Question {selectedQuestion + 1}:</h2>
                 <p>{sentences[selectedQuestion].quizQuestion.questionData}</p>
                 <h4>Answer:</h4>
                 <ul>
-                  {sentences[selectedQuestion].quizAnswers.map((answer) => (
-                    <li key={answer.answerID}>
-                      <input type="radio" name="quiz-attempt-correct" />
-                      <p>{answer.answerData}</p>
-                    </li>
-                  ))}
+                  {sentences[selectedQuestion].quizAnswers.map(
+                    (answer, index) => (
+                      <li key={answer.answerID}>
+                        <span className="quiz-attempt-answer-choice">
+                          <input
+                            type="radio"
+                            name="quiz-attempt-correct"
+                            defaultChecked={
+                              userAnswers[selectedQuestion] ===
+                                answer.answerID ||
+                              answer.answerID ===
+                                sentences[selectedQuestion].userAnswer
+                            }
+                            onChange={(e) => handleAnswerSelect(e, index)}
+                          />
+                          <label>{answer.answerData}</label>{" "}
+                        </span>
+                      </li>
+                    )
+                  )}
                 </ul>
               </div>
             )}
@@ -67,21 +196,44 @@ const QuizAttempt = () => {
 
           <div className="quiz-attempt-right col-md-3">
             <h2 className="quiz-attempt-navigate-header">Quiz navigation</h2>
-
             <div className="quiz-attempt-navigate-button-wrap">
               <ul className="quiz-attempt-navigate-content-wrap">
                 {sentences.map((item, index) => (
                   <li
                     key={index}
                     onClick={(e) => handleQuestionClick(e, index)}
-                    className="quiz-attempt-navigate-button-element"
+                    className={`quiz-attempt-navigate-button-element `}
                   >
-                    <button className="quiz-attempt-navigate-box btn btn-secondary">{index + 1}</button>
+                    <button
+                      className={`quiz-attempt-navigate-box ${
+                        sentences[index].userAnswer
+                          ? "btn btn-primary"
+                          : "btn btn-black"
+                      }`}
+                    >
+                      {index + 1}
+                    </button>
                   </li>
                 ))}
               </ul>
             </div>
+            <div>
+              <button onClick={finalSubmit}>Submit</button>
+            </div>
           </div>
+
+          {/* <div>
+            <h2>User Answers:</h2>
+            <ul>
+              {userAnswers.map((answer, index) => (
+                <li key={index}>
+                  Question {index + 1}:{" "}
+                  {answer !== null ? answer : "Not answered"}
+                 
+                </li>
+              ))}
+            </ul>
+          </div> */}
         </div>
       )}
     </div>

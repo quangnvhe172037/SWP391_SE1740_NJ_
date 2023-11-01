@@ -55,7 +55,9 @@ public class SecurityConfig {
             "/user/subject/get",
             "/user/subject/get/**",
             "/attempt/quiz/**",
-            "attempt/quiz/add/result/**"
+            "/attempt/quiz/add/result/**",
+            "/attempt/quiz/update/result/**"
+
 
     };
     // Danh sách các URL cho expert
@@ -75,7 +77,8 @@ public class SecurityConfig {
             "/api/expert/lesson/update/article/**",
             "/api/expert/lesson/update/video/**",
             "/api/questions/update/quiz/data/**",
-            "/api/questions/get/quiz/sentence/**"
+            "/api/questions/get/quiz/sentence/**",
+            "/api/questions/delete/sentence/**"
 
 
 
@@ -113,7 +116,9 @@ public class SecurityConfig {
             "/quiz/get/**",
             "/quiz/result/get",
             "/quiz/result/get/**",
-            "/quiz/get/lesson/**"
+            "/quiz/get/lesson/**",
+            "/quiz/result/view/**",
+
     };
 
     // Danh sach cac url cho admin va marketing

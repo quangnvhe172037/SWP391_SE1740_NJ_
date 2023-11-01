@@ -1,0 +1,28 @@
+.edit-quiz-info-form-wrap{
+    box-shadow: 0 2px 4px rgba(0,0,0,.08), 0 4px 12px rgba(0,0,0,.16);
+    height: 300px;
+    margin: 20px;
+    padding: 16px;
+}
+
+.edit-quiz-info-question{
+    padding: 8px 4px;
+    width: 100%;
+
+}
+
+.edit-quiz-info-btn{
+    background-color: black;
+    color: white;
+    padding: 8px 16px;
+    margin: 0 20px;
+}
+
+.edit-quiz-info-wrap{
+    text-align: center;
+    margin-top: 30px;
+}
+
+.edit-quiz-info-element{
+    margin: 10px 0;
+}

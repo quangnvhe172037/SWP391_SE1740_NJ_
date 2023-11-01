@@ -55,9 +55,10 @@ public class ExpertQuizController {
 
     //api get question
     @GetMapping("/get/{subjectName}")
-    public List<QuestionResponse> getQuestionBySubjectName(@PathVariable Long subjectName){
+    public List<QuestionResponse> getQuestionBySubjectName(@PathVariable Long subjectName) {
         return quizDataService.getQuestionBySubjectName(subjectName);
     }
+
     //api delete question
     @DeleteMapping("/delete")
     public ResponseEntity<String> deleteQuestion(@RequestBody DeleteQuestRequest request) {
@@ -72,13 +73,8 @@ public class ExpertQuizController {
             @PathVariable Long lessonId
     ) {
         try {
-
-
             Quizzes q = quizService.getQuizByLessonId(lessonId);
-
             List<QuizDetail> quizDetailList = quizService.getQuizDetailByQuiz(q);
-
-
             List<QuizSentenceResponse> data = quizService.getListQuizDataByQuizDetail(quizDetailList);
 
             return ResponseEntity.ok(data);
@@ -86,7 +82,6 @@ public class ExpertQuizController {
             System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-
     }
 
     @PostMapping("/add/lesson/{lessonId}")
@@ -96,7 +91,6 @@ public class ExpertQuizController {
             @RequestBody QuizSentenceRequest quizSentenceRequest
 
     ) {
-
         try {
             Quizzes q = quizService.getQuizByLessonId(lessonId);
 
@@ -141,15 +135,13 @@ public class ExpertQuizController {
     }
 
     @PutMapping("/update/quiz/data/{sentenceId}")
-    public ResponseEntity<String> updateArticleLesson(
+    public ResponseEntity<String> updateQuizSentence(
             @PathVariable Long sentenceId,
             @RequestBody UpdateQuizSentenceRequest quizSentenceRequest
 
     ) {
-
         try {
             QuizData quizData = quizDataService.findById(sentenceId);
-
             QuizQuestions q = quizQuestionService.findByQuestionId(quizSentenceRequest.getQuizQuestion().getQuestionId());
             q.setQuestionData(quizSentenceRequest.getQuizQuestion().getQuestionData());
 
@@ -164,7 +156,7 @@ public class ExpertQuizController {
             }
 
 
-            return ResponseEntity.ok("oke");
+            return ResponseEntity.ok("Update success");
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -181,11 +173,10 @@ public class ExpertQuizController {
         try {
             QuizData quizData = quizDataService.findById(sentenceId);
             QuizSentenceResponse data = new QuizSentenceResponse(
-                            quizData.getSentenceID(),
-                            quizData.getQuizAnswers(),
-                            quizData.getQuizQuestions()
-
-                    );
+                    quizData.getSentenceID(),
+                    quizData.getQuizAnswers(),
+                    quizData.getQuizQuestions()
+            );
 
             return ResponseEntity.ok(data);
         } catch (Exception e) {
@@ -196,9 +187,21 @@ public class ExpertQuizController {
     }
 
 
-//    @DeleteMapping("/delete/lesson/{sentenceId}")
-//    public ResponseEntity<List<QuizSentenceResponse>> deleteSentence(){
-//
-//    }
+    @DeleteMapping("/delete/sentence/{sentenceId}")
+    public ResponseEntity<String> deleteSentence(
+            @PathVariable Long sentenceId,
+            @RequestParam Long lessonId
+    ) {
+        try {
+
+            String checkDelete = quizDataService.deleteSentenceLesson(sentenceId, lessonId);
+
+            return ResponseEntity.ok(checkDelete);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 
 }

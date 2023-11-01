@@ -1,26 +1,24 @@
-import "react-quill/dist/quill.bubble.css";
+import { useNavigate, useParams } from "react-router-dom";
+import QuizResultData from "../../components/Quiz/QuizResult/QuizResultData/QuizResultData";
 import { useEffect, useState } from "react";
 import jwtDecode from "jwt-decode";
-import "./QuizResultData.css";
-import "chart.js/auto";
-import PieChart from "../../../../PipeChart";
+import { result } from "lodash-es";
+import PieChart from "../../PipeChart";
 
-const QuizResultData = (prop) => {
-  let quizId = prop.quizId;
+const QuizResultPage = () => {
+  const { resultId } = useParams();
   const [quizInfo, setQuizInfo] = useState({});
   const token = localStorage.getItem("token");
   const user = jwtDecode(token);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(
-      `http://localhost:8080/quiz/result/get?quizId=${quizId}&userId=${user.userId}`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    )
+    fetch(`http://localhost:8080/quiz/result/view/${resultId}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((response) => {
         if (!response.ok) {
           console.log(response.message);
@@ -54,7 +52,7 @@ const QuizResultData = (prop) => {
         console.log(error.message);
         setQuizInfo(null);
       });
-  }, [quizId, token]);
+  }, [resultId, token]);
   return (
     <div className="quiz-result-wrap">
       <div className="quiz-result-container ">
@@ -69,7 +67,7 @@ const QuizResultData = (prop) => {
             </div>
             <div className="col-md-5">
               <div>
-                <span className="quiz-result-attempt">Best Attempt:</span>
+                <span className="quiz-result-attempt">Your attempt</span>
                 {quizInfo.isPass ? (
                   <p className="quiz-result-pass">Pass</p>
                 ) : (
@@ -79,7 +77,16 @@ const QuizResultData = (prop) => {
               <div className="quiz-result-score">Score: {quizInfo.score}%</div>
               <div>Date taken: {quizInfo.dateTaken}</div>
               <div className="quiz-result-review-wrap">
-                <button className="quiz-result-review-btn">Review quiz</button>
+                <button className="quiz-result-review-btn" style={{marginRight : "10px" }}>Review quiz</button>
+
+                <button
+                  className="quiz-result-review-btn"
+                  onClick={() => {
+                    navigate(-2);
+                  }}
+                >
+                  Back to Lesson
+                </button>
               </div>
             </div>
           </div>
@@ -91,4 +98,4 @@ const QuizResultData = (prop) => {
   );
 };
 
-export default QuizResultData;
+export default QuizResultPage;
