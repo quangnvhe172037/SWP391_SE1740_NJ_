@@ -46,67 +46,82 @@ const EditQuizInfo = (prop) => {
 
   const handleSubmit = (e) => {
     const form = new FormData(e.target);
+    if (
+      form.get("answer1") === "" ||
+      form.get("answer2") === "" ||
+      form.get("answer3") === "" ||
+      form.get("answer4") === "" ||
+      form.get("explanation1") === "" ||
+      form.get("explanation2") === "" ||
+      form.get("explanation3") === "" ||
+      form.get("explanation4") === ""
+    ) {
+      alert("Please enter full field");
+      
+      
+    } else {
+      
+    
+      const dataToSend = {
+        sentenceId: prop.sentenceId,
+        quizAnswers: [
+          {
+            answerId: questions.quizAnswers[0].answerID,
+            answerData: form.get("answer1"),
+            explanation: form.get("explanation1"),
+            trueAnswer:
+              document.getElementById("edit-quiz-info-radio1").checked === true,
+          },
+          {
+            answerId: questions.quizAnswers[1].answerID,
+            answerData: form.get("answer2"),
+            explanation: form.get("explanation2"),
+            trueAnswer:
+              document.getElementById("edit-quiz-info-radio2").checked === true,
+          },
+          {
+            answerId: questions.quizAnswers[2].answerID,
+            answerData: form.get("answer3"),
+            explanation: form.get("explanation3"),
+            trueAnswer:
+              document.getElementById("edit-quiz-info-radio3").checked === true,
+          },
+          {
+            answerId: questions.quizAnswers[3].answerID,
+            answerData: form.get("answer4"),
+            explanation: form.get("explanation4"),
+            trueAnswer:
+              document.getElementById("edit-quiz-info-radio4").checked === true,
+          },
+        ],
+        quizQuestion: {
+          questionId: questions.quizQuestions.questionID,
+          questionData: form.get("question"),
+        },
+      };
 
-    const dataToSend = {
-      sentenceId: prop.sentenceId,
-      quizAnswers: [
+      fetch(
+        `http://localhost:8080/api/questions/update/quiz/data/${prop.sentenceId}`,
         {
-          answerId: questions.quizAnswers[0].answerID,
-          answerData: form.get("answer1"),
-          explanation: form.get("explanation1"),
-          trueAnswer:
-            document.getElementById("edit-quiz-info-radio1").checked === true,
-        },
-        {
-          answerId: questions.quizAnswers[1].answerID,
-          answerData: form.get("answer2"),
-          explanation: form.get("explanation2"),
-          trueAnswer:
-            document.getElementById("edit-quiz-info-radio2").checked === true,
-        },
-        {
-          answerId: questions.quizAnswers[2].answerID,
-          answerData: form.get("answer3"),
-          explanation: form.get("explanation3"),
-          trueAnswer:
-            document.getElementById("edit-quiz-info-radio3").checked === true,
-        },
-        {
-          answerId: questions.quizAnswers[3].answerID,
-          answerData: form.get("answer4"),
-          explanation: form.get("explanation4"),
-          trueAnswer:
-            document.getElementById("edit-quiz-info-radio4").checked === true,
-        },
-      ],
-      quizQuestion: {
-        questionId: questions.quizQuestions.questionID,
-        questionData: form.get("question"),
-      },
-    };
-
-    fetch(
-      `http://localhost:8080/api/questions/update/quiz/data/${prop.sentenceId}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(dataToSend),
-      }
-    )
-      .then((response) => {
-        if (!response.ok) {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(dataToSend),
         }
-        return response.text();
-      })
-      .then((data) => {
-        alert(data);
-      })
-      .catch((error) => {});
+      )
+        .then((response) => {
+          if (!response.ok) {
+          }
+          return response.text();
+        })
+        .then((data) => {
+          alert(data);
+        })
+        .catch((error) => { });
+    }
   };
-
 
   return (
     <div>
@@ -119,7 +134,7 @@ const EditQuizInfo = (prop) => {
         modal
         nested
       >
-        {close => (
+        {(close) => (
           <>
             {questions ? (
               <div className="edit-lesson-quiz-header-wrap">
@@ -130,9 +145,10 @@ const EditQuizInfo = (prop) => {
                   className="edit-quiz-info-form-wrap"
                 >
                   <input
+                    type="text"
                     name="question"
                     placeholder="Enter the question"
-                    value={questions.quizQuestions?.questionData || ""}
+                    defaultValue={questions.quizQuestions?.questionData || ""}
                     className="edit-quiz-info-question"
                   />
 

@@ -130,7 +130,7 @@ const GetData = () => {
                 <input
                   type="text"
                   value={video}
-                  placeholder="Link share Youtube video"
+                  placeholder="Enter new link share of Youtube video"
                   className=" add-subject-topic-input"
                   onChange={(e) => setVideo(e.target.value)}
                 />
