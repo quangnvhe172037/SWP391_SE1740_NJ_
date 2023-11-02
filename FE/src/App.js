@@ -63,6 +63,7 @@ import QuizResultPage from "./pages/QuizResultPage/QuizResultPage";
 import Error404 from "./components/HandleException/Error-404/Error-404";
 
 import QuizReview from "./pages/QuizReview/QuizReview";
+import AddPracticeDetail from "./pages/Practice/AddPracticeDetail";
 
 
 
@@ -126,6 +127,8 @@ const App = () => {
               <Route path="/sliders/edit/*" element={<SliderDetail />} />
               <Route path="/add-question/:subjectId" element={<ImportQuiz />} />
               <Route path="/practice" element={<PracticeList />} />
+              <Route path="/practice/add" element={<AddPracticeDetail />} />
+
               <Route
                 path="/practice/view/:resultid"
                 element={<ViewPracticeDetail />}

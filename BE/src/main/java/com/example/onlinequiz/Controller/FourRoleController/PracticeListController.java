@@ -1,16 +1,16 @@
 package com.example.onlinequiz.Controller.FourRoleController;
 
 import com.example.onlinequiz.Model.*;
-import com.example.onlinequiz.Services.PracticeListService;
-import com.example.onlinequiz.Services.SubjectService;
-import com.example.onlinequiz.Services.UserService;
-import lombok.AllArgsConstructor;
+import com.example.onlinequiz.Payload.Request.AddNewLessonQuizRequest;
+import com.example.onlinequiz.Payload.Request.AddNewQuizzes;
+import com.example.onlinequiz.Services.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -20,6 +20,11 @@ import java.util.List;
 public class PracticeListController {
     @Autowired
     public final PracticeListService practiceListService;
+
+    @Autowired
+    public final QuizTypeService quizTypeService;
+    @Autowired
+    public final QuizService quizService;
 
     @Autowired
     public final SubjectService subjectService;
@@ -68,5 +73,50 @@ public class PracticeListController {
         }
 
     }
+    //Add new quiz
+    @PostMapping("/add")
+    public ResponseEntity<Quizzes> addNewQuiz(@RequestBody AddNewQuizzes request) {
 
+        try{
+            String quizName = request.getQuizName();
+            Integer subjectId = request.getSubjectId();
+            Integer quizTypeId = request.getQuizTypeId();
+            Integer durationTime = request.getDurationTime();
+            Integer passRate = request.getPassRate();
+            String examLevel = request.getExamLevel();
+
+            System.out.println("Received Data:");
+            System.out.println("Quiz Name: " + quizName);
+            System.out.println("Subject ID: " + subjectId);
+            System.out.println("Quiz Type ID: " + quizTypeId);
+            System.out.println("Duration Time: " + durationTime);
+            System.out.println("Pass Rate: " + passRate);
+            System.out.println("Exam level: " + examLevel);
+
+
+            Quizzes quiz = new Quizzes();
+            quiz.setQuizName(quizName);
+
+            Subjects s = subjectService.getSubjectById(Long.valueOf(subjectId));
+            quiz.setSubject(s);
+
+            QuizTypes qt = quizTypeService.getQuizTypeById(Long.valueOf(quizTypeId));
+            quiz.setQuizTypes(qt);
+
+            quiz.setDurationTime(durationTime);
+
+            Date currentTime = new Date();
+            quiz.setDateCreate(currentTime);
+            quiz.setPassRate(passRate);
+
+            //random number question in quiz
+
+            quizService.addNewQuiz(quiz);
+            return ResponseEntity.ok(quiz);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
+    }
 }
