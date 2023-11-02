@@ -53,7 +53,24 @@ const EditLessonQuiz = (prop) => {
   };
 
   const handleSubmit = (e) => {
+    
     const form = new FormData(e.target);
+    if (
+      form.get("answer1") === "" ||
+      form.get("answer2") === "" ||
+      form.get("answer3") === "" ||
+      form.get("answer4") === "" ||
+      form.get("explanation1") === "" ||
+      form.get("explanation2") === "" ||
+      form.get("explanation3") === "" ||
+      form.get("explanation4") === ""
+
+    ) {
+      alert("Please enter full field");
+      setShowForm(false);
+      return;
+    }
+
     const dataToSend = {
       quizAnswers: [
         {
@@ -167,7 +184,7 @@ const EditLessonQuiz = (prop) => {
                 />
 
                 <div className="edit-lesson-form-element row">
-                  <input type="radio" name="correct1" />
+                  <input type="radio" name="correct1" defaultChecked/>
                   <input className="" name="answer1" placeholder="Answer 1" />
                   <input name="explanation1" placeholder="Explanation" />
                 </div>
@@ -211,7 +228,7 @@ const EditLessonQuiz = (prop) => {
                   {questions.map((q, index) => (
                     <li key={q.quizQuestion.questionID}>
                       <label>
-                        {index + 1}) {q.quizQuestion.questionData}
+                        {index + 1} {q.quizQuestion.questionData}
                         <button className="button edit-lesson-quiz-btn-edit">
                           <EditQuizInfo sentenceId={q.sentenceId} />
                         </button>

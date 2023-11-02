@@ -70,7 +70,6 @@ public class QuizAttemptController {
                     quiz.getPassRate(),
                     quiz.getDurationTime(),
                     quizResult.getDateEnd());
-            System.out.println(result.getResultId());
 
             return ResponseEntity.ok(result);
         } catch (Exception e) {

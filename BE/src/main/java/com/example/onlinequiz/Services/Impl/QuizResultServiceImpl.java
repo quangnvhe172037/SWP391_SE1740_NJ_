@@ -125,6 +125,7 @@ public class QuizResultServiceImpl implements QuizResultService {
     @Override
     public String updateDataQuizResult(List<QuizSentenceSubmitRequest> quizSentenceSubmitList, Long quizId, Long resultId, Long userId) {
         try {
+            System.out.println(quizSentenceSubmitList);
             Users user = userRepository.getById(userId);
             Quizzes quiz = quizRepository.findByQuizID(quizId);
 
@@ -133,12 +134,16 @@ public class QuizResultServiceImpl implements QuizResultService {
             if (quizResult.getUser().getId() != userId) {
                 return null;
             }
-
             List<QuizResultDetail> quizResultDetailList = quizResultDetailRepository.findAllByQuizResult(quizResult);
             for (QuizSentenceSubmitRequest quizSentenceSubmit : quizSentenceSubmitList) {
-                QuizResultDetail quizResultDetail = quizResultDetailRepository.findQuizResultDetailByQuizDataAndAndQuizResult(quizDataRepository.findQuizDataBySentenceID(quizSentenceSubmit.getSentenceId()), quizResult);
-                if (quizResult.getDateEnd().after(quizSentenceSubmit.getTimeSubmit()) && quizAnswerRepository.findQuizAnswersByAnswerID(quizSentenceSubmit.getUserAnswer()) != null) {
-                    quizResultDetail.setUserAnswer(quizAnswerRepository.findQuizAnswersByAnswerID(quizSentenceSubmit.getUserAnswer()));
+
+                if(quizSentenceSubmit == null){
+                    continue;
+                }else{
+                    QuizResultDetail quizResultDetail = quizResultDetailRepository.findQuizResultDetailByQuizDataAndAndQuizResult(quizDataRepository.findQuizDataBySentenceID(quizSentenceSubmit.getSentenceId()), quizResult);
+                    if (quizResult.getDateEnd().after(quizSentenceSubmit.getTimeSubmit()) && quizAnswerRepository.findQuizAnswersByAnswerID(quizSentenceSubmit.getUserAnswer()) != null) {
+                        quizResultDetail.setUserAnswer(quizAnswerRepository.findQuizAnswersByAnswerID(quizSentenceSubmit.getUserAnswer()));
+                    }
                 }
             }
             return "Update success";

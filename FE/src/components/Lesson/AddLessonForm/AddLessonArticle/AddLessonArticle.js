@@ -13,6 +13,11 @@ const AddLessonArticle = (prop) => {
   const user = jwtDecode(token);
 
   const handleSubmit = () => {
+    if (valueArticle === "" || lessonName == null || lessonOrder == null) {
+      alert("Please enter full field");
+      return;
+    }
+
     const dataToSend = {
       lessonName: lessonName,
       lessonOrder: lessonOrder,
