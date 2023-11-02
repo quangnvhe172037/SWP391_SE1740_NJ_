@@ -2,6 +2,7 @@ package com.example.onlinequiz.Controller.PublicController;
 
 import com.example.onlinequiz.Model.Sliders;
 import com.example.onlinequiz.Model.Users;
+import com.example.onlinequiz.Services.FileUpload;
 import com.example.onlinequiz.Services.SliderService;
 import com.example.onlinequiz.Services.SubjectService;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -26,6 +27,8 @@ public class SliderController {
     @Autowired
     private final SliderService sliderService;
 
+    @Autowired
+    private final FileUpload fileUploadService;
 
     @GetMapping
     @ResponseBody
@@ -88,7 +91,7 @@ public class SliderController {
             Sliders sliderChange = sliderService.findSlider(sliderId);
             if (sliderChange != null) {
                 // Cập nhật dữ liệu của slider từ updatedSliderData
-                sliderChange.setImage(sliderService.storeImage(file, sliderId));
+                sliderChange.setImage(fileUploadService.uploadFile(file));
                 // Lưu slider đã cập nhật vào cơ sở dữ liệu
                 sliderChange = sliderService.save(sliderChange);
 
@@ -199,7 +202,6 @@ public class SliderController {
 
         try {
             Sliders sliderChange = new Sliders();
-            System.out.println(sliderChange.getSliderID());
             if (sliderChange != null) {
 
                 // Cập nhật dữ liệu của slider từ updatedSliderData
@@ -209,7 +211,7 @@ public class SliderController {
                 // Lưu slider đã cập nhật vào cơ sở dữ liệu
                 sliderChange = sliderService.save(sliderChange);
                 sliderChange.setSubject(subjectService.getSubjectById(subjectId));
-                sliderChange.setImage(sliderService.storeImage(file, sliderChange.getSliderID()));
+                sliderChange.setImage(fileUploadService.uploadFile(file));
                 // Lưu slider đã cập nhật vào cơ sở dữ liệu
                 sliderChange = sliderService.save(sliderChange);
                 return ResponseEntity.ok(sliderChange);

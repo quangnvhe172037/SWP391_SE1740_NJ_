@@ -5,6 +5,7 @@ import com.example.onlinequiz.Model.Posts;
 import com.example.onlinequiz.Model.Sliders;
 import com.example.onlinequiz.Model.Users;
 import com.example.onlinequiz.Payload.Response.PostListResponse;
+import com.example.onlinequiz.Services.FileUpload;
 import com.example.onlinequiz.Services.Impl.PostServiceImpl;
 import com.example.onlinequiz.Services.Impl.UserServiceImpl;
 import lombok.AllArgsConstructor;
@@ -30,6 +31,8 @@ public class PostMarketingController {
     @Autowired
     private final UserServiceImpl userService;
 
+    @Autowired
+    private final FileUpload fileUploadService;
 
     // Edit new Post
     @PutMapping("/edit/{postId}")
@@ -55,7 +58,7 @@ public class PostMarketingController {
                 postChange.setUser(userService.getUserByEmail(email));
                 postChange.setUpdateDate(new Date());
                 if (!file.isEmpty()) {
-                    postChange.setImage(postService.storeImage(file, postId));
+                    postChange.setImage(fileUploadService.uploadFile(file));
                 }
 
                 // Cập nhật dữ liệu của post từ updatedPostData
@@ -94,7 +97,7 @@ public class PostMarketingController {
             post.setDateCreate(new Date());
             post.setUpdateDate(new Date());
             postService.updatePost(post);
-            post.setImage(postService.storeImage(file, post.getPostID()));
+            post.setImage(fileUploadService.uploadFile(file));
             // Cập nhật dữ liệu của post từ updatedPostData
             postService.updatePost(post);
             return ResponseEntity.ok(post);

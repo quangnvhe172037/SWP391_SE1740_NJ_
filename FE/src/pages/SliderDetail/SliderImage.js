@@ -8,13 +8,12 @@ const SliderImage = ({
   handleSaveImageClick,
   currentImage,
 }) => {
-  console.log(baseURL + currentImage);
   const handleImageChange = (e) => {
     const selectedFile = e.target.files[0];
 
     if (selectedFile) {
       selectedFile.preview = URL.createObjectURL(selectedFile); // Tạo đường dẫn tạm thời cho ảnh
-      console.log(selectedFile);
+      
       setUpdatedImage(selectedFile); // Cập nhật đường dẫn ảnh trong state
     }
   };
@@ -24,7 +23,7 @@ const SliderImage = ({
       <div className="text-center">
         <h6 upload-notify>Current picture</h6>
         <img
-          src={baseURL + currentImage}
+          src={currentImage}
           alt="something"
           className="sliderImage"
         />

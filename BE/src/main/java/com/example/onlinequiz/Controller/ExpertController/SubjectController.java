@@ -1,4 +1,4 @@
-package com.example.onlinequiz.Controller.PublicController;
+package com.example.onlinequiz.Controller.ExpertController;
 
 
 import com.example.onlinequiz.Model.Subjects;
@@ -46,7 +46,10 @@ public class SubjectController {
     }
 
     @PostMapping(value = "/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Subjects> create(@RequestPart("subject") String subjectsJson, @RequestParam("file") MultipartFile file){
+    public ResponseEntity<Subjects> create(
+            @RequestPart("subject") String subjectsJson,
+            @RequestParam("file") MultipartFile file)
+    {
         ObjectMapper objectMapper = new ObjectMapper();
         Subjects subjects = null;
         try {
