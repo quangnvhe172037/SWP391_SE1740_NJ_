@@ -2,6 +2,7 @@ package com.example.onlinequiz.Controller.PublicController;
 
 
 import com.example.onlinequiz.Model.Subjects;
+import com.example.onlinequiz.Repo.SubjectsRepository;
 import com.example.onlinequiz.Services.FileUpload;
 import com.example.onlinequiz.Services.SubjectService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -29,6 +30,8 @@ public class SubjectController {
 
     @Autowired
     private final FileUpload fileUploadService;
+    @Autowired
+    private SubjectsRepository subjectsRepository;
 
     @GetMapping("/all")
     @ResponseBody
@@ -59,14 +62,18 @@ public class SubjectController {
     }
 
     @PostMapping(value = "/update", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Subjects> update(@RequestParam("id") Integer id,@RequestPart("subject") String subjectsJson, @RequestParam("file") MultipartFile file){
+    public ResponseEntity<Subjects> update(@RequestParam("id") Long id,@RequestPart("subject") String subjectsJson, @RequestParam("file") MultipartFile file){
         ObjectMapper objectMapper = new ObjectMapper();
-        Subjects subjects = null;
+        Subjects subjects = subjectsRepository.findById(id).get();
         try {
-            subjects = objectMapper.readValue(subjectsJson, Subjects.class);
+            Subjects subjectData = objectMapper.readValue(subjectsJson, Subjects.class);
             String image = fileUploadService.uploadFile(file);
             subjects.setImage(image);
             subjects.setCreateDate(new Date());
+            subjects.setSubjectCategory(subjectData.getSubjectCategory());
+            subjects.setSubjectName(subjectData.getSubjectName());
+            subjects.setDescription(subjectData.getDescription());
+            subjects.setStatus(subjectData.isStatus());
             subjectService.save(subjects);
             return ResponseEntity.ok(subjects);
         } catch (Exception e) {
