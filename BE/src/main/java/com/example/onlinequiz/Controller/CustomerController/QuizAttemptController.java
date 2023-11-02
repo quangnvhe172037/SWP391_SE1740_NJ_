@@ -138,6 +138,47 @@ public class QuizAttemptController {
         }
     }
 
+    @GetMapping("/review/{quizId}")
+    public ResponseEntity<AttemptQuizGetResponse> getAllQuizSentenceReview(
+            @PathVariable Long quizId,
+            @RequestParam Long resultId,
+            @RequestParam Long userId) {
+        try {
+
+            Quizzes quiz = quizService.getQuizById(quizId);
+
+            QuizResults quizResult = quizResultService.getQuizResult(resultId);
+            if (quizResult == null) {
+                return ResponseEntity.notFound().build();
+            }
+
+            if (quizResult.getUser().getId() != userId) {
+                return ResponseEntity.notFound().build();
+            }
+            quizResultService.updateTimeDoQuiz(quizResult, quiz.getDurationTime());
+
+
+            List<QuizDetail> quizDetailList = quizService.getQuizDetailByQuiz(quiz);
+
+            List<QuizSentenceUserResponse> data = quizService.getListAnswerQuizUser(quizDetailList, quizResult);
+
+
+            AttemptQuizGetResponse result = new AttemptQuizGetResponse(resultId,
+                    quiz.getQuizName(),
+                    data,
+                    quiz.getPassRate(),
+                    quiz.getDurationTime(),
+                    quizResult.getDateEnd());
+            System.out.println(result.getResultId());
+
+            return ResponseEntity.ok(result);
+        } catch (Exception e) {
+            System.out.println("quiz attempt controller - getAllQuizSentence" + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
+    }
+
 
 
 

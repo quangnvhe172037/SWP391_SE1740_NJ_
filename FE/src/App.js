@@ -62,6 +62,9 @@ import QuizResultData from "./components/Quiz/QuizResult/QuizResultData/QuizResu
 import QuizResultPage from "./pages/QuizResultPage/QuizResultPage";
 import Error404 from "./components/HandleException/Error-404/Error-404";
 
+import QuizReview from "./pages/QuizReview/QuizReview";
+
+
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -181,12 +184,20 @@ const App = () => {
               />
 
               <Route
+                path="/quiz/:quizId/:resultId/review"
+                element={<QuizReview/>}
+              />
+
+              <Route
                 path="/quiz/result/:resultId"
                 element={<QuizResultPage />}
               />
             </>
           )}
+
           <Route path="*" element={<Error404/>}/>
+
+
         </Routes>
       </div>
       <Footer />
