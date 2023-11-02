@@ -202,12 +202,14 @@ const UserRegistrationDetail = () => {
           </div>
           <div className="form-group col-12">
             <button
-              onClick={handleOnSubmit}
-              type="button"
-              className="btn-primary w-100"
+                onClick={handleOnSubmit}
+                type="button"
+                className="btn-primary w-100"
+                style={{ backgroundColor: 'blue' }}
             >
               Save
             </button>
+
           </div>
         </form>
       </div>

@@ -5,6 +5,7 @@ import jwtDecode from "jwt-decode";
 import "./style.css";
 import {format} from "date-fns";
 import {Link} from "react-router-dom";
+import AddPracticeDetail from "./AddPracticeDetail";
 const API_URL = "http://localhost:8080";
 
 function PracticeList() {
@@ -78,7 +79,7 @@ function PracticeList() {
                     </div>
                 </div>
                 <div className="col-md-6 text-right">
-                    <Link to={"/practice/add"}>
+                    <Link to={"/practice/add"} state={subjectid}>
                         <button className="practice btn btn-success f">New practice</button>
                     </Link>
                     <button className="practice btn btn-success" onClick={handleClickCreateQuiz}>Simulation exam</button>
