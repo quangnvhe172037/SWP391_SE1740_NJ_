@@ -36,6 +36,9 @@ public class QuizDataServiceImpl implements QuizDataService {
     @Autowired
     private final SubjectRepository subjectRepository;
 
+    @Autowired
+    private final QuizResultDetailRepository quizResultDetailRepository;
+
     @Override
     public List<QuizData> getAllQuizData(Long id) {
         Quizzes q = new Quizzes();
@@ -43,7 +46,7 @@ public class QuizDataServiceImpl implements QuizDataService {
         List<QuizData> quizData;
 
         q = quizRepository.findByQuizID(id);
-        qd = quizDetailRepository.getAllByQuizzes(q);
+        qd = quizDetailRepository.findAllByQuizzes(q);
 
 //        quizData = qd.stream()
 //                .map(QuizDetail::getQuizData)
@@ -99,6 +102,49 @@ public class QuizDataServiceImpl implements QuizDataService {
     @Override
     public QuizData findById(Long id) {
         return quizDataRepository.findQuizDataBySentenceID(id);
+    }
+
+    @Override
+    public String deleteSentenceLesson(Long sentenceId, Long lessonId) {
+        try{
+            QuizData quizData = quizDataRepository.findQuizDataBySentenceID(sentenceId);
+            List<QuizAnswers> quizAnswers = quizAnswerRepository.findByQuizData(quizData);
+            QuizQuestions quizQuestion = quizQuestionRepository.getByQuizData(quizData);
+            List<QuizDetail> quizDetailList = quizDetailRepository.findAllByQuizData(quizData);
+
+            List<QuizResultDetail> quizResultDetailList = quizResultDetailRepository.findAllByQuizData(quizData);
+            if(quizResultDetailList != null){
+                return "Can not delete because some student have do this test";
+            }
+
+            for (QuizDetail quizDetail: quizDetailList
+            ) {
+                quizDetailRepository.delete(quizDetail);
+            }
+
+            for (QuizAnswers quizAnswer : quizAnswers
+            ) {
+                quizAnswerRepository.delete(quizAnswer);
+            }
+
+            quizQuestionRepository.delete(quizQuestion);
+            quizDataRepository.delete(quizData);
+            return "Delete success";
+        }catch (Exception e){
+            System.out.println("deleteSentece - quizDataService");
+            return "Delete fail";
+        }
+
+    }
+
+    @Override
+    public Boolean checkExistQuiz(QuizData quizData) {
+        List<QuizResultDetail> quizResultDetailList = quizResultDetailRepository.findAllByQuizData(quizData);
+        if(quizResultDetailList == null){
+            return true;
+        }else{
+            return false;
+        }
     }
 
 }

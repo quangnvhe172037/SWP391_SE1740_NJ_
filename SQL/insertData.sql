@@ -160,8 +160,16 @@ INSERT INTO `quiz_practice`.`quiz_data`
 VALUES
 (1, 4),
 (2, 4),
-(3, 4),
-(4, 4);
+(3, 4);
+-- (4, 4),
+-- (5, 4),
+-- (6, 4),
+-- (7, 4),
+-- (8, 4),
+-- (9, 4),
+-- (10, 4),
+-- (11, 4),
+-- (12, 4);
 
 
 -- 10. Insert to quiz_answer
@@ -181,10 +189,10 @@ VALUES
 ( 6, "The correct element for the largest heading is <heading>", 2, 0, ""),
 ( 7, "The correct element for the largest heading is <h6>", 2, 0, ""),
 ( 8, "The correct element for the largest heading is <head>", 2, 0, ""),
-( 9, "Web network", 2, 0, ""),
-( 10, "Web server", 2, 0, ""),
-( 11, "Web browser", 2, 1, ""),
-( 12, "Web matrix", 2, 0, "");
+( 9, "Web network", 3, 0, ""),
+( 10, "Web server", 3, 0, ""),
+( 11, "Web browser", 3, 1, ""),
+( 12, "Web matrix", 3, 0, "");
 
 
 -- 11. Insert to quiz_question
@@ -225,7 +233,7 @@ INSERT INTO `quiz_practice`.`quiz`
 `duration_time`,
 `pass_rate`)
 VALUES
- (1, "Practice HTML", 1, "", 4, 2, 1, "2023-10-09", 60, 50),
+ (1, "Practice HTML", 1, "", 4, 2, 1, "2023-10-09", 1, 50),
  (2, "Practice Javascript", 1, "", 4, 6, 1, "2023-10-09", 60, 50),
   (3, "Practice Final", 1, "", 4, null, 1, "2023-10-09", 60, 50);
 
@@ -240,6 +248,15 @@ VALUES
 (1, 1, 1),
 (2, 2, 1),
 (3, 3, 1);
+-- (4, 4, 1),
+-- (5, 5, 1),
+-- (6, 6, 1),
+-- (7, 7, 1),
+-- (8, 8, 1),
+-- (9, 9, 1),
+-- (10, 10, 1),
+-- (11, 11, 1),
+-- (12, 12, 1);
 
 
 -- 15. Insert to exam_level
@@ -254,10 +271,11 @@ INSERT INTO `quiz_practice`.`quiz_result`
 `correct_answer`,
 `null_answer`,
 `false_answer`,
-`is_pass`)
+`is_pass`,
+`is_done`)
 VALUES
-(1,77,3,"2023-05-11",1,5,4,8,1),
- (2, 23,3,"2023-05-11",2,5,4,8,1);
+(1,77,3,"2023-05-11",1,5,4,8,1, 1),
+ (2, 23,3,"2023-05-11",2,5,4,8,1, 1);
 -- (45,4,"2023-05-11",3,6,9,1,1),
 -- (20,4,"2023-05-11",4,12,3,5,1),
 -- (13,4,"2023-05-11",5,9,1,3,1);

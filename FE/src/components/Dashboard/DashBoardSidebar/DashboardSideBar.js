@@ -18,7 +18,14 @@ const DashboardSideBar = () => {
         >
           View money
         </a>
+          <Link
+              to="/user-registration-list"
+              className=""
+          >
+              User Registration List
+          </Link>
       </div>
+
     );
 };
 

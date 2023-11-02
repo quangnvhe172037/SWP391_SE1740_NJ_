@@ -4,15 +4,16 @@ import jwtDecode from "jwt-decode";
 import "./QuizResultData.css";
 import "chart.js/auto";
 import PieChart from "../../../../PipeChart";
+import { useNavigate } from "react-router-dom";
 
 const QuizResultData = (prop) => {
   let quizId = prop.quizId;
+  const navigate = useNavigate();
   const [quizInfo, setQuizInfo] = useState({});
   const token = localStorage.getItem("token");
   const user = jwtDecode(token);
 
   useEffect(() => {
-    console.log("text fetch");
     fetch(
       `http://localhost:8080/quiz/result/get?quizId=${quizId}&userId=${user.userId}`,
       {
@@ -80,7 +81,7 @@ const QuizResultData = (prop) => {
               <div className="quiz-result-score">Score: {quizInfo.score}%</div>
               <div>Date taken: {quizInfo.dateTaken}</div>
               <div className="quiz-result-review-wrap">
-                <button className="quiz-result-review-btn">Review quiz</button>
+                <button className="quiz-result-review-btn" onClick={() => {navigate(`/quiz/${quizId}/${quizInfo.resultId}/review`);}}>Review quiz</button>
               </div>
             </div>
           </div>

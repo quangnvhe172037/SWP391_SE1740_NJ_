@@ -28,6 +28,9 @@ public class QuizResults {
     @Column(name = "date_taken")
     private Date dateTaken;
 
+    @Column(name = "date_end")
+    private Date dateEnd;
+
     @ManyToOne
     @JoinColumn(name = "quiz_id")
     private Quizzes quizzes;
@@ -43,4 +46,8 @@ public class QuizResults {
 
     @Column(name = "is_pass")
     private Boolean isPass = false;
+
+    @Column(name = "is_done")
+    private Boolean isDone = false;
+
 }

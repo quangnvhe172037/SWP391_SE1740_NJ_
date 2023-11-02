@@ -3,9 +3,11 @@ package com.example.onlinequiz.Services.Impl;
 import com.example.onlinequiz.Model.*;
 import com.example.onlinequiz.Payload.Request.DeleteQuestRequest;
 import com.example.onlinequiz.Payload.Request.QuizRequest;
+import com.example.onlinequiz.Payload.Request.UpdateQuestionRequest;
 import com.example.onlinequiz.Payload.Response.QuizInfoResponse;
 import com.example.onlinequiz.Payload.Response.QuizInfoResponse;
 import com.example.onlinequiz.Payload.Response.QuizSentenceResponse;
+import com.example.onlinequiz.Payload.Response.QuizSentenceUserResponse;
 import com.example.onlinequiz.Repo.*;
 import com.example.onlinequiz.Services.QuizService;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +25,8 @@ public class QuizServiceImpl implements QuizService {
     private final QuizRepository quizRepository;
 
     @Autowired
+    private final UserRepository userRepository;
+    @Autowired
     private final QuizDetailRepository quizDetailRepository;
 
     @Autowired
@@ -35,7 +39,12 @@ public class QuizServiceImpl implements QuizService {
     private final QuizQuestionRepository quizQuestionRepository;
 
     @Autowired
+    private final QuizResultRepository quizResultRepository;
+    @Autowired
     private final QuizAnswerRepository quizAnswerRepository;
+
+    @Autowired
+    private final QuizResultDetailRepository quizResultDetailRepository;
 
     @Override
     public Quizzes getQuizByLessonId(Long id) {
@@ -49,8 +58,18 @@ public class QuizServiceImpl implements QuizService {
     }
 
     @Override
-    public QuizInfoResponse getQuizInfoById(Long id) {
+    public QuizInfoResponse getQuizInfoById(Long id, Long userId) {
         Quizzes q = quizRepository.findByQuizID(id);
+        Users user = userRepository.getById(userId);
+
+        QuizResults quizResult = quizResultRepository.findFirstByQuizzesAndUserOrderByResultIDDesc(q, user);
+        Long isDone;
+        if(quizResult.getIsDone() == false){
+            isDone = quizResult.getResultID();
+        }else{
+            isDone = null;
+        }
+
         int count = quizDetailRepository.countQuizDetailByQuizzes(q);
         QuizInfoResponse quizInfoResponse = new QuizInfoResponse(
                 q.getQuizID(),
@@ -60,7 +79,9 @@ public class QuizServiceImpl implements QuizService {
                 q.getDateCreate(),
                 q.getDurationTime(),
                 q.getPassRate(),
-                count
+                count,
+                isDone
+
         );
 
 
@@ -95,16 +116,15 @@ public class QuizServiceImpl implements QuizService {
                     "B".equalsIgnoreCase(correctAnswer) && i == 1 ||
                     "C".equalsIgnoreCase(correctAnswer) && i == 2 ||
                     "D".equalsIgnoreCase(correctAnswer) && i == 3);
-            if (quizAnswers.isTrueAnswer()) {
-                quizAnswers.setExplanation(explaination);
-            }
+            
+            quizAnswers.setExplanation(explaination);
             quizAnswerRepository.save(quizAnswers);
         }
     }
 
     @Override
     public List<QuizDetail> getQuizDetailByQuiz(Quizzes q) {
-        return quizDetailRepository.getAllByQuizzes(q);
+        return quizDetailRepository.findAllByQuizzes(q);
     }
 
     @Override
@@ -131,16 +151,57 @@ public class QuizServiceImpl implements QuizService {
     }
 
     @Override
+    public List<QuizSentenceUserResponse> getListAnswerQuizUser(List<QuizDetail> qd, QuizResults quizResults) {
+        try {
+            List<QuizData> quizDataList = quizDataRepository.getAllByQuizDetailIsIn(qd);
+            System.out.println(quizDataList.size());
+            QuizResultDetail quizResultDetail;
+            List<QuizSentenceUserResponse> data = new ArrayList<>();
+
+
+            for (QuizData quizData : quizDataList
+            ) {
+                quizResultDetail = quizResultDetailRepository.findQuizResultDetailByQuizDataAndQuizResult(quizData, quizResults);
+                if(quizResultDetail.getUserAnswer() != null){
+                    data.add(new QuizSentenceUserResponse(
+                            quizData.getSentenceID(),
+                            quizData.getQuizAnswers(),
+                            quizData.getQuizQuestions(),
+                            quizResultDetail.getUserAnswer().getAnswerID()
+                    ));
+                }else{
+                    data.add(new QuizSentenceUserResponse(
+                            quizData.getSentenceID(),
+                            quizData.getQuizAnswers(),
+                            quizData.getQuizQuestions(),
+                            null
+
+
+                    ));
+                }
+
+            }
+
+            return data;
+        } catch (Exception e) {
+            System.out.println( " QuizServiceImpl - getListAnswerQuizUser"+e.getMessage());
+            return null;
+        }
+
+    }
+
+    @Override
     public void addNewQuiz(Quizzes q) {
         quizRepository.save(q);
     }
+
     public void deleteQuestion(DeleteQuestRequest request) {
         QuizData quizData = quizDataRepository.findQuizDataBySentenceID(request.getQuesId());
-        if(quizData != null){
+        if (quizData != null) {
             QuizQuestions question = quizQuestionRepository.findQuizQuestionsByQuestionID(quizData.getQuizQuestions().getQuestionID());
-            if(question != null){
+            if (question != null) {
                 List<QuizAnswers> answers = quizAnswerRepository.findByQuizData(quizData);
-                for(QuizAnswers quizAnswers : answers){
+                for (QuizAnswers quizAnswers : answers) {
                     quizAnswerRepository.delete(quizAnswers);
                 }
                 quizQuestionRepository.delete(question);
@@ -152,4 +213,6 @@ public class QuizServiceImpl implements QuizService {
             throw new RuntimeException("Subject not found");
         }
     }
+
+
 }

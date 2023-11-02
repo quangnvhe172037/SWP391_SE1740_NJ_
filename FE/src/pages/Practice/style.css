@@ -6,18 +6,13 @@
 }
 
 /* Style for the card */
-.card {
+.practice card {
     margin-bottom: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Style for the card title */
-.card-title {
-    font-size: 24px;
-    margin-bottom: 10px;
-}
 
 /* Style for custom borders within the card */
 .custom-border {
@@ -31,7 +26,7 @@
 }
 
 /* Style for buttons */
-.btn-primary {
+.practice btn btn-primary {
     background-color: #007bff;
     color: #fff;
     border: none;
@@ -40,11 +35,12 @@
     border-radius: 3px;
     cursor: pointer;
 }
-.btn{
-    margin-bottom: 10px;
-}
+
+.practice btn btn-success f{
+    margin-right: 5px;
+ }
 /* In your CSS file, e.g., PracticeList.css */
-.button-wrapper {
+.practice button-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center; /* Optional: Center the content horizontally */

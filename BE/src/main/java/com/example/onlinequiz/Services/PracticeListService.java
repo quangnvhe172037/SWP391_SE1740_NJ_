@@ -12,4 +12,5 @@ public interface PracticeListService {
 
     List<QuizResults> getListQuizResultDetail(Users u, Subjects s);
 
+    QuizResults getQuizResultByQuizId(Long resultid);
 }

@@ -56,6 +56,15 @@ import AddSubject from "./components/Subject/AddSubject";
 import SubjectDetail from "./pages/SubjectDetail/SubjectDetail";
 import UserRegistrationList from "./components/UserRegistrationList/UserRegistrationList";
 import UserRegistrationDetail from "./components/UserRegistrationList/UserRegistrationDetail/UserRegistrationDetail";
+import QuizAttempt from "./pages/QuizAttempt/QuizAttempt";
+import ViewPracticeDetail from "./pages/Practice/ViewPracticeDetail";
+import QuizResultData from "./components/Quiz/QuizResult/QuizResultData/QuizResultData";
+import QuizResultPage from "./pages/QuizResultPage/QuizResultPage";
+import Error404 from "./components/HandleException/Error-404/Error-404";
+
+import QuizReview from "./pages/QuizReview/QuizReview";
+import AddPracticeDetail from "./pages/Practice/AddPracticeDetail";
+
 
 
 const App = () => {
@@ -116,9 +125,15 @@ const App = () => {
               <Route path="/myRegistration" element={<UserRes />} />
               <Route path="/posts/edit/:postId" element={<PostEdit />} />
               <Route path="/sliders/edit/*" element={<SliderDetail />} />
-              <Route path="/add-question/:id" element={<ImportQuiz />} />
+              <Route path="/add-question/:subjectId" element={<ImportQuiz />} />
               <Route path="/practice" element={<PracticeList />} />
-              
+
+              <Route path="/practice/add" element={<AddPracticeDetail />} />
+
+              <Route
+                path="/practice/view/:resultid"
+                element={<ViewPracticeDetail />}
+              />
               <Route
                 path="/sliders/edit/:sliderId"
                 element={<SliderDetail />}
@@ -165,11 +180,28 @@ const App = () => {
               <Route path="/subject/:subjectId" element={<SubjectDetail />} />
               <Route path="/add/subject" element={<AddSubject />} />
 
-              
 
-              
+
+              <Route
+                path="/quiz/take/:quizId/:resultId"
+                element={<QuizAttempt />}
+              />
+
+              <Route
+                path="/quiz/:quizId/:resultId/review"
+                element={<QuizReview/>}
+              />
+
+              <Route
+                path="/quiz/result/:resultId"
+                element={<QuizResultPage />}
+              />
             </>
           )}
+
+          <Route path="*" element={<Error404/>}/>
+
+
         </Routes>
       </div>
       <Footer />

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import QuestionForm from "./QuestionForm";
 import jwtDecode from "jwt-decode";
 import PrivateContent from "../HandleException/PrivateContent";
@@ -9,17 +9,14 @@ const QuizForm = () => {
     const user = jwtDecode(token);
     if (user.role !== "EXPERT") {
         return (
-            <PrivateContent />
+            <PrivateContent/>
         )
     } else {
         return (
-            <div className="container" style={{ display: "flex" }}>
-                <div className="left-panel col-md-6">
-                    <QuestionForm />
-                </div>
-                <div className="right-panel col-md-6">
-                    <QuizComponent />
-                </div>
+            <div className="container">
+                <QuestionForm/>
+
+                <QuizComponent/>
             </div>
         );
     }
