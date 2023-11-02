@@ -34,7 +34,10 @@ function QuestionForm({ onAddQuestion }) {
             alert('Please fill in all the question details.');
             return;
         }
-
+        if (!['a', 'b', 'c', 'd', 'A', 'B', 'C', 'D'].includes(questionData.correctAnswer.toLowerCase())) {
+            alert('Please enter a valid Correct answer: a (A), b (B), c (C), or d (D)');
+            return;
+        }
         try {
             const response = await axios.post(`http://localhost:8080/api/questions/add/${subjectId}`, questionData, {
                 headers: {
