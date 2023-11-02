@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { format } from 'date-fns';
+import PieChart from "../../PipeChart";
 
 const API_URL = 'http://localhost:8080';
 
@@ -122,20 +123,14 @@ function ViewQuizResult() {
                         </button>
                     </form>
                 </div>
-                <div className="col-md-6">
-                    <div style={{ textAlign: 'center' }}>
-                        <p>
-                            True answer: <span id="correctAnswers">{quizResult.correctAnswer}</span>
-                        </p>
-                        <p>
-                            False answer: <span id="incorrectAnswers">{quizResult.falseAnswer}</span>
-                        </p>
-                        <p>
-                            Unselected answer:
-                            <span id="unansweredQuestions">{quizResult.nullAnswer}</span>
-                        </p>
+                <div className="col-md-6" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <div>
+                        <h1 style={{ marginBottom: '30px' }}>Test Results</h1>
+                        <PieChart trueAnswer={quizResult.correctAnswer} falseAnswer={quizResult.falseAnswer} nullAnswer={quizResult.nullAnswer} />
                     </div>
+
                 </div>
+
             </div>
         </div>
     );

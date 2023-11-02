@@ -1,34 +1,42 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const api_url = "YOUR_API_ENDPOINT";
+const API_URL = "http://localhost:8080";
 
 const AddPracticeDetail = () => {
-    const [subjectNames, setSubjectName] = useState('');
+    const [subjectId, setSubjectId] = useState(1);
     const [examLevel, setExamLevel] = useState('easy');
     const [quizName, setQuizName] = useState('');
-    const [durationTime, setDurationTime] = useState('00:00:00');
+    const [durationTime, setDurationTime] = useState(0);
     const [passRate, setPassRate] = useState(0);
+    const quizTypeId = 2;
 
-    // Use useEffect to load data from the API when the component mounts
-    useEffect(() => {
+    const handleFormSubmit = (event) => {
+        event.preventDefault();
+
+        const newExamInfo = {
+            subjectId,
+            examLevel,
+            quizName,
+            durationTime,
+            passRate,
+            quizTypeId,
+        };
+        console.log(newExamInfo);
         axios
-            .get(api_url)
+            .post(`${API_URL}/practice/add`, newExamInfo, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
             .then((response) => {
-                const data = response.data;
-                setSubjectName(data.subjectName);
-                setExamLevel(data.examLevel);
-                setQuizName(data.quizName);
-                setDurationTime(data.durationTime);
-                setPassRate(data.passRate);
+                // Xử lý khi gửi dữ liệu thành công
+                console.log('Data sent successfully');
             })
             .catch((error) => {
-                console.error('Error loading data from the API:', error);
+                // Xử lý khi gửi dữ liệu thất bại
+                console.error('Error sending data to the API:', error);
             });
-    }, []);
-
-    const handleSubjectNameChange = (event) => {
-        setSubjectName(event.target.value);
     };
 
     const handleExamLevelChange = (event) => {
@@ -46,35 +54,6 @@ const AddPracticeDetail = () => {
     const handlePassRateChange = (event) => {
         setPassRate(parseInt(event.target.value));
     };
-
-    const handleFormSubmit = (event) => {
-        event.preventDefault();
-
-        const newExamInfo = {
-            subjectNames,
-            examLevel,
-            quizName,
-            durationTime,
-            passRate,
-        };
-
-        axios
-            .post(api_url, newExamInfo, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            })
-            .then((response) => {
-                // Handle a successful response here
-                console.log('Data sent successfully');
-            })
-            .catch((error) => {
-                // Handle errors here
-                console.error('Error sending data to the API:', error);
-            });
-    };
-
-
     return (
         <div className="container">
             <div className="row justify-content-center">
@@ -87,7 +66,7 @@ const AddPracticeDetail = () => {
                                 type="text"
                                 className="form-control"
                                 id="subjectName"
-                                value={subjectNames}
+                                value={"HTML"}
                                 readOnly
                             />
                         </div>
@@ -96,17 +75,14 @@ const AddPracticeDetail = () => {
                             <input
                                 type="text"
                                 className="quizName form-control"
-                                value={quizName}
                                 onChange={handleQuizNameChange}
                             />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="durationTime">Thời gian (hh:mm:ss):</label>
+                            <label htmlFor="durationTime">Thời gian (phút):</label>
                             <input
-                                type="time"
-                                step="1"
+                                type="number"
                                 className="durationTime form-control"
-                                value={durationTime}
                                 onChange={handleDurationTimeChange}
                             />
                         </div>
@@ -117,7 +93,6 @@ const AddPracticeDetail = () => {
                                 min="0"
                                 max="100"
                                 className="passRate form-control"
-                                value={passRate}
                                 onChange={handlePassRateChange}
                             />
                         </div>
@@ -125,13 +100,11 @@ const AddPracticeDetail = () => {
                             <label htmlFor="examLevel">Mức độ kiểm tra:</label>
                             <select
                                 className="form-control"
-                                id="examLevel"
-                                value={examLevel}
                                 onChange={handleExamLevelChange}
                             >
-                                <option value="easy">Dễ</option>
-                                <option value="medium">Trung bình</option>
-                                <option value="hard">Khó</option>
+                                <option value="easy">Dễ (40)</option>
+                                <option value="medium">Trung bình (50)</option>
+                                <option value="hard">Khó (60)</option>
                             </select>
                         </div>
                         <button type="submit" className="practice btn btn-primary">
