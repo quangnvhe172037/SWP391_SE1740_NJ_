@@ -1,19 +1,23 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
 import BASE_URL from "../../api/baseapi";
 const API_URL = `${BASE_URL}`;
 
-const AddPracticeDetail = () => {
-    const [subjectId, setSubjectId] = useState(1);
+const AddPracticeDetail = (prop) => {
     const [examLevel, setExamLevel] = useState('easy');
     const [quizName, setQuizName] = useState('');
     const [durationTime, setDurationTime] = useState(0);
     const [passRate, setPassRate] = useState(0);
     const quizTypeId = 2;
 
+    const location = useLocation();
+    const subjectId = location.state;
+    console.log(subjectId);
     const handleFormSubmit = (event) => {
         event.preventDefault();
 
+        console.log(subjectId);
         const newExamInfo = {
             subjectId,
             examLevel,
