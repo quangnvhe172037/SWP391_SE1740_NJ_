@@ -95,7 +95,8 @@ public class ExpertQuizController {
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }    }
+        }
+    }
 
     // Get all the quiz answer of this lesson to show
     @GetMapping("/get/lesson/{lessonId}")
