@@ -58,6 +58,20 @@ public class SubjectController {
         }
     }
 
-
+    @PostMapping(value = "/update", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Subjects> update(@RequestParam("id") Integer id,@RequestPart("subject") String subjectsJson, @RequestParam("file") MultipartFile file){
+        ObjectMapper objectMapper = new ObjectMapper();
+        Subjects subjects = null;
+        try {
+            subjects = objectMapper.readValue(subjectsJson, Subjects.class);
+            String image = fileUploadService.uploadFile(file);
+            subjects.setImage(image);
+            subjects.setCreateDate(new Date());
+            subjectService.save(subjects);
+            return ResponseEntity.ok(subjects);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }
