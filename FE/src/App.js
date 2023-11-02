@@ -60,8 +60,6 @@ import QuizAttempt from "./pages/QuizAttempt/QuizAttempt";
 import ViewPracticeDetail from "./pages/Practice/ViewPracticeDetail";
 import QuizResultData from "./components/Quiz/QuizResult/QuizResultData/QuizResultData";
 import QuizResultPage from "./pages/QuizResultPage/QuizResultPage";
-import NotFound from "./components/NotFound";
-
 import Error404 from "./components/HandleException/Error-404/Error-404";
 
 import QuizReview from "./pages/QuizReview/QuizReview";

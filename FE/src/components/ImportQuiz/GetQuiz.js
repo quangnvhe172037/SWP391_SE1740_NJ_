@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import './GetQuiz.css'; // Tạo một file CSS riêng cho QuizComponent
+import './GetQuiz.css';
+import EditQuizInfo from "../Lesson/EditLessonForm/EditQuizInfo/EditQuizInfo"; // Tạo một file CSS riêng cho QuizComponent
 
 const QuizComponent = () => {
     const [questions, setQuestions] = useState([]);
@@ -29,6 +30,7 @@ const QuizComponent = () => {
         setEditingQuestionId(questionId);
         const editedQuestion = { ...questions.find((question) => question.id === questionId) };
         setEditedQuestion(editedQuestion);
+
     };
 
     const handleSave = (questionId) => {
@@ -197,7 +199,7 @@ const QuizComponent = () => {
                                 {isEditing(question.id) ? (
                                     <button onClick={() => handleSave(question.id)}>Save</button>
                                 ) : (
-                                    <button onClick={() => handleEdit(question.id)}>Edit</button>
+                                   <EditQuizInfo sentenceId = {question.id}/>
                                 )}
                             </td>
                             <td>
