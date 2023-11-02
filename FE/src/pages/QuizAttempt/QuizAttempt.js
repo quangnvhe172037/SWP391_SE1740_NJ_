@@ -74,8 +74,10 @@ const QuizAttempt = () => {
 
   const handleQuestionClick = (e, index) => {
     // e.preventDefault();
+    
+    setTimeout(function () {
 
-   
+    }, 1000);
     sendUserAnswersToBackend();
     setSelectedQuestion(index);
     reset();

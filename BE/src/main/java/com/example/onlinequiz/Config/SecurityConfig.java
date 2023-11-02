@@ -45,7 +45,7 @@ public class SecurityConfig {
             "/quizdata/get/quiz/**",
             "/myregistration/myRes/**",
             "/myregistration/myRes",
-            "/practice/list/**",
+            "/practice/add",
             "/practice/list",
             "/practice/view/**",
 

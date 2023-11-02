@@ -103,6 +103,16 @@ const UserHeader = () => {
                       View money
                     </a>
                     <Link
+                        to="/user-registration-list"
+                        style={{
+                          padding: "20px",
+                          color: "black",
+                          textDecoration: "none",
+                        }}
+                    >
+                        User Registration List
+                    </Link>
+                    <Link
                       to="/admin/dashboard"
                       style={{
                         padding: "20px",

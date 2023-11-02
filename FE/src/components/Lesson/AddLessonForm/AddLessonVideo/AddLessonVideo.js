@@ -12,6 +12,11 @@ const AddLessonVideo = (prop) => {
   const [isValid, setIsValid] = useState(true);
 
   const handleSubmit = () => {
+    if (video == null || lessonName === "" || lessonOrder == null) {
+      alert("Please enter full field");
+      return;
+    }
+
     var regExp =
       /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
     var match = video.match(regExp);

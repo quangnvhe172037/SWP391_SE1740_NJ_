@@ -41,7 +41,7 @@ function PracticeList() {
 
                 setPracticeList(data);
                 setSubjectNameinweb(data[0].quizzes.subjectName);
-                    console.log(subjectNameinweb);
+                console.log(subjectNameinweb);
             })
             .catch((error) => {
                 console.error('Error fetching data: ', error);
@@ -56,6 +56,11 @@ function PracticeList() {
     const filteredPracticeList = practiceList.filter((item) => {
         return item.quizzes.quizName.toLowerCase().includes(searchTerm.toLowerCase());
     });
+
+    function handleClickCreateQuiz() {
+
+    }
+
     return (
         <div className="container mt-5">
             <div className="row mb-4">
@@ -73,10 +78,10 @@ function PracticeList() {
                     </div>
                 </div>
                 <div className="col-md-6 text-right">
-                    <Link to={"/newPractice/add"}>
-                    <button className="practice btn btn-success f">New practice</button>
+                    <Link to={"/practice/add"}>
+                        <button className="practice btn btn-success f">New practice</button>
                     </Link>
-                    <button className="practice btn btn-success">Simulation exam</button>
+                    <button className="practice btn btn-success" onClick={handleClickCreateQuiz}>Simulation exam</button>
                 </div>
             </div>
             {filteredPracticeList.length === 0 ? (

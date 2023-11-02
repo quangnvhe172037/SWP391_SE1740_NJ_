@@ -63,6 +63,7 @@ import QuizResultPage from "./pages/QuizResultPage/QuizResultPage";
 import Error404 from "./components/HandleException/Error-404/Error-404";
 
 import QuizReview from "./pages/QuizReview/QuizReview";
+import AddPracticeDetail from "./pages/Practice/AddPracticeDetail";
 
 
 
@@ -115,7 +116,7 @@ const App = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/register/verifyEmail/" element={<VerifyEmail />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
-
+          <Route path="/expert/subjects" element={<SubjectData />} />
           {isAuthenticated && (
             <>
               <Route path="/sliders" element={<SliderList />} />
@@ -126,6 +127,9 @@ const App = () => {
               <Route path="/sliders/edit/*" element={<SliderDetail />} />
               <Route path="/add-question/:subjectId" element={<ImportQuiz />} />
               <Route path="/practice" element={<PracticeList />} />
+
+              <Route path="/practice/add" element={<AddPracticeDetail />} />
+
               <Route
                 path="/practice/view/:resultid"
                 element={<ViewPracticeDetail />}
@@ -176,7 +180,7 @@ const App = () => {
               <Route path="/subject/:subjectId" element={<SubjectDetail />} />
               <Route path="/add/subject" element={<AddSubject />} />
 
-              <Route path="/expert/subjects" element={<SubjectData />} />
+
 
               <Route
                 path="/quiz/take/:quizId/:resultId"

@@ -16,6 +16,12 @@ const AddLessonQuiz = (prop) => {
  const user = jwtDecode(token);
 
   const handleSubmit = () => {
+    console.log(lessonOrder);
+    if (lessonName === "" || lessonOrder == null || quizDescription == null || durationTime == null || passRate == null) {
+      alert("Please enter full field");
+      return;
+    }
+
    const dataToSend = {
      lessonName: lessonName,
      lessonOrder: lessonOrder,
