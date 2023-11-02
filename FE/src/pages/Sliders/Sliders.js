@@ -3,6 +3,8 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import "./Slider.css";
 import jwtDecode from "jwt-decode";
 import PrivateContent from "../../components/HandleException/PrivateContent";
+import BASE_URL from "../../api/baseapi";
+
 
 const SliderList = () => {
   const [sliders, setSliders] = useState([]);
@@ -19,7 +21,7 @@ const SliderList = () => {
   const isAuthenticated = user.role === "MARKETING";
 
   // Xử lí api
-  const api = "http://localhost:8080/sliders/list";
+  const api = `${BASE_URL}/sliders/list`;
 
   try {
     useEffect(() => {
@@ -110,9 +112,9 @@ const SliderList = () => {
 
     // Ví dụ sử dụng fetch để gửi yêu cầu PUT
     const updateStatus = action === "show" ? 1 : 0;
-    console.log(updateStatus);
+    
 
-    fetch(`http://localhost:8080/sliders/${sliderId}`, {
+    fetch(`${BASE_URL}/sliders/${sliderId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -140,7 +142,7 @@ const SliderList = () => {
 
   const handleDelete = (sliderId) => {
     // Gửi yêu cầu DELETE để xóa slider dựa trên sliderId
-    fetch(`http://localhost:8080/sliders/delete/${sliderId}`, {
+    fetch(`${BASE_URL}/sliders/delete/${sliderId}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -225,9 +227,10 @@ const SliderList = () => {
 
                 <td className="img-row slider-table-data">
                   <img
-                    className="img-fluid"
+                    className="img-fluid view-slider-list"
                     src={slider.image}
                     alt="Ảnh khóa học"
+
                   ></img>
                 </td>
                 <td className="slider-table-data">{slider.subjectName}</td>

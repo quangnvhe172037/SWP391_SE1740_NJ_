@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import {Link, useNavigate} from 'react-router-dom';
-
+import BASE_URL from "../../api/baseapi";
 const Profile = () => {
     const token = localStorage.getItem('token'); // Lấy JWT token từ localStorage
     const user = jwtDecode(token); // Giải mã token để lấy thông tin người dùng
@@ -21,17 +21,17 @@ const Profile = () => {
     useEffect(() => {
         // Gửi yêu cầu GET đến API để lấy thông tin hồ sơ
         axios
-            .get(`http://localhost:8080/profile/${user.sub}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            })
-            .then((response) => {
-                setProfileData(response.data);
-            })
-            .catch((error) => {
-                console.error('Error fetching profile data:', error);
-            });
+          .get(`${BASE_URL}/profile/${user.sub}`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((response) => {
+            setProfileData(response.data);
+          })
+          .catch((error) => {
+            console.error("Error fetching profile data:", error);
+          });
     }, [token]);
 
     const handleInputChange = (event) => {
@@ -42,31 +42,31 @@ const Profile = () => {
     const handleSaveChanges = () => {
         // Gửi yêu cầu PUT đến API để cập nhật thông tin hồ sơ
         axios
-            .put(`http://localhost:8080/update/profile/${user.sub}`, profileData, {
-                headers: {
-                    "Content-Type":"application/json",
-                    Authorization: `Bearer ${token}`,
-                },
-            })
-            .then((response) => {
-                setIsEditing(false);
-                // Cập nhật lại thông tin hồ sơ sau khi lưu thành công
-                setProfileData(response.data);
-                window.location.reload();
-            })
-            .catch((error) => {
-                if (error.response && error.response.status === 400){
-                    console.error("Bad request: ", error.response.data);
-                    alert("Something error");
-                } else if (error.response && error.response.status === 403) {
-                    // Nếu response trả về mã lỗi 403, dẫn người dùng quay lại trang Home
-                    alert("You are out of System");
-                    navigate("/login");
-                    localStorage.removeItem("token");
-                } else {
-                    console.error('Error updating profile data:', error);
-                }
-            });
+          .put(`${BASE_URL}/update/profile/${user.sub}`, profileData, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((response) => {
+            setIsEditing(false);
+            // Cập nhật lại thông tin hồ sơ sau khi lưu thành công
+            setProfileData(response.data);
+            window.location.reload();
+          })
+          .catch((error) => {
+            if (error.response && error.response.status === 400) {
+              console.error("Bad request: ", error.response.data);
+              alert("Something error");
+            } else if (error.response && error.response.status === 403) {
+              // Nếu response trả về mã lỗi 403, dẫn người dùng quay lại trang Home
+              alert("You are out of System");
+              navigate("/login");
+              localStorage.removeItem("token");
+            } else {
+              console.error("Error updating profile data:", error);
+            }
+          });
     };
 
     return (

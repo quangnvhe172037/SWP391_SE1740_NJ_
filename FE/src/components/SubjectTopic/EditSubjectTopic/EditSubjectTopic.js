@@ -3,6 +3,8 @@ import jwtDecode from "jwt-decode";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import { useParams } from "react-router-dom";
+import BASE_URL from "../../../api/baseapi";
+
 const EditSubjectTopic = (prop) => {
   const [topicName, setTopicName] = useState(prop.topicName);
   const [topicOrder, setOrder] = useState(prop.topicOrder);
@@ -11,7 +13,7 @@ const EditSubjectTopic = (prop) => {
   const subjectTopicId = prop.topicId;
   const handleSubmit = () => {
     fetch(
-      `http://localhost:8080/api/expert/subject/edit/topic/${subjectTopicId}?topicName=${topicName}&topicOrder=${parseInt(
+      `${BASE_URL}/api/expert/subject/edit/topic/${subjectTopicId}?topicName=${topicName}&topicOrder=${parseInt(
         topicOrder
       )}`,
       {

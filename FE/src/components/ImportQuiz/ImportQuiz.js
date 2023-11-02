@@ -3,7 +3,7 @@ import QuestionForm from "./QuestionForm";
 import jwtDecode from "jwt-decode";
 import PrivateContent from "../HandleException/PrivateContent";
 import QuizComponent from "./GetQuiz"; // Import Axios
-
+import BASE_URL from '../../api/baseapi';
 const QuizForm = () => {
     const token = localStorage.getItem("token");
     const user = jwtDecode(token);

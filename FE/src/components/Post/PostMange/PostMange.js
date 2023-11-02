@@ -1,11 +1,11 @@
-
+import BASE_URL from "../../../api/baseapi";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "./CreatePost.css";
 import { useEffect } from "react";
 import jwtDecode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
-
+import FE_URL from "../../../api/frontendapi";
 import CreatePostHeader from "../PostComponent/CreatePostHeader";
 
 const PostManage = ({
@@ -25,7 +25,7 @@ const PostManage = ({
 }) => {
   const token = localStorage.getItem("token");
   const user = jwtDecode(token);
- const baseURL = "http://localhost:8081/";
+ const baseURL = FE_URL;
   const navigate = useNavigate();
   console.log(baseURL + updatedImage);
   const handleImageChange = (e) => {
@@ -39,7 +39,7 @@ const PostManage = ({
   };
 
   useEffect(() => {
-    fetch("http://localhost:8080/posts/cate", {
+    fetch(`${BASE_URL}/posts/cate`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -87,7 +87,7 @@ const PostManage = ({
     formData.append("email", user.sub);
 
     // Gửi yêu cầu POST để cập nhật dữ liệu
-    fetch(`http://localhost:8080/marketing/post/add`, {
+    fetch(`${BASE_URL}/marketing/post/add`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -104,7 +104,7 @@ const PostManage = ({
       .then((data) => {
         alert("Succesfully");
         console.log("test alert");
-       
+
         console.log("test navigate");
       })
       .catch((error) => {

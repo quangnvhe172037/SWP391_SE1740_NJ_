@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
-const API_URL = "http://localhost:8080";
+import BASE_URL from "../../api/baseapi";
+const API_URL = `${BASE_URL}`;
 
 const AddPracticeDetail = () => {
     const [subjectId, setSubjectId] = useState(1);

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './QuestionForm.css';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-
+import BASE_URL from '../../api/baseapi';
 function QuestionForm({ onAddQuestion }) {
     const [question, setQuestion] = useState('');
     const [answerA, setAnswerA] = useState('');
@@ -39,12 +39,16 @@ function QuestionForm({ onAddQuestion }) {
             return;
         }
         try {
-            const response = await axios.post(`http://localhost:8080/api/questions/add/${subjectId}`, questionData, {
+            const response = await axios.post(
+              `${BASE_URL}/api/questions/add/${subjectId}`,
+              questionData,
+              {
                 headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`,
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${token}`,
                 },
-            });
+              }
+            );
 
             if (response.status === 200) {
                 alert('Question added successfully.');

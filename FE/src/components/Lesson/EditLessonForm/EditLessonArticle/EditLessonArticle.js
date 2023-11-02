@@ -1,7 +1,7 @@
 import { useState } from "react";
 import ReactQuill from "react-quill";
 import jwtDecode from "jwt-decode";
-
+import BASE_URL from "../../../../api/baseapi";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import { useEffect } from "react";
@@ -14,15 +14,12 @@ const EditLessonArticle = (prop) => {
 
    const GetData = () => {
      useEffect(() => {
-       fetch(
-         `http://localhost:8080/api/expert/lesson/get/article/${prop.lessonId}`,
-         {
-           headers: {
-             "Content-Type": "application/json",
-             Authorization: `Bearer ${token}`,
-           },
-         }
-       )
+       fetch(`${BASE_URL}/api/expert/lesson/get/article/${prop.lessonId}`, {
+         headers: {
+           "Content-Type": "application/json",
+           Authorization: `Bearer ${token}`,
+         },
+       })
          .then((response) => {
            if (!response.ok) {
              throw new Error("Network response was not ok");
@@ -34,7 +31,7 @@ const EditLessonArticle = (prop) => {
            setLessonName(dataJson.lessonName);
            setOrder(dataJson.lessonOrder);
            setValueArticle(dataJson.lessonArticle);
-         })
+         });
 
          
      }, []);
@@ -46,7 +43,7 @@ const EditLessonArticle = (prop) => {
       lessonOrder: lessonOrder,
       article: valueArticle,
     };
-    fetch(`http://localhost:8080/api/expert/lesson/update/article/${prop.lessonId}`, {
+    fetch(`${BASE_URL}/api/expert/lesson/update/article/${prop.lessonId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

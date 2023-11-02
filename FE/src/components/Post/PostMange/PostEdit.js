@@ -4,8 +4,9 @@ import "./CreatePost.css";
 import { useEffect, useState } from "react";
 import jwtDecode from "jwt-decode";
 import { useNavigate, useParams } from "react-router-dom";
-
+import BASE_URL from "../../../api/baseapi";
 import CreatePostHeader from "../PostComponent/CreatePostHeader";
+import FE_URL from "../../../api/frontendapi";
 
 const PostEditComponent = () => {
   const { postId } = useParams();
@@ -18,8 +19,8 @@ const PostEditComponent = () => {
   const token = localStorage.getItem("token");
   const user = jwtDecode(token);
   let isFormComplete = true;
-  const api = `http://localhost:8080/posts/view/${postId}`;
-  const baseURL = "http://localhost:8081/";
+  const api = `${BASE_URL}/posts/view/${postId}`;
+  const baseURL = FE_URL;
   const navigate = useNavigate();
   console.log(updatedImage);
   const defaultImage = baseURL.concat(updatedImage);
@@ -70,7 +71,7 @@ const PostEditComponent = () => {
   };
 
   useEffect(() => {
-    fetch("http://localhost:8080/posts/cate", {
+    fetch(`${BASE_URL}/posts/cate`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -127,7 +128,7 @@ const PostEditComponent = () => {
     formData.append("email", user.sub);
 
     // Gửi yêu cầu PUT để cập nhật dữ liệu
-    fetch(`http://localhost:8080/marketing/post/edit/${postId}`, {
+    fetch(`${BASE_URL}/marketing/post/edit/${postId}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,

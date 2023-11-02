@@ -1,6 +1,6 @@
 // Footer.js
 import React from "react";
-
+import BASE_URL from "../../api/baseapi";
 const Footer = () => {
     return (
         <footer className="py-8 lg:pt-16 lg:pb-10 bg-[rgb(24,24,33)] px-4">

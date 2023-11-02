@@ -5,16 +5,19 @@ import { useParams } from "react-router-dom";
 import SubjectInfo from "../../components/SubjectDetail/SubjectInfo/SubjectInfo";
 import SubjectSidebar from "../../components/SubjectDetail/SubjectSidebar/SubjectSidebar";
 import SubjectDecription from "../../components/SubjectDetail/SubjectDescription/SubjectDecription";
-import './SubjectDetail.css'
+import "./SubjectDetail.css";
 import PrivateContent from "../../components/HandleException/PrivateContent";
+import BASE_URL from "../../api/baseapi";
 
 const SubjectDetail = () => {
+  const api = `${BASE_URL}/user/subject/get`;
+
   const token = localStorage.getItem("token");
   const user = jwtDecode(token);
   const { subjectId } = useParams();
   const [topics, setTopics] = useState([]);
   const [lessons, setLessons] = useState([]);
-  const api = "http://localhost:8080/user/subject/get";
+
   const [subject, setSubject] = useState({});
 
   useEffect(() => {
@@ -66,10 +69,9 @@ const SubjectDetail = () => {
   } catch (error) {
     console.error("There was a problem with the request");
   }
-  
 
   useEffect(() => {
-    fetch(`http://localhost:8080/subjecttopic/get/${subjectId}`, {
+    fetch(`${BASE_URL}/subjecttopic/get/${subjectId}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -99,7 +101,7 @@ const SubjectDetail = () => {
   }, []);
 
   useEffect(() => {
-    fetch(`http://localhost:8080/lesson/get/${subjectId}`, {
+    fetch(`${BASE_URL}/lesson/get/${subjectId}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -130,9 +132,7 @@ const SubjectDetail = () => {
       });
   }, []);
 
-  if (
-    user.role !== "CUSTOMER"
-  ) {
+  if (user.role !== "CUSTOMER") {
     return <PrivateContent />;
   } else {
     return (
@@ -159,15 +159,13 @@ const SubjectDetail = () => {
             billId={subject.billId}
             purchaseDate={subject.purchaseDate}
             lessonId={
-              lessons && lessons.length > 0
-                ? lessons[0].lessonId
-                : null
+              lessons && lessons.length > 0 ? lessons[0].lessonId : null
             }
           />
         </div>
       </div>
     );
-  };
-}
+  }
+};
 
 export default SubjectDetail;

@@ -2,6 +2,8 @@ import { useState } from "react";
 import PostManage from "../../../../components/Post/PostMange/PostMange";
 import jwtDecode from "jwt-decode";
 import PrivateContent from "../../../../components/HandleException/PrivateContent";
+import BASE_URL from "../../../../api/baseapi";
+
 const CreatePostManage = () => {
   const [updatedImage, setUpdatedImage] = useState(
     "/img/posts/image post null.png"

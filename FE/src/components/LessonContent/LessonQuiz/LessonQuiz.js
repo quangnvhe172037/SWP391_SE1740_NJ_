@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import QuizInfo from "../../Quiz/QuizResult/QuizInfo/QuizInfo";
 import QuizResultData from "../../Quiz/QuizResult/QuizResultData/QuizResultData";
-
+import BASE_URL from "../../../api/baseapi";
 const LessonQuiz = (prop) => {
   
   const [quizInfo, setQuizInfo] = useState({});
@@ -10,7 +10,7 @@ const LessonQuiz = (prop) => {
   let lessonId = prop.lessonId;
 
   useEffect(() => {
-    fetch(`http://localhost:8080/quiz/get/lesson/${lessonId}`, {
+    fetch(`${BASE_URL}/quiz/get/lesson/${lessonId}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -18,14 +18,13 @@ const LessonQuiz = (prop) => {
     })
       .then((response) => {
         if (!response.ok) {
-          
         }
         return response.json();
       })
 
       .then((dataJson) => {
         const data = {
-          quizId: dataJson.quizID
+          quizId: dataJson.quizID,
         };
 
         return data;

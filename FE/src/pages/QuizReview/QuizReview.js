@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 import "./QuizReview.css";
+import BASE_URL from "../../api/baseapi";
+
 const QuizReview = () => {
   const { quizId, resultId } = useParams();
   const navigate = useNavigate();
@@ -19,7 +21,7 @@ const QuizReview = () => {
 
   useEffect(() => {
     fetch(
-      `http://localhost:8080/attempt/quiz/review/${quizId}?resultId=${resultId}&userId=${user.userId}`,
+      `${BASE_URL}/attempt/quiz/review/${quizId}?resultId=${resultId}&userId=${user.userId}`,
       {
         headers: {
           "Content-Type": "application/json",

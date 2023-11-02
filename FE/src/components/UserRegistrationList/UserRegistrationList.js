@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import BASE_URL from "../../api/baseapi";
 import {
   convertToYYYYMMDD,
   formatDateToCustomFormat,
@@ -28,7 +29,7 @@ const UserRegisterList = () => {
     const fetchBills = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8080/admin/user-registration-list",
+          `${BASE_URL}/admin/user-registration-list`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

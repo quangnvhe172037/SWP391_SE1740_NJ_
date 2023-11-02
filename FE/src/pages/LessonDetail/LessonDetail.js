@@ -12,6 +12,7 @@ import AddLessonVideo from "../../components/Lesson/AddLessonForm/AddLessonVideo
 import EditLessonQuiz from "../../components/Lesson/EditLessonForm/EditLessonQuiz/EditLessonQuiz";
 import EditLessonVideo from "../../components/Lesson/EditLessonForm/EditLessonVideo/EditLessonVideo";
 import EditLessonArticle from "../../components/Lesson/EditLessonForm/EditLessonArticle/EditLessonArticle";
+import BASE_URL from "../../api/baseapi";
 
 const LessonDetail = () => {
   const { subjectId } = useParams();
@@ -24,7 +25,7 @@ const LessonDetail = () => {
   const [showAddLesson, setShowAddLesson] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:8080/subjecttopic/get/${subjectId}`, {
+    fetch(`${BASE_URL}/subjecttopic/get/${subjectId}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -54,7 +55,7 @@ const LessonDetail = () => {
   }, []);
 
   useEffect(() => {
-    fetch(`http://localhost:8080/lesson/get/${subjectId}`, {
+    fetch(`${BASE_URL}/lesson/get/${subjectId}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -89,7 +90,7 @@ const LessonDetail = () => {
 
   const handleUpdateOrderLesson = (updateLessonId, order) => {
     fetch(
-      `http://localhost:8080/api/expert/lesson/update/order/${updateLessonId}?order=${order}`,
+      `${BASE_URL}/api/expert/lesson/update/order/${updateLessonId}?order=${order}`,
       {
         method: "PUT",
         headers: {
@@ -119,7 +120,7 @@ const LessonDetail = () => {
 
   const handleUpdateOrderTopic = (updateTopicId, order) => {
     fetch(
-      `http://localhost:8080/api/expert/subject/update/order/${updateTopicId}?order=${order}`,
+      `${BASE_URL}/api/expert/subject/update/order/${updateTopicId}?order=${order}`,
       {
         method: "PUT",
         headers: {
@@ -148,16 +149,13 @@ const LessonDetail = () => {
   };
 
   const handleDeleteTopic = (topicDeleteId) => {
-    fetch(
-      `http://localhost:8080/api/expert/subject/delete/topic/${topicDeleteId}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    )
+    fetch(`${BASE_URL}/api/expert/subject/delete/topic/${topicDeleteId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((response) => {
         console.log(response);
         if (!response.ok) {
@@ -178,7 +176,7 @@ const LessonDetail = () => {
   };
 
   const handleDeleteLesson = (lessonDeleteId) => {
-    fetch(`http://localhost:8080/api/expert/lesson/delete/${lessonDeleteId}`, {
+    fetch(`${BASE_URL}/api/expert/lesson/delete/${lessonDeleteId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

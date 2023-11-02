@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 import PrivateContent from "../../components/HandleException/PrivateContent";
-
+import BASE_URL from "../../api/baseapi";
 const ExpertDashboard = () => {
   const token = localStorage.getItem("token");
   const user = jwtDecode(token);

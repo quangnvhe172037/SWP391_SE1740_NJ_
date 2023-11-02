@@ -5,12 +5,14 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 import PrivateContent from "../../../../components/HandleException/PrivateContent";
+import BASE_URL from "../../../../api/baseapi";
+import FE_URL from "../../../../api/frontendapi";
 
 const PostListManage = () => {
   const [postList, updatedPostList] = useState([]);
   const token = localStorage.getItem("token");
   const user = jwtDecode(token);
-  const baseUrl = "http://localhost:8081/";
+  const baseUrl = FE_URL;
   // const [filteredPost, setFilteredPost] = useState([]);
   // const [searchTerm, setSearchTerm] = useState("");
   // const [statusFilter, setStatusFilter] = useState("all");
@@ -22,7 +24,7 @@ const PostListManage = () => {
   
 
   useEffect(() => {
-    fetch(`http://localhost:8080/marketing/post/manage/${user.userId}`, {
+    fetch(`${BASE_URL}/marketing/post/manage/${user.userId}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -57,9 +59,7 @@ const PostListManage = () => {
         updatedPostList(mockData);
         // setFilteredPost(mockData);
       })
-      .catch((err) => { 
-        
-      });
+      .catch((err) => {});
   }, []);
 
   const handleAction = (postId, action) => {
@@ -95,7 +95,7 @@ const PostListManage = () => {
     const updateStatus = action === "show" ? 1 : 0;
     console.log(updateStatus);
 
-    fetch(`http://localhost:8080/marketing/post/update/status/${parseInt(postId)}`, {
+    fetch(`${BASE_URL}/marketing/post/update/status/${parseInt(postId)}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -126,7 +126,7 @@ const PostListManage = () => {
   // Delete
   const handleDelete = (postId) => {
     // Gửi yêu cầu DELETE để xóa post dựa trên postId
-    fetch(`http://localhost:8080/marketing/post/delete/${postId}`, {
+    fetch(`${BASE_URL}/marketing/post/delete/${postId}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

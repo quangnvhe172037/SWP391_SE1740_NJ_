@@ -4,8 +4,9 @@ import axios from "axios";
 import jwtDecode from "jwt-decode";
 import "./style.css";
 import {format} from "date-fns";
-import {Link} from "react-router-dom";
-const API_URL = "http://localhost:8080";
+import { Link } from "react-router-dom";
+import BASE_URL from "../../api/baseapi";
+const API_URL = `${BASE_URL}`;
 
 function PracticeList() {
     const token = localStorage.getItem("token");

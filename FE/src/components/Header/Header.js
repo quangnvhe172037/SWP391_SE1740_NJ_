@@ -5,6 +5,8 @@ import jwtDecode from "jwt-decode";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import styles from "./Header.module.css";
+import BASE_URL from "../../api/baseapi";
+
 const UserHeader = () => {
   const [currentUser, setCurrentUser] = useState(undefined);
   const [isAuthenticated, setIsAuthenticated] = useState(false);

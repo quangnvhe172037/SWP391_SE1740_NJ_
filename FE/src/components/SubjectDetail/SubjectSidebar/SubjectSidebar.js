@@ -1,6 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import "./SubjectSidebar.css";
-
+import BASE_URL from "../../../api/baseapi";
 const SubjectSidebar = (prop) => {
   const preId = prop.preId;
   let price = prop.price;

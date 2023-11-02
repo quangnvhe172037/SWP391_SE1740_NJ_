@@ -4,6 +4,7 @@ import './DashboardContent.css'
 import BillChartProfit from "../../Charts/BillChartProfit";
 import BillChart from "../../Charts/BillChart";
 import { useEffect, useState } from "react";
+import BASE_URL from "../../../api/baseapi";
 
 const DashboardContent = () => {
   const token = localStorage.getItem("token");
@@ -14,7 +15,7 @@ const DashboardContent = () => {
 
 
     useEffect(() => {
-      fetch(`http://localhost:8080/manage/dashboard`, {
+      fetch(`${BASE_URL}/manage/dashboard`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -33,7 +34,7 @@ const DashboardContent = () => {
             newUser: dataJson.newUser,
             totalSubject: dataJson.totalSubject,
             salesStatistic: dataJson.salesStatistic,
-            orderStatistic: dataJson.orderStatistic
+            orderStatistic: dataJson.orderStatistic,
           };
 
           return data;

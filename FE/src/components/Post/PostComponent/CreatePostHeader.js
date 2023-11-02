@@ -1,4 +1,4 @@
-
+import BASE_URL from "../../../api/baseapi";
 import "./CreatePostHeader.css";
 const CreatePostHeader = ({ title, setUpdatedTitle }) => {
   return (

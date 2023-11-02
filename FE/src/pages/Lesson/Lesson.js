@@ -5,6 +5,9 @@ import jwtDecode from "jwt-decode";
 import PrivateContent from "../../components/HandleException/PrivateContent";
 import { useParams } from "react-router-dom";
 import NotFoundException from "../../components/HandleException/Error-404/Error-404";
+import BASE_URL from "../../api/baseapi";
+
+
 const Lesson = () => {
     const { subjectId, lessonId } = useParams();
   const token = localStorage.getItem("token");
@@ -12,7 +15,7 @@ const Lesson = () => {
   const [lessons, setLessons] = useState([]);
   const [checkLesson, setCheckLesson] = useState(false);
  useEffect(() => {
-   fetch(`http://localhost:8080/lesson/get/${subjectId}`, {
+   fetch(`${BASE_URL}/lesson/get/${subjectId}`, {
      headers: {
        "Content-Type": "application/json",
        Authorization: `Bearer ${token}`,
@@ -27,7 +30,7 @@ const Lesson = () => {
 
      .then((dataJson) => {
        const data = dataJson.map((item) => ({
-         lessonId: item.lessonID
+         lessonId: item.lessonID,
        }));
 
        return data;

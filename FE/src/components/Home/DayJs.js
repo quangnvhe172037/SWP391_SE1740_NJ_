@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import BASE_URL from '../../api/baseapi';
 import updateLocale from 'dayjs/plugin/updateLocale';
 require('dayjs/locale/de')
 
