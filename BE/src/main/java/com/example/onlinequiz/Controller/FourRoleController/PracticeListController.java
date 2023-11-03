@@ -3,6 +3,7 @@ package com.example.onlinequiz.Controller.FourRoleController;
 import com.example.onlinequiz.Model.*;
 import com.example.onlinequiz.Payload.Request.AddNewLessonQuizRequest;
 import com.example.onlinequiz.Payload.Request.AddNewQuizzes;
+import com.example.onlinequiz.Repo.QuizDataRepository;
 import com.example.onlinequiz.Services.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,8 @@ public class PracticeListController {
     @Autowired
     public final UserService userService;
 
-
+    @Autowired
+    public final QuizDataRepository quizDataRepository;
     @GetMapping("/list")
     @ResponseBody
     public ResponseEntity<List<QuizResults>> getQuizResultByUseridAndSubjectid(
@@ -110,8 +112,26 @@ public class PracticeListController {
             quiz.setPassRate(passRate);
 
             //random number question in quiz
+            int randomQuesNumber = 0;
+            if(examLevel.equals("easy")){
+                randomQuesNumber = 40;
+            } else if (examLevel.equals("medium")) {
+                randomQuesNumber = 50;
+            } else if (examLevel.equals("hard")) {
+                randomQuesNumber = 60;
+            }else{
+                randomQuesNumber = 0;
+            }
+//              More than one row with the given identifier was found: 1
+//            List<QuizData> allQuizData = quizDataRepository.findAllBySubject(s);
+//            System.out.println("Quiz data taken:" + allQuizData);
+
 
             quizService.addNewQuiz(quiz);
+            System.out.println(quiz.getQuizID());
+            System.out.println("wrong 1");
+            quizService.addRandomQuestionsToQuiz(quiz.getQuizID(), Long.valueOf(subjectId), randomQuesNumber);
+            System.out.println("wrong 2");
             return ResponseEntity.ok(quiz);
         }catch (Exception e){
             System.out.println(e.getMessage());

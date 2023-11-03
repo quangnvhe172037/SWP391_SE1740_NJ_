@@ -9,10 +9,11 @@ const AddPracticeDetail = (prop) => {
     const [quizName, setQuizName] = useState('');
     const [durationTime, setDurationTime] = useState(0);
     const [passRate, setPassRate] = useState(0);
+    const [quizAdded, setQuizAdded] = useState(null);
     const quizTypeId = 2;
 
     const location = useLocation();
-    const subjectId = location.state;
+    const subjectId = 3;
     console.log(subjectId);
     const handleFormSubmit = (event) => {
         event.preventDefault();
@@ -36,6 +37,8 @@ const AddPracticeDetail = (prop) => {
             .then((response) => {
                 // Xử lý khi gửi dữ liệu thành công
                 console.log('Data sent successfully');
+                setQuizAdded(response.data);
+                console.log(response.data);
             })
             .catch((error) => {
                 // Xử lý khi gửi dữ liệu thất bại

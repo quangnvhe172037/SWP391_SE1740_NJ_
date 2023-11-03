@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
@@ -45,6 +46,10 @@ public class QuizServiceImpl implements QuizService {
 
     @Autowired
     private final QuizResultDetailRepository quizResultDetailRepository;
+
+    @Autowired
+    private final SubjectsRepository subjectsRepository;
+
 
     @Override
     public Quizzes getQuizByLessonId(Long id) {
@@ -214,5 +219,48 @@ public class QuizServiceImpl implements QuizService {
         }
     }
 
+    @Override
+    public void addRandomQuestionsToQuiz(Long quizId, Long subjectId, int numberOfQuestions) {
+        System.out.println("die here");
+        List<QuizData> randomQuizData = getRandomQuizDataBySubject(subjectId, numberOfQuestions);
+        System.out.println("1");
+        Quizzes quiz = quizRepository.findByQuizID(quizId);
+        List<QuizDetail> quizDetails = new ArrayList<>();
+        System.out.println("randome quiz:"+randomQuizData);
+        System.out.println(quiz);
+        for (QuizData quizData : randomQuizData) {
+            QuizDetail quizDetail = new QuizDetail();
+            quizDetail.setQuizData(quizData);
+            quizDetail.setQuizzes(quiz);
+            quizDetails.add(quizDetail);
+        }
 
+        System.out.println(quizDetails);
+        quizDetailRepository.saveAll(quizDetails);
+    }
+
+    public List<QuizData> getRandomQuizDataBySubject(Long subjectId, int numberOfQuestions) {
+        System.out.println("hehe");
+        Subjects s = subjectsRepository.findBySubjectID(subjectId);
+
+        System.out.println("hehe1" + s);
+        //die here
+        List<QuizData> allQuizData = quizDataRepository.findBySubject(s);
+        System.out.println("Quiz data taken:" + allQuizData);
+        List<QuizData> randomQuizData = new ArrayList<>();
+
+        //So cau quiz nho hon quiz trong db thi lay het
+        if (allQuizData.size() <= numberOfQuestions) {
+            return allQuizData;
+        }
+
+        Random random = new Random();
+        while (randomQuizData.size() < numberOfQuestions) {
+            int index = random.nextInt(allQuizData.size());
+            randomQuizData.add(allQuizData.get(index));
+            allQuizData.remove(index);
+        }
+
+        return randomQuizData;
+    }
 }
