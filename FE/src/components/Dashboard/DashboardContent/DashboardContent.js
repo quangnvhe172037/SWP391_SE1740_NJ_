@@ -11,9 +11,6 @@ const DashboardContent = () => {
   const user = jwtDecode(token);
   const [dashboardData, setDashboardData] = useState({});
 
-
-
-
     useEffect(() => {
       fetch(`${BASE_URL}/manage/dashboard`, {
         headers: {
