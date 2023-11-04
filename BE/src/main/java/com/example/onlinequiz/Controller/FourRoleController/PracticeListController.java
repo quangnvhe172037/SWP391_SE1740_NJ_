@@ -86,7 +86,7 @@ public class PracticeListController {
     @PostMapping("/add")
     public ResponseEntity<Quizzes> addNewQuiz(@RequestBody AddNewQuizzes request) {
 
-        try{
+//        try{
             String quizName = request.getQuizName();
             Integer subjectId = request.getSubjectId();
             Integer quizTypeId = request.getQuizTypeId();
@@ -104,13 +104,13 @@ public class PracticeListController {
             int quantityQuizData;
             switch (examLevel){
                 case "easy":
-                    quantityQuizData = 2;
+                    quantityQuizData = 40;
                     break;
                 case "medium":
-                    quantityQuizData = 3;
+                    quantityQuizData = 50;
                     break;
                 default:
-                    quantityQuizData = 4;
+                    quantityQuizData = 60;
             }
 
             Quizzes quiz = new Quizzes();
@@ -128,24 +128,13 @@ public class PracticeListController {
             quiz.setDateCreate(currentTime);
             quiz.setPassRate(passRate);
 
-            //random number question in quiz
-            int randomQuesNumber = 0;
-            if(examLevel.equals("easy")){
-                randomQuesNumber = 40;
-            } else if (examLevel.equals("medium")) {
-                randomQuesNumber = 50;
-            } else if (examLevel.equals("hard")) {
-                randomQuesNumber = 60;
-            }else{
-                randomQuesNumber = 0;
-            }
 //              More than one row with the given identifier was found: 1
 //            List<QuizData> allQuizData = quizDataRepository.findAllBySubject(s);
 //            System.out.println("Quiz data taken:" + allQuizData);
 
 
             quizService.addNewQuiz(quiz);
-            List<QuizData> quizDataRandom = quizDataService.getRandomQuizData(quantityQuizData);
+            List<QuizData> quizDataRandom = quizDataService.getRandomQuizData(quantityQuizData, s);
             for (QuizData e : quizDataRandom) {
                 QuizDetail quizDetail = new QuizDetail();
                 quizDetail.setQuizData(e);
@@ -154,10 +143,10 @@ public class PracticeListController {
             }
 
             return ResponseEntity.ok(quiz);
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+//        }catch (Exception e){
+//            System.out.println(e.getMessage());
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+//        }
 
     }
 }

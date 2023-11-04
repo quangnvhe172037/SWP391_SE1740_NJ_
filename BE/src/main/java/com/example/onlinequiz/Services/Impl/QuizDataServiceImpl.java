@@ -149,19 +149,20 @@ public class QuizDataServiceImpl implements QuizDataService {
         }
     }
 
-    public List<QuizData> getRandomQuizData(int quantity) {
+    /**
+     *
+     * @param quantity
+     * @return
+     */
+    public List<QuizData> getRandomQuizData(int quantity, Subjects subject) {
         // Lấy tất cả dữ liệu từ bảng quiz_data
-        Iterable<QuizData> allQuizData = quizDataRepository.findAll();
-
-        // Chuyển danh sách tất cả dữ liệu thành một danh sách
-        List<QuizData> allQuizDataList = StreamSupport.stream(allQuizData.spliterator(), false)
-                .collect(Collectors.toList());
-
+        List<QuizData> allQuizData = quizDataRepository.findAllBySubject(subject);
         // Trộn ngẫu nhiên danh sách dữ liệu
-        Collections.shuffle(allQuizDataList);
+        Collections.shuffle(allQuizData);
 
-        // Chọn 40 phần tử đầu tiên sau khi đã trộn ngẫu nhiên
-        return allQuizDataList.subList(0, quantity);
+        // Chọn quantity phần tử đầu tiên sau khi đã trộn ngẫu nhiên
+        quantity = allQuizData.size() < quantity ? allQuizData.size() : quantity;
+        return allQuizData.subList(0, quantity);
     }
 
 }
