@@ -4,6 +4,8 @@ import jwtDecode from "jwt-decode";
 import { useNavigate, useParams } from "react-router-dom";
 import Popup from "reactjs-popup";
 import EditQuizInfo from "../EditQuizInfo/EditQuizInfo";
+import BASE_URL from "../../../../api/baseapi";
+
 const EditLessonQuiz = (prop) => {
   const [showForm, setShowForm] = useState(false);
   const lessonId = prop.lessonId;
@@ -20,7 +22,7 @@ const EditLessonQuiz = (prop) => {
   const GetData = () => {
     useEffect(() => {
       console.log("check lessonId: " + lessonId);
-      fetch(`http://localhost:8080/api/questions/get/lesson/${lessonId}`, {
+      fetch(`${BASE_URL}/api/questions/get/lesson/${lessonId}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -98,7 +100,7 @@ const EditLessonQuiz = (prop) => {
     };
 
     fetch(
-      `http://localhost:8080/api/questions/add/lesson/${lessonId}?subjectId=${subjectId}`,
+      `${BASE_URL}/api/questions/add/lesson/${lessonId}?subjectId=${subjectId}`,
       {
         method: "POST",
         headers: {
@@ -129,7 +131,7 @@ const EditLessonQuiz = (prop) => {
 
   const handleDelete = (sentenceId) => {
     fetch(
-      `http://localhost:8080/api/questions/delete/sentence/${sentenceId}?lessonId=${lessonId}`,
+      `${BASE_URL}/api/questions/delete/sentence/${sentenceId}?lessonId=${lessonId}`,
       {
         method: "DELETE",
         headers: {

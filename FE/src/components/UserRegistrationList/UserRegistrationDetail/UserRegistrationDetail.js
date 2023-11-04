@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import { formatDateToCustomFormat } from "../UserRegistrationListFunc";
 import { toast } from "react-toastify";
+import BASE_URL from "../../../api/baseapi";
 
 const UserRegistrationDetail = () => {
   const token = localStorage.getItem("token");
@@ -15,7 +16,7 @@ const UserRegistrationDetail = () => {
     const fetchBillDetail = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8080/admin/user-registration-list/" + billID,
+          `${BASE_URL}/admin/user-registration-list/` + billID,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -46,7 +47,7 @@ const UserRegistrationDetail = () => {
   const handleOnSubmit = async () => {
     try {
       const response = await axios.put(
-        "http://localhost:8080/admin/user-registration-list/" + billID,
+        `${BASE_URL}/admin/user-registration-list/` + billID,
         {
           status: JSON.parse(status),
           notify,
@@ -202,12 +203,14 @@ const UserRegistrationDetail = () => {
           </div>
           <div className="form-group col-12">
             <button
-              onClick={handleOnSubmit}
-              type="button"
-              className="btn-primary w-100"
+                onClick={handleOnSubmit}
+                type="button"
+                className="btn-primary w-100"
+                style={{ backgroundColor: 'blue' }}
             >
               Save
             </button>
+
           </div>
         </form>
       </div>

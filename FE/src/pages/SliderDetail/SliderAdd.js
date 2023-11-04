@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import "./SliderAdd.css";
 import jwtDecode from "jwt-decode";
 import PrivateContent from "../../components/HandleException/PrivateContent";
+import BASE_URL from "../../api/baseapi";
+
 
 const SliderAdd = () => {
   const [subjects, setSubjects] = useState([]);
@@ -16,7 +18,7 @@ const SliderAdd = () => {
   const token = localStorage.getItem("token");
 
   useEffect(() => {
-    fetch("http://localhost:8080/subjects/all", {
+    fetch(`${BASE_URL}/subjects/all`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -59,7 +61,7 @@ const SliderAdd = () => {
     formData.append("subjectId", updateSubject);
 
     // Gửi yêu cầu PUT để cập nhật dữ liệu
-    fetch(`http://localhost:8080/sliders/add`, {
+    fetch(`${BASE_URL}/sliders/add`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import BASE_URL from "../../api/baseapi";
 import jwtDecode from "jwt-decode"; // Import Bootstrap CSS
 const token = localStorage.getItem('token');
 
@@ -43,39 +44,43 @@ const ChangePassword = () => {
         }
 
         axios
-            .post('http://localhost:8080/change-password', {
-                email: email,
-                oldPassword: oldPassword,
-                newPassword: newPassword,
-            }, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`,
-                },
-            })
-            .then((response) => {
-                setMessage(response.data);
-                setPasswordsMatch(true);
-                setIsPasswordStrong(true);
-                // Set success message or display other information to the user
-            })
-            .catch((error) => {
-                setMessage(error.response.data);
-                setPasswordsMatch(true);
-                setIsPasswordStrong(true);
-                // Handle errors or display error message to the user
-                if (error.response && error.response.status === 400){
-                    console.error("Bad request: ", error.response.data);
-                    alert("Something error");
-                } else if (error.response && error.response.status === 403) {
-                    // Nếu response trả về mã lỗi 403, dẫn người dùng quay lại trang Home
-                    alert("You are out of System");
-                    navigate("/login");
-                    localStorage.removeItem("token");
-                } else {
-                    console.error('Error updating profile data:', error);
-                }
-            });
+          .post(
+            `${BASE_URL}/change-password`,
+            {
+              email: email,
+              oldPassword: oldPassword,
+              newPassword: newPassword,
+            },
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          )
+          .then((response) => {
+            setMessage(response.data);
+            setPasswordsMatch(true);
+            setIsPasswordStrong(true);
+            // Set success message or display other information to the user
+          })
+          .catch((error) => {
+            setMessage(error.response.data);
+            setPasswordsMatch(true);
+            setIsPasswordStrong(true);
+            // Handle errors or display error message to the user
+            if (error.response && error.response.status === 400) {
+              console.error("Bad request: ", error.response.data);
+              alert("Something error");
+            } else if (error.response && error.response.status === 403) {
+              // Nếu response trả về mã lỗi 403, dẫn người dùng quay lại trang Home
+              alert("You are out of System");
+              navigate("/login");
+              localStorage.removeItem("token");
+            } else {
+              console.error("Error updating profile data:", error);
+            }
+          });
     };
 
     return (

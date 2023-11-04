@@ -5,7 +5,7 @@ import jwtDecode from "jwt-decode";
 import CountdownTimer from "../../components/CountdownTimer/CountdownTimer";
 import Countdown from "react-countdown";
 import NotFoundException from "../../components/HandleException/Error-404/Error-404";
-
+import BASE_URL from "../../api/baseapi";
 const QuizAttempt = () => {
   const { quizId, resultId } = useParams();
   const navigate = useNavigate();
@@ -29,10 +29,10 @@ const QuizAttempt = () => {
 
   useEffect(() => {
     console.log(
-      `http://localhost:8080/attempt/quiz/${quizId}?resultId=${resultId}&userId=${user.userId}`
+      `${BASE_URL}/attempt/quiz/${quizId}?resultId=${resultId}&userId=${user.userId}`
     );
     fetch(
-      `http://localhost:8080/attempt/quiz/${quizId}?resultId=${resultId}&userId=${user.userId}`,
+      `${BASE_URL}/attempt/quiz/${quizId}?resultId=${resultId}&userId=${user.userId}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -103,7 +103,7 @@ const QuizAttempt = () => {
     const data = userAnswers;
     console.log(data);
     fetch(
-      `http://localhost:8080/attempt/quiz/update/result/${quizId}?resultId=${resultId}&userId=${user.userId}`,
+      `${BASE_URL}/attempt/quiz/update/result/${quizId}?resultId=${resultId}&userId=${user.userId}`,
       {
         method: "PUT",
         headers: {
@@ -131,7 +131,7 @@ const QuizAttempt = () => {
     const data = userAnswers;
     console.log(data);
     fetch(
-      `http://localhost:8080/attempt/quiz/submit/result/${quizId}?resultId=${resultId}&userId=${user.userId}`,
+      `${BASE_URL}/attempt/quiz/submit/result/${quizId}?resultId=${resultId}&userId=${user.userId}`,
       {
         method: "PUT",
         headers: {

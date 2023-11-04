@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import './AddNewArticle.css'
-
+import BASE_URL from "../../../api/baseapi";
 const AddNewArticle = () => {
   const [valueArticle, setValueArticle] = useState("");
 

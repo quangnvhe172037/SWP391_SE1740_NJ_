@@ -11,6 +11,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { Col, Row } from "react-bootstrap";
+import BASE_URL from "../../api/baseapi";
 const SubjectData = () => {
   const style = {
     margin: "auto",
@@ -41,8 +42,8 @@ const SubjectData = () => {
   const [pageNum, setPageNum] = useState(1);
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
-  const apiSubjects = "http://localhost:8080/subjects/all";
-  const apiCategorySubjects = "http://localhost:8080/categorysubject/all";
+  const apiSubjects = `${BASE_URL}/subjects/all`;
+  const apiCategorySubjects = `${BASE_URL}/categorysubject/all`;
   useEffect(() => {
     fetch(apiSubjects)
       .then((response) => {
@@ -145,7 +146,7 @@ const SubjectData = () => {
     formData.append("subject", JSON.stringify(temp));
     formData.append("id", id);
     // Gửi yêu cầu PUT để cập nhật dữ liệu
-    fetch(`http://localhost:8080/subjects/update`, {
+    fetch(`${BASE_URL}/subjects/update`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,

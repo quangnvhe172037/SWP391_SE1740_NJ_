@@ -5,11 +5,12 @@ import PrivateContent from "../../../../components/HandleException/PrivateConten
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
+import BASE_URL from "../../../../api/baseapi";
 const EditPostMange = () => {
   const token = localStorage.getItem("token");
   const user = jwtDecode(token);
    const { postId } = useParams();
-  const api = `http://localhost:8080/posts/view/${postId}`;
+  const api = `${BASE_URL}/posts/view/${postId}`;
   const [userId, setUserId] = useState("");
 useEffect(() => {
   fetch(api, {

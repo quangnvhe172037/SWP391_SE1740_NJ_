@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import './GetQuiz.css';
 import EditQuizInfo from "../Lesson/EditLessonForm/EditQuizInfo/EditQuizInfo"; // Tạo một file CSS riêng cho QuizComponent
-
+import BASE_URL from '../../api/baseapi';
 const QuizComponent = () => {
     const [questions, setQuestions] = useState([]);
     const { subjectId } = useParams();
@@ -12,17 +12,17 @@ const QuizComponent = () => {
     const token = localStorage.getItem("token");
     useEffect(() => {
         axios
-            .get(`http://localhost:8080/api/questions/get/${subjectId}`,{
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                }
-            })
-            .then((response) => {
-                setQuestions(response.data);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+          .get(`${BASE_URL}/api/questions/get/${subjectId}`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((response) => {
+            setQuestions(response.data);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
     }, []);
 
     const handleEdit = (questionId) => {
@@ -42,14 +42,15 @@ const QuizComponent = () => {
             return question;
         });
 
-        axios.put(`http://localhost:8080/api/questions/update/${questionId}`, editedQuestion)
-            .then(() => {
-                setQuestions(updatedQuestions);
-                setEditingQuestionId(null);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+        axios
+          .put(`${BASE_URL}/api/questions/update/${questionId}`, editedQuestion)
+          .then(() => {
+            setQuestions(updatedQuestions);
+            setEditingQuestionId(null);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
     };
 
     const handleInputChange = (event, field) => {
@@ -72,20 +73,20 @@ const QuizComponent = () => {
         };
 
         axios
-            .delete("http://localhost:8080/api/questions/delete", {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                },
-                data: data, // Sử dụng data để gửi trong phần body
-            })
-            .then((response) => {
-                alert(response.data);
-                window.location.reload();
-            })
-            .catch((error) => {
-                alert(error);
-            });
+          .delete(`${BASE_URL}/api/questions/delete`, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            data: data, // Sử dụng data để gửi trong phần body
+          })
+          .then((response) => {
+            alert(response.data);
+            window.location.reload();
+          })
+          .catch((error) => {
+            alert(error);
+          });
     };
 
     return (

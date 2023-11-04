@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import "./SubjectDecription.css";
 import "react-quill/dist/quill.bubble.css";
 import ReactQuill, { Quill } from "react-quill";
+import BASE_URL from "../../../api/baseapi";
 const SubjectDecription = (prop) => {
   const description = prop.description;
   return (

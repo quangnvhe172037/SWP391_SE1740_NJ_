@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import BASE_URL from "../../api/baseapi";
 import {
   convertToYYYYMMDD,
   formatDateToCustomFormat,
   formatDateToYYYYMMDD,
 } from "./UserRegistrationListFunc";
 
+const formatPrice = (price) => {
+  // Chuyển đổi giá thành một số nguyên
+  price = parseInt(price, 10);
+
+  // Sử dụng hàm toLocaleString để định dạng số theo định dạng nghìn và tỷ
+  return price.toLocaleString("en-US");
+};
 const UserRegisterList = () => {
   const token = localStorage.getItem("token");
   const [bills, setBills] = useState([]);
@@ -28,13 +36,15 @@ const UserRegisterList = () => {
     const fetchBills = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8080/admin/user-registration-list",
+          `${BASE_URL}/admin/user-registration-list`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           }
         );
+
+
         const apiBills = response.data.map((item) => ({
           billID: item.billID.toString(),
           email: item.users.email,
@@ -214,7 +224,7 @@ const UserRegisterList = () => {
                 <td>{item.purchaseDate}</td>
                 <td>{item.subjectName}</td>
                 <td>{item.cateName}</td>
-                <td>{item.price}</td>
+                <td>{formatPrice(item.price)}</td>
                 <td>{item.status}</td>
               </tr>
             ))}

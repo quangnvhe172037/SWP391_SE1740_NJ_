@@ -4,6 +4,7 @@ import jwtDecode from "jwt-decode";
 import PrivateContent from "../../components/HandleException/PrivateContent";
 import React from "react";
 import DashboardContent from "../../components/Dashboard/DashboardContent/DashboardContent";
+import BASE_URL from "../../api/baseapi";
 
 const MarketingDashboard = () => {
     const token = localStorage.getItem("token");

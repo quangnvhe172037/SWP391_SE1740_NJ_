@@ -5,6 +5,8 @@ import "./QuizResultData.css";
 import "chart.js/auto";
 import PieChart from "../../../../PipeChart";
 import { useNavigate } from "react-router-dom";
+import BASE_URL from "../../../../api/baseapi";
+
 
 const QuizResultData = (prop) => {
   let quizId = prop.quizId;
@@ -15,7 +17,7 @@ const QuizResultData = (prop) => {
 
   useEffect(() => {
     fetch(
-      `http://localhost:8080/quiz/result/get?quizId=${quizId}&userId=${user.userId}`,
+      `${BASE_URL}/quiz/result/get?quizId=${quizId}&userId=${user.userId}`,
       {
         headers: {
           "Content-Type": "application/json",

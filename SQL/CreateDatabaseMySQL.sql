@@ -385,7 +385,7 @@ CREATE TABLE IF NOT EXISTS `quiz_practice`.`subject_join` (
   INDEX `user_id` (`user_id` ASC) VISIBLE,
   CONSTRAINT `subject_join_ibfk_1`
     FOREIGN KEY (`subject_id`)
-    REFERENCES `quiz_practice`.`Subject` (`subject_id`),
+    REFERENCES `quiz_practice`.`subject` (`subject_id`),
   CONSTRAINT `subject_join_ibfk_2`
     FOREIGN KEY (`user_id`)
     REFERENCES `quiz_practice`.`users` (`user_id`))

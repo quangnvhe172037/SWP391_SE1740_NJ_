@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-
-const API_URL = "http://localhost:8080/posts";
+import BASE_URL from "../../api/baseapi";
+const API_URL = `${BASE_URL}/posts`;
 
 const PostEdit = () => {
     const { postId } = useParams();

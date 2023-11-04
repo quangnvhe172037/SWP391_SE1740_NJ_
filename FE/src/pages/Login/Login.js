@@ -5,6 +5,7 @@ import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
+import BASE_URL from "../../api/baseapi";
 
 const required = (value) => {
     if (!value) {
@@ -76,59 +77,59 @@ const Login = () => {
                 return;
             }
             axios
-                .post("http://localhost:8080/authenticate", {
-                    userName,
-                    password,
-                })
-                .then((response) => {
-                    const token = response.data;
-                    if (localStorage.getItem("token") !== null) {
-                        localStorage.clear();
-                    }
-                    localStorage.setItem("token", token);
-                    const user = jwtDecode(token);
-                    switch (user.role) {
-                      case "ADMIN":
-                        navigate("/admin/dashboard");
-                        window.location.reload();
-                        break;
-                      case "EXPERT":
-                        navigate("/expert/dashboard");
-                        window.location.reload();
-                        break;
-                      case "MARKETING":
-                        navigate("/marketing/dashboard");
-                        window.location.reload();
-                        break;
-                      default:
-                        navigate("/home");
-                        window.location.reload();
-                        break;
-                    }
-                })
-                .catch((error) => {
-                    if (error.response && error.response.status === 403) {
-                        setMessage("Wrong email or password");
-                        setLoginAttempts(loginAttempts + 1);
-                        if (loginAttempts >= MAX_LOGIN_ATTEMPTS) {
-                            const currentTime = new Date().getTime();
-                            localStorage.setItem("lastWaitTime", currentTime);
-                            setWaiting(true);
-                            setRemainingWaitTime(WAIT_TIME_MINUTES);
-                        }
-                    } else {
-                        const resMessage =
-                            (error.response &&
-                                error.response.data &&
-                                error.response.data.message) ||
-                            error.message ||
-                            error.toString();
-                        setMessage(resMessage);
-                    }
-                })
-                .finally(() => {
-                    setLoading(false);
-                });
+              .post(`${BASE_URL}/authenticate`, {
+                userName,
+                password,
+              })
+              .then((response) => {
+                const token = response.data;
+                if (localStorage.getItem("token") !== null) {
+                  localStorage.clear();
+                }
+                localStorage.setItem("token", token);
+                const user = jwtDecode(token);
+                switch (user.role) {
+                  case "ADMIN":
+                    navigate("/admin/dashboard");
+                    window.location.reload();
+                    break;
+                  case "EXPERT":
+                    navigate("/expert/dashboard");
+                    window.location.reload();
+                    break;
+                  case "MARKETING":
+                    navigate("/marketing/dashboard");
+                    window.location.reload();
+                    break;
+                  default:
+                    navigate("/home");
+                    window.location.reload();
+                    break;
+                }
+              })
+              .catch((error) => {
+                if (error.response && error.response.status === 403) {
+                  setMessage("Wrong email or password");
+                  setLoginAttempts(loginAttempts + 1);
+                  if (loginAttempts >= MAX_LOGIN_ATTEMPTS) {
+                    const currentTime = new Date().getTime();
+                    localStorage.setItem("lastWaitTime", currentTime);
+                    setWaiting(true);
+                    setRemainingWaitTime(WAIT_TIME_MINUTES);
+                  }
+                } else {
+                  const resMessage =
+                    (error.response &&
+                      error.response.data &&
+                      error.response.data.message) ||
+                    error.message ||
+                    error.toString();
+                  setMessage(resMessage);
+                }
+              })
+              .finally(() => {
+                setLoading(false);
+              });
         } else {
             setLoading(false);
         }

@@ -1,3 +1,4 @@
+import BASE_URL from "../../../api/baseapi";
 const LessonVideo = (prop) => {
     const lessonVideo = prop.lessonVideo;
   console.log("test in lessonvideo" + lessonVideo);

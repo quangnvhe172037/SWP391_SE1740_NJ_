@@ -1,6 +1,8 @@
 
 import { Routes, Route, Link,useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from "react";
+import BASE_URL from '../../api/baseapi';
+
 const AddSubject = () => {
 
     const [categories, setCategories] = useState([]);
@@ -11,7 +13,7 @@ const AddSubject = () => {
     const [updatedStatus, setUpdatedStatus] = useState(0);
     const token = localStorage.getItem("token");
     const navigate = useNavigate();
-    const apiCategorySubjects = "http://localhost:8080/categorysubject/all";
+    const apiCategorySubjects = `${BASE_URL}/categorysubject/all`;
     useEffect(() => {
         const token = localStorage.getItem("token");
         fetch(apiCategorySubjects).then((response) => {
@@ -56,7 +58,7 @@ const AddSubject = () => {
         formData.append("subject", JSON.stringify(temp));
     
         // Gửi yêu cầu PUT để cập nhật dữ liệu
-        fetch(`http://localhost:8080/subjects/create`, {
+        fetch(`${BASE_URL}/subjects/create`, {
           method: "POST",
           headers: {
             Authorization: `Bearer ${token}`,

@@ -3,6 +3,7 @@ import axios from "axios";
 import "./Register.css"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSpinner} from "@fortawesome/free-solid-svg-icons";
+import BASE_URL from "../../api/baseapi";
 
 const Registration = () => {
     const [formData, setFormData] = useState({
@@ -60,11 +61,15 @@ const Registration = () => {
         setIsLoading(true);
 
         try {
-            const response = await axios.post("http://localhost:8080/register", formData, {
+            const response = await axios.post(
+              `${BASE_URL}/register`,
+              formData,
+              {
                 headers: {
-                    "Content-Type": "application/json",
+                  "Content-Type": "application/json",
                 },
-            });
+              }
+            );
 
             setMessage(response.data.message);
         } catch (error) {

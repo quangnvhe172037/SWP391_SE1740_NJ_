@@ -5,9 +5,11 @@ import './style.css';
 import { format } from "date-fns";
 import ReactQuill from 'react-quill';
 import "react-quill/dist/quill.bubble.css";
+import BASE_URL from '../../api/baseapi';
+import FE_URL from '../../api/frontendapi';
 
-const API_URL = "http://localhost:8080/";
-const Local_URL = "http://localhost:8081/";
+const API_URL = BASE_URL;
+const Local_URL = FE_URL;
 
 const PostDetail = () => {
     const { postId } = useParams();

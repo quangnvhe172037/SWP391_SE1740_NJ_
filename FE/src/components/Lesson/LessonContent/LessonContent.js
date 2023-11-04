@@ -1,4 +1,4 @@
-
+import BASE_URL from "../../../api/baseapi";
 import { useEffect } from "react";
 import "./LessonContent.css";
 import { useState } from "react";
@@ -16,7 +16,7 @@ const LessonContent = () => {
 
   const { lessonId } = useParams();
   useEffect(() => {
-    fetch(`http://localhost:8080/lesson/get/data/${lessonId}`, {
+    fetch(`${BASE_URL}/lesson/get/data/${lessonId}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -43,10 +43,8 @@ const LessonContent = () => {
       })
 
       .then((result) => {
-         
         const mockData = result;
         setLesson(mockData);
-         
       });
   }, [lessonId, token]);
 

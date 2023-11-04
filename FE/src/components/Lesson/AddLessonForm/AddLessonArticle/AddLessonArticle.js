@@ -2,7 +2,7 @@ import { useState } from "react";
 import ReactQuill from "react-quill";
 import jwtDecode from "jwt-decode";
 import './AddLessonArticle.css'
-
+import BASE_URL from "../../../../api/baseapi";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 const AddLessonArticle = (prop) => {
@@ -23,7 +23,7 @@ const AddLessonArticle = (prop) => {
       lessonOrder: lessonOrder,
       article: valueArticle
     };
-    fetch(`http://localhost:8080/api/expert/lesson/add/article/${prop.topic}`, {
+    fetch(`${BASE_URL}/api/expert/lesson/add/article/${prop.topic}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

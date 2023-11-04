@@ -5,8 +5,11 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faMagnifyingGlass, faSearch} from "@fortawesome/free-solid-svg-icons";
 import jwtDecode from "jwt-decode";
 import PrivateContent from "../HandleException/PrivateContent";
+import BASE_URL from "../../api/baseapi";
 
 const AccountList = () => {
+    const URL = BASE_URL;
+
     const token = localStorage.getItem("token");
     const [accounts, setAccounts] = useState([]);
     const [editableAccounts, setEditableAccounts] = useState([]);
@@ -16,10 +19,10 @@ const AccountList = () => {
     const [currentRole, setCurrentRole] = useState('ADMIN'); // Vai trò hiện tạiFE
     const fetchAccounts = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/admin/all-accounts', {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
+            const response = await axios.get(`${BASE_URL}/admin/all-accounts`, {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
             });
             setAccounts(response.data);
             setEditableAccounts(new Array(response.data.length).fill(false));
@@ -51,12 +54,16 @@ const AccountList = () => {
     const handleSaveClick = async (index, email) => {
         try {
             const accountToEdit = accounts[index];
-            const response = await axios.put(`http://localhost:8080/admin/update/${email}?editedRole=${accountToEdit.role}&editedEnabled=${accountToEdit.enabled}`, {}, {
+            const response = await axios.put(
+              `${BASE_URL}/admin/update/${email}?editedRole=${accountToEdit.role}&editedEnabled=${accountToEdit.enabled}`,
+              {},
+              {
                 headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`
-                }
-            });
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${token}`,
+                },
+              }
+            );
 
             const updatedAccounts = [...accounts];
             updatedAccounts[index] = response.data;
