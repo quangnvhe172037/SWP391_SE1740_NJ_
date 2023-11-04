@@ -9,9 +9,8 @@ organization/expert to build up & sell the quiz practice services, supports the 
   * [Bùi Gia An](https://github.com/anbghe170027)
   * [Phạm Đức Quân](https://github.com/quanpdhe170415)
   * [Nguyễn Thành An](https://github.com/thanhantk03)
-  * [Phạm Thanh Tú](https://github.com/tupthe160952)
 
 ## Technology
-* Front-end: Boostrap, ReactJS
-* Back-end: Java (Spring Boot)
+* Front-end: Boostrap, ReactJS, Tailwind
+* Back-end: Java (Spring Boot, JPA)
 * Database: MySQL 
