@@ -215,6 +215,15 @@ const UserHeader = () => {
                         Go to my learning
                       </Link>
                     </li>
+                    <li>
+                      <Link
+                        to="/wishlist"
+                        className="dropdown-item"
+                        style={{ padding: "20px" }}
+                      >
+                        My WishList
+                      </Link>
+                    </li>
                   </ul>
                 )}
               </li>

@@ -67,6 +67,9 @@ const SubjectData = () => {
         const data = result;
         setSubjects(data);
         setPaginationSubjects(data);
+        setTotalPage(
+          data.length % 3 == 0 ? data.length / 3 : Math.floor(data.length / 3) + 1
+        );
       });
   }, []);
   useEffect(() => {
@@ -229,7 +232,7 @@ const SubjectData = () => {
           {paginationsubjects
             .slice(
               (pageNum - 1) * 3,
-              Math.min(pageNum * 3, paginationsubjects.length) + 1
+              Math.min(pageNum * 3, paginationsubjects.length)
             )
             .map((item, index) => (
               <tr scope="row">

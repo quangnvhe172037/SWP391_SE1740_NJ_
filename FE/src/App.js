@@ -64,6 +64,7 @@ import Error404 from "./components/HandleException/Error-404/Error-404";
 
 import QuizReview from "./pages/QuizReview/QuizReview";
 import AddPracticeDetail from "./pages/Practice/AddPracticeDetail";
+import WishList from "./components/WishList/WishList";
 
 
 
@@ -116,7 +117,7 @@ const App = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/register/verifyEmail/" element={<VerifyEmail />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/expert/subjects" element={<SubjectData />} />
+          
           {isAuthenticated && (
             <>
               <Route path="/sliders" element={<SliderList />} />
@@ -178,10 +179,9 @@ const App = () => {
               <Route path="/account-list" element={<AccountList />} />
 
               <Route path="/subject/:subjectId" element={<SubjectDetail />} />
+              <Route path="/wishlist" element={<WishList />} />
               <Route path="/add/subject" element={<AddSubject />} />
-
-
-
+              <Route path="/admin/subjects" element={<SubjectData />} />
               <Route
                 path="/quiz/take/:quizId/:resultId"
                 element={<QuizAttempt />}

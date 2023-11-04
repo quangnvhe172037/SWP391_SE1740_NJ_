@@ -153,6 +153,8 @@ const SubjectDetail = () => {
         </div>
         <div className="col-md-3">
           <SubjectSidebar
+            userID={user.userId}
+            id={subject.subjectId}
             image={subject.image}
             preId={subject.preId}
             price={subject.price}
