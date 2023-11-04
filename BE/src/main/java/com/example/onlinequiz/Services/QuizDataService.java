@@ -16,7 +16,8 @@ public interface QuizDataService {
 
     String deleteSentenceLesson(Long sentenceId, Long lessonId);
 
-
     Boolean checkExistQuiz(QuizData quizData);
 //    Object getQuizData(Long id);
+
+    List<QuizData> getRandomQuizData(int quantity);
 }

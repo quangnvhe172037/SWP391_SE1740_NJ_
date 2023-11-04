@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -25,6 +26,12 @@ public class PracticeListController {
     public final QuizTypeService quizTypeService;
     @Autowired
     public final QuizService quizService;
+
+    @Autowired
+    public final QuizDataService quizDataService;
+
+    @Autowired
+    public final QuizDetailService quizDetailService;
 
     @Autowired
     public final SubjectService subjectService;
@@ -92,7 +99,17 @@ public class PracticeListController {
             System.out.println("Duration Time: " + durationTime);
             System.out.println("Pass Rate: " + passRate);
             System.out.println("Exam level: " + examLevel);
-
+            int quantityQuizData;
+            switch (examLevel){
+                case "easy":
+                    quantityQuizData = 2;
+                    break;
+                case "medium":
+                    quantityQuizData = 3;
+                    break;
+                default:
+                    quantityQuizData = 4;
+            }
 
             Quizzes quiz = new Quizzes();
             quiz.setQuizName(quizName);
@@ -112,6 +129,14 @@ public class PracticeListController {
             //random number question in quiz
 
             quizService.addNewQuiz(quiz);
+            List<QuizData> quizDataRandom = quizDataService.getRandomQuizData(quantityQuizData);
+            for (QuizData e : quizDataRandom) {
+                QuizDetail quizDetail = new QuizDetail();
+                quizDetail.setQuizData(e);
+                quizDetail.setQuizzes(quiz);
+                quizDetailService.addNewQuizDetail(quizDetail);
+            }
+
             return ResponseEntity.ok(quiz);
         }catch (Exception e){
             System.out.println(e.getMessage());
