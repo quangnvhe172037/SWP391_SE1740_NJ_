@@ -91,19 +91,19 @@ const Login = () => {
                 switch (user.role) {
                   case "ADMIN":
                     navigate("/admin/dashboard");
-                    window.location.reload();
+                    
                     break;
                   case "EXPERT":
                     navigate("/expert/dashboard");
-                    window.location.reload();
+                   
                     break;
                   case "MARKETING":
                     navigate("/marketing/dashboard");
-                    window.location.reload();
+                    
                     break;
                   default:
                     navigate("/home");
-                    window.location.reload();
+                   
                     break;
                 }
               })
@@ -136,7 +136,7 @@ const Login = () => {
     };
 
     const handleReload = () => {
-        window.location.reload();
+        // window.location.reload();
     };
 
     const reloadTimeout = useRef(null);

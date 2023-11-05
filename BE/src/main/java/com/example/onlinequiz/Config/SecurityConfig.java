@@ -58,6 +58,9 @@ public class SecurityConfig {
             "/attempt/quiz/add/result/**",
             "/attempt/quiz/update/result/**",
             "/attempt/quiz/review/**",
+            "/api/payment/get/price/**",
+            "/api/payment/add/transaction/**",
+            "/IPN"
 
 
     };

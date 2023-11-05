@@ -1,0 +1,113 @@
+.checkout-bill-wrap{
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    margin-bottom: 20px;
+    font-family: 'Udemy Sans',-apple-system,BlinkMacSystemFont,Roboto,'Segoe UI',Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';
+    box-shadow: 0 2px 4px rgba(0,0,0,.08), 0 4px 12px rgba(0,0,0,.16);
+}
+
+.checkout-bill-content-wrap{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.checkout-bill-title{
+    text-align: center;
+    font-weight: bold;
+}
+
+.checkout-bill-detail,
+.checkout-bill-summary,
+.checkout-bill-method-payment{
+    font-size: 24px;
+    font-weight: 700;
+    margin: 20px 0;
+}
+
+.checkout-method-detail{
+    display: flex;
+    width: 510px;
+    height: 28px;
+}
+
+.checkout-method-img{
+    margin: 0 12px;
+}
+
+.checkout-method-name{
+    font-weight: bold;
+
+}
+
+.checkout-method-wrap{
+    padding: 8px;
+    margin: 10px 0;
+    background-color: #F7F9FA;
+}
+
+
+.checkout-bill-item{
+    max-width: 510px;
+    height: 32px;
+    display: flex;
+    justify-content: space-between;
+
+    
+}
+
+.checkout-bill-img-item{
+    height: 36px;
+    width: 46px;
+}
+
+.checkout-bill-subject-info{
+    display: flex;
+    
+}
+
+
+
+.checkout-bill-left,
+.checkout-bill-right{
+    width: 50%;
+    padding: 20px;
+}
+
+.checkout-bill-subject-name{
+    font-weight: 600;
+    margin-left: 20px;
+}
+
+.checkout-bill-total-wrap{
+    border-top: 1px solid black;
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.checkout-bill-list-total,
+.checkout-bill-total-wrap{
+display: flex;
+justify-content: space-between;
+
+}
+
+.checkout-bill-term{
+    font-size: 14px;
+}
+
+.checkout-bill-term-wrap{
+    margin-top: 20px;
+}
+
+.checkout-bill-btn{
+        padding: 10px 20px;
+    background-color: black;
+    color: white;
+}
+
+.checkout-bill-btn-wrap{
+    text-align: center;
+    margin-top: 20px;
+}

@@ -64,7 +64,11 @@ import Error404 from "./components/HandleException/Error-404/Error-404";
 
 import QuizReview from "./pages/QuizReview/QuizReview";
 import AddPracticeDetail from "./pages/Practice/AddPracticeDetail";
+
 import WishList from "./components/WishList/WishList";
+
+import CheckoutBill from "./pages/CheckoutBill/CheckoutBill";
+
 
 
 
@@ -181,7 +185,9 @@ const App = () => {
               <Route path="/subject/:subjectId" element={<SubjectDetail />} />
               <Route path="/wishlist" element={<WishList />} />
               <Route path="/add/subject" element={<AddSubject />} />
+
               <Route path="/admin/subjects" element={<SubjectData />} />
+
               <Route
                 path="/quiz/take/:quizId/:resultId"
                 element={<QuizAttempt />}
@@ -189,19 +195,22 @@ const App = () => {
 
               <Route
                 path="/quiz/:quizId/:resultId/review"
-                element={<QuizReview/>}
+                element={<QuizReview />}
               />
 
               <Route
                 path="/quiz/result/:resultId"
                 element={<QuizResultPage />}
               />
+
+              <Route
+                path="/payment/checkout/course/:subjectId"
+                element={<CheckoutBill />}
+              />
             </>
           )}
 
-          <Route path="*" element={<Error404/>}/>
-
-
+          <Route path="*" element={<Error404 />} />
         </Routes>
       </div>
       <Footer />
