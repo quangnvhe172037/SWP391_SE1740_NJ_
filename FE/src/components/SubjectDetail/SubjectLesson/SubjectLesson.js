@@ -42,6 +42,7 @@ const LessonSidebar = (prop) => {
         </div>
         <div className="subject-detail-content-name-title">
           <span>Total topic: {topics.length}</span>
+           <span>        </span>
           <span>Total lesson: {lessons.length}</span>
         </div>
       </div>

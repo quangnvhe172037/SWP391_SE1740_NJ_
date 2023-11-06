@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 const SubjectSidebar = (prop) => {
   const [WishList, setWishList] = useState({});
   const token = localStorage.getItem("token");
-   const navigate = useNavigate()
+  const navigate = useNavigate();
   const preId = prop.preId;
   let price = prop.price;
   if (price !== undefined) {
@@ -82,14 +82,18 @@ const SubjectSidebar = (prop) => {
   return (
     <div className="subject-detail-sidebar-wrap">
       <div>
-        <img src={`/${image}`} alt="the class" className="img-fluid"/>
+        <img src={`${image}`} alt="the class" className="img-fluid" />
       </div>
 
       {billId == null ? (
         <div className="subject-detail-sidebar-payment">
           <div className="subject-detail-sidebar-price">{price} VND</div>
-          <button className="subject-detail-sidebar-button-cart" disabled={WishList != ''} onClick={() => handleAddToWishList()}>Add to cart</button>
-          <button className="subject-detail-sidebar-button-buy">Buy now</button>
+
+          <button className="subject-detail-sidebar-button-cart" disabled={WishList != ''} onClick={() => handleAddToWishList()}>Add to Wish List</button>
+          <button className="subject-detail-sidebar-button-buy">
+            <Link to={`/payment/checkout/course/${subjectId}`}>Buy now</Link>
+          </button>
+
         </div>
       ) : (
         <div className="subject-detail-sidebar-payment">

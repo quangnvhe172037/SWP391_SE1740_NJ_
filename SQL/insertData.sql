@@ -80,10 +80,10 @@ INSERT INTO `quiz_practice`.`subject`
 `description`,
 `create_date`)
 VALUES
-(1, "Statistics / Data Analysis in SPSS: Inferential Statistics", 1, 1, "img/subject/subject 1.jpg", "Increase Your Data Analytic Skills – Highly Valued And Sought After By Employers", "2020-06-05"),
-(2, "FER", 1, 1, "img/subject/subject 1.jpg", "Day la lop hoc FER", "2023-09-29"),
-(3, "SWT", 1, 1, "img/subject/subject 1.jpg", "Day la lop hoc FER", "2023-09-28"),
-(4, "HTML, JavaScript, & Bootstrap ", 1, 1, "img/subject/subject 1.jpg", "A Comprehensive Guide for Beginners interested in learning HTML, JavaScript, & Bootstrap. Build Interactive Web Pages.", "2023-09-28");
+(1, "Statistics / Data Analysis in SPSS: Inferential Statistics", 1, 1, "https://res.cloudinary.com/dt4zxti7x/image/upload/v1699031077/subject_1_orsxqk.jpg", "Increase Your Data Analytic Skills – Highly Valued And Sought After By Employers", "2020-06-05"),
+(2, "FER", 1, 1, "https://res.cloudinary.com/dt4zxti7x/image/upload/v1699031077/subject_1_orsxqk.jpg", "Day la lop hoc FER", "2023-09-29"),
+(3, "SWT", 1, 1, "https://res.cloudinary.com/dt4zxti7x/image/upload/v1699031077/subject_1_orsxqk.jpg", "Day la lop hoc FER", "2023-09-28"),
+(4, "HTML, JavaScript, & Bootstrap ", 1, 1, "https://res.cloudinary.com/dt4zxti7x/image/upload/v1699031077/subject_1_orsxqk.jpg", "A Comprehensive Guide for Beginners interested in learning HTML, JavaScript, & Bootstrap. Build Interactive Web Pages.", "2023-09-28");
 
 -- 4. Insert to subject_topic
 
@@ -295,8 +295,8 @@ INSERT INTO `quiz_practice`.`sliders`
 `note`,
 `status`)
 VALUES
-(1, "img/sliders/html-course-banner.png", "Đây là khóa học 1", 1, "Bạn nên học khóa học này 1", 1),
-(2, "img/sliders/banner 2.png", "Đây là khóa học 2", 2, "Bạn nên học khóa học này 2", 1);
+(1, "https://res.cloudinary.com/dt4zxti7x/image/upload/v1699031340/html-course-banner_gybzgs.jpg", "Đây là khóa học 1", 1, "Bạn nên học khóa học này 1", 1),
+(2, "https://res.cloudinary.com/dt4zxti7x/image/upload/v1699031340/html-course-banner_gybzgs.jpg", "Đây là khóa học 2", 2, "Bạn nên học khóa học này 2", 1);
 
 
 -- 19. Insert to subject_join
