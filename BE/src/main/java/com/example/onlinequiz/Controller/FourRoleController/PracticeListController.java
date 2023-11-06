@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -26,6 +27,12 @@ public class PracticeListController {
     public final QuizTypeService quizTypeService;
     @Autowired
     public final QuizService quizService;
+
+    @Autowired
+    public final QuizDataService quizDataService;
+
+    @Autowired
+    public final QuizDetailService quizDetailService;
 
     @Autowired
     public final SubjectService subjectService;
@@ -94,7 +101,17 @@ public class PracticeListController {
             System.out.println("Duration Time: " + durationTime);
             System.out.println("Pass Rate: " + passRate);
             System.out.println("Exam level: " + examLevel);
-
+            int quantityQuizData;
+            switch (examLevel){
+                case "easy":
+                    quantityQuizData = 4;
+                    break;
+                case "medium":
+                    quantityQuizData = 5;
+                    break;
+                default:
+                    quantityQuizData = 6;
+            }
 
             Quizzes quiz = new Quizzes();
             quiz.setQuizName(quizName);
@@ -111,27 +128,21 @@ public class PracticeListController {
             quiz.setDateCreate(currentTime);
             quiz.setPassRate(passRate);
 
-            //random number question in quiz
-            int randomQuesNumber = 0;
-            if(examLevel.equals("easy")){
-                randomQuesNumber = 40;
-            } else if (examLevel.equals("medium")) {
-                randomQuesNumber = 50;
-            } else if (examLevel.equals("hard")) {
-                randomQuesNumber = 60;
-            }else{
-                randomQuesNumber = 0;
-            }
 //              More than one row with the given identifier was found: 1
 //            List<QuizData> allQuizData = quizDataRepository.findAllBySubject(s);
 //            System.out.println("Quiz data taken:" + allQuizData);
 
 
             quizService.addNewQuiz(quiz);
-            System.out.println(quiz.getQuizID());
-            System.out.println("wrong 1");
-            quizService.addRandomQuestionsToQuiz(quiz.getQuizID(), Long.valueOf(subjectId), randomQuesNumber);
-            System.out.println("wrong 2");
+            System.out.println("Quiz id sau add" + quiz.getQuizID());
+            List<QuizData> quizDataRandom = quizDataService.getRandomQuizData(quantityQuizData, s);
+            for (QuizData e : quizDataRandom) {
+                QuizDetail quizDetail = new QuizDetail();
+                quizDetail.setQuizData(e);
+                quizDetail.setQuizzes(quiz);
+                quizDetailService.addNewQuizDetail(quizDetail);
+            }
+
             return ResponseEntity.ok(quiz);
         }catch (Exception e){
             System.out.println(e.getMessage());

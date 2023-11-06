@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 
 const SubjectSidebar = (prop) => {
   const token = localStorage.getItem("token");
-   const navigate = useNavigate()
+  const navigate = useNavigate();
   const preId = prop.preId;
   let price = prop.price;
   if (price !== undefined) {

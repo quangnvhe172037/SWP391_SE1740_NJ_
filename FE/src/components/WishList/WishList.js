@@ -4,13 +4,16 @@ import React, { useState, useEffect } from "react";
 import jwtDecode from 'jwt-decode';
 import DayJs from '../Home/DayJs';
 import Button from "@mui/material/Button";
+import BASE_URL from '../../api/baseapi';
+
 const WishList = () => {
     const [deleteSubject,setDeleteSubject] = useState(0);
     const token = localStorage.getItem("token");
     const user = jwtDecode(token);
-    const [subjects, setSubjects] = useState([]);
+  const [subjects, setSubjects] = useState([]);
+  const navigate = useNavigate();
     useEffect(() => {
-        fetch(`http://localhost:8080/user/subject/subjects-wishlist?userId=` + user.userId, {
+        fetch(`${BASE_URL}/user/subject/subjects-wishlist?userId=` + user.userId, {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
@@ -42,11 +45,12 @@ const WishList = () => {
             setSubjects(mockData);
           });
       }, []);
-      const handleCheckout = () => {
-
+      const handleCheckout = (subject) => {
+        navigate(`/payment/checkout/course/${subject.subjectID}`);
+        
       }
       const handleDelete = (subjectID) => {
-        fetch(`http://localhost:8080/user/subject/deletesubjectwishlist?userId=` + user.userId + `&subjectId=` + subjectID, {
+        fetch(`${BASE_URL}/user/subject/deletesubjectwishlist?userId=` + user.userId + `&subjectId=` + subjectID, {
             headers: {
               "Content-Type": "application/json",
               Authorization: `Bearer ${token}`,
@@ -111,7 +115,7 @@ const WishList = () => {
                   <tr scope="row">
                     <td className="slider-table-data">{item.subjectID}</td>
                     <td className="slider-table-data">
-                      <img src={`/${item.image}`}  style={{height: "80px", width: "80px"}}/>
+                      <img src={`${item.image}`}  style={{height: "80px", width: "80px"}}/>
                     </td>
                     <td className="slider-table-data">{item.subjectName}</td>
                     <td className="slider-table-data">
@@ -124,7 +128,7 @@ const WishList = () => {
                       {DayJs.from(item.create_date)}
                     </td>
                     <td className="slider-table-data">
-                       <Button onClick={() => handleCheckout()}>Checkout</Button>
+                       <Button onClick={() => handleCheckout(item)}>Checkout</Button>
                        <Button onClick={() => handleDelete(`${item.subjectID}`)}>Remove</Button>
                     </td>
                   </tr>

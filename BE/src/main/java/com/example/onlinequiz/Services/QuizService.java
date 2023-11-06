@@ -33,5 +33,5 @@ public interface QuizService {
 
     void deleteQuestion(DeleteQuestRequest request);
 
-    void addRandomQuestionsToQuiz(Long quizId, Long subjectId, int numberOfQuestions);
+//    void addRandomQuestionsToQuiz(Long quizId, Long subjectId, int numberOfQuestions);
 }

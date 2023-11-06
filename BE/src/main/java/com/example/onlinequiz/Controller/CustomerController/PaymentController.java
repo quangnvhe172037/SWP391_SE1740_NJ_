@@ -1,8 +1,13 @@
 package com.example.onlinequiz.Controller.CustomerController;
 
 import com.example.onlinequiz.Config.VNPayConfig;
+import com.example.onlinequiz.Model.UserPayment;
+import com.example.onlinequiz.Payload.Response.CourseCheckoutResponse;
 import com.example.onlinequiz.Payload.Response.PaymentResponse;
 import com.example.onlinequiz.Payload.Response.TransactionResponse;
+import com.example.onlinequiz.Services.UserPaymentService;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,81 +19,15 @@ import java.util.*;
 
 @CrossOrigin(value = "*", allowedHeaders = "*")
 @RestController
+@AllArgsConstructor
 @RequestMapping("/api/payment")
 public class PaymentController {
 
-    // Endpoint tạo thanh toán
-    @GetMapping("/create_payment")
-    public ResponseEntity<?> createPayment(@RequestParam long price) throws UnsupportedEncodingException {
+    @Autowired
+    private final UserPaymentService userPaymentService;
 
-        // Tính toán tổng số tiền thanh toán (amount tính theo đơn vị đồng)
-        long amount = price * 100;
-        String vnp_TxnRef = VNPayConfig.getRandomNumber(8);
-        String vnp_TmnCode = VNPayConfig.vnp_TmnCode;
 
-        // Tạo danh sách các tham số cần thiết cho yêu cầu thanh toán
-        Map<String, String> vnp_Params = new HashMap<>();
-        vnp_Params.put("vnp_Version", VNPayConfig.vnp_Version);
-        vnp_Params.put("vnp_Command", VNPayConfig.vnp_Command);
-        vnp_Params.put("vnp_TmnCode", vnp_TmnCode);
-        vnp_Params.put("vnp_Amount", String.valueOf(amount));
-        vnp_Params.put("vnp_CurrCode", "VND");
-        vnp_Params.put("vnp_BankCode", "");
-        vnp_Params.put("vnp_TxnRef", vnp_TxnRef);
-        vnp_Params.put("vnp_OrderInfo", "Thanh toan don hang:" + vnp_TxnRef);
-        vnp_Params.put("vnp_ReturnUrl", "http://localhost:8080/api/payment/payment_infor");
-        vnp_Params.put("vnp_IpAddr", "127.0.0.1");
-        vnp_Params.put("vnp_OrderType", "other");
-        vnp_Params.put("vnp_Locale", "vn");
 
-        // Tạo ngày tạo giao dịch và ngày hết hạn giao dịch
-        Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
-        String vnp_CreateDate = formatter.format(cld.getTime());
-        vnp_Params.put("vnp_CreateDate", vnp_CreateDate);
-
-        cld.add(Calendar.MINUTE, 15);
-        String vnp_ExpireDate = formatter.format(cld.getTime());
-        vnp_Params.put("vnp_ExpireDate", vnp_ExpireDate);
-
-        // Sắp xếp các tham số theo thứ tự và xây dựng chuỗi dữ liệu băm
-        List<String> fieldNames = new ArrayList<>(vnp_Params.keySet());
-        Collections.sort(fieldNames);
-        StringBuilder hashData = new StringBuilder();
-        StringBuilder query = new StringBuilder();
-        Iterator<String> itr = fieldNames.iterator();
-        while (itr.hasNext()) {
-            String fieldName = itr.next();
-            String fieldValue = vnp_Params.get(fieldName);
-            if ((fieldValue != null) && (fieldValue.length() > 0)) {
-                // Xây dựng chuỗi dữ liệu băm
-                hashData.append(fieldName);
-                hashData.append('=');
-                hashData.append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII.toString()));
-                // Xây dựng chuỗi query
-                query.append(URLEncoder.encode(fieldName, StandardCharsets.US_ASCII.toString()));
-                query.append('=');
-                query.append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII.toString()));
-                if (itr.hasNext()) {
-                    query.append('&');
-                    hashData.append('&');
-                }
-            }
-        }
-
-        // Tạo URL thanh toán bằng cách thêm mã hash bảo mật
-        String queryUrl = query.toString();
-        String vnp_SecureHash = VNPayConfig.hmacSHA512(VNPayConfig.secretKey, hashData.toString());
-        queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
-        String paymentUrl = VNPayConfig.vnp_PayUrl + "?" + queryUrl;
-
-        // Tạo đối tượng PaymentResponse để trả về thông tin thanh toán
-        PaymentResponse paymentResponse = new PaymentResponse();
-        paymentResponse.setStatus("0k");
-        paymentResponse.setMessage("success");
-        paymentResponse.setURL(paymentUrl);
-        return ResponseEntity.status(HttpStatus.OK).body(paymentResponse);
-    }
 
     // Endpoint xử lý thông tin giao dịch sau khi thanh toán
     @GetMapping("/payment_infor")
@@ -111,6 +50,47 @@ public class PaymentController {
         }
         return ResponseEntity.ok(transactionResponse);
     }
+
+    @GetMapping("/get/price/{subjectId}")
+    public ResponseEntity<CourseCheckoutResponse> getPriceSubject(
+            @PathVariable Long subjectId
+
+    ){
+        try {
+            CourseCheckoutResponse response = userPaymentService.getCourseCheckout(subjectId);
+            if(response != null){
+                return ResponseEntity.ok(response);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @PostMapping("/add/transaction/{subjectId}")
+    public ResponseEntity<PaymentResponse> addNewPaymentTransaction(
+            @PathVariable Long subjectId,
+            @RequestParam Long userId,
+            @RequestParam Long preId
+
+
+    ){
+        try {
+            UserPayment u = userPaymentService.addNewPayment(userId, subjectId, preId);
+            PaymentResponse paymentResponse = userPaymentService.createNewVnPayPayment(u.getSubjectPrice().getPrice());
+
+
+            if(paymentResponse != null){
+                return ResponseEntity.status(HttpStatus.OK).body(paymentResponse);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
 }
 /*
 http://localhost:8080/api/payment/payment_infor?
