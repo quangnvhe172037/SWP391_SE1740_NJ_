@@ -126,7 +126,7 @@ const CheckoutBill = () => {
           <div className="checkout-bill-term-wrap">
             <span className="checkout-bill-term">
               By completing your purchase you agree to these{" "}
-              <Link to={`#`}>Term of services</Link>
+              <Link to={`/terms`}>Term of services</Link>
             </span>
           </div>
 

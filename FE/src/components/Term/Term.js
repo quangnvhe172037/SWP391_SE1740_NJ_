@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import BASE_URL from '../../api/baseapi';
+import './Term.css'
 
 const Term = () => {
     return (
-        <div className="container">
+        <div className="container term-wrap">
             <h2 style={{fontWeight:"bold"}}>Terms and Conditions</h2>
 
             <p>Welcome to Our Website!</p>

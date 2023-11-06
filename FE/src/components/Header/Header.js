@@ -77,42 +77,7 @@ const UserHeader = () => {
               {userRole === "ADMIN" && (
                 <li className="nav-item">
                   <span className="nav-link">
-                    <Link
-                      to="/account-list"
-                      style={{
-                        padding: "20px",
-                        color: "black",
-                        textDecoration: "none",
-                      }}
-                      // className="btn"
-                      // style={{ border: "1px solid black" }}
-                    >
-                      View Account List
-                    </Link>
-                    <a
-                      href="https://sandbox.vnpayment.vn/merchantv2/Users/Login.htm?ReturnUrl=%2fmerchantv2%2fUsers%2fLogout.htm"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{
-                        padding: "20px",
-                        color: "black",
-                        textDecoration: "none",
-                      }}
-                      // className="btn"
-                      // style={{ border: "1px solid black", marginLeft: "10px" }}
-                    >
-                      View money
-                    </a>
-                    <Link
-                        to="/user-registration-list"
-                        style={{
-                          padding: "20px",
-                          color: "black",
-                          textDecoration: "none",
-                        }}
-                    >
-                        User Registration List
-                    </Link>
+                    
                     <Link
                       to="/admin/dashboard"
                       style={{
@@ -129,29 +94,7 @@ const UserHeader = () => {
               {userRole === "MARKETING" && (
                 <li className="nav-item">
                   <span className="nav-link">
-                    <Link
-                      to={"/sliders"}
-                      className="btn"
-                      style={{
-                        padding: "20px",
-                        color: "black",
-                        textDecoration: "none",
-                      }}
-                    >
-                      View Slider List
-                    </Link>
-
-                    <Link
-                      to={"/marketing/post/manage"}
-                      className="btn"
-                      style={{
-                        padding: "20px",
-                        color: "black",
-                        textDecoration: "none",
-                      }}
-                    >
-                      View My Post
-                    </Link>
+                    
 
                     <Link
                       to="/marketing/dashboard"

@@ -186,7 +186,7 @@ const App = () => {
               <Route path="/wishlist" element={<WishList />} />
               <Route path="/add/subject" element={<AddSubject />} />
 
-              <Route path="/admin/subjects" element={<SubjectData />} />
+              <Route path="/expert/subjects" element={<SubjectData />} />
 
               <Route
                 path="/quiz/take/:quizId/:resultId"

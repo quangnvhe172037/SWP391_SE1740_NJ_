@@ -70,7 +70,7 @@ const SubjectSidebar = (prop) => {
             className="subject-detail-sidebar-button-cart"
             onClick={() => handleAddToWishList()}
           >
-            Add to cart
+            Add to Wishlist
           </button>
           <button
             className="subject-detail-sidebar-button-buy"
