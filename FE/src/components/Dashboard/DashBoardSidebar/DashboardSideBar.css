@@ -1,5 +1,24 @@
 .dashboard-sidebar-wrap {
-  background-color: black;
-  color: white;
-  height: 100vh;
+  background-color: #2d2f31;
+  color: #fff;
+  height: auto;
+  font-weight: bold;
+  font-family:'Udemy Sans',-apple-system,BlinkMacSystemFont,Roboto,'Segoe UI',Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';
+}
+
+.dashboard-sidebar-element{
+  padding: 40px 20px;
+    border-bottom: 1px solid white;
+}
+
+
+.dashboard-side-bar-element-title{
+  color: #fff;
+  text-decoration: none;
+}
+
+.dashboard-side-bar-element-title:hover{
+color: #fff;
+  text-decoration: none;
+  opacity: 0.7;
 }

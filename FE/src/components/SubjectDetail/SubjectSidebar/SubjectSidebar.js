@@ -6,7 +6,6 @@ import { data } from "autoprefixer";
 import { useEffect, useState } from "react";
 
 const SubjectSidebar = (prop) => {
-  const [WishList, setWishList] = useState({});
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
   const preId = prop.preId;
@@ -14,71 +13,50 @@ const SubjectSidebar = (prop) => {
   if (price !== undefined) {
     price = price.toLocaleString();
   }
-    const image = prop.image;
-    const lessonId = prop.lessonId;
-    const billId = prop.billId;
-    const userID = prop.userID;
-    console.log("test bill" +billId);
+  const image = prop.image;
+  const lessonId = prop.lessonId;
+  const billId = prop.billId;
+  const userID = prop.userID;
+  console.log("test bill" + billId);
   const purchaseDate = prop.purchaseDate;
   console.log(preId, price, billId, purchaseDate);
   const { subjectId } = useParams();
-  const apiSubjects = "http://localhost:8080/user/subject/addToWishList";
+  const apiSubjects = `${BASE_URL}/user/subject/addToWishList`;
   const handleAddToWishList = (e) => {
     const formData = new FormData();
     formData.append("subjectId", subjectId);
     formData.append("userId", userID);
     fetch(apiSubjects, {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          body: formData,
-        })
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error(response.data.status);
-            }
-            return response.json();
-          })
-          .then((data) => {
-            alert("Add To Wish List Successful!");
-          })
-          .catch((error) => {
-            console.error("Error updating slider data:", error);
-          });
-  }
-
-  useEffect(() => {
-    fetch(`http://localhost:8080/user/subject/wishlist?subjectId=${subjectId}&userId=${userID}`, {
+      method: "POST",
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
-      }
+      },
+      body: formData,
     })
       .then((response) => {
-        if(response.status == 404){
-          return '';
+        if (response.status == 406) {
+          return null;
         }
         if (!response.ok) {
-          throw new Error("Network response was not ok");
+          throw new Error(response.data.status);
         }
         return response.json();
       })
-
-      .then((dataJson) => {
-        if(dataJson != ''){
-          const data = {
-            Id : dataJson.id
-          };
-          return data;
+      .then((data) => {
+        if (data == null) {
+          alert("Subject is existed in your wish list");
+        } else {
+          alert("Add To Wish List Successful!");
         }
-       return dataJson;
       })
-      .then((result) => {
-        setWishList(result);
+      .catch((error) => {
+        console.error("Error updating slider data:", error);
       });
-  }, {});
+  };
 
+  const handleUpdate = () => {
+    navigate(`/payment/checkout/course/${subjectId}`);
+  };
   return (
     <div className="subject-detail-sidebar-wrap">
       <div>
@@ -88,12 +66,18 @@ const SubjectSidebar = (prop) => {
       {billId == null ? (
         <div className="subject-detail-sidebar-payment">
           <div className="subject-detail-sidebar-price">{price} VND</div>
-
-          <button className="subject-detail-sidebar-button-cart" disabled={WishList != ''} onClick={() => handleAddToWishList()}>Add to Wish List</button>
-          <button className="subject-detail-sidebar-button-buy">
-            <Link to={`/payment/checkout/course/${subjectId}`}>Buy now</Link>
+          <button
+            className="subject-detail-sidebar-button-cart"
+            onClick={() => handleAddToWishList()}
+          >
+            Add to cart
           </button>
-
+          <button
+            className="subject-detail-sidebar-button-buy"
+            onClick={() => handleUpdate()}
+          >
+            Buy now
+          </button>
         </div>
       ) : (
         <div className="subject-detail-sidebar-payment">

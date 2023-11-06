@@ -6,6 +6,7 @@ import "./Dashboard.css";
 import BillChart from "../../components/Charts/BillChart";
 import BillChartProfit from "../../components/Charts/BillChartProfit";
 import BASE_URL from "../../api/baseapi";
+import DashboardSideBar from "../../components/Dashboard/DashBoardSidebar/DashboardSideBar";
 
 const AdminDashboard = () => {
   const token = localStorage.getItem("token");
@@ -15,7 +16,11 @@ const AdminDashboard = () => {
     return <PrivateContent />;
   } else {
     return (
-     <DashboardContent/>
+      <div className="row">
+        <DashboardSideBar/>
+        <DashboardContent/>
+      </div>
+     
     );
   }
 };

@@ -22,5 +22,7 @@ public interface UserPaymentService {
 
     UserPayment addNewPayment(Long userId, Long subjectId, Long preId);
 
-    PaymentResponse createNewVnPayPayment(Long price) throws UnsupportedEncodingException;
+    PaymentResponse createNewVnPayPayment(Long price, Long billId) throws UnsupportedEncodingException;
+
+    Boolean updatePayment(Long billId);
 }

@@ -132,9 +132,7 @@ const SubjectDetail = () => {
       });
   }, []);
 
-  if (user.role !== "CUSTOMER") {
-    return <PrivateContent />;
-  } else {
+
     return (
       <div className="row subject-detail-page-wrap">
         <div className="col-md-9">
@@ -167,7 +165,7 @@ const SubjectDetail = () => {
         </div>
       </div>
     );
-  }
+  
 };
 
 export default SubjectDetail;

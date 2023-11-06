@@ -116,10 +116,10 @@ public class UserPaymentServiceImpl implements UserPaymentService {
 
     // Endpoint tạo thanh toán
     @Override
-    public PaymentResponse createNewVnPayPayment(Long price) throws UnsupportedEncodingException {
+    public PaymentResponse createNewVnPayPayment(Long price, Long billId) throws UnsupportedEncodingException {
         // Tính toán tổng số tiền thanh toán (amount tính theo đơn vị đồng)
         long amount = price * 100;
-        String vnp_TxnRef = VNPayConfig.getRandomNumber(8);
+        String vnp_TxnRef = String.valueOf(billId);
         String vnp_TmnCode = VNPayConfig.vnp_TmnCode;
         String vnp_Return = VNPayConfig.vnp_ReturnUrl;
 
@@ -132,7 +132,7 @@ public class UserPaymentServiceImpl implements UserPaymentService {
         vnp_Params.put("vnp_CurrCode", "VND");
         vnp_Params.put("vnp_BankCode", "");
         vnp_Params.put("vnp_TxnRef", vnp_TxnRef);
-        vnp_Params.put("vnp_OrderInfo", "Thanh toan don hang:" + vnp_TxnRef);
+        vnp_Params.put("vnp_OrderInfo", "OrderInfo");
         vnp_Params.put("vnp_ReturnUrl", vnp_Return);
         vnp_Params.put("vnp_IpAddr", "127.0.0.1");
         vnp_Params.put("vnp_OrderType", "other");
@@ -188,6 +188,20 @@ public class UserPaymentServiceImpl implements UserPaymentService {
     }
 
     @Override
+    public Boolean updatePayment(Long billId) {
+        try{
+            System.out.println(billId);
+            UserPayment userPayment = userPaymentRepository.findUserPaymentByBillID(billId);
+            userPayment.setStatus(true);
+            userPaymentRepository.save(userPayment);
+            return true;
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
+    @Override
     public List<Long> calculatePriceByMonthsInYear(int year) {
         List<Long> monthlyPrices = new ArrayList<>();
         for (int i = 1; i <= 12; i++) {
@@ -205,6 +219,8 @@ public class UserPaymentServiceImpl implements UserPaymentService {
         }
         return monthlyPrices;
     }
+
+
 
 
 }

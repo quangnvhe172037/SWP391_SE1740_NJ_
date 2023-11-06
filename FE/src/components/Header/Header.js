@@ -54,7 +54,6 @@ const UserHeader = () => {
         style={{
           backgroundColor: "white",
           boxShadow: "0 2px 4px lightgrey",
-          borderBottom: "1px solid black",
           height: "72px",
         }}
       >
