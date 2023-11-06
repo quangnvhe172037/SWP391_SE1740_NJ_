@@ -66,7 +66,13 @@ public class SubjectUserController {
             @RequestParam Long userId
     ) {
         try {
-            WishList wishList = new WishList();
+            WishList wishList = wishListRepository.getWishListBySubjectAndUser(subjectId,userId);
+            if(wishList != null){
+                return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
+            }
+            else {
+                wishList = new WishList();
+            }
             Users user = userRepository.getById(userId);
             Subjects subjects = subjectRepository.getSubjectsBySubjectID(subjectId);
             wishList.setUser(user);

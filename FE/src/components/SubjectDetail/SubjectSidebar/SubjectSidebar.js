@@ -6,7 +6,6 @@ import { data } from "autoprefixer";
 import { useEffect, useState } from "react";
 
 const SubjectSidebar = (prop) => {
-  const [WishList, setWishList] = useState({});
   const token = localStorage.getItem("token");
    const navigate = useNavigate()
   const preId = prop.preId;
@@ -35,49 +34,26 @@ const SubjectSidebar = (prop) => {
           body: formData,
         })
           .then((response) => {
+            if(response.status == 406){
+              return null;
+            }
             if (!response.ok) {
               throw new Error(response.data.status);
             }
             return response.json();
           })
           .then((data) => {
-            alert("Add To Wish List Successful!");
+            if(data == null){
+              alert("Subject is existed in your wish list")
+            }
+            else {
+              alert("Add To Wish List Successful!");
+            }
           })
           .catch((error) => {
             console.error("Error updating slider data:", error);
           });
   }
-
-  useEffect(() => {
-    fetch(`http://localhost:8080/user/subject/wishlist?subjectId=${subjectId}&userId=${userID}`, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      }
-    })
-      .then((response) => {
-        if(response.status == 404){
-          return '';
-        }
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-
-      .then((dataJson) => {
-        if(dataJson != ''){
-          const data = {
-            Id : dataJson.id
-          };
-          return data;
-        }
-       return dataJson;
-      })
-      .then((result) => {
-        setWishList(result);
-      });
-  }, {});
 
   return (
     <div className="subject-detail-sidebar-wrap">
@@ -88,7 +64,7 @@ const SubjectSidebar = (prop) => {
       {billId == null ? (
         <div className="subject-detail-sidebar-payment">
           <div className="subject-detail-sidebar-price">{price} VND</div>
-          <button className="subject-detail-sidebar-button-cart" disabled={WishList != ''} onClick={() => handleAddToWishList()}>Add to cart</button>
+          <button className="subject-detail-sidebar-button-cart" onClick={() => handleAddToWishList()}>Add to cart</button>
           <button className="subject-detail-sidebar-button-buy">Buy now</button>
         </div>
       ) : (
