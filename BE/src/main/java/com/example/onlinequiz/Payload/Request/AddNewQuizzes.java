@@ -9,6 +9,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class AddNewQuizzes {
     private String quizName;
+    private String description;
     private Integer subjectId;
     private Integer quizTypeId;
     private Integer durationTime;

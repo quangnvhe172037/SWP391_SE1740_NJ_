@@ -104,16 +104,7 @@ function ViewQuizResult() {
                                 readOnly
                             />
                         </div>
-                        <div className="form-group">
-                            <label htmlFor="examLevel">Exam level:</label>
-                            <input
-                                className="form-control"
-                                id="examLevel"
-                                value={quizResult.quizzes && quizResult.quizzes.quizTypes}
-                                name="examLevel"
-                                readOnly
-                            />
-                        </div>
+
                         <button
                             className={`practice btn ${
                                 quizResult.isPass ? "btn-success" : "btn-danger"

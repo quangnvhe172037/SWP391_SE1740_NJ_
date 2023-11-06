@@ -113,7 +113,11 @@ const LessonSidebar = () => {
     return (
       <div className="lesson-sidebar col-md-3">
         <div className="lesson-sidebar-name">
-          <span>Subject content</span>
+          <span>Subject content</span><br/>
+          <Link to={"/practice"} state={subjectId}>
+            <button className="practice btn btn-success f">My Practice</button>
+          </Link>
+
         </div>
         {topics.map((topic) => (
           <div key={topic.topicID} className="lesson-sidebar-topic">

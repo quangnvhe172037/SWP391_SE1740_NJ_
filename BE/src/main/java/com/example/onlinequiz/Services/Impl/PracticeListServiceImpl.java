@@ -5,6 +5,7 @@ import com.example.onlinequiz.Model.QuizResults;
 import com.example.onlinequiz.Model.Subjects;
 import com.example.onlinequiz.Model.Users;
 import com.example.onlinequiz.Repo.QuizRepository;
+import com.example.onlinequiz.Repo.QuizResultDetailRepository;
 import com.example.onlinequiz.Repo.QuizResultRepository;
 import com.example.onlinequiz.Repo.SubjectCategoriesRepository;
 import com.example.onlinequiz.Services.PracticeListService;
@@ -27,6 +28,9 @@ public class PracticeListServiceImpl implements PracticeListService {
 
     @Autowired
     public final SubjectCategoriesRepository subjectCategoriesRepository;
+
+    @Autowired
+    public final QuizResultDetailRepository quizResultDetailRepository;
 
 
     @Override
@@ -64,6 +68,16 @@ public class PracticeListServiceImpl implements PracticeListService {
             System.out.println(e.getMessage());
             return null;
         }
+    }
+
+    @Override
+    public void deleteQuizResult(Long resultId) {
+        quizResultRepository.deleteById(resultId);
+    }
+
+    @Override
+    public void deleteQuizResultDetail(QuizResultDetail result) {
+        quizResultDetailRepository.deleteByQuizResult(result);
     }
 
 }

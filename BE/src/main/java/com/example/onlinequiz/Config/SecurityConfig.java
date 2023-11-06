@@ -46,6 +46,7 @@ public class SecurityConfig {
             "/myregistration/myRes/**",
             "/myregistration/myRes",
             "/practice/add",
+            "/practice/delete/**",
             "/practice/list",
             "/practice/view/**",
 

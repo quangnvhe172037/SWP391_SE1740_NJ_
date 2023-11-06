@@ -4,9 +4,10 @@ import axios from "axios";
 import jwtDecode from "jwt-decode";
 import "./style.css";
 import {format} from "date-fns";
+import { Card, Row, Col, Button,Table  } from 'react-bootstrap';
+import {Link, useLocation} from 'react-router-dom';
 
 import AddPracticeDetail from "./AddPracticeDetail";
-import { Link } from "react-router-dom";
 import BASE_URL from "../../api/baseapi";
 const API_URL = `${BASE_URL}`;
 
@@ -19,8 +20,12 @@ function PracticeList() {
     const user = jwtDecode(token);
     const [practiceList, setPracticeList] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
-    const subjectid = 4;
+
     const [subjectNameinweb, setSubjectNameinweb] = useState("");
+
+    const location = useLocation();
+    const subjectid = location.state;
+    console.log("SubjectID "+subjectid);
     useEffect(() => {
         axios.get(API_URL + "/practice/list" + "?userid=" + user.userId + "&" + "subjectid=" + subjectid)
             .then((response) => {
@@ -39,6 +44,7 @@ function PracticeList() {
                         quizDuration: item.quizzes.durationTime,
                         quizDateCreate: item.quizzes.dateCreate,
                         subjectName: item.quizzes.subject.subjectName,
+                        quizDescription: item.quizzes.description,
                     },
                     correctAnswer: item.correctAnswer,
                     nullAnswer: item.nullAnswer,
@@ -55,6 +61,25 @@ function PracticeList() {
             });
     }, []);
 
+    // const handleDelete = (event, resultID) => {
+    //     event.preventDefault();
+    //
+    //     const confirmDelete = window.confirm("Are you sure you want to delete this item?");
+    //
+    //     if (confirmDelete) {
+    //         // Gửi yêu cầu xóa đến máy chủ với resultID
+    //         axios.delete(`${API_URL}/practice/delete/${resultID}`)
+    //             .then((response) => {
+    //                 // Xử lý phản hồi từ máy chủ (nếu cần)
+    //                 console.log("Item deleted successfully.");
+    //                 // Sau khi xóa thành công, bạn có thể cập nhật danh sách bằng cách gọi lại API hoặc cập nhật state
+    //             })
+    //             .catch((error) => {
+    //                 console.error("Error deleting item: ", error);
+    //             });
+    //     }
+    // };
+
     const handleSearchChange = (event) => {
         setSearchTerm(event.target.value);
     };
@@ -64,73 +89,67 @@ function PracticeList() {
         return item.quizzes.quizName.toLowerCase().includes(searchTerm.toLowerCase());
     });
 
-    function handleClickCreateQuiz() {
-
-    }
 
     return (
         <div className="container mt-5">
             <div className="row mb-4">
                 <div className="col-md-6">
-
-                    <div className="col-md-6">
-                        <h2>{subjectNameinweb}</h2>
-                        <input
-                            type="text"
-                            placeholder="Tìm kiếm theo Quiz Name..."
-                            className="form-control"
-                            id="search-input"
-                            onChange={handleSearchChange}
-                        />
-                    </div>
+                    <h1 style={{ textAlign: 'center' }}>{subjectNameinweb}</h1>
                 </div>
                 <div className="col-md-6 text-right">
                     <Link to={"/practice/add"} state={subjectid}>
                         <button className="practice btn btn-success f">New practice</button>
                     </Link>
-                    <button className="practice btn btn-success" onClick={handleClickCreateQuiz}>Simulation exam</button>
+                </div>
+            </div>
+            <div className="row mb-4">
+                <div className="col-md-6">
+                    <input
+                        type="text"
+                        placeholder="Tìm kiếm theo Quiz Name..."
+                        className="form-control"
+                        id="search-input"
+                        onChange={handleSearchChange}
+                    />
                 </div>
             </div>
             {filteredPracticeList.length === 0 ? (
                 <p>Not Found</p>
             ) : (
-                filteredPracticeList.map((item, index) => (
-                    <div key={index} className="practice card mb-3">
-                        <div className="practice card-body">
-                            <div className="row">
-                                <div className=" col-md-4 custom-border">
-                                    <h5 className="mb-3">Quiz name: {item.quizzes.quizName}</h5>
-                                    <h6>Date create: {format(new Date(item.quizzes.quizDateCreate), 'dd-MM-yyyy')}</h6>
-                                    <h6>Status: {item.isPass === "true" ? "pass" : "not pass"}</h6>
+                <Table striped bordered hover responsive>
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Quiz Name</th>
+                        <th>Note</th>
+                        <th className="action-column">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {filteredPracticeList.map((item, index) => (
+                        <tr key={index}>
+                            <td>{item.resultID}</td>
+                            <td>
+                                <div>
+                                    <span>{item.quizzes.quizName}</span>
+                                    <br />
+                                    <span>{format(new Date(item.quizzes.quizDateCreate), 'dd-MM-yyyy')}</span>
                                 </div>
-                                <div className="col-md-2 custom-border center-text">
-                                    <p>Date taken:</p>
-                                    <br/>
-                                    {format(new Date(item.dateTaken), 'dd-MM-yyyy')}
+                            </td>
+                            <td>{item.quizzes.quizDescription}</td>
+                            <td style={{ width: '200px' }}>
+                                <div className="actions">
+                                    <Link to={`/practice/view/${item.resultID}`}>View Details</Link>
+                                    {/*<a href="#" onClick={(e) => handleDelete(e, item.resultID)}>Delete</a>*/}
                                 </div>
-                                <div className="col-md-2 custom-border center-text">
-                                    <p>{item.correctAnswer} Correct</p>
-                                    <p>per</p>
-                                    <p>{(item.correctAnswer + item.nullAnswer + item.falseAnswer)} questions</p>
-                                </div>
-                                <div className="col-md-2 custom-border center-text">
-                                    <p>{((item.correctAnswer / (item.correctAnswer + item.nullAnswer + item.falseAnswer)) * 100).toFixed(2)}%<br />Correct</p>
-                                </div>
-                                <div className="col-md-2 center-text centered-button-div">
-                                    <div className="button-wrapper">
-                                        <Link to={"/practice/view/" + item.quizzes.quizid}>
-                                            View Details
-                                        </Link>
-                                        <p>Duration: {item.quizzes.quizDuration}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                ))
+                            </td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </Table>
             )}
-
         </div>
+
     );
 }
 

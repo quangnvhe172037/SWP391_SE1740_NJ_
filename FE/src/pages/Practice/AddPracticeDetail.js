@@ -5,19 +5,20 @@ import jwtDecode from "jwt-decode";
 import BASE_URL from "../../api/baseapi";
 const API_URL = `${BASE_URL}`;
 
-const AddPracticeDetail = (prop) => {
+const AddPracticeDetail = (props) => {
     const [examLevel, setExamLevel] = useState('easy');
     const [quizName, setQuizName] = useState('');
     const [durationTime, setDurationTime] = useState(0);
     const [passRate, setPassRate] = useState(0);
+    const [description, setDescription] = useState('');
     const [quizAdded, setQuizAdded] = useState(null);
     const token = localStorage.getItem("token");
     const user = jwtDecode(token);
     const quizTypeId = 2;
 
     const location = useLocation();
-    const subjectId = 4;
-    console.log(subjectId);
+    const subjectId = location.state;
+    console.log("SubjectID "+subjectId);
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
@@ -27,6 +28,7 @@ const AddPracticeDetail = (prop) => {
             subjectId,
             examLevel,
             quizName,
+            description,
             durationTime,
             passRate,
             quizTypeId,
@@ -41,11 +43,6 @@ const AddPracticeDetail = (prop) => {
                 },
             });
 
-            console.log('First data sent successfully');
-            setQuizAdded(firstResponse.data);
-            console.log("user id:" + user.userId);
-            console.log(firstResponse.data);
-            console.log("quiz id"+firstResponse.data.quizID);
 
             const secondResponse = await fetch(
                 `${BASE_URL}/attempt/quiz/add/result/${firstResponse.data.quizID}?userId=${user.userId}`,
@@ -91,6 +88,11 @@ const AddPracticeDetail = (prop) => {
     const handlePassRateChange = (event) => {
         setPassRate(parseInt(event.target.value));
     };
+
+    const handleDescriptionChange = (event) => {
+        setDescription(event.target.value);
+    };
+
     return (
         <div className="container">
             <div className="row justify-content-center">
@@ -98,21 +100,19 @@ const AddPracticeDetail = (prop) => {
                     <h2 className="text-center">Thông tin bài kiểm tra</h2>
                     <form onSubmit={handleFormSubmit}>
                         <div className="form-group">
-                            <label htmlFor="subjectName">Tên môn học (chỉ đọc):</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="subjectName"
-                                value={"HTML"}
-                                readOnly
-                            />
-                        </div>
-                        <div className="form-group">
                             <label htmlFor="quizName">Tên bài kiểm tra:</label>
                             <input
                                 type="text"
                                 className="quizName form-control"
                                 onChange={handleQuizNameChange}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="description">Note:</label>
+                            <input
+                                type="text-area"
+                                className="quizName form-control"
+                                onChange={handleDescriptionChange}
                             />
                         </div>
                         <div className="form-group">

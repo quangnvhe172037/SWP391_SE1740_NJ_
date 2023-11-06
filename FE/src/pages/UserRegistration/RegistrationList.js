@@ -7,6 +7,7 @@ import BASE_URL from "../../api/baseapi";
 import FE_URL from '../../api/frontendapi';
 import jwtDecode from "jwt-decode";
 import PrivateContent from "../../components/HandleException/PrivateContent";
+import {Link} from "react-router-dom";
 
 
 
@@ -36,6 +37,7 @@ function UserRes() {
               notify: item.notify,
               purchase_date: item.purchaseDate,
               subject: {
+                  subjectID: item.subject.subjectID,
                 subjectName: item.subject.subjectName,
                 subjectImage: item.subject.image,
               },
@@ -99,13 +101,16 @@ function UserRes() {
                     className="course-card col-md-3"
                   >
                     <div className="post">
+                        <Link to={`/practice`} state={userPayment.subject.subjectID}>
                       <div className="post-image">
                         <img
                           src={FE_URL +'/' + userPayment.subject.subjectImage}
                           alt=""
                         />
                       </div>
+
                       <p>Subject: {userPayment.subject.subjectName}</p>
+                        </Link>
                       <p>
                         Purchase Date:{" "}
                         {format(

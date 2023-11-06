@@ -13,4 +13,8 @@ public interface PracticeListService {
     List<QuizResults> getListQuizResultDetail(Users u, Subjects s);
 
     QuizResults getQuizResultByQuizId(Long resultid);
+
+    void deleteQuizResult(Long resultId);
+
+    void deleteQuizResultDetail(QuizResultDetail result);
 }
