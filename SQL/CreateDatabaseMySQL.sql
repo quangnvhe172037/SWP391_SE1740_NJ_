@@ -473,3 +473,18 @@ CREATE TABLE IF NOT EXISTS `quiz_practice`.`verification_token` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
 
+
+CREATE TABLE IF NOT EXISTS `quiz_practice`.`wish_list`(
+	 `id` BIGINT NOT NULL AUTO_INCREMENT,
+      `user_id` BIGINT NULL DEFAULT NULL,
+       `subject_id` BIGINT NOT NULL,
+       PRIMARY KEY (`id`),
+       INDEX `user_id` (`user_id` ASC) VISIBLE,
+       CONSTRAINT `wish_list_ibfk_1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `quiz_practice`.`users` (`user_id`),
+    CONSTRAINT `wish_list_ibfk_2`
+    FOREIGN KEY (`subject_id`)
+    REFERENCES `quiz_practice`.`subject` (`subject_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;

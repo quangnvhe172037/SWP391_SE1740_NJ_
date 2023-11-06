@@ -11,7 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import jakarta.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
@@ -27,26 +30,140 @@ public class PaymentController {
     private final UserPaymentService userPaymentService;
 
 
-
-
-    // Endpoint xử lý thông tin giao dịch sau khi thanh toán
-    @GetMapping("/payment_infor")
+     // Endpoint xử lý thông tin giao dịch sau khi thanh toán
+    @GetMapping("/check/return")
     public ResponseEntity<?> transaction(
             @RequestParam(value = "vnp_Amount", required = false) String amount,
             @RequestParam(value = "vnp_BankCode", required = false) String bankCode,
-            @RequestParam(value = "vnp_OrderInfo", required = false) String order,
-            @RequestParam(value = "vnp_ResponseCode", required = false) String responseCode
-    ){
+            @RequestParam(value = "vnp_BankTranNo",  required = false) String bankTranNo,
+            @RequestParam(value = "vnp_CardType" , required = false) String cardType,
+            @RequestParam(value = "vnp_OrderInfo", required = false) String orderInfo,
+            @RequestParam(value = "vnp_PayDate", required = false) String payDate,
+            @RequestParam(value = "vnp_ResponseCode", required = false) String responseCode,
+            @RequestParam(value = "vnp_TmnCode", required = false) String tmnCode,
+            @RequestParam(value = "vnp_TransactionNo", required = false) String transactionNo,
+            @RequestParam(value = "vnp_TransactionStatus", required = false) String transactionStatus,
+            @RequestParam(value = "vnp_TxnRef", required = false) String txnRef,
+            @RequestParam(value = "vnp_SecureHash", required = false) String secureHash
+
+    ) throws UnsupportedEncodingException {
+
+        // CHia lại giá tiền
+        int price = Integer.parseInt(amount);
+
+        System.out.println(URLDecoder.decode(orderInfo, StandardCharsets.US_ASCII.toString()));
+        // Check sum
+        Map fields = new HashMap();
+        fields.put("vnp_Amount" , amount);
+        fields.put("vnp_BankCode" , bankCode);
+        fields.put("vnp_BankTranNo" , bankTranNo);
+        fields.put("vnp_CardType" , cardType);
+        fields.put("vnp_OrderInfo" , "OrderInfo");
+        fields.put("vnp_PayDate" , payDate);
+        fields.put("vnp_ResponseCode" , responseCode);
+        fields.put("vnp_TmnCode" , tmnCode);
+        fields.put("vnp_TransactionNo" , transactionNo);
+        fields.put("vnp_TransactionStatus" , transactionStatus);
+        fields.put("vnp_TxnRef" , txnRef);
+        fields.put("vnp_SecureHash" , secureHash);
+
+        if (fields.containsKey("vnp_SecureHashType")) {
+            fields.remove("vnp_SecureHashType");
+        }
+        if (fields.containsKey("vnp_SecureHash")) {
+            fields.remove("vnp_SecureHash");
+        }
+        String signValue = VNPayConfig.hashAllFields(fields);
+        System.out.println(signValue);
+
         // Tạo đối tượng TransactionResponse để trả về kết quả giao dịch
+
         TransactionResponse transactionResponse = new TransactionResponse();
-        if(responseCode.equals("00")){
-            transactionResponse.setData("");
-            transactionResponse.setStatus("OK");
-            transactionResponse.setMessage("Successfull");
-        } else {
-            transactionResponse.setData("");
-            transactionResponse.setStatus("OKn't");
-            transactionResponse.setMessage("UnSuccessfull");
+        if (signValue.equals(secureHash)) {
+            if (responseCode.equals("00")) {
+
+                transactionResponse.setPrice(price / 100);
+                transactionResponse.setData("You have successfully paid with the payment amount (VND): ");
+                transactionResponse.setMessage("The transaction was performed successfully. Thank you for using the service.");
+            } else {
+                transactionResponse.setPrice(price / 100);
+                transactionResponse.setData("You have unsuccessfully paid with the payment amount (VND): ");
+                transactionResponse.setMessage("Transaction failed. Contact 0334745645 / quangnvhe172037@fpt.edu.vn for support.");
+            }
+        }else{
+            transactionResponse.setPrice(price / 100);
+            transactionResponse.setData("You have unsuccessfully paid with the payment amount (VND): ");
+            transactionResponse.setMessage("Invalid signature. Contact 0334745645 / quangnvhe172037@fpt.edu.vn for support.");
+        }
+        return ResponseEntity.ok(transactionResponse);
+    }
+
+
+    @GetMapping("/check")
+    public ResponseEntity<?> transactionIPN(
+            @RequestParam(value = "vnp_Amount", required = false) String amount,
+            @RequestParam(value = "vnp_BankCode", required = false) String bankCode,
+            @RequestParam(value = "vnp_BankTranNo",  required = false) String bankTranNo,
+            @RequestParam(value = "vnp_CardType" , required = false) String cardType,
+            @RequestParam(value = "vnp_OrderInfo", required = false) String orderInfo,
+            @RequestParam(value = "vnp_PayDate", required = false) String payDate,
+            @RequestParam(value = "vnp_ResponseCode", required = false) String responseCode,
+            @RequestParam(value = "vnp_TmnCode", required = false) String tmnCode,
+            @RequestParam(value = "vnp_TransactionNo", required = false) String transactionNo,
+            @RequestParam(value = "vnp_TransactionStatus", required = false) String transactionStatus,
+            @RequestParam(value = "vnp_TxnRef", required = false) String txnRef,
+            @RequestParam(value = "vnp_SecureHash", required = false) String secureHash
+
+    ) throws UnsupportedEncodingException {
+
+        // CHia lại giá tiền
+        int price = Integer.parseInt(amount);
+
+        System.out.println(URLDecoder.decode(orderInfo, StandardCharsets.US_ASCII.toString()));
+        // Check sum
+        Map fields = new HashMap();
+        fields.put("vnp_Amount" , amount);
+        fields.put("vnp_BankCode" , bankCode);
+        fields.put("vnp_BankTranNo" , bankTranNo);
+        fields.put("vnp_CardType" , cardType);
+        fields.put("vnp_OrderInfo" , "OrderInfo");
+        fields.put("vnp_PayDate" , payDate);
+        fields.put("vnp_ResponseCode" , responseCode);
+        fields.put("vnp_TmnCode" , tmnCode);
+        fields.put("vnp_TransactionNo" , transactionNo);
+        fields.put("vnp_TransactionStatus" , transactionStatus);
+        fields.put("vnp_TxnRef" , txnRef);
+        fields.put("vnp_SecureHash" , secureHash);
+
+        if (fields.containsKey("vnp_SecureHashType")) {
+            fields.remove("vnp_SecureHashType");
+        }
+        if (fields.containsKey("vnp_SecureHash")) {
+            fields.remove("vnp_SecureHash");
+        }
+        String signValue = VNPayConfig.hashAllFields(fields);
+
+        // Tạo đối tượng TransactionResponse để trả về kết quả giao dịch
+
+        TransactionResponse transactionResponse = new TransactionResponse();
+        if (signValue.equals(secureHash)) {
+            if (responseCode.equals("00")) {
+                Long billId = Long.parseLong(txnRef);
+                if(userPaymentService.updatePayment(billId)){
+
+                }
+                transactionResponse.setPrice(price / 100);
+                transactionResponse.setData("You have successfully paid with the payment amount (VND): ");
+                transactionResponse.setMessage("The transaction was performed successfully. Thank you for using the service.");
+            } else {
+                transactionResponse.setPrice(price / 100);
+                transactionResponse.setData("You have unsuccessfully paid with the payment amount (VND): ");
+                transactionResponse.setMessage("Transaction failed. Contact 0334745645 / quangnvhe172037@fpt.edu.vn for support.");
+            }
+        }else{
+            transactionResponse.setPrice(price / 100);
+            transactionResponse.setData("You have unsuccessfully paid with the payment amount (VND): ");
+            transactionResponse.setMessage("Invalid signature. Contact 0334745645 / quangnvhe172037@fpt.edu.vn for support.");
         }
         return ResponseEntity.ok(transactionResponse);
     }
@@ -55,10 +172,10 @@ public class PaymentController {
     public ResponseEntity<CourseCheckoutResponse> getPriceSubject(
             @PathVariable Long subjectId
 
-    ){
+    ) {
         try {
             CourseCheckoutResponse response = userPaymentService.getCourseCheckout(subjectId);
-            if(response != null){
+            if (response != null) {
                 return ResponseEntity.ok(response);
             } else {
                 return ResponseEntity.notFound().build();
@@ -75,13 +192,13 @@ public class PaymentController {
             @RequestParam Long preId
 
 
-    ){
+    ) {
         try {
             UserPayment u = userPaymentService.addNewPayment(userId, subjectId, preId);
-            PaymentResponse paymentResponse = userPaymentService.createNewVnPayPayment(u.getSubjectPrice().getPrice());
+            PaymentResponse paymentResponse = userPaymentService.createNewVnPayPayment(u.getSubjectPrice().getPrice(), u.getBillID());
 
 
-            if(paymentResponse != null){
+            if (paymentResponse != null) {
                 return ResponseEntity.status(HttpStatus.OK).body(paymentResponse);
             } else {
                 return ResponseEntity.notFound().build();

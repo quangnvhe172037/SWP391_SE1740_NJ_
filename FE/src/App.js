@@ -68,6 +68,7 @@ import AddPracticeDetail from "./pages/Practice/AddPracticeDetail";
 import WishList from "./components/WishList/WishList";
 
 import CheckoutBill from "./pages/CheckoutBill/CheckoutBill";
+import PaymentResult from "./pages/PaymentResult/PaymentResult";
 
 
 
@@ -121,7 +122,7 @@ const App = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/register/verifyEmail/" element={<VerifyEmail />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
-          
+
           {isAuthenticated && (
             <>
               <Route path="/sliders" element={<SliderList />} />
@@ -207,6 +208,8 @@ const App = () => {
                 path="/payment/checkout/course/:subjectId"
                 element={<CheckoutBill />}
               />
+
+              <Route path="/payment/info" element={<PaymentResult />} />
             </>
           )}
 

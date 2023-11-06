@@ -48,6 +48,7 @@ public class SecurityConfig {
             "/practice/add",
             "/practice/list",
             "/practice/view/**",
+            "/api/payment/check"
 
     };
     // Danh sách các URL cho customer
@@ -60,7 +61,7 @@ public class SecurityConfig {
             "/attempt/quiz/review/**",
             "/api/payment/get/price/**",
             "/api/payment/add/transaction/**",
-            "/IPN"
+            "/api/payment/check/return"
 
 
     };
