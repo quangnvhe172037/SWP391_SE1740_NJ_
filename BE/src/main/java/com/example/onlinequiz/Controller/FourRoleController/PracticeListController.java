@@ -86,7 +86,7 @@ public class PracticeListController {
     @PostMapping("/add")
     public ResponseEntity<Quizzes> addNewQuiz(@RequestBody AddNewQuizzes request) {
 
-//        try{
+        try{
             String quizName = request.getQuizName();
             Integer subjectId = request.getSubjectId();
             Integer quizTypeId = request.getQuizTypeId();
@@ -104,13 +104,13 @@ public class PracticeListController {
             int quantityQuizData;
             switch (examLevel){
                 case "easy":
-                    quantityQuizData = 40;
+                    quantityQuizData = 4;
                     break;
                 case "medium":
-                    quantityQuizData = 50;
+                    quantityQuizData = 5;
                     break;
                 default:
-                    quantityQuizData = 60;
+                    quantityQuizData = 6;
             }
 
             Quizzes quiz = new Quizzes();
@@ -134,6 +134,7 @@ public class PracticeListController {
 
 
             quizService.addNewQuiz(quiz);
+            System.out.println("Quiz id sau add" + quiz.getQuizID());
             List<QuizData> quizDataRandom = quizDataService.getRandomQuizData(quantityQuizData, s);
             for (QuizData e : quizDataRandom) {
                 QuizDetail quizDetail = new QuizDetail();
@@ -143,10 +144,10 @@ public class PracticeListController {
             }
 
             return ResponseEntity.ok(quiz);
-//        }catch (Exception e){
-//            System.out.println(e.getMessage());
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-//        }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
 
     }
 }
