@@ -21,7 +21,7 @@ const SubjectSidebar = (prop) => {
   const purchaseDate = prop.purchaseDate;
   console.log(preId, price, billId, purchaseDate);
   const { subjectId } = useParams();
-  const apiSubjects = "http://localhost:8080/user/subject/addToWishList";
+  const apiSubjects = `${BASE_URL}/user/subject/addToWishList`;
   const handleAddToWishList = (e) => {
     const formData = new FormData();
     formData.append("subjectId", subjectId);

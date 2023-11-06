@@ -122,7 +122,7 @@ const App = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/register/verifyEmail/" element={<VerifyEmail />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
-
+          <Route path="/subject/:subjectId" element={<SubjectDetail />} />
           {isAuthenticated && (
             <>
               <Route path="/sliders" element={<SliderList />} />
@@ -130,7 +130,7 @@ const App = () => {
               <Route path="/posts/view/:postId" element={<PostDetail />} />
               <Route path="/myRegistration" element={<UserRes />} />
               <Route path="/posts/edit/:postId" element={<PostEdit />} />
-              <Route path="/sliders/edit/*" element={<SliderDetail />} />
+              <Route path="/sliders/edit/:sliderId" element={<SliderDetail />} />
               <Route path="/add-question/:subjectId" element={<ImportQuiz />} />
               <Route path="/practice" element={<PracticeList />} />
 
@@ -183,7 +183,6 @@ const App = () => {
               <Route path="/regis" element={<UserRes />} />
               <Route path="/account-list" element={<AccountList />} />
 
-              <Route path="/subject/:subjectId" element={<SubjectDetail />} />
               <Route path="/wishlist" element={<WishList />} />
               <Route path="/add/subject" element={<AddSubject />} />
 

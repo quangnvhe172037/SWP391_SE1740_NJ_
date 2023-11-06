@@ -74,17 +74,13 @@ const QuizAttempt = () => {
 
   const handleQuestionClick = (e, index) => {
     // e.preventDefault();
-    
-    setTimeout(function () {
 
-    }, 1000);
+    setTimeout(function () {}, 1000);
     sendUserAnswersToBackend();
     setSelectedQuestion(index);
     reset();
-    
   };
 
- 
   const handleAnswerSelect = (e, index) => {
     const updatedAnswers = [...userAnswers];
     const currentTime = new Date().toISOString();
@@ -125,6 +121,13 @@ const QuizAttempt = () => {
         console.error("Error saving user answers:", error);
       });
     reset();
+  };
+
+  const handleFinalSubmit = () => {
+    if (!window.confirm("Are you sure you want to submit your attempt")) {
+      return;
+    }
+    finalSubmit();
   };
 
   const finalSubmit = () => {
@@ -204,10 +207,9 @@ const QuizAttempt = () => {
           </div>
 
           <div className="quiz-attempt-right col-md-3">
-            
             <div className="quiz-attempt-navigate-button-wrap">
-                <h2 className="quiz-attempt-navigate-header">Quiz navigation</h2>
-                <ul className="quiz-attempt-navigate-content-wrap">
+              <h2 className="quiz-attempt-navigate-header">Quiz navigation</h2>
+              <ul className="quiz-attempt-navigate-content-wrap">
                 {sentences.map((item, index) => (
                   <li
                     key={index}
@@ -216,9 +218,7 @@ const QuizAttempt = () => {
                   >
                     <button
                       className={`quiz-attempt-navigate-box ${
-                        item.userAnswer
-                          ? "btn btn-primary"
-                          : "btn btn-black"
+                        item.userAnswer ? "btn btn-primary" : "btn btn-black"
                       }`}
                     >
                       {index + 1}
@@ -232,9 +232,19 @@ const QuizAttempt = () => {
                 Time left:
                 <Countdown date={quizInfo.dateEnd} onComplete={finalSubmit} />
               </label>
-              <button className="btn btn-dark" onClick={finalSubmit}>
-                Submit
-              </button>
+              <div className="quiz-attempt-btn-submit-wrap">
+                <button className="btn btn-dark quiz-attempt-btn-submit" onClick={handleFinalSubmit}>
+                  Submit
+                </button>
+                <button
+                  className="btn btn-dark"
+                  onClick={() => {
+                    window.location.reload();
+                  }}
+                >
+                  Check saved
+                </button>
+              </div>
             </div>
           </div>
 

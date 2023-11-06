@@ -44,7 +44,7 @@ const DashboardContent = () => {
     }, []);
 
     return (
-      <div className="dashboard-wrap">
+      <div className="dashboard-wrap col-md-10">
         <div>
           <h2 className="dashboard-title">Statistical</h2>
           <div class="row">

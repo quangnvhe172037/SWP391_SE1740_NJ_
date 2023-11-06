@@ -239,7 +239,7 @@ const SubjectData = () => {
               <tr scope="row">
                 <td className="slider-table-data">{item.subjectID}</td>
                 <td className="slider-table-data">
-                  <img src={`/${item.image}`}  style={{height: "80px", width: "80px"}}/>
+                  <img src={`${item.image}`}  style={{height: "80px", width: "80px"}}/>
                 </td>
                 <td className="slider-table-data">{item.subjectName}</td>
                 <td className="slider-table-data">
