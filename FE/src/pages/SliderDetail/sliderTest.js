@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import SliderImage from "./SliderImage";
 import SlidersData from "./SlidersData";
 import "./SliderDetail.css";
-
+import BASE_URL from "../../api/baseapi";
 const SliderDetail = () => {
   const { sliderId } = useParams();
   const [sliderData, setSliderData] = useState({});
@@ -15,12 +15,12 @@ const SliderDetail = () => {
   const [currentImage, setCurrentImage] = useState("");
   const [updatedSubject, setUpdatedSubject] = useState("");
   const navigate = useNavigate();
-  const baseURL = "http://localhost:8081/";
+  const baseURL = `${BASE_URL}`;
   const token = localStorage.getItem("token");
 
   // Get all sliders by using get
   useEffect(() => {
-    fetch(`http://localhost:8080/sliders/edit/${sliderId}`, {
+    fetch(`${BASE_URL}/sliders/edit/${sliderId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -61,7 +61,7 @@ const SliderDetail = () => {
     formData.append("status", updatedStatus);
 
     // Gửi yêu cầu PUT để cập nhật dữ liệu
-    fetch(`http://localhost:8080/sliders/edit/data/${sliderId}`, {
+    fetch(`${BASE_URL}/sliders/edit/data/${sliderId}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -88,7 +88,7 @@ const SliderDetail = () => {
     formData.append("image", updatedImage);
 
     // Gửi yêu cầu PUT để cập nhật ảnh
-    fetch(`http://localhost:8080/sliders/edit/image/${sliderId}`, {
+    fetch(`${BASE_URL}/sliders/edit/image/${sliderId}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,

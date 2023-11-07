@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Routes, Route, Link } from "react-router-dom";
 import ReactPaginate from "react-paginate";
+import BASE_URL from "../../api/baseapi";
 
 const Subject = () => {
   const [sliders, setSliders] = useState([]);
@@ -17,11 +18,11 @@ const Subject = () => {
   const [pageNum, setPageNum] = useState(1);
 
   // Xử lí api
-  const apiSlider = "http://localhost:8080/sliders";
+  const apiSlider = `${BASE_URL}/sliders`;
 
-  const apiSubjects = "http://localhost:8080/subjects/all";
+  const apiSubjects = `${BASE_URL}/subjects/all`;
 
-  const apiCategory = "http://localhost:8080/categorysubject/all";
+  const apiCategory = `${BASE_URL}/categorysubject/all`;
 
   useEffect(() => {
     fetch(apiSlider)

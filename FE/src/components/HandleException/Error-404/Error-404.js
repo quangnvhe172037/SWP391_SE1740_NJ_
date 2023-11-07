@@ -1,6 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import './Error-404.css'
-
+import BASE_URL from "../../../api/baseapi";
 const NotFoundException = () => {
   return (
     <div className="not-found-wrap">

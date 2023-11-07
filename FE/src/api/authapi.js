@@ -25,8 +25,9 @@ Hỗ trợ hủy: Axios hỗ trợ việc hủy yêu cầu HTTP, điều này r�
 đang chờ khi người dùng thực hiện hành động khác. Fetch không hỗ trợ hủy yêu cầu một cách dễ dàng.
  */
 import axios from "axios";
+import BASE_URL from "./baseapi";
 // Địa chỉ API của máy chủ dùng để gọi các yêu cầu đăng ký
-const API_URL = "http://localhost:8080/api/test/";
+const API_URL = `${BASE_URL}/api/test/`;
 
 //Hàm thực hiện đăng xuất người dùng
 const logout = () => {

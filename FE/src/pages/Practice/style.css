@@ -25,6 +25,11 @@
     text-align: center;
 }
 
+.actions {
+    display: flex; /* Sử dụng flexbox để kiểm soát khoảng cách */
+    gap: 10px; /* Điều chỉnh khoảng cách giữa các phần tử */
+}
+
 /* Style for buttons */
 .practice btn btn-primary {
     background-color: #007bff;

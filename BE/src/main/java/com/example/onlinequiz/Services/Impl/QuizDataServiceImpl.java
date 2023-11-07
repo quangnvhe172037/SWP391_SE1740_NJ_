@@ -11,8 +11,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 @Transactional
@@ -145,6 +147,22 @@ public class QuizDataServiceImpl implements QuizDataService {
         }else{
             return false;
         }
+    }
+
+    /**
+     *
+     * @param quantity
+     * @return
+     */
+    public List<QuizData> getRandomQuizData(int quantity, Subjects subject) {
+        // Lấy tất cả dữ liệu từ bảng quiz_data
+        List<QuizData> allQuizData = quizDataRepository.findAllBySubject(subject);
+        // Trộn ngẫu nhiên danh sách dữ liệu
+        Collections.shuffle(allQuizData);
+
+        // Chọn quantity phần tử đầu tiên sau khi đã trộn ngẫu nhiên
+        quantity = allQuizData.size() < quantity ? allQuizData.size() : quantity;
+        return allQuizData.subList(0, quantity);
     }
 
 }

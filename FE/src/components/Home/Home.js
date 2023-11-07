@@ -6,6 +6,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import {Routes,Route, Link } from 'react-router-dom';
 import DayJs from "./DayJs";
+import BASE_URL from "../../api/baseapi";
 import Subject from "../Subject/Subject";
 
 const Home = () => {
@@ -14,11 +15,11 @@ const Home = () => {
     const [posts, setPosts] = useState([]);
 
     // Xử lí api
-    const apiSlider = "http://localhost:8080/sliders";
+    const apiSlider = `${BASE_URL}/sliders`;
 
-    const apiSubjects = "http://localhost:8080/subjects/all";
+    const apiSubjects = `${BASE_URL}/subjects/all`;
 
-    const apiPosts = "http://localhost:8080/posts";
+    const apiPosts = `${BASE_URL}/posts`;
 
     useEffect(() => {
         fetch(apiSlider)

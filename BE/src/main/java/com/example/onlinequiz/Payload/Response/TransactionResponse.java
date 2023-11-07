@@ -4,5 +4,6 @@ import lombok.Data;
 
 @Data
 public class TransactionResponse {
-    private String status, message, data;
+    private int price;
+    private String data, message;
 }

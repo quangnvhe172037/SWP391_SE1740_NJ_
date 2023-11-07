@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
+import BASE_URL from '../../api/baseapi';
 const ForgotPassword = () => {
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
@@ -15,20 +15,20 @@ const ForgotPassword = () => {
         setIsLoading(true); // Bắt đầu hiển thị hiệu ứng loading
 
         axios
-            .post('http://localhost:8080/forgot-password', { email })
-            .then((response) => {
-                setMessage(response.data);
-            })
-            .catch((error) => {
-                if (error.response && error.response.status === 401) {
-                    setMessage("Can not found email!");
-                } else {
-                    setMessage('Something wrong! Please try again.');
-                }
-            })
-            .finally(() => {
-                setIsLoading(false); // Tắt hiệu ứng loading khi xong
-            });
+          .post(`${BASE_URL}/forgot-password`, { email })
+          .then((response) => {
+            setMessage(response.data);
+          })
+          .catch((error) => {
+            if (error.response && error.response.status === 401) {
+              setMessage("Can not found email!");
+            } else {
+              setMessage("Something wrong! Please try again.");
+            }
+          })
+          .finally(() => {
+            setIsLoading(false); // Tắt hiệu ứng loading khi xong
+          });
     };
 
     return (

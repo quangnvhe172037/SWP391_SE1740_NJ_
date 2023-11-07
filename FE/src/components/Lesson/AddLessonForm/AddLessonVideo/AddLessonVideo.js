@@ -1,6 +1,6 @@
 import { useState } from "react";
 import jwtDecode from "jwt-decode";
-
+import BASE_URL from "../../../../api/baseapi";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 const AddLessonVideo = (prop) => {
@@ -30,7 +30,7 @@ const AddLessonVideo = (prop) => {
         video: videoId,
       };
 
-      fetch(`http://localhost:8080/api/expert/lesson/add/video/${prop.topic}`, {
+      fetch(`${BASE_URL}/api/expert/lesson/add/video/${prop.topic}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

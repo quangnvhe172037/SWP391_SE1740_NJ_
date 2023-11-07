@@ -1,6 +1,6 @@
 import React from "react";
 import { Bar } from "react-chartjs-2";
-
+import BASE_URL from "../../api/baseapi";
 const BillChartProfit = ({ billData }) => {
   const data = {
     labels: [

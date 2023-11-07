@@ -18,4 +18,6 @@ public interface QuizResultDetailRepository extends JpaRepository<QuizResultDeta
     QuizResultDetail findQuizResultDetailByQuizDataAndAndQuizResult(QuizData quizData, QuizResults quizResult);
 
     List<QuizResultDetail> findAllByQuizData(QuizData quizData);
+
+    void deleteByQuizResult(QuizResultDetail quiz);
 }

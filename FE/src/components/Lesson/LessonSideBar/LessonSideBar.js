@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import "./LessonSideBar.css";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import "font-awesome/css/font-awesome.min.css";
-  import jwtDecode from "jwt-decode";
+import jwtDecode from "jwt-decode";
+  import BASE_URL from "../../../api/baseapi";
 const LessonSidebar = () => {
   const navigate = useNavigate();
   const [topics, setTopics] = useState([]);
@@ -12,7 +13,7 @@ const LessonSidebar = () => {
   const [loading, setLoading] = useState(true);
   
   useEffect(() => {
-    fetch(`http://localhost:8080/subjecttopic/get/${subjectId}`, {
+    fetch(`${BASE_URL}/subjecttopic/get/${subjectId}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -42,7 +43,7 @@ const LessonSidebar = () => {
   }, []);
 
   useEffect(() => {
-    fetch(`http://localhost:8080/lesson/get/${subjectId}`, {
+    fetch(`${BASE_URL}/lesson/get/${subjectId}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -62,7 +63,7 @@ const LessonSidebar = () => {
           lessonId: item.lessonID,
           lessonName: item.lessonName,
         }));
-        
+
         return data;
       })
 
@@ -112,7 +113,11 @@ const LessonSidebar = () => {
     return (
       <div className="lesson-sidebar col-md-3">
         <div className="lesson-sidebar-name">
-          <span>Subject content</span>
+          <span>Subject content</span><br/>
+          <Link to={"/practice"} state={subjectId}>
+            <button className="practice btn btn-success f">My Practice</button>
+          </Link>
+
         </div>
         {topics.map((topic) => (
           <div key={topic.topicID} className="lesson-sidebar-topic">

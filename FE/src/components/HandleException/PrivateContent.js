@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../HandleException/PrivateContent.css";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
-
+import BASE_URL from "../../api/baseapi";
 const PrivateContent = () => {
   return (
     <div className="private-content">

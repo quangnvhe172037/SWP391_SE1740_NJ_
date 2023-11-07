@@ -3,12 +3,14 @@ import axios from 'axios';
 import { format } from 'date-fns';
 import "./Registration.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import BASE_URL from "../../api/baseapi";
+import FE_URL from '../../api/frontendapi';
 import jwtDecode from "jwt-decode";
 import PrivateContent from "../../components/HandleException/PrivateContent";
+import {Link} from "react-router-dom";
 
-const API_URL = "http://localhost:8080";
-const Local_URL = "http://localhost:8081";
+
+
 
 function UserRes() {
     const token = localStorage.getItem("token");
@@ -19,34 +21,36 @@ function UserRes() {
     // const [endDate, setEndDate] = useState(""); // Trạng thái ngày kết thúc
     console.log(user);
     console.log("check");
-    console.log(API_URL + '/myregistration/myRes' + '?userid=' + user.userId);
+    console.log(BASE_URL + "/myregistration/myRes" + "?userid=" + user.userId);
     useEffect(() => {
-        axios .get(API_URL + '/myregistration/myRes' + '?userid=' + user.userId, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            })
-            .then(response => {
-                console.log(response);
-                const data = response.data.map(item => ({
-                    billID: item.billID,
-                    status: item.status,
-                    notify: item.notify,
-                    purchase_date: item.purchaseDate,
-                    subject: {
-                        subjectName: item.subject.subjectName,
-                        subjectImage: item.subject.image
-                    },
-                    users: {
-                        username: item.users.firstName + ' ' + item.users.lastName
-                    }
-                }));
-                data.sort((a, b) => a.status - b.status);
-                setUserPayments(data);
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-            });
+        axios
+          .get(BASE_URL + "/myregistration/myRes" + "?userid=" + user.userId, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((response) => {
+            console.log(response);
+            const data = response.data.map((item) => ({
+              billID: item.billID,
+              status: item.status,
+              notify: item.notify,
+              purchase_date: item.purchaseDate,
+              subject: {
+                  subjectID: item.subject.subjectID,
+                subjectName: item.subject.subjectName,
+                subjectImage: item.subject.image,
+              },
+              users: {
+                username: item.users.firstName + " " + item.users.lastName,
+              },
+            }));
+            data.sort((a, b) => a.status - b.status);
+            setUserPayments(data);
+          })
+          .catch((error) => {
+            console.error("Error fetching data:", error);
+          });
 
     }, []);
 
@@ -97,13 +101,16 @@ function UserRes() {
                     className="course-card col-md-3"
                   >
                     <div className="post">
+                        <Link to={`/practice`} state={userPayment.subject.subjectID}>
                       <div className="post-image">
                         <img
-                          src={Local_URL +'/' + userPayment.subject.subjectImage}
+                          src={FE_URL +'/' + userPayment.subject.subjectImage}
                           alt=""
                         />
                       </div>
+
                       <p>Subject: {userPayment.subject.subjectName}</p>
+                        </Link>
                       <p>
                         Purchase Date:{" "}
                         {format(

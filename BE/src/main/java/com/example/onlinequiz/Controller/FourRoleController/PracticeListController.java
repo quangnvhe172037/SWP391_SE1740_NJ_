@@ -3,6 +3,8 @@ package com.example.onlinequiz.Controller.FourRoleController;
 import com.example.onlinequiz.Model.*;
 import com.example.onlinequiz.Payload.Request.AddNewLessonQuizRequest;
 import com.example.onlinequiz.Payload.Request.AddNewQuizzes;
+import com.example.onlinequiz.Repo.QuizDataRepository;
+import com.example.onlinequiz.Repo.QuizResultDetailRepository;
 import com.example.onlinequiz.Services.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -27,12 +30,22 @@ public class PracticeListController {
     public final QuizService quizService;
 
     @Autowired
+    public final QuizDataService quizDataService;
+
+    @Autowired
+    public final QuizDetailService quizDetailService;
+
+    @Autowired
     public final SubjectService subjectService;
 
     @Autowired
     public final UserService userService;
 
+    @Autowired
+    public final QuizDataRepository quizDataRepository;
 
+    @Autowired
+    public final QuizResultDetailRepository quizResultDetailRepository;
     @GetMapping("/list")
     @ResponseBody
     public ResponseEntity<List<QuizResults>> getQuizResultByUseridAndSubjectid(
@@ -84,6 +97,7 @@ public class PracticeListController {
             Integer durationTime = request.getDurationTime();
             Integer passRate = request.getPassRate();
             String examLevel = request.getExamLevel();
+            String description = request.getDescription();
 
             System.out.println("Received Data:");
             System.out.println("Quiz Name: " + quizName);
@@ -92,7 +106,18 @@ public class PracticeListController {
             System.out.println("Duration Time: " + durationTime);
             System.out.println("Pass Rate: " + passRate);
             System.out.println("Exam level: " + examLevel);
-
+            System.out.println("description: " + description);
+            int quantityQuizData;
+            switch (examLevel){
+                case "easy":
+                    quantityQuizData = 4;
+                    break;
+                case "medium":
+                    quantityQuizData = 5;
+                    break;
+                default:
+                    quantityQuizData = 6;
+            }
 
             Quizzes quiz = new Quizzes();
             quiz.setQuizName(quizName);
@@ -108,10 +133,23 @@ public class PracticeListController {
             Date currentTime = new Date();
             quiz.setDateCreate(currentTime);
             quiz.setPassRate(passRate);
+            quiz.setDescription(description);
 
-            //random number question in quiz
+//              More than one row with the given identifier was found: 1
+//            List<QuizData> allQuizData = quizDataRepository.findAllBySubject(s);
+//            System.out.println("Quiz data taken:" + allQuizData);
+
 
             quizService.addNewQuiz(quiz);
+            System.out.println("Quiz id sau add" + quiz.getQuizID());
+            List<QuizData> quizDataRandom = quizDataService.getRandomQuizData(quantityQuizData, s);
+            for (QuizData e : quizDataRandom) {
+                QuizDetail quizDetail = new QuizDetail();
+                quizDetail.setQuizData(e);
+                quizDetail.setQuizzes(quiz);
+                quizDetailService.addNewQuizDetail(quizDetail);
+            }
+
             return ResponseEntity.ok(quiz);
         }catch (Exception e){
             System.out.println(e.getMessage());
@@ -119,4 +157,31 @@ public class PracticeListController {
         }
 
     }
+    //delete
+//    @DeleteMapping("/delete/{resultId}")
+//    public ResponseEntity<String> deleteQuizResultById(@PathVariable Long resultId) {
+//        try {
+//            QuizResults quizResults = practiceListService.getQuizResultByQuizId(resultId);
+//            if (quizResults == null) {
+//                return ResponseEntity.notFound().build();
+//            }
+//
+//// Lấy danh sách chi tiết kết quả của kết quả cụ thể
+//            List<QuizResultDetail> list = quizResultDetailRepository.findAllByQuizResult(quizResults);
+//
+//// Duyệt qua danh sách và xóa từng chi tiết kết quả
+//            for (QuizResultDetail a : list) {
+//                practiceListService.deleteQuizResultDetail(a);
+//            }
+//
+//// Sau khi xóa tất cả chi tiết kết quả, tiếp tục xóa kết quả chính
+//            practiceListService.deleteQuizResult(resultId);
+//            return ResponseEntity.ok("Kết quả có ID " + resultId + " đã bị xóa thành công.");
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+//        }
+//    }
+
+
 }

@@ -5,16 +5,19 @@ import { useParams } from "react-router-dom";
 import SubjectInfo from "../../components/SubjectDetail/SubjectInfo/SubjectInfo";
 import SubjectSidebar from "../../components/SubjectDetail/SubjectSidebar/SubjectSidebar";
 import SubjectDecription from "../../components/SubjectDetail/SubjectDescription/SubjectDecription";
-import './SubjectDetail.css'
+import "./SubjectDetail.css";
 import PrivateContent from "../../components/HandleException/PrivateContent";
+import BASE_URL from "../../api/baseapi";
 
 const SubjectDetail = () => {
+  const api = `${BASE_URL}/user/subject/get`;
+
   const token = localStorage.getItem("token");
   const user = jwtDecode(token);
   const { subjectId } = useParams();
   const [topics, setTopics] = useState([]);
   const [lessons, setLessons] = useState([]);
-  const api = "http://localhost:8080/user/subject/get";
+
   const [subject, setSubject] = useState({});
 
   useEffect(() => {
@@ -66,10 +69,9 @@ const SubjectDetail = () => {
   } catch (error) {
     console.error("There was a problem with the request");
   }
-  
 
   useEffect(() => {
-    fetch(`http://localhost:8080/subjecttopic/get/${subjectId}`, {
+    fetch(`${BASE_URL}/subjecttopic/get/${subjectId}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -77,7 +79,7 @@ const SubjectDetail = () => {
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Network response was not ok");
+          console.log("Network response was not ok");
         }
         return response.json();
       })
@@ -99,7 +101,7 @@ const SubjectDetail = () => {
   }, []);
 
   useEffect(() => {
-    fetch(`http://localhost:8080/lesson/get/${subjectId}`, {
+    fetch(`${BASE_URL}/lesson/get/${subjectId}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -130,11 +132,7 @@ const SubjectDetail = () => {
       });
   }, []);
 
-  if (
-    user.role !== "CUSTOMER"
-  ) {
-    return <PrivateContent />;
-  } else {
+
     return (
       <div className="row subject-detail-page-wrap">
         <div className="col-md-9">
@@ -153,21 +151,21 @@ const SubjectDetail = () => {
         </div>
         <div className="col-md-3">
           <SubjectSidebar
+            userID={user.userId}
+            id={subject.subjectId}
             image={subject.image}
             preId={subject.preId}
             price={subject.price}
             billId={subject.billId}
             purchaseDate={subject.purchaseDate}
             lessonId={
-              lessons && lessons.length > 0
-                ? lessons[0].lessonId
-                : null
+              lessons && lessons.length > 0 ? lessons[0].lessonId : null
             }
           />
         </div>
       </div>
     );
-  };
-}
+  
+};
 
 export default SubjectDetail;

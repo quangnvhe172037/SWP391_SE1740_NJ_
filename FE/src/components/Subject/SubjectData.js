@@ -11,6 +11,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { Col, Row } from "react-bootstrap";
+import BASE_URL from "../../api/baseapi";
 const SubjectData = () => {
   const style = {
     margin: "auto",
@@ -41,8 +42,8 @@ const SubjectData = () => {
   const [pageNum, setPageNum] = useState(1);
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
-  const apiSubjects = "http://localhost:8080/subjects/all";
-  const apiCategorySubjects = "http://localhost:8080/categorysubject/all";
+  const apiSubjects = `${BASE_URL}/subjects/all`;
+  const apiCategorySubjects = `${BASE_URL}/categorysubject/all`;
   useEffect(() => {
     fetch(apiSubjects)
       .then((response) => {
@@ -67,6 +68,9 @@ const SubjectData = () => {
         const data = result;
         setSubjects(data);
         setPaginationSubjects(data);
+        setTotalPage(
+          data.length % 3 == 0 ? data.length / 3 : Math.floor(data.length / 3) + 1
+        );
       });
   }, []);
   useEffect(() => {
@@ -142,7 +146,7 @@ const SubjectData = () => {
     formData.append("subject", JSON.stringify(temp));
     formData.append("id", id);
     // Gửi yêu cầu PUT để cập nhật dữ liệu
-    fetch(`http://localhost:8080/subjects/update`, {
+    fetch(`${BASE_URL}/subjects/update`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -229,13 +233,13 @@ const SubjectData = () => {
           {paginationsubjects
             .slice(
               (pageNum - 1) * 3,
-              Math.min(pageNum * 3, paginationsubjects.length) + 1
+              Math.min(pageNum * 3, paginationsubjects.length)
             )
             .map((item, index) => (
               <tr scope="row">
                 <td className="slider-table-data">{item.subjectID}</td>
                 <td className="slider-table-data">
-                  <img src={`/${item.image}`}  style={{height: "80px", width: "80px"}}/>
+                  <img src={`${item.image}`}  style={{height: "80px", width: "80px"}}/>
                 </td>
                 <td className="slider-table-data">{item.subjectName}</td>
                 <td className="slider-table-data">

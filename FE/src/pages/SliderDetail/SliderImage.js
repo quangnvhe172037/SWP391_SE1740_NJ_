@@ -1,5 +1,5 @@
 import React from "react";
-
+import BASE_URL from "../../api/baseapi";
 const SliderImage = ({
   baseURL,
   updatedImage,

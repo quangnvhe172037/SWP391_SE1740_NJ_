@@ -5,8 +5,8 @@ import axios from 'axios';
 import {Link} from 'react-router-dom';
 import jwtDecode from "jwt-decode";
 import PrivateContent from "../../components/HandleException/PrivateContent";
-
-const API_URL = 'http://localhost:8080/posts';
+import BASE_URL from "../../api/baseapi";
+const API_URL = `${BASE_URL}/posts`;
 
 function PostList() {
     const [posts, setPosts] = useState([]);

@@ -3,6 +3,8 @@ import jwtDecode from "jwt-decode";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import { useEffect } from "react";
+import BASE_URL from "../../../../api/baseapi";
+
 const EditLessonVideo = (prop) => {
   const [video, setVideo] = useState([]);
   const[videoId, setVideoId] = useState();
@@ -13,15 +15,12 @@ const EditLessonVideo = (prop) => {
     const [isValid, setIsValid] = useState(true);
 const GetData = () => {
   useEffect(() => {
-    fetch(
-      `http://localhost:8080/api/expert/lesson/get/video/${prop.lessonId}`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    )
+    fetch(`${BASE_URL}/api/expert/lesson/get/video/${prop.lessonId}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -50,17 +49,14 @@ const GetData = () => {
           video: match[2],
         };
 
-        fetch(
-          `http://localhost:8080/api/expert/lesson/update/video/${prop.lessonId}`,
-          {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify(dataToSend),
-          }
-        )
+        fetch(`${BASE_URL}/api/expert/lesson/update/video/${prop.lessonId}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(dataToSend),
+        })
           .then((response) => {
             console.log(response);
             if (!response.ok) {

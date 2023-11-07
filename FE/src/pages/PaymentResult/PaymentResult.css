@@ -1,0 +1,20 @@
+.payment-result-wrap {
+  text-align: center;
+  margin: 60px 80px 20px 80px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.16);
+  padding: 20px 20px 80px 20px;
+}
+
+.payment-result-data{
+    margin: 20px 0;
+}
+
+.payment-result-btn-wrap{
+    margin-top: 28px;
+}
+
+.payment-result-btn{
+    padding: 10px;
+    background-color: black;
+    color: white;
+}

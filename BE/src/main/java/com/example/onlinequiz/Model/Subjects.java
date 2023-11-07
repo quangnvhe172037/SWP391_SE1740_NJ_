@@ -23,7 +23,7 @@ public class Subjects {
     @Column(name = "subject_name", length = 256, columnDefinition = "VARCHAR(256) CHARACTER SET utf8mb4")
     private String subjectName;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cate_id")
     private SubjectCategories subjectCategory;
 

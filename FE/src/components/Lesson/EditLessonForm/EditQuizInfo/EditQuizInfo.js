@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import jwtDecode from "jwt-decode";
 import Popup from "reactjs-popup";
 import "./EditQuizInfo.css";
+import BASE_URL from "../../../../api/baseapi";
+
 const EditQuizInfo = (prop) => {
   const [questions, setQuestions] = useState({});
   const token = localStorage.getItem("token");
@@ -13,15 +15,12 @@ const EditQuizInfo = (prop) => {
   };
 
   useEffect(() => {
-    fetch(
-      `http://localhost:8080/api/questions/get/quiz/sentence/${prop.sentenceId}`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    )
+    fetch(`${BASE_URL}/api/questions/get/quiz/sentence/${prop.sentenceId}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((response) => {
         if (!response.ok) {
           // throw new Error("Network response was not ok");
@@ -100,17 +99,14 @@ const EditQuizInfo = (prop) => {
         },
       };
 
-      fetch(
-        `http://localhost:8080/api/questions/update/quiz/data/${prop.sentenceId}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(dataToSend),
-        }
-      )
+      fetch(`${BASE_URL}/api/questions/update/quiz/data/${prop.sentenceId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(dataToSend),
+      })
         .then((response) => {
           if (!response.ok) {
           }
@@ -119,7 +115,7 @@ const EditQuizInfo = (prop) => {
         .then((data) => {
           alert(data);
         })
-        .catch((error) => { });
+        .catch((error) => {});
     }
   };
 

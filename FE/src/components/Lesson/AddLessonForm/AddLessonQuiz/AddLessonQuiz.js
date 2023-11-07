@@ -3,6 +3,8 @@ import "reactjs-popup/dist/index.css";
 import jwtDecode from "jwt-decode";
 import { useNavigate, useParams } from "react-router-dom";
 import Popup from "reactjs-popup";
+import BASE_URL from "../../../../api/baseapi";
+
 const AddLessonQuiz = (prop) => {
  const { subjectId } = useParams();
   const [lessonName, setLessonName] = useState("");
@@ -10,7 +12,7 @@ const AddLessonQuiz = (prop) => {
   const [quizDescription, setQuizDescription] = useState("");
  const [durationTime, setDurationTime] = useState("");
   const [passRate, setPassRate] = useState("");
-  
+
 
  const token = localStorage.getItem("token");
  const user = jwtDecode(token);
@@ -29,17 +31,14 @@ const AddLessonQuiz = (prop) => {
      durationTime: durationTime,
      passRate: passRate
    };
-   fetch(
-     `http://localhost:8080/api/expert/lesson/add/quiz/${prop.topic}`,
-     {
-       method: "POST",
-       headers: {
-         "Content-Type": "application/json",
-         Authorization: `Bearer ${token}`,
-       },
-       body: JSON.stringify(dataToSend),
-     }
-   )
+   fetch(`${BASE_URL}/api/expert/lesson/add/quiz/${prop.topic}`, {
+     method: "POST",
+     headers: {
+       "Content-Type": "application/json",
+       Authorization: `Bearer ${token}`,
+     },
+     body: JSON.stringify(dataToSend),
+   })
      .then((response) => {
        console.log(response);
        if (!response.ok) {

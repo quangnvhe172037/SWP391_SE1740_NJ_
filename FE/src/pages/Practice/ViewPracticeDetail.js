@@ -3,8 +3,8 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { format } from 'date-fns';
 import PieChart from "../../PipeChart";
-
-const API_URL = 'http://localhost:8080';
+import BASE_URL from "../../api/baseapi";
+const API_URL = `${BASE_URL}`;
 
 function ViewQuizResult() {
     const { resultid } = useParams();
@@ -104,16 +104,7 @@ function ViewQuizResult() {
                                 readOnly
                             />
                         </div>
-                        <div className="form-group">
-                            <label htmlFor="examLevel">Exam level:</label>
-                            <input
-                                className="form-control"
-                                id="examLevel"
-                                value={quizResult.quizzes && quizResult.quizzes.quizTypes}
-                                name="examLevel"
-                                readOnly
-                            />
-                        </div>
+
                         <button
                             className={`practice btn ${
                                 quizResult.isPass ? "btn-success" : "btn-danger"

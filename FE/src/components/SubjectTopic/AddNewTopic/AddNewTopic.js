@@ -4,6 +4,7 @@ import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import { useParams } from "react-router-dom";
 import './AddNewTopic.css'
+import BASE_URL from "../../../api/baseapi";
 
 const AddNewTopic = () => {
   const { subjectId } = useParams();
@@ -19,7 +20,7 @@ const AddNewTopic = () => {
     }
 
     fetch(
-      `http://localhost:8080/api/expert/subject/add/topic/${subjectId}?topicName=${topicName}&topicOrder=${parseInt(
+      `${BASE_URL}/api/expert/subject/add/topic/${subjectId}?topicName=${topicName}&topicOrder=${parseInt(
         topicOrder
       )}`,
       {

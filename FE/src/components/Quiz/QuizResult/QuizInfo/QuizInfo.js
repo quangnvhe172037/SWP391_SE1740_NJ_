@@ -3,6 +3,8 @@ import "./QuizInfo.css";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import jwtDecode from "jwt-decode";
+import BASE_URL from "../../../../api/baseapi";
+
 const QuizInfo = (prop) => {
   let quizId = prop.quizId;
   const [quizInfo, setQuizInfo] = useState({});
@@ -13,7 +15,7 @@ const QuizInfo = (prop) => {
   console.log("final check " + quizId);
   useEffect(() => {
     console.log(quizId + "check fetch");
-    fetch(`http://localhost:8080/quiz/get/${quizId}?userId=${user.userId}`, {
+    fetch(`${BASE_URL}/quiz/get/${quizId}?userId=${user.userId}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -50,7 +52,7 @@ const QuizInfo = (prop) => {
 
   const handleCreateQuiz = () => {
     fetch(
-      `http://localhost:8080/attempt/quiz/add/result/${quizInfo.quizId}?userId=${user.userId}`,
+      `${BASE_URL}/attempt/quiz/add/result/${quizInfo.quizId}?userId=${user.userId}`,
       {
         method: "POST",
         headers: {

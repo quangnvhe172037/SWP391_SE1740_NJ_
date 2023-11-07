@@ -1,7 +1,7 @@
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.bubble.css";
 import './LessonPost.css'
-
+import BASE_URL from "../../../api/baseapi";
 const LessonPost = (prop) => {
   const post = prop.lessonPost;
   console.log("check lesson data" + post);

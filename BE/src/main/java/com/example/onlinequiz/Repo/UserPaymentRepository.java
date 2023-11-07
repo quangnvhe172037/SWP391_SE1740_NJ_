@@ -23,4 +23,6 @@ public interface UserPaymentRepository extends JpaRepository<UserPayment, Long> 
 
     @Query("SELECT SUM(u.subjectPrice.price) FROM UserPayment u WHERE u.purchaseDate >= :startOfMonth AND u.purchaseDate <= :endOfMonth")
     Long calculatePriceInMonth(Date startOfMonth, Date endOfMonth);
+
+    UserPayment findUserPaymentByBillID(Long billId);
 }

@@ -3,7 +3,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import "../../components/VerifyEmail/VerifyEmail.css"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faDoorClosed, faDoorOpen} from "@fortawesome/free-solid-svg-icons";
+import { faDoorClosed, faDoorOpen } from "@fortawesome/free-solid-svg-icons";
+import BASE_URL from '../../api/baseapi';
 const VerifyEmail = () => {
     const [token, setToken] = useState('');
     const [response, setResponse] = useState('');
@@ -21,7 +22,10 @@ const VerifyEmail = () => {
 
     const sendTokenToServer = async (tokenParam) => {
         try {
-            const response = await axios.get(`http://localhost:8080/register/verifyEmail/` + tokenParam, {});
+            const response = await axios.get(
+              `${BASE_URL}/register/verifyEmail/` + tokenParam,
+              {}
+            );
             setResponse(response.data);
         } catch (error) {
             console.error('Lỗi khi gửi token:', error);

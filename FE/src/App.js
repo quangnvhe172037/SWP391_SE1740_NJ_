@@ -65,6 +65,12 @@ import Error404 from "./components/HandleException/Error-404/Error-404";
 import QuizReview from "./pages/QuizReview/QuizReview";
 import AddPracticeDetail from "./pages/Practice/AddPracticeDetail";
 
+import WishList from "./components/WishList/WishList";
+
+import CheckoutBill from "./pages/CheckoutBill/CheckoutBill";
+import PaymentResult from "./pages/PaymentResult/PaymentResult";
+
+
 
 
 const App = () => {
@@ -116,7 +122,7 @@ const App = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/register/verifyEmail/" element={<VerifyEmail />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/expert/subjects" element={<SubjectData />} />
+          <Route path="/subject/:subjectId" element={<SubjectDetail />} />
           {isAuthenticated && (
             <>
               <Route path="/sliders" element={<SliderList />} />
@@ -124,7 +130,7 @@ const App = () => {
               <Route path="/posts/view/:postId" element={<PostDetail />} />
               <Route path="/myRegistration" element={<UserRes />} />
               <Route path="/posts/edit/:postId" element={<PostEdit />} />
-              <Route path="/sliders/edit/*" element={<SliderDetail />} />
+              <Route path="/sliders/edit/:sliderId" element={<SliderDetail />} />
               <Route path="/add-question/:subjectId" element={<ImportQuiz />} />
               <Route path="/practice" element={<PracticeList />} />
 
@@ -177,10 +183,10 @@ const App = () => {
               <Route path="/regis" element={<UserRes />} />
               <Route path="/account-list" element={<AccountList />} />
 
-              <Route path="/subject/:subjectId" element={<SubjectDetail />} />
+              <Route path="/wishlist" element={<WishList />} />
               <Route path="/add/subject" element={<AddSubject />} />
 
-
+              <Route path="/expert/subjects" element={<SubjectData />} />
 
               <Route
                 path="/quiz/take/:quizId/:resultId"
@@ -189,19 +195,24 @@ const App = () => {
 
               <Route
                 path="/quiz/:quizId/:resultId/review"
-                element={<QuizReview/>}
+                element={<QuizReview />}
               />
 
               <Route
                 path="/quiz/result/:resultId"
                 element={<QuizResultPage />}
               />
+
+              <Route
+                path="/payment/checkout/course/:subjectId"
+                element={<CheckoutBill />}
+              />
+
+              <Route path="/payment/info" element={<PaymentResult />} />
             </>
           )}
 
-          <Route path="*" element={<Error404/>}/>
-
-
+          <Route path="*" element={<Error404 />} />
         </Routes>
       </div>
       <Footer />

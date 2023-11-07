@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import jwtDecode from "jwt-decode";
 import { result } from "lodash-es";
 import PieChart from "../../PipeChart";
-
+import BASE_URL from "../../api/baseapi";
 const QuizResultPage = () => {
   const { resultId } = useParams();
   const [quizInfo, setQuizInfo] = useState({});
@@ -12,7 +12,7 @@ const QuizResultPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`http://localhost:8080/quiz/result/view/${resultId}`, {
+    fetch(`${BASE_URL}/quiz/result/view/${resultId}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
