@@ -12,7 +12,7 @@ import lombok.*;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "wishlist")
+@Table(name = "wish_list")
 public class WishList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,12 +20,12 @@ public class WishList {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "subjectID")
+    @JoinColumn(name = "subject_id")
     @JsonIgnore
     private Subjects subject;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userID")
+    @JoinColumn(name = "user_id")
     @JsonIgnore
     private Users user;
 }

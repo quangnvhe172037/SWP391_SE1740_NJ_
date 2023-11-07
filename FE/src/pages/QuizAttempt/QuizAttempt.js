@@ -146,6 +146,7 @@ const QuizAttempt = () => {
     )
       .then((response) => {
         if (!response.ok) {
+          
         }
         return response.text();
       })

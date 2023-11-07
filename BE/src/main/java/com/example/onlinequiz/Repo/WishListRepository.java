@@ -10,10 +10,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Transactional
 public interface WishListRepository extends JpaRepository<WishList, Long> {
-    @Query(value = "Select * from wishlist where subjectid = ?1 and userid = ?2",nativeQuery = true)
+    @Query(value = "Select * from wish_list where subject_id = ?1 and user_id = ?2",nativeQuery = true)
     WishList getWishListBySubjectAndUser(Long subjectID,Long userID);
 
     @Modifying
-    @Query("DELETE from WishList where user.id = :userID and subject.subjectID = :subjectID")
+    @Query("DELETE from wish_list where user.id = :userID and subject.subjectID = :subjectID")
     void deleteWishList(Long userID,Long subjectID);
 }

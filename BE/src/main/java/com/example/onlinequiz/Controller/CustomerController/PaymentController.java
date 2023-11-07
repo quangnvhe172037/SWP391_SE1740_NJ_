@@ -216,6 +216,7 @@ vnp_BankCode=NCB&
 vnp_BankTranNo=VNP14136862&
 vnp_CardType=ATM&
 vnp_OrderInfo=Thanh+toan+don+hang%3A79865267&
+Thanh toan
 vnp_PayDate=20231009165726&
 vnp_ResponseCode=00&
 vnp_TmnCode=QJZS3R8U&vnp_TransactionNo=14136862&

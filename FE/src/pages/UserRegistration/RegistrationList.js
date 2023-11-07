@@ -104,7 +104,7 @@ function UserRes() {
                         <Link to={`/practice`} state={userPayment.subject.subjectID}>
                       <div className="post-image">
                         <img
-                          src={FE_URL +'/' + userPayment.subject.subjectImage}
+                          src={userPayment.subject.subjectImage}
                           alt=""
                         />
                       </div>
