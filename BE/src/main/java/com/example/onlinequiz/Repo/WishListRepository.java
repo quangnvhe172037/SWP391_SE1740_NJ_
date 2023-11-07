@@ -14,6 +14,6 @@ public interface WishListRepository extends JpaRepository<WishList, Long> {
     WishList getWishListBySubjectAndUser(Long subjectID,Long userID);
 
     @Modifying
-    @Query("DELETE from wish_list where user.id = :userID and subject.subjectID = :subjectID")
+    @Query("DELETE from WishList where user.id = :userID and subject.subjectID = :subjectID")
     void deleteWishList(Long userID,Long subjectID);
 }

@@ -90,8 +90,11 @@ public class SubjectUserController {
             @RequestParam Long userId
     ) {
         try {
+            System.out.println("1");
             WishList wishList = wishListRepository.getWishListBySubjectAndUser(subjectId,userId);
+            System.out.println("2");
             if(wishList != null){
+                System.out.println("3");
                 return ResponseEntity.ok(wishList);
             }
             else {
