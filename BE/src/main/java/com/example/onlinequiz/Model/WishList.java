@@ -24,7 +24,7 @@ public class WishList {
     @JoinColumn(name = "subject_id")
     @JsonIgnore
     private Subjects subject;
-    // user id 
+    // user id
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     @JsonIgnore
