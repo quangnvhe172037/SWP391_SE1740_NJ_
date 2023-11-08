@@ -12,6 +12,13 @@ const UserRegistrationDetail = () => {
   const [notify, setNotify] = useState("");
 
   const { billID } = useParams();
+  const formatPrice = (price) => {
+    // Chuyển đổi giá thành một số nguyên
+    price = parseInt(price, 10);
+
+    // Sử dụng hàm toLocaleString để định dạng số theo định dạng nghìn và tỷ
+    return price.toLocaleString("en-US");
+  };
   useEffect(() => {
     const fetchBillDetail = async () => {
       try {
@@ -36,9 +43,6 @@ const UserRegistrationDetail = () => {
     fetchBillDetail();
   }, []);
 
-  const handleStatusChange = (event) => {
-    setStatus(JSON.parse(event.target.value)); // Cập nhật trạng thái khi giá trị thay đổi
-  };
 
   const handleNotifyChange = (event) => {
     setNotify(event.target.value); // Cập nhật trạng thái khi giá trị thay đổi
@@ -59,7 +63,6 @@ const UserRegistrationDetail = () => {
         }
       );
       setBill(response.data);
-      setStatus(response.data.status.toString());
       setNotify(response.data.notify);
       toast.success("Update Success");
     } catch (error) {
@@ -149,48 +152,18 @@ const UserRegistrationDetail = () => {
               id="exampleFormControlInput1"
             />
           </div>
-          <div className="form-group col-md-6">
-            <label for="exampleFormControlInput1">Valid From</label>
-            <input
-              value={"ValidFrom"}
-              readOnly
-              className="form-control"
-              id="exampleFormControlInput1"
-            />
-          </div>
-          <div className="form-group col-md-6">
-            <label for="exampleFormControlInput1">Valid To</label>
-            <input
-              value={"ValidTo"}
-              readOnly
-              className="form-control"
-              id="exampleFormControlInput1"
-            />
-          </div>
+
+
           <div className="form-group col-md-6">
             <label for="exampleFormControlInput1">Cost</label>
             <input
-              value={bill?.subjectPrice?.price}
+              value={formatPrice(bill?.subjectPrice?.price)}
               readOnly
               className="form-control"
               id="exampleFormControlInput1"
             />
           </div>
-          <div className="form-group col-md-6">
-            <label for="exampleFormControlSelect1">Status</label>
-            <select
-              onChange={handleStatusChange}
-              className="form-control"
-              id="exampleFormControlSelect1"
-            >
-              <option selected={status === "false"} value={"false"}>
-                Đang chờ kiểm duyệt
-              </option>
-              <option selected={status === "true"} value={"true"}>
-                Đăng kí thành công
-              </option>
-            </select>
-          </div>
+
           <div className="form-group col-12">
             <label for="exampleFormControlTextarea2">Notify</label>
             <textarea

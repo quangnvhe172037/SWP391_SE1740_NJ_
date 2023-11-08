@@ -99,3 +99,17 @@
   background-color: #d1d7dc; /* Màu sắc của bài học hiện tại */
   font-weight: bold; /* Các thuộc tính CSS khác */
 }
+
+.custom-button {
+  background-color: white;
+  color: black;
+  border: 2px solid black;
+  padding: 5px 10px;
+  transition: background-color 0.3s;
+}
+
+
+.custom-button:hover {
+  background-color: green;
+  color: white;
+}

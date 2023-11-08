@@ -28,7 +28,6 @@ import SliderList from "./pages/Sliders/Sliders";
 import SliderDetail from "./pages/SliderDetail/SliderDetail";
 import PostList from "./pages/Posts/PostList";
 import PostDetail from "./pages/Posts/PostDetail";
-import PostEdit from "./pages/Posts/PostEdit";
 import SliderAdd from "./pages/SliderDetail/SliderAdd";
 import Footer from "./components/Footer/Footer";
 import Profile from "./pages/Profile/Profile";
@@ -129,7 +128,7 @@ const App = () => {
               <Route path="/posts" element={<PostList />} />
               <Route path="/posts/view/:postId" element={<PostDetail />} />
               <Route path="/myRegistration" element={<UserRes />} />
-              <Route path="/posts/edit/:postId" element={<PostEdit />} />
+
               <Route path="/sliders/edit/:sliderId" element={<SliderDetail />} />
               <Route path="/add-question/:subjectId" element={<ImportQuiz />} />
               <Route path="/practice" element={<PracticeList />} />

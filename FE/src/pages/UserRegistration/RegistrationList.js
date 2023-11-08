@@ -101,7 +101,7 @@ function UserRes() {
                     className="course-card col-md-3"
                   >
                     <div className="post">
-                        <Link to={`/practice`} state={userPayment.subject.subjectID}>
+                        <Link to={`/subject/${userPayment.subject.subjectID}`}  >
                       <div className="post-image">
                         <img
                           src={userPayment.subject.subjectImage}
