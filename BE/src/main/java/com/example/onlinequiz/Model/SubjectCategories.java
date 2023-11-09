@@ -17,7 +17,9 @@ public class SubjectCategories {
     @Column(name = "cate_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int cateID;
+    // category ID cho subject
 
+    // name cho category ID
     @Column(name = "cate_name", length = 256, columnDefinition = "VARCHAR(256) CHARACTER SET utf8mb4")
     private String cateName;
 }

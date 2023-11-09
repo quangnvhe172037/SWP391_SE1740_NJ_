@@ -54,6 +54,11 @@ public class SecurityConfig {
     };
     // Danh sách các URL cho customer
     private static final String[] CUSTOMER_URL = {
+            "/user/subject/addToWishList",
+            "/user/subject/wishlist",
+            "/user/subject/subjects-wishlist",
+            "/user/subject/deletesubjectwishlist",
+
             "/user/subject/get",
             "/user/subject/get/**",
             "/attempt/quiz/**",
@@ -129,7 +134,7 @@ public class SecurityConfig {
 
     // Danh sach cac url cho admin va marketing
     private static final String[] MarketingAdmin_URL = {
-            "manage/dashboard"
+            "/manage/dashboard"
     };
 
     // Cấu hình bộ lọc bảo mật

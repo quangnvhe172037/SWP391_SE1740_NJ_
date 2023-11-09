@@ -113,12 +113,14 @@ const LessonSidebar = () => {
     return (
       <div className="lesson-sidebar col-md-3">
         <div className="lesson-sidebar-name">
-          <span>Subject content</span><br/>
-          <Link to={"/practice"} state={subjectId}>
-            <button className="practice btn btn-success f">My Practice</button>
-          </Link>
-
+          <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
+            <span style={{ marginRight: '90px' }}>Subject content</span>
+            <Link to="/practice" state={subjectId}>
+              <button className="custom-button">My Practice</button>
+            </Link>
+          </div>
         </div>
+
         {topics.map((topic) => (
           <div key={topic.topicID} className="lesson-sidebar-topic">
             <div

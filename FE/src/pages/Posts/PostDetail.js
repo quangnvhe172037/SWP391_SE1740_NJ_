@@ -17,13 +17,15 @@ const PostDetail = () => {
 
     useEffect(() => {
         // Truy vấn dữ liệu của bài viết từ API sử dụng postId
-        axios.get(`${API_URL}posts/view/${postId}`)
+        axios.get(`${API_URL}/posts/view/${postId}`)
 
 
             .then((response) => {
+                console.log(response.data);
                 setPost(response.data);
             })
             .catch((error) => {
+
                 console.error('Error fetching post data: ', error);
             });
     }, [postId]);
@@ -37,13 +39,13 @@ const PostDetail = () => {
 
             <div className="effect-lily tm-post-link tm-pt-40">
               <div className="tm-post-link-inner align-items-center">
-                {post.image && (
+
                   <img
-                    src={`${Local_URL}${post.image}`}
+                    src={`${post.image}`}
                     alt={post.title}
                     className="img-fluid custom-image"
                   />
-                )}
+
               </div>
 
             </div>

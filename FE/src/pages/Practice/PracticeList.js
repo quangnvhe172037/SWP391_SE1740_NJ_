@@ -96,11 +96,7 @@ function PracticeList() {
                 <div className="col-md-6">
                     <h1 style={{ textAlign: 'center' }}>{subjectNameinweb}</h1>
                 </div>
-                <div className="col-md-6 text-right">
-                    <Link to={"/practice/add"} state={subjectid}>
-                        <button className="practice btn btn-success f">New practice</button>
-                    </Link>
-                </div>
+
             </div>
             <div className="row mb-4">
                 <div className="col-md-6">
@@ -112,6 +108,11 @@ function PracticeList() {
                         onChange={handleSearchChange}
                     />
                 </div>
+                <div className="col-md-4 text-right">
+                <Link to={"/practice/add"} state={subjectid}>
+                    <button className="practice btn btn-success f">New practice</button>
+                </Link>
+            </div>
             </div>
             {filteredPracticeList.length === 0 ? (
                 <p>Not Found</p>

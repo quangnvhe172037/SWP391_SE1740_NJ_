@@ -28,11 +28,11 @@ public class PostController {
     @ResponseBody
     public ResponseEntity<List<Posts>> getPost() {
         try {
-
+            System.out.println("hehe");
             List<Posts> listPost = postService.getAllPostsSortByDate();
             if (listPost != null) {
 
-//        System.out.println(listPost);
+        System.out.println(listPost);
                 return ResponseEntity.ok(listPost);
             } else {
                 return ResponseEntity.notFound().build();

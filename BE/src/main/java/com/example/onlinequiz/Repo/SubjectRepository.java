@@ -11,7 +11,7 @@ public interface SubjectRepository extends JpaRepository<Subjects, Integer> {
 
     Subjects findBySubjectName(String subjectName);
 
-    @Query(value = "Select * from subject where subject_id in (select subjectid from wishlist where userid = ?1)",nativeQuery = true)
+    @Query(value = "Select * from subject where subject_id in (select subject_id from wish_list where userid = ?1)",nativeQuery = true)
     List<Subjects> getSubjectsByWishList(Long id);
 
 }

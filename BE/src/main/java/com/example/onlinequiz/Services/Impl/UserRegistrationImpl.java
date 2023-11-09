@@ -30,7 +30,7 @@ public class UserRegistrationImpl implements UserRegistrationService {
 
     @Override
     public List<UserPayment> getUserPayment(Users u) {
-        List<UserPayment> listUserPayment = userRegistrationsRepository.findByUsers(u);
+        List<UserPayment> listUserPayment = userRegistrationsRepository.findByUsersAndStatus(u, true);
         System.out.println(listUserPayment.toString());
         if(listUserPayment == null){
             return null;
