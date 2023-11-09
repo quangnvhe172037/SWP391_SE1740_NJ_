@@ -4,7 +4,7 @@
 organization/expert to build up & sell the quiz practice services, supports the user to searchregister-and-access online subjects for practicing.
 
 ## Team
-* Our team consits of 5 peoples:
+* Our team consits of 4 peoples:
   * [Nguyễn Vinh Quang](https://github.com/quangnvhe172037)
   * [Bùi Gia An](https://github.com/anbghe170027)
   * [Phạm Đức Quân](https://github.com/quanpdhe170415)
