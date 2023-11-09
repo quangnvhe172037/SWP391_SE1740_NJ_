@@ -9,6 +9,7 @@ import java.util.List;
 public interface SubjectRepository extends JpaRepository<Subjects, Integer> {
     Subjects getSubjectsBySubjectID(Long id);
 
+//    List<Subjects> findAllByEx
     Subjects findBySubjectName(String subjectName);
 
     @Query(value = "Select * from subject where subject_id in (select subject_id from wish_list where userid = ?1)",nativeQuery = true)

@@ -1,14 +1,17 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 import PrivateContent from "../../components/HandleException/PrivateContent";
 import BASE_URL from "../../api/baseapi";
 const ExpertDashboard = () => {
   const token = localStorage.getItem("token");
   const user = jwtDecode(token);
+  const navigate = useNavigate();
+ 
   if (user.role !== "EXPERT") {
     return <PrivateContent />;
   } else {
+     navigate("/expert/subjects");
     return (
       <div className="admin-container mt-5">
         <div className="row justify-content-center">

@@ -9,6 +9,8 @@ import java.util.List;
 public interface SubjectService {
     List<Subjects> getAllSubject();
 
+//    List<Subjects> getExpertSubject(Long userId);
+
     Subjects getSubjectById(Long id);
 
     Subjects save(Subjects subjects);

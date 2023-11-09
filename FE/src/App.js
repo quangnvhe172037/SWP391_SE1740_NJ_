@@ -68,6 +68,8 @@ import WishList from "./components/WishList/WishList";
 
 import CheckoutBill from "./pages/CheckoutBill/CheckoutBill";
 import PaymentResult from "./pages/PaymentResult/PaymentResult";
+import ExpertCourse from "./pages/ExpertCourse/ExpertCourse";
+import PostEditComponent from "./components/Post/PostMange/PostEdit";
 
 
 
@@ -129,7 +131,12 @@ const App = () => {
               <Route path="/posts/view/:postId" element={<PostDetail />} />
               <Route path="/myRegistration" element={<UserRes />} />
 
-              <Route path="/sliders/edit/:sliderId" element={<SliderDetail />} />
+              <Route path="/posts/edit/:postId" element={<PostEditComponent />} />
+              <Route
+                path="/sliders/edit/:sliderId"
+                element={<SliderDetail />}
+              />
+
               <Route path="/add-question/:subjectId" element={<ImportQuiz />} />
               <Route path="/practice" element={<PracticeList />} />
 
@@ -186,7 +193,7 @@ const App = () => {
               <Route path="/add/subject" element={<AddSubject />} />
 
               <Route path="/expert/subjects" element={<SubjectData />} />
-
+              {/* <Route path="/expert/subjects" element={<ExpertCourse />} /> */}
               <Route
                 path="/quiz/take/:quizId/:resultId"
                 element={<QuizAttempt />}
