@@ -19,4 +19,6 @@ public interface SubjectService {
 
     Long countAllSubject();
 
+    List<Subjects> getSubjectByExpert(Long userId);
+
 }

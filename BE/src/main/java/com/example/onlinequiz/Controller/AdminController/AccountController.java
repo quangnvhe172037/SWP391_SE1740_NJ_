@@ -46,4 +46,17 @@ public class AccountController {
             return ResponseEntity.notFound().build();
         }
     }
+
+
+    @GetMapping("/get/expert")
+    public ResponseEntity<List<Users>> getAllExpert(
+
+    ) {
+        List<Users> usersList = userService.getAllUserByRole("Expert");
+        if (usersList != null) {
+            return ResponseEntity.ok(usersList);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.onlinequiz.Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -20,8 +21,7 @@ public class QuizDetail {
     private Long quizDetailID;
 
     @BatchSize(size = 5)
-    @OneToOne
-    @JsonManagedReference
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sentence_id")
     private QuizData quizData;
 

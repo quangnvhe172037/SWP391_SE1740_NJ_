@@ -171,7 +171,6 @@ public class PaymentController {
     @GetMapping("/get/price/{subjectId}")
     public ResponseEntity<CourseCheckoutResponse> getPriceSubject(
             @PathVariable Long subjectId
-
     ) {
         try {
             CourseCheckoutResponse response = userPaymentService.getCourseCheckout(subjectId);
@@ -190,14 +189,10 @@ public class PaymentController {
             @PathVariable Long subjectId,
             @RequestParam Long userId,
             @RequestParam Long preId
-
-
     ) {
         try {
             UserPayment u = userPaymentService.addNewPayment(userId, subjectId, preId);
             PaymentResponse paymentResponse = userPaymentService.createNewVnPayPayment(u.getSubjectPrice().getPrice(), u.getBillID());
-
-
             if (paymentResponse != null) {
                 return ResponseEntity.status(HttpStatus.OK).body(paymentResponse);
             } else {

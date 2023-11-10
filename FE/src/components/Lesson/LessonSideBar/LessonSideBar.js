@@ -116,7 +116,7 @@ const LessonSidebar = () => {
           <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
             <span style={{ marginRight: '90px' }}>Subject content</span>
             <Link to="/practice" state={subjectId}>
-              <button className="custom-button">My Practice</button>
+              <button className="btn btn-dark">My Practice</button>
             </Link>
           </div>
         </div>

@@ -53,7 +53,7 @@ public class QuizDataServiceImpl implements QuizDataService {
 //        quizData = qd.stream()
 //                .map(QuizDetail::getQuizData)
 //                .collect(Collectors.toList());
-        quizData = quizDataRepository.getAllByQuizDetailIsIn(qd);
+        quizData = quizDataRepository.findAllByQuizDetailIn(qd);
         return quizData;
     }
 
@@ -154,15 +154,39 @@ public class QuizDataServiceImpl implements QuizDataService {
      * @param quantity
      * @return
      */
+
     public List<QuizData> getRandomQuizData(int quantity, Subjects subject) {
         // Lấy tất cả dữ liệu từ bảng quiz_data
-        List<QuizData> allQuizData = quizDataRepository.findAllBySubject(subject);
-        // Trộn ngẫu nhiên danh sách dữ liệu
-        Collections.shuffle(allQuizData);
+        System.out.println("0" + subject.getSubjectID());
+        try {
+            List<Object[]> result = quizDataRepository.findAllBySubject(subject.getSubjectID());
+            List<QuizData> allQuizData = new ArrayList<>();
 
-        // Chọn quantity phần tử đầu tiên sau khi đã trộn ngẫu nhiên
-        quantity = allQuizData.size() < quantity ? allQuizData.size() : quantity;
-        return allQuizData.subList(0, quantity);
+            for (Object[] row : result) {
+                QuizData quizData = new QuizData();
+                quizData.setSentenceID((Long) row[0]);
+                // Set other properties as needed
+                allQuizData.add(quizData);
+            }
+
+            System.out.println("1");
+            if(quantity > allQuizData.size()){
+                System.out.println("2");
+                quantity = allQuizData.size();
+            }
+            System.out.println("3");
+            // Trộn ngẫu nhiên danh sách dữ liệu
+            Collections.shuffle(allQuizData);
+            System.out.println("4");
+            // Chọn quantity phần tử đầu tiên sau khi đã trộn ngẫu nhiên
+            quantity = allQuizData.size() < quantity ? allQuizData.size() : quantity;
+            System.out.println("5");
+            return allQuizData.subList(0, quantity);
+        }catch (Exception e){
+            System.out.println("QuizDataServcie + getRandom: " + e.getMessage());
+            return null;
+        }
+
     }
 
 }

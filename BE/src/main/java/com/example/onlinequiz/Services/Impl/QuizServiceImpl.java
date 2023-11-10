@@ -66,13 +66,12 @@ public class QuizServiceImpl implements QuizService {
     public QuizInfoResponse getQuizInfoById(Long id, Long userId) {
         Quizzes q = quizRepository.findByQuizID(id);
         Users user = userRepository.getById(userId);
-
-        QuizResults quizResult = quizResultRepository.findFirstByQuizzesAndUserOrderByResultIDDesc(q, user);
         Long isDone;
-        if(quizResult.getIsDone() == false){
-            isDone = quizResult.getResultID();
-        }else{
+        QuizResults quizResult = quizResultRepository.findFirstByQuizzesAndUserOrderByResultIDDesc(q, user);
+        if(quizResult == null || quizResult.getIsDone() == true){
             isDone = null;
+        }else{
+            isDone = quizResult.getResultID();
         }
 
         int count = quizDetailRepository.countQuizDetailByQuizzes(q);
@@ -135,7 +134,7 @@ public class QuizServiceImpl implements QuizService {
     @Override
     public List<QuizSentenceResponse> getListQuizDataByQuizDetail(List<QuizDetail> qd) {
         try {
-            List<QuizData> quizDataList = quizDataRepository.getAllByQuizDetailIsIn(qd);
+            List<QuizData> quizDataList = quizDataRepository.findAllByQuizDetailIn(qd);
 
             List<QuizSentenceResponse> data = new ArrayList<>();
             for (QuizData quizData : quizDataList
@@ -158,14 +157,25 @@ public class QuizServiceImpl implements QuizService {
     @Override
     public List<QuizSentenceUserResponse> getListAnswerQuizUser(List<QuizDetail> qd, QuizResults quizResults) {
         try {
-            List<QuizData> quizDataList = quizDataRepository.getAllByQuizDetailIsIn(qd);
+            System.out.println("check1");
+            System.out.println(qd.size());
+            List<QuizData> quizDataList = new ArrayList<>();
+            for (QuizDetail quizDetail:qd
+                 ) {
+                System.out.println(quizDetail.getQuizDetailID());
+                QuizData quizData = quizDataRepository.findByQuizDetail(quizDetail);
+                quizDataList.add(quizData);
+            }
+
             System.out.println(quizDataList.size());
             QuizResultDetail quizResultDetail;
+            System.out.println("3");
             List<QuizSentenceUserResponse> data = new ArrayList<>();
 
 
             for (QuizData quizData : quizDataList
             ) {
+                System.out.println(5);
                 quizResultDetail = quizResultDetailRepository.findQuizResultDetailByQuizDataAndQuizResult(quizData, quizResults);
                 if(quizResultDetail.getUserAnswer() != null){
                     data.add(new QuizSentenceUserResponse(

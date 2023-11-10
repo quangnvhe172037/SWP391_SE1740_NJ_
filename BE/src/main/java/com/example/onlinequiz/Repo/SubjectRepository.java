@@ -9,6 +9,8 @@ import java.util.List;
 public interface SubjectRepository extends JpaRepository<Subjects, Integer> {
     Subjects getSubjectsBySubjectID(Long id);
 
+    List<Subjects> findAllBySubjectIDInAndStatusIsTrue(List<Long> subjectId);
+
 //    List<Subjects> findAllByEx
     Subjects findBySubjectName(String subjectName);
 

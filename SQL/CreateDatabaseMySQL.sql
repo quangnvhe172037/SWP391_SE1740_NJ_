@@ -377,7 +377,7 @@ DEFAULT CHARACTER SET = utf8mb4;
 -- Table `quiz_practice`.`subject_join`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `quiz_practice`.`subject_join` (
-`subject_join_id` BIGINT NOT NULL,
+`subject_join_id` BIGINT NOT NULL AUTO_INCREMENT,
   `subject_id` BIGINT NOT NULL ,
   `user_id` BIGINT NOT NULL,
 	`is_pass` BIT NULL DEFAULT NULL,
@@ -416,9 +416,9 @@ DEFAULT CHARACTER SET = utf8mb4;
 -- Table `quiz_practice`.`subjectteacher`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `quiz_practice`.`subject_teacher` (
-`subject_teacher_id` BIGINT NOT NULL,
-  `subject_id` BIGINT NOT NULL,
-  `user_id` BIGINT NOT NULL,
+`subject_teacher_id` BIGINT NOT NULL AUTO_INCREMENT,
+  `subject_id` BIGINT NULL,
+  `user_id` BIGINT NULL,
   PRIMARY KEY (`subject_teacher_id`),
   INDEX `subject_id` (`subject_id` ASC) VISIBLE,
   CONSTRAINT `subject_teacher_ibfk_1`

@@ -131,7 +131,10 @@ const App = () => {
               <Route path="/posts/view/:postId" element={<PostDetail />} />
               <Route path="/myRegistration" element={<UserRes />} />
 
-              <Route path="/posts/edit/:postId" element={<PostEditComponent />} />
+              <Route
+                path="/posts/edit/:postId"
+                element={<PostEditComponent />}
+              />
               <Route
                 path="/sliders/edit/:sliderId"
                 element={<SliderDetail />}
@@ -193,6 +196,7 @@ const App = () => {
               <Route path="/add/subject" element={<AddSubject />} />
 
               <Route path="/admin/subjects" element={<SubjectData />} />
+              <Route path="/expert/subjects" element={<ExpertCourse />} />
 
               <Route
                 path="/quiz/take/:quizId/:resultId"

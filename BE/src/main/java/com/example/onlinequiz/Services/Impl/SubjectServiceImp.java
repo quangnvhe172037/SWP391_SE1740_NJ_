@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -31,6 +32,8 @@ public class SubjectServiceImp implements SubjectService {
     @Autowired
     private final UserRepository userRepository;
 
+    @Autowired
+    private final SubjectTeacherRepository subjectTeacherRepository;
 
     @Override
     public List<Subjects> getAllSubject() {
@@ -104,7 +107,21 @@ public class SubjectServiceImp implements SubjectService {
         return subjectRepository.count();
     }
 
+    @Override
+    public List<Subjects> getSubjectByExpert(Long userId) {
+        Users user = userRepository.getById(userId);
+        List<SubjectTeachers> teachersList = subjectTeacherRepository.findAllByExpert(user);
+        List<Long> subjectOwnId = new ArrayList<>();
 
+        for (SubjectTeachers subjectTeacher: teachersList
+             ) {
+            subjectOwnId.add(subjectTeacher.getSubject().getSubjectID());
+
+        }
+        List<Subjects> subjectsList = subjectRepository.findAllBySubjectIDInAndStatusIsTrue(subjectOwnId) ;
+
+        return subjectsList;
+    }
 
 
 }

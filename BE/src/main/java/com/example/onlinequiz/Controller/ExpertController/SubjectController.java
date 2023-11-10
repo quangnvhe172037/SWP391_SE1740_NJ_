@@ -2,9 +2,12 @@ package com.example.onlinequiz.Controller.ExpertController;
 
 
 import com.example.onlinequiz.Model.SubjectPrice;
+import com.example.onlinequiz.Model.SubjectTeachers;
 import com.example.onlinequiz.Model.Subjects;
 import com.example.onlinequiz.Repo.SubjectPriceRepository;
+import com.example.onlinequiz.Repo.SubjectTeacherRepository;
 import com.example.onlinequiz.Repo.SubjectsRepository;
+import com.example.onlinequiz.Repo.UserRepository;
 import com.example.onlinequiz.Services.FileUpload;
 import com.example.onlinequiz.Services.SubjectService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -36,6 +39,11 @@ public class SubjectController {
     private SubjectsRepository subjectsRepository;
 
     @Autowired
+    private SubjectTeacherRepository subjectTeacherRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
     private SubjectPriceRepository subjectPriceRepository;
 
     @GetMapping("/all")
@@ -56,34 +64,45 @@ public class SubjectController {
         }
     }
 
-//    @GetMapping("/{userId}")
-//    @ResponseBody
-//    public ResponseEntity<List<Subjects>> getAllSubjects(
-//            @PathVariable Long userId
-//    ) {
-//        try {
-//
-//            List<Subjects> subjectList = subjectService.getAllSubject();
-//            return ResponseEntity.ok(subjectList);
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-//        }
-//    }
+    @GetMapping("/{userId}")
+    @ResponseBody
+    public ResponseEntity<List<Subjects>> getAllExpertSubject(
+            @PathVariable Long userId
+    ) {
+        try {
+
+            List<Subjects> subjectList = subjectService.getSubjectByExpert(userId);
+            return ResponseEntity.ok(subjectList);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 
     @PostMapping(value = "/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Subjects> create(
             @RequestPart("subject") String subjectsJson,
-            @RequestParam("file") MultipartFile file)
+            @RequestParam("file") MultipartFile file,
+            @RequestParam("expertId") Long expertId)
     {
         ObjectMapper objectMapper = new ObjectMapper();
         Subjects subjects = null;
         try {
+
+
             subjects = objectMapper.readValue(subjectsJson, Subjects.class);
             String image = fileUploadService.uploadFile(file);
             subjects.setImage(image);
             subjects.setCreateDate(new Date());
             subjectService.save(subjects);
+
+            // Set expert
+            SubjectTeachers subjectTeacher = new SubjectTeachers();
+            subjectTeacher.setSubject(subjects);
+            System.out.println("expertId" + subjects.getSubjectID());
+            subjectTeacher.setExpert(userRepository.getById(expertId));
+            subjectTeacherRepository.save(subjectTeacher);
+
             SubjectPrice subjectPrice = subjectPriceRepository.findBySubjectAndAndStatus(subjects, true);
             if(subjectPrice == null){
                 subjectPrice = new SubjectPrice();

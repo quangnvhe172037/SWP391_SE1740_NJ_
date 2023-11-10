@@ -186,26 +186,63 @@ const EditLessonQuiz = (prop) => {
                 />
 
                 <div className="edit-lesson-form-element row">
-                  <input type="radio" name="correct1" defaultChecked/>
-                  <input className="" name="answer1" placeholder="Answer 1" />
-                  <input name="explanation1" placeholder="Explanation" />
+                  <input
+                    type="radio"
+                    name="correct1"
+                    value="answer1"
+                    defaultChecked
+                  />
+                  <input
+                    name="answer1"
+                    placeholder="Answer 1"
+                    className="col-md-7"
+                  />
+                  <input
+                    name="explanation1"
+                    placeholder="Explanation"
+                    className="col-md-4"
+                  />
                 </div>
 
                 <div className="edit-lesson-form-element">
                   <input type="radio" name="correct1" value="answer2" />
-                  <input name="answer2" placeholder="Answer 2" />
-                  <input name="explanation2" placeholder="Explanation" />
+                  <input
+                    name="answer2"
+                    placeholder="Answer 2"
+                    className="col-md-7"
+                  />
+                  <input
+                    name="explanation2"
+                    placeholder="Explanation"
+                    className="col-md-4"
+                  />
                 </div>
                 <div className="edit-lesson-form-element">
                   <input type="radio" name="correct1" value="answer3" />
-                  <input name="answer3" placeholder="Answer 3" />
-                  <input name="explanation3" placeholder="Explanation" />
+                  <input
+                    name="answer3"
+                    placeholder="Answer 3"
+                    className="col-md-7"
+                  />
+                  <input
+                    name="explanation3"
+                    placeholder="Explanation"
+                    className="col-md-4"
+                  />
                 </div>
 
                 <div className="edit-lesson-form-element">
                   <input type="radio" name="correct1" value="answer4" />
-                  <input name="answer4" placeholder="Answer 4" />
-                  <input name="explanation4" placeholder="Explanation" />
+                  <input
+                    name="answer4"
+                    placeholder="Answer 4"
+                    className="col-md-7"
+                  />
+                  <input
+                    name="explanation4"
+                    placeholder="Explanation"
+                    className="col-md-4"
+                  />
                 </div>
 
                 <div className="edit-lesson-quiz-form-btn-wrap">

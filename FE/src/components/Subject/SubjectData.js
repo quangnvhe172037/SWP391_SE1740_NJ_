@@ -51,6 +51,7 @@ const SubjectData = () => {
   const navigate = useNavigate();
   const apiSubjects = `${BASE_URL}/subjects/all`;
   const apiCategorySubjects = `${BASE_URL}/categorysubject/all`;
+  
   useEffect(() => {
     fetch(apiSubjects)
       .then((response) => {
@@ -83,6 +84,7 @@ const SubjectData = () => {
         );
       });
   }, []);
+
   useEffect(() => {
     fetch(apiCategorySubjects)
       .then((response) => {

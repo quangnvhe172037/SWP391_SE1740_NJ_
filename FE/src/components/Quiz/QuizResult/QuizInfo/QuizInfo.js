@@ -85,7 +85,7 @@ const QuizInfo = (prop) => {
         <div className="col-md-2">
           {quizInfo.resultId ? (
             <button className="quiz-info-btn">
-              <Link to={`/quiz/take/${quizInfo.quizId}/${quizInfo.resultId}`}>
+              <Link className="quiz-info-btn-link-deco" to={`/quiz/take/${quizInfo.quizId}/${quizInfo.resultId}`}>
                 Continue quiz
               </Link>
             </button>

@@ -48,7 +48,7 @@ const ExpertCourse = () => {
     
 
   useEffect(() => {
-    fetch(apiSubjects)
+    fetch(`${apiSubjects}/${user.userId}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -204,9 +204,7 @@ const ExpertCourse = () => {
         </div>
       </form>
       <div>
-        <button className="add-btn modify-btn btn ">
-          <Link to={`/add/subject`}>Add new subject</Link>
-        </button>
+        
       </div>
       <table className="table table-striped" border={"4px"}>
         <thead>
