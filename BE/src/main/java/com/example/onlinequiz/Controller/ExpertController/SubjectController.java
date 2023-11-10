@@ -56,6 +56,21 @@ public class SubjectController {
         }
     }
 
+//    @GetMapping("/{userId}")
+//    @ResponseBody
+//    public ResponseEntity<List<Subjects>> getAllSubjects(
+//            @PathVariable Long userId
+//    ) {
+//        try {
+//
+//            List<Subjects> subjectList = subjectService.getAllSubject();
+//            return ResponseEntity.ok(subjectList);
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+//        }
+//    }
+
     @PostMapping(value = "/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Subjects> create(
             @RequestPart("subject") String subjectsJson,

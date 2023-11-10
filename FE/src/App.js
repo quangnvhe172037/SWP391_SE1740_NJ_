@@ -28,7 +28,6 @@ import SliderList from "./pages/Sliders/Sliders";
 import SliderDetail from "./pages/SliderDetail/SliderDetail";
 import PostList from "./pages/Posts/PostList";
 import PostDetail from "./pages/Posts/PostDetail";
-import PostEdit from "./pages/Posts/PostEdit";
 import SliderAdd from "./pages/SliderDetail/SliderAdd";
 import Footer from "./components/Footer/Footer";
 import Profile from "./pages/Profile/Profile";
@@ -69,6 +68,8 @@ import WishList from "./components/WishList/WishList";
 
 import CheckoutBill from "./pages/CheckoutBill/CheckoutBill";
 import PaymentResult from "./pages/PaymentResult/PaymentResult";
+import ExpertCourse from "./pages/ExpertCourse/ExpertCourse";
+import PostEditComponent from "./components/Post/PostMange/PostEdit";
 
 
 
@@ -129,8 +130,13 @@ const App = () => {
               <Route path="/posts" element={<PostList />} />
               <Route path="/posts/view/:postId" element={<PostDetail />} />
               <Route path="/myRegistration" element={<UserRes />} />
-              <Route path="/posts/edit/:postId" element={<PostEdit />} />
-              <Route path="/sliders/edit/:sliderId" element={<SliderDetail />} />
+
+              <Route path="/posts/edit/:postId" element={<PostEditComponent />} />
+              <Route
+                path="/sliders/edit/:sliderId"
+                element={<SliderDetail />}
+              />
+
               <Route path="/add-question/:subjectId" element={<ImportQuiz />} />
               <Route path="/practice" element={<PracticeList />} />
 

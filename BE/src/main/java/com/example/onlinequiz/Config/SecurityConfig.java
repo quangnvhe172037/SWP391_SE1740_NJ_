@@ -58,7 +58,6 @@ public class SecurityConfig {
             "/user/subject/wishlist",
             "/user/subject/subjects-wishlist",
             "/user/subject/deletesubjectwishlist",
-
             "/user/subject/get",
             "/user/subject/get/**",
             "/attempt/quiz/**",

@@ -50,7 +50,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<Posts> getAllPostsSortByDate() {
-        return postRepository.findAllByStatusOrderByDateCreateDesc(true);
+        return postRepository.findAll();
     }
 
     @Override
