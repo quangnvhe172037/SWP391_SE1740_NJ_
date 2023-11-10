@@ -93,49 +93,7 @@ function UserRes() {
             <PrivateContent/>
         )
     } else {
-<<<<<<< Updated upstream
-        return (
-          <div className="container">
-            <h1>My course</h1>
-            <div className="search-box mb-3">
-              <div className="input-group">
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Tìm kiếm theo subject name.."
-                  value={searchText}
-                  onChange={handleSearchChange}
-                />
-                <div className="input-group-append">
-                  <button
-                    type="button"
-                    className="btn btn-primary custom-search-button"
-                  >
-                    Tìm
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div className="row">
-              {filteredUserPayments.length === 0 ? (
-                <p>No data found</p>
-              ) : (
-                filteredUserPayments.map((userPayment) => (
-                  <div
-                    key={userPayment.billID}
-                    className="course-card col-md-3"
-                  >
-                    <div className="post">
-                        <Link to={`/subject/${userPayment.subject.subjectID}`}  >
-                      <div className="post-image">
-                        <img
-                          src={userPayment.subject.subjectImage}
-                          alt=""
-                        />
-                      </div>
-=======
         const filteredPayments = filterUserPayments(userPayments, searchText);
->>>>>>> Stashed changes
 
         return (
             <div className="container">
