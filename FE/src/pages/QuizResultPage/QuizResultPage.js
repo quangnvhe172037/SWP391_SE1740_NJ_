@@ -10,46 +10,47 @@ const QuizResultPage = () => {
   const token = localStorage.getItem("token");
   const user = jwtDecode(token);
   const navigate = useNavigate();
+  const [seed, setSeed] = useState(1);
+  
 
-  useEffect(() => {
-    fetch(`${BASE_URL}/quiz/result/view/${resultId}`, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          console.log(response.message);
-        }
-        return response.json();
+    useEffect(() => {
+      fetch(`${BASE_URL}/quiz/result/view/${resultId}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       })
+        .then((response) => {
+          if (!response.ok) {
+            console.log(response.message);
+          }
+          return response.json();
+        })
 
-      .then((dataJson) => {
-        console.log("hêlo");
-        const data = {
-          resultId: dataJson.resultId,
-          score: dataJson.score,
-          dateTaken: dataJson.dateTaken,
-          quizId: dataJson.quizId,
-          correctAnswer: dataJson.correctAnswer,
-          nullAnswer: dataJson.nullAnswer,
-          falseAnswer: dataJson.falseAnswer,
-          isPass: dataJson.isPass,
-        };
+        .then((dataJson) => {
+          const data = {
+            resultId: dataJson.resultId,
+            score: dataJson.score,
+            dateTaken: dataJson.dateTaken,
+            quizId: dataJson.quizId,
+            correctAnswer: dataJson.correctAnswer,
+            nullAnswer: dataJson.nullAnswer,
+            falseAnswer: dataJson.falseAnswer,
+            isPass: dataJson.isPass,
+          };
 
-        return data;
-      })
+          return data;
+        })
 
-      .then((result) => {
-        const mockData = result;
-        setQuizInfo(mockData);
-      })
-      .catch((error) => {
-        console.log(error.message);
-        setQuizInfo(null);
-      });
-  }, [resultId, quizInfo]);
+        .then((result) => {
+          const mockData = result;
+          setQuizInfo(mockData);
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    }, [resultId, quizInfo.resultId]);
+
 
   return (
     <div className="quiz-result-wrap">
@@ -75,6 +76,8 @@ const QuizResultPage = () => {
               <div className="quiz-result-score">Score: {quizInfo.score}%</div>
               <div>Date taken: {quizInfo.dateTaken}</div>
               <div className="quiz-result-review-wrap">
+               
+
                 <button
                   className="quiz-result-review-btn"
                   style={{ marginRight: "10px" }}

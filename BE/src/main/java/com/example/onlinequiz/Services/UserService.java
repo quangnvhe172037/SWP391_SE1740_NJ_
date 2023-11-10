@@ -35,4 +35,7 @@ public interface UserService {
     Long countAllUser();
 
     Long countNewUser();
+
+
+    List<Users> getAllUserByRole(String role);
 }

@@ -23,7 +23,7 @@ const AddPracticeDetail = (props) => {
     const handleFormSubmit = async (event) => {
         event.preventDefault();
 
-        console.log(subjectId);
+        
         const newExamInfo = {
             subjectId,
             examLevel,
@@ -33,7 +33,6 @@ const AddPracticeDetail = (props) => {
             passRate,
             quizTypeId,
         };
-        console.log(newExamInfo);
 
         try {
             const firstResponse = await axios.post(`${API_URL}/practice/add`, newExamInfo, {
@@ -57,7 +56,7 @@ const AddPracticeDetail = (props) => {
 
             console.log(secondResponse);
             if (!secondResponse.ok) {
-                console.error(secondResponse.message);
+                console.error(secondResponse.message);                           
             }
 
             const data = await secondResponse.text();
@@ -94,13 +93,13 @@ const AddPracticeDetail = (props) => {
     };
 
     return (
-        <div className="container">
+        <div className="container add-practice-detail-container">
             <div className="row justify-content-center">
                 <div className="col-md-6">
-                    <h2 className="text-center">Thông tin bài kiểm tra</h2>
-                    <form onSubmit={handleFormSubmit}>
+                    <h2 className="text-center add-practice-title-name">Practice Detail</h2>
+                    <form onSubmit={handleFormSubmit} className="add-practice-detail-form">
                         <div className="form-group">
-                            <label htmlFor="quizName">Tên bài kiểm tra:</label>
+                            <label htmlFor="quizName">Practice Name:</label>
                             <input
                                 type="text"
                                 className="quizName form-control"
@@ -116,7 +115,7 @@ const AddPracticeDetail = (props) => {
                             />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="durationTime">Thời gian (phút):</label>
+                            <label htmlFor="durationTime">Duration Time (minutes):</label>
                             <input
                                 type="number"
                                 className="durationTime form-control"
@@ -124,7 +123,7 @@ const AddPracticeDetail = (props) => {
                             />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="passRate">Phần trăm đạt (0-100%):</label>
+                            <label htmlFor="passRate">Pass Rate (0-100%):</label>
                             <input
                                 type="number"
                                 min="0"
@@ -134,19 +133,22 @@ const AddPracticeDetail = (props) => {
                             />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="examLevel">Mức độ kiểm tra:</label>
+                            <label htmlFor="examLevel">Practice Level:</label>
                             <select
                                 className="form-control"
                                 onChange={handleExamLevelChange}
                             >
-                                <option value="easy">Dễ (40)</option>
-                                <option value="medium">Trung bình (50)</option>
-                                <option value="hard">Khó (60)</option>
+                                <option value="easy">Easy (40)</option>
+                                <option value="medium">Medium (50)</option>
+                                <option value="hard">Hard (60)</option>
                             </select>
                         </div>
-                        <button type="submit" className="practice btn btn-primary">
+                        <div>
+                            <button type="submit" className="btn btn-dark btn-submit-add-practice">
                             New Practice
                         </button>
+                        </div>
+                        
                     </form>
                 </div>
             </div>

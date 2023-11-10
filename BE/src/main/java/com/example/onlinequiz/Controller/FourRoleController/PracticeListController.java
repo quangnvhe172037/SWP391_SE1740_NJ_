@@ -143,10 +143,17 @@ public class PracticeListController {
             quizService.addNewQuiz(quiz);
             System.out.println("Quiz id sau add" + quiz.getQuizID());
             List<QuizData> quizDataRandom = quizDataService.getRandomQuizData(quantityQuizData, s);
+            int i = 0;
+            System.out.println(quizDataRandom.size());
             for (QuizData e : quizDataRandom) {
+                System.out.println(i);
+                i++;
                 QuizDetail quizDetail = new QuizDetail();
+                System.out.println(i);
                 quizDetail.setQuizData(e);
+                System.out.println(i);
                 quizDetail.setQuizzes(quiz);
+                System.out.println(1);
                 quizDetailService.addNewQuizDetail(quizDetail);
             }
 

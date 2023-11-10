@@ -17,4 +17,7 @@ public interface UserRepository extends JpaRepository<Users, Long> {
     Users getById(Long id);
 
     Long countAllByCreateDateBetween(Date from, Date to);
+
+
+    List<Users> findAllByRole(String role);
 }

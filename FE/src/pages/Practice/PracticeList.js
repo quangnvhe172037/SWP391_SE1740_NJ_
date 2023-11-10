@@ -91,7 +91,7 @@ function PracticeList() {
 
 
     return (
-        <div className="container mt-5">
+        <div className="container mt-5" style={{marginBottom: "40px"}}>
             <div className="row mb-4">
                 <div className="col-md-6">
                     <h1 style={{ textAlign: 'center' }}>{subjectNameinweb}</h1>
@@ -102,15 +102,15 @@ function PracticeList() {
                 <div className="col-md-6">
                     <input
                         type="text"
-                        placeholder="Tìm kiếm theo Quiz Name..."
+                        placeholder="Find by Quiz Name..."
                         className="form-control"
                         id="search-input"
                         onChange={handleSearchChange}
                     />
                 </div>
-                <div className="col-md-4 text-right">
+                <div className="col-md-6 text-right">
                 <Link to={"/practice/add"} state={subjectid}>
-                    <button className="practice btn btn-success f">New practice</button>
+                    <button className="practice btn btn-dark f">New practice</button>
                 </Link>
             </div>
             </div>

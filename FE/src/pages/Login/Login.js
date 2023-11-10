@@ -94,7 +94,7 @@ const Login = () => {
                     
                     break;
                   case "EXPERT":
-                    navigate("/expert/dashboard");
+                    navigate("/expert/subjects");
                    
                     break;
                   case "MARKETING":

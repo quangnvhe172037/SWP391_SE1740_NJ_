@@ -262,20 +262,20 @@ VALUES
 -- 15. Insert to exam_level
 -- 16. Insert to quiz_result
 
-INSERT INTO `quiz_practice`.`quiz_result`
-(`result_id`,
-`score`,
-`user_id`,
-`date_taken`,
-`quiz_id`,
-`correct_answer`,
-`null_answer`,
-`false_answer`,
-`is_pass`,
-`is_done`)
-VALUES
-(1,77,3,"2023-05-11",1,5,4,8,1, 1),
- (2, 23,3,"2023-05-11",2,5,4,8,1, 1);
+-- INSERT INTO `quiz_practice`.`quiz_result`
+-- (`result_id`,
+-- `score`,
+-- `user_id`,
+-- `date_taken`,
+-- `quiz_id`,
+-- `correct_answer`,
+-- `null_answer`,
+-- `false_answer`,
+-- `is_pass`,
+-- `is_done`)
+-- VALUES
+-- (1,77,3,"2023-05-11",1,5,4,8,1, 1),
+--  (2, 23,3,"2023-05-11",2,5,4,8,1, 1);
 -- (45,4,"2023-05-11",3,6,9,1,1),
 -- (20,4,"2023-05-11",4,12,3,5,1),
 -- (13,4,"2023-05-11",5,9,1,3,1);
@@ -317,6 +317,13 @@ VALUES
 
 
 -- 21. Insert to subject_teacher
+INSERT INTO `quiz_practice`.`subject_teacher`
+(`subject_teacher_id`,
+`subject_id`,
+`user_id`)
+VALUES
+(1, 1,4),
+(2,4,4);
 
 
 

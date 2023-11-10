@@ -32,8 +32,7 @@ public class QuizData {
     @JsonManagedReference
     private QuizQuestions quizQuestions;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "quizData")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "quizData")
     @JsonBackReference
-    @JoinColumn(name = "quiz_detail_id")
-    private QuizDetail quizDetail;
+    private List<QuizDetail> quizDetail;
 }

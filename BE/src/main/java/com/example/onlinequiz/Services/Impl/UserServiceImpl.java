@@ -189,5 +189,11 @@ public class UserServiceImpl implements UserService {
 
         return userRepository.countAllByCreateDateBetween(firstDayOfMonth, currentDate);
     }
+
+    @Override
+    public List<Users> getAllUserByRole(String role) {
+
+        return userRepository.findAllByRole(role);
+    }
 }
 

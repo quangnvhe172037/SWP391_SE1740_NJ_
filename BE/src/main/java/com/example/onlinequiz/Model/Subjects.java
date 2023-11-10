@@ -38,4 +38,7 @@ public class Subjects {
     //Ngay tao khoa hoc
     @Column(name = "create_date")
     private Date createDate;
+
+    @Transient
+    private Long price;
 }

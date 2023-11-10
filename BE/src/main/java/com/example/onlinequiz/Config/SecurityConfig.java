@@ -58,7 +58,6 @@ public class SecurityConfig {
             "/user/subject/wishlist",
             "/user/subject/subjects-wishlist",
             "/user/subject/deletesubjectwishlist",
-
             "/user/subject/get",
             "/user/subject/get/**",
             "/attempt/quiz/**",
@@ -90,7 +89,8 @@ public class SecurityConfig {
             "/api/questions/update/quiz/data/**",
             "/api/questions/get/quiz/sentence/**",
             "/api/questions/delete/sentence/**",
-            "/api/questions/**"
+            "/api/questions/**",
+            "/subject/**"
 
 
     };
@@ -116,8 +116,9 @@ public class SecurityConfig {
     };
     // Danh sách các URL cho admin
     private static final String[] ADMIN_URL = {
-            "/admin/**"
-
+            "/admin/**",
+            "/subjects/**",
+            "/admin/get/expert"
     };
     //Danh sách url cho cả 3 role expert, admin, customer
     private static final String[] FourRole_URL = {
