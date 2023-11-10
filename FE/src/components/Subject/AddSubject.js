@@ -11,6 +11,7 @@ const AddSubject = () => {
     const [updateCategory, setUpdateCategory] = useState("");
     const [updatedDescription, setUpdatedDescription] = useState("");
     const [updatedStatus, setUpdatedStatus] = useState(0);
+    const [updatedPrice, setUpdatedPrice] = useState(-1);
     const token = localStorage.getItem("token");
     const navigate = useNavigate();
     const apiCategorySubjects = `${BASE_URL}/categorysubject/all`;
@@ -23,8 +24,8 @@ const AddSubject = () => {
             return response.json();
         }).then((dataJson) => {
             const data = dataJson.map((item) => ({
-                id: item.id,
-                name: item.cateName
+                cateID: item.cateID,
+                cateName: item.cateName
             }));
             return data;
         })
@@ -50,9 +51,10 @@ const AddSubject = () => {
         const formData = new FormData();
         const temp = {
             subjectName : updatedName,
-            subjectCategory : categories.find(n => n.id == Number(updateCategory)),
+            subjectCategory : categories.find(n => n.cateID == Number(updateCategory)),
             status : updatedStatus,
-            description : updatedDescription
+            description : updatedDescription,
+            price : updatedPrice
         }
         formData.append("file", updatedImage);
         formData.append("subject", JSON.stringify(temp));
@@ -72,7 +74,7 @@ const AddSubject = () => {
             return response.json();
           })
           .then((data) => {
-            navigate("/expert/subjects");
+            navigate("/admin/subjects");
           })
           .catch((error) => {
             console.error("Error updating slider data:", error);
@@ -118,6 +120,20 @@ const AddSubject = () => {
                         </div>
 
                         <div className="form-group">
+                            <label className="col-lg-3 control-label">Subject Price</label>
+                            <div className="col-lg-8">
+                                <input
+                                    type="number"
+                                    value={updatedPrice}
+                                    className="inputData form-control"
+                                    min={0}
+                                    required
+                                    onChange={(e) => setUpdatedPrice(e.target.value)}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="form-group">
                             <label className="col-lg-3 control-label">Category Subject</label>
                             <div className="col-lg-8">
                                 <select
@@ -129,8 +145,8 @@ const AddSubject = () => {
                                 >
                                     <option value="-1">Choose Category Subject</option>
                                     {categories.map((category) => (
-                                        <option key={category.id} value={category.id}>
-                                            {category.name}
+                                        <option key={category.cateID} value={category.cateID}>
+                                            {category.cateName}
                                         </option>
                                     ))}
                                 </select>

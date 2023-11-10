@@ -1,4 +1,3 @@
-
 import ReactPaginate from "react-paginate";
 import DayJs from "../Home/DayJs";
 import React, { useState, useEffect } from "react";
@@ -25,12 +24,20 @@ const SubjectData = () => {
     boxShadow: 24,
     p: 4,
   };
+  const [updatedPrice,setupdatedPrice] = useState(-1);
   const [updatedName, setUpdatedName] = useState("");
   const [updatedImage, setUpdatedImage] = useState("");
   const [updateCategory, setUpdateCategory] = useState("");
   const [updatedDescription, setUpdatedDescription] = useState("");
   const [updatedStatus, setUpdatedStatus] = useState(0);
   const [open, setOpen] = React.useState(false);
+  const [subject, setSubject] = useState({});
+  const [edit, setEdit] = useState(false);
+  const handleEdit = (e) => {
+    e.preventDefault();
+    setEdit(true);
+    handleOpen();
+  };
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [search, setSearch] = useState("");
@@ -61,6 +68,7 @@ const SubjectData = () => {
           description: item.description,
           create_date: item.create_date,
           image: item.image,
+          price : item.price
         }));
         return data;
       })
@@ -69,7 +77,9 @@ const SubjectData = () => {
         setSubjects(data);
         setPaginationSubjects(data);
         setTotalPage(
-          data.length % 3 == 0 ? data.length / 3 : Math.floor(data.length / 3) + 1
+          data.length % 3 == 0
+            ? data.length / 3
+            : Math.floor(data.length / 3) + 1
         );
       });
   }, []);
@@ -83,8 +93,8 @@ const SubjectData = () => {
       })
       .then((dataJson) => {
         const data = dataJson.map((item) => ({
-          id: item.id,
-          name: item.cateName,
+          cateID: item.cateID,
+          cateName: item.cateName,
         }));
         return data;
       })
@@ -132,15 +142,21 @@ const SubjectData = () => {
     }
   };
   const handleSaveDataClick = (e) => {
-    let id = document.getElementById("subjectID").value;
+    let id = null;
+    try{
+      id = document.getElementById("subjectID").value;
+    }catch(err){
+      console.log(err)
+    }
     e.preventDefault();
     // Tạo một đối tượng mới chứa thông tin đã cập nhật
     const formData = new FormData();
     const temp = {
-      subjectName: updatedName,
-      subjectCategory: categories.find((n) => n.id == Number(updateCategory)),
-      status: updatedStatus,
-      description: updatedDescription,
+      subjectName: updatedName ? updatedName : subject.subjectName,
+      subjectCategory: updateCategory ? categories.find((n) => n.cateID == Number(updateCategory)) : categories.find((n) => n.cateID == Number(subject.subjectCategory.cateID)),
+      status: updatedStatus ? updatedStatus : subject.status,
+      description: updatedDescription ? updatedDescription : subject.description,
+      price : updatedPrice !== -1 ? updatedPrice : subject.price
     };
     formData.append("file", updatedImage);
     formData.append("subject", JSON.stringify(temp));
@@ -160,12 +176,21 @@ const SubjectData = () => {
         return response.json();
       })
       .then((data) => {
-        navigate("/expert/subjects");
+        window.location.reload();
       })
       .catch((error) => {
         console.error("Error updating slider data:", error);
       });
   };
+  function handleDetail(index) {
+    let temp = paginationsubjects.slice(
+      (pageNum - 1) * 3,
+      Math.min(pageNum * 3, paginationsubjects.length)
+    );
+    setSubject(temp[index.index]);
+    setOpen(true);
+    setEdit(false);
+  }
   return (
     <>
       <form onSubmit={handleSubmit} className="pb-12 flex items-center">
@@ -185,8 +210,8 @@ const SubjectData = () => {
           >
             <option value={0}>All</option>
             {categories.map((data, index) => (
-              <option key={index} value={data.id}>
-                {data.name}
+              <option key={index} value={data.cateID}>
+                {data.cateName}
               </option>
             ))}
           </select>
@@ -206,9 +231,9 @@ const SubjectData = () => {
       <table className="table table-striped" border={"4px"}>
         <thead>
           <tr>
-            <td scope="col" className="slider-table-header">
+            <th scope="col" className="slider-table-header">
               ID
-            </td>
+            </th>
             <td scope="col" className="slider-table-header">
               Image
             </td>
@@ -222,9 +247,6 @@ const SubjectData = () => {
               Status
             </td>
             <td scope="col" className="slider-table-header">
-              Created Date
-            </td>
-            <td scope="col" className="slider-table-header">
               Action
             </td>
           </tr>
@@ -236,10 +258,13 @@ const SubjectData = () => {
               Math.min(pageNum * 3, paginationsubjects.length)
             )
             .map((item, index) => (
-              <tr scope="row">
+              <tr scope="row" key={index}>
                 <td className="slider-table-data">{item.subjectID}</td>
                 <td className="slider-table-data">
-                  <img src={`${item.image}`}  style={{height: "80px", width: "80px"}}/>
+                  <img
+                    src={`${item.image}`}
+                    style={{ height: "80px", width: "80px" }}
+                  />
                 </td>
                 <td className="slider-table-data">{item.subjectName}</td>
                 <td className="slider-table-data">
@@ -249,168 +274,167 @@ const SubjectData = () => {
                   {item.status ? "active" : "deactive"}
                 </td>
                 <td className="slider-table-data">
-                  {DayJs.from(item.create_date)}
-                </td>
-                <td className="slider-table-data">
-                  <Button onClick={handleOpen}>Detail</Button>
-                  <Button onClick={handleOpen}>
-                    <Link to={`/add-question/${item.subjectID}`}>
-                      Add Question
-                    </Link>
+                  <Button onClick={() => handleDetail({ index })}>
+                    Detail
                   </Button>
-                  <Button onClick={handleOpen}>
-                    <Link to={`/expert/subject/${item.subjectID}/manage`}>
-                      Manage
-                    </Link>
-                  </Button>
-                  <Modal
-                    open={open}
-                    onClose={handleClose}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-                  >
-                    <Box sx={style}>
-                      <div className="col-md-3">
-                        <div className="text-center">
-                          <img
-                            src={
-                              updatedImage.preview
-                                ? updatedImage.preview
-                                : item.image
-                            }
-                            alt="Choose some img for slider"
-                            className="sliderImage"
-                          />
-                          <h6 className="upload-notify">Upload a photo</h6>
-                          <input
-                            required
-                            type="file"
-                            accept="image/*"
-                            onChange={handleImageChange}
-                            className="inputImage"
-                          />
-                        </div>
-                      </div>
-                      <div className="col-md-9 personal-info">
-                        <form className="form-horizontal" role="form">
-                          <input
-                            type="hidden"
-                            id="subjectID"
-                            value={item.subjectID}
-                          />
-                          <div className="form-group">
-                            <label className="col-lg-3 control-label">
-                              Subject Name
-                            </label>
-                            <div className="col-lg-8">
-                              <input
-                                type="text"
-                                value={item.subjectName}
-                                className="inputData form-control"
-                                required
-                                onChange={(e) => setUpdatedName(e.target.value)}
-                              />
-                            </div>
-                          </div>
-                          <div className="form-group">
-                            <label className="col-lg-3 control-label">
-                              Category Subject
-                            </label>
-                            <div className="col-lg-8">
-                              <select
-                                className="inputData form-control"
-                                required
-                                onChange={(e) => {
-                                  setUpdateCategory(e.target.value);
-                                }}
-                              >
-                                <option value="-1">
-                                  Choose Category Subject
-                                </option>
-                                {categories.map((category) => (
-                                  <option
-                                    key={category.id}
-                                    value={category.id}
-                                    selected={
-                                      item.subjectCategory.id === category.id
-                                        ? true
-                                        : false
-                                    }
-                                  >
-                                    {category.name}
-                                  </option>
-                                ))}
-                              </select>
-                            </div>
-                          </div>
-                          <div className="form-group">
-                            <label className="col-lg-3 control-label">
-                              Description
-                            </label>
-                            <div className="col-lg-8">
-                              <textarea
-                                required
-                                type="text"
-                                className="inputData form-control"
-                                onChange={(e) =>
-                                  setUpdatedDescription(e.target.value)
-                                }
-                              >
-                                {item.description}
-                              </textarea>
-                            </div>
-                          </div>
-                          <div className="form-group">
-                            <label className="col-lg-3 control-label">
-                              Subject status
-                            </label>
-                            <div className="col-lg-8">
-                              <div className="ui-select">
-                                <select
-                                  required
-                                  className="inputData form-control"
-                                  value={item.status}
-                                  onChange={(e) =>
-                                    setUpdatedStatus(e.target.value)
-                                  }
-                                >
-                                  <option value="true" selected={item.status}>
-                                    Active
-                                  </option>
-                                  <option value="false" selected={!item.status}>
-                                    Inactive
-                                  </option>
-                                </select>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="form-group">
-                            <label class="col-md-3 control-label"></label>
-                            <div class="col-md-8">
-                              <button
-                                className="sliderBtn btn btn-dark"
-                                onClick={handleSaveDataClick}
-                              >
-                                Edit
-                              </button>
-
-                              <button
-                                className="btn sliderBtn btn-back"
-                                onClick={handleClose}
-                              >
-                                Back to Subject list
-                              </button>
-                            </div>
-                          </div>
-                        </form>
-                      </div>
-                    </Box>
-                  </Modal>
                 </td>
               </tr>
             ))}
         </tbody>
       </table>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <div className="col-md-3">
+            <div className="text-center">
+              <img
+                src={
+                  updatedImage.preview ? updatedImage.preview : subject?.image
+                }
+                alt="Choose some img for slider"
+                className="sliderImage"
+              />
+              <h6 className="upload-notify">Upload a photo</h6>
+              <input
+                required
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="inputImage"
+                disabled={!edit}
+              />
+            </div>
+          </div>
+          <div className="col-md-9 personal-info">
+            <form className="form-horizontal" role="form">
+              <input type="hidden" id="subjectID" value={subject?.subjectID} />
+              <div className="form-group">
+                <label className="col-lg-3 control-label">Subject Name</label>
+                <div className="col-lg-8">
+                  <input
+                    type="text"
+                    defaultValue={subject?.subjectName}
+                    className="inputData form-control"
+                    required
+                    onChange={(e) => setUpdatedName(e.target.value)}
+                    disabled={!edit}
+                  />
+                </div>
+              </div>
+              <div className="form-group">
+                <label className="col-lg-3 control-label">Subject Price</label>
+                <div className="col-lg-8">
+                  <input
+                    type="number"
+                    defaultValue={subject?.price}
+                    className="inputData form-control"
+                    required
+                    onChange={(e) => setupdatedPrice(e.target.value)}
+                    disabled={!edit}
+                    min={0}
+                  />
+                </div>
+              </div>
+              <div className="form-group">
+                <label className="col-lg-3 control-label">
+                  Category Subject
+                </label>
+                <div className="col-lg-8">
+                  <select
+                    className="inputData form-control"
+                    required
+                    onChange={(e) => {
+                      setUpdateCategory(e.target.value);
+                    }}
+                    disabled={!edit}
+                  >
+                    <option value="-1">Choose Category Subject</option>
+                    {categories.map((category) => (
+                      <option
+                        key={category.cateID}
+                        value={category.cateID}
+                        selected={
+                          subject?.subjectCategory?.cateID === category.cateID
+                            ? true
+                            : false
+                        }
+                      >
+                        {category.cateName}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+              <div className="form-group">
+                <label className="col-lg-3 control-label">Description</label>
+                <div className="col-lg-8">
+                  <textarea
+                    required
+                    type="text"
+                    className="inputData form-control"
+                    onChange={(e) => setUpdatedDescription(e.target.value)}
+                    disabled={!edit}
+                  >
+                    {subject?.description}
+                  </textarea>
+                </div>
+              </div>
+              <div className="form-group">
+                <label className="col-lg-3 control-label">Subject status</label>
+                <div className="col-lg-8">
+                  <div className="ui-select">
+                    <select
+                      required
+                      className="inputData form-control"
+                      onChange={(e) => setUpdatedStatus(e.target.value)}
+                      disabled={!edit}
+                    >
+                      <option value="true" selected={subject?.status}>
+                        Active
+                      </option>
+                      <option value="false" selected={!subject?.status}>
+                        Inactive
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-3 control-label"></label>
+                <div class="col-md-8">
+                  {edit ? (
+                    <button
+                      className="sliderBtn btn btn-dark"
+                      onClick={(e) => {handleSaveDataClick(e)}}
+                    >
+                      Save
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      className="sliderBtn btn btn-dark"
+                      onClick={(event) => handleEdit(event)}
+                    >
+                      Edit
+                    </button>
+                  )}
+
+                  <button
+                    className="btn sliderBtn btn-back"
+                    onClick={handleClose}
+                  >
+                    Back to Subject list
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </Box>
+      </Modal>
       <div className="pb-12">
         <ReactPaginate
           breakLabel="..."

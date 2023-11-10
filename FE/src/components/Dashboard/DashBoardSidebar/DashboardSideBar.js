@@ -30,6 +30,15 @@ const DashboardSideBar = () => {
           User Registration List
         </Link>
       </div>
+
+      <div className="dashboard-sidebar-element">
+        <Link
+          to="/admin/subjects"
+          className="dashboard-side-bar-element-title"
+        >
+          Subject List
+        </Link>
+      </div>
     </div>
   );
 };

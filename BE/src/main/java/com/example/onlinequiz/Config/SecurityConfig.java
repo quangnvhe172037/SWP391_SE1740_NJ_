@@ -115,8 +115,8 @@ public class SecurityConfig {
     };
     // Danh sách các URL cho admin
     private static final String[] ADMIN_URL = {
-            "/admin/**"
-
+            "/admin/**",
+            "/subjects/**"
     };
     //Danh sách url cho cả 3 role expert, admin, customer
     private static final String[] FourRole_URL = {

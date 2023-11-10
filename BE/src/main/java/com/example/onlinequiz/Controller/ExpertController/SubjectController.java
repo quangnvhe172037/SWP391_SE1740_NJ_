@@ -1,7 +1,9 @@
 package com.example.onlinequiz.Controller.ExpertController;
 
 
+import com.example.onlinequiz.Model.SubjectPrice;
 import com.example.onlinequiz.Model.Subjects;
+import com.example.onlinequiz.Repo.SubjectPriceRepository;
 import com.example.onlinequiz.Repo.SubjectsRepository;
 import com.example.onlinequiz.Services.FileUpload;
 import com.example.onlinequiz.Services.SubjectService;
@@ -33,11 +35,20 @@ public class SubjectController {
     @Autowired
     private SubjectsRepository subjectsRepository;
 
+    @Autowired
+    private SubjectPriceRepository subjectPriceRepository;
+
     @GetMapping("/all")
     @ResponseBody
     public ResponseEntity<List<Subjects>> getAllSubjects() {
         try {
             List<Subjects> subjectList = subjectService.getAllSubject();
+            for(Subjects i : subjectList){
+                SubjectPrice subjectPrice = subjectPriceRepository.findBySubjectAndAndStatus(i, true);
+                if(subjectPrice != null) {
+                    i.setPrice(subjectPrice.getPrice());
+                }
+            }
             return ResponseEntity.ok(subjectList);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -73,6 +84,14 @@ public class SubjectController {
             subjects.setImage(image);
             subjects.setCreateDate(new Date());
             subjectService.save(subjects);
+            SubjectPrice subjectPrice = subjectPriceRepository.findBySubjectAndAndStatus(subjects, true);
+            if(subjectPrice == null){
+                subjectPrice = new SubjectPrice();
+                subjectPrice.setSubject(subjects);
+                subjectPrice.setStatus(true);
+            }
+            subjectPrice.setPrice(subjects.getPrice());
+            subjectPriceRepository.save(subjectPrice);
             return ResponseEntity.ok(subjects);
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -80,18 +99,28 @@ public class SubjectController {
     }
 
     @PostMapping(value = "/update", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Subjects> update(@RequestParam("id") Long id,@RequestPart("subject") String subjectsJson, @RequestParam("file") MultipartFile file){
+    public ResponseEntity<Subjects> update(@RequestParam("id") Long id,@RequestPart("subject") String subjectsJson, @RequestParam(value = "file",required = false) MultipartFile file){
         ObjectMapper objectMapper = new ObjectMapper();
         Subjects subjects = subjectsRepository.findById(id).get();
         try {
             Subjects subjectData = objectMapper.readValue(subjectsJson, Subjects.class);
-            String image = fileUploadService.uploadFile(file);
-            subjects.setImage(image);
+            if(file != null){
+                String image = fileUploadService.uploadFile(file);
+                subjects.setImage(image);
+            }
             subjects.setCreateDate(new Date());
             subjects.setSubjectCategory(subjectData.getSubjectCategory());
             subjects.setSubjectName(subjectData.getSubjectName());
             subjects.setDescription(subjectData.getDescription());
             subjects.setStatus(subjectData.isStatus());
+            SubjectPrice subjectPrice = subjectPriceRepository.findBySubjectAndAndStatus(subjects, true);
+            if(subjectPrice == null){
+                subjectPrice = new SubjectPrice();
+                subjectPrice.setSubject(subjects);
+                subjectPrice.setStatus(true);
+            }
+            subjectPrice.setPrice(subjectData.getPrice());
+            subjectPriceRepository.save(subjectPrice);
             subjectService.save(subjects);
             return ResponseEntity.ok(subjects);
         } catch (Exception e) {
