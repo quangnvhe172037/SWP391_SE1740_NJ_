@@ -14,3 +14,9 @@ organization/expert to build up & sell the quiz practice services, supports the 
 * Front-end: Boostrap, ReactJS, Tailwind
 * Back-end: Java (Spring Boot, JPA)
 * Database: MySQL 
+
+## Account for testing (password: 123456)
+* Customer: quangnv1911@gmail.com
+* Admin: quanpdhe170415@fpt.edu.vn
+* Marketing: vquang191103@gmail.com
+* Expert: quangss310@gmail.com    
