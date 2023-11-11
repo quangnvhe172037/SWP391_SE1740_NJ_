@@ -49,7 +49,8 @@ public class SecurityConfig {
             "/practice/delete/**",
             "/practice/list",
             "/practice/view/**",
-            "/api/payment/check"
+            "/api/payment/check",
+            "/user/subject/get/public",
 
     };
     // Danh sách các URL cho customer

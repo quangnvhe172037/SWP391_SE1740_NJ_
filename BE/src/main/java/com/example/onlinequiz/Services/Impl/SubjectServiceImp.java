@@ -56,24 +56,53 @@ public class SubjectServiceImp implements SubjectService {
     }
 
     @Override
+    public SubjectDetailResponse getSubjectDetailPublic(Long subjectId) {
+        Subjects getSubject = subjectRepository.getSubjectsBySubjectID(subjectId);
+        if (getSubject == null) {
+            return null;
+        }
+        SubjectPrice getSubjectPrice = subjectPriceRepository.findBySubjectAndAndStatus(getSubject, true);
+        if (getSubjectPrice == null) {
+            return null;
+        }
+        SubjectDetailResponse dataResponse;
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String strDate = formatter.format(date);
+
+        dataResponse = new SubjectDetailResponse(
+                getSubject.getSubjectID(),
+                getSubject.getSubjectName(),
+                getSubject.getDescription(),
+                getSubject.getImage(),
+                formatter.format(getSubject.getCreateDate()),
+                getSubjectPrice != null ? getSubjectPrice.getPreID() : 0,
+                getSubjectPrice != null ? getSubjectPrice.getPrice() : 0
+        );
+        return dataResponse;
+    }
+
+
+
+    @Override
     public SubjectDetailResponse getSubjectDetail(Long userId, Long subjectId) {
 
         Users getUser = userRepository.getById(userId);
         Subjects getSubject = subjectRepository.getSubjectsBySubjectID(subjectId);
 
-        if(getUser == null){
+        if (getUser == null) {
             return null;
         }
         SubjectPrice getSubjectPrice = subjectPriceRepository.findBySubjectAndAndStatus(getSubject, true);
-        if(getSubjectPrice == null){
+        if (getSubjectPrice == null) {
             return null;
         }
         UserPayment getUserPayment = userPaymentRepository.findByUsersAndSubjectAndSubjectPriceAndStatus(getUser, getSubject, getSubjectPrice, true);
         SubjectDetailResponse dataResponse;
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        String strDate= formatter.format(date);
-        if(getUserPayment != null){
+        String strDate = formatter.format(date);
+        if (getUserPayment != null) {
             dataResponse = new SubjectDetailResponse(
                     getSubject.getSubjectID(),
                     getSubject.getSubjectName(),
@@ -87,7 +116,7 @@ public class SubjectServiceImp implements SubjectService {
                     formatter.format(getUserPayment.getPurchaseDate())
 
             );
-        }else{
+        } else {
             dataResponse = new SubjectDetailResponse(
                     getSubject.getSubjectID(),
                     getSubject.getSubjectName(),
@@ -113,12 +142,12 @@ public class SubjectServiceImp implements SubjectService {
         List<SubjectTeachers> teachersList = subjectTeacherRepository.findAllByExpert(user);
         List<Long> subjectOwnId = new ArrayList<>();
 
-        for (SubjectTeachers subjectTeacher: teachersList
-             ) {
+        for (SubjectTeachers subjectTeacher : teachersList
+        ) {
             subjectOwnId.add(subjectTeacher.getSubject().getSubjectID());
 
         }
-        List<Subjects> subjectsList = subjectRepository.findAllBySubjectIDInAndStatusIsTrue(subjectOwnId) ;
+        List<Subjects> subjectsList = subjectRepository.findAllBySubjectIDInAndStatusIsTrue(subjectOwnId);
 
         return subjectsList;
     }

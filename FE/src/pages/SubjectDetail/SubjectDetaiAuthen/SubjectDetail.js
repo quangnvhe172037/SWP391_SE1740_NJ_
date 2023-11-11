@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import jwtDecode from "jwt-decode";
-import SubjectLesson from "../../components/SubjectDetail/SubjectLesson/SubjectLesson";
+import SubjectLesson from "../../../components/SubjectDetail/SubjectLesson/SubjectLesson";
 import { useParams } from "react-router-dom";
-import SubjectInfo from "../../components/SubjectDetail/SubjectInfo/SubjectInfo";
-import SubjectSidebar from "../../components/SubjectDetail/SubjectSidebar/SubjectSidebar";
-import SubjectDecription from "../../components/SubjectDetail/SubjectDescription/SubjectDecription";
+import SubjectInfo from "../../../components/SubjectDetail/SubjectInfo/SubjectInfo";
+import SubjectSidebar from "../../../components/SubjectDetail/SubjectSidebar/SubjectSidebar";
+import SubjectDecription from "../../../components/SubjectDetail/SubjectDescription/SubjectDecription";
 import "./SubjectDetail.css";
-import PrivateContent from "../../components/HandleException/PrivateContent";
-import BASE_URL from "../../api/baseapi";
+import PrivateContent from "../../../components/HandleException/PrivateContent";
+import BASE_URL from "../../../api/baseapi";
 
 const SubjectDetail = () => {
   const api = `${BASE_URL}/user/subject/get`;
