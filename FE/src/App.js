@@ -52,7 +52,6 @@ import UserRes from "./pages/UserRegistration/RegistrationList";
 import ImportQuiz from "./components/ImportQuiz/ImportQuiz";
 import SubjectData from "./components/Subject/SubjectData";
 import AddSubject from "./components/Subject/AddSubject";
-import SubjectDetail from "./pages/SubjectDetail/SubjectDetail";
 import UserRegistrationList from "./components/UserRegistrationList/UserRegistrationList";
 import UserRegistrationDetail from "./components/UserRegistrationList/UserRegistrationDetail/UserRegistrationDetail";
 import QuizAttempt from "./pages/QuizAttempt/QuizAttempt";
@@ -70,6 +69,7 @@ import CheckoutBill from "./pages/CheckoutBill/CheckoutBill";
 import PaymentResult from "./pages/PaymentResult/PaymentResult";
 import ExpertCourse from "./pages/ExpertCourse/ExpertCourse";
 import PostEditComponent from "./components/Post/PostMange/PostEdit";
+import SubjectDetailCheck from "./pages/SubjectDetail/SubjectDetailCheck";
 
 
 
@@ -123,7 +123,7 @@ const App = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/register/verifyEmail/" element={<VerifyEmail />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/subject/:subjectId" element={<SubjectDetail />} />
+          <Route path="/subject/:subjectId" element={<SubjectDetailCheck />} />
           {isAuthenticated && (
             <>
               <Route path="/sliders" element={<SliderList />} />

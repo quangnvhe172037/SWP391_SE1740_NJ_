@@ -40,6 +40,25 @@ public class SubjectUserController {
     @Autowired
     private final UserServiceImpl userService;
 
+    @GetMapping("/get/public")
+    public ResponseEntity<SubjectDetailResponse> getSubjectPublic(
+            @RequestParam Long subjectId
+    ) {
+        try {
+            SubjectDetailResponse result = subjectService.getSubjectDetailPublic(subjectId);
+
+            if (result != null) {
+
+                return ResponseEntity.ok(result);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
     @GetMapping("/get")
     public ResponseEntity<SubjectDetailResponse> getQuizResult(
             @RequestParam Long subjectId,

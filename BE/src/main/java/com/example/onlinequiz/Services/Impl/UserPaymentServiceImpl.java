@@ -132,7 +132,7 @@ public class UserPaymentServiceImpl implements UserPaymentService {
         vnp_Params.put("vnp_CurrCode", "VND");
         vnp_Params.put("vnp_BankCode", "");
         vnp_Params.put("vnp_TxnRef", vnp_TxnRef);
-        vnp_Params.put("vnp_OrderInfo", "OrderInfo" + vnp_TxnRef);
+        vnp_Params.put("vnp_OrderInfo", "OrderInfo");
         vnp_Params.put("vnp_ReturnUrl", vnp_Return);
         vnp_Params.put("vnp_IpAddr", "127.0.0.1");
         vnp_Params.put("vnp_OrderType", "other");

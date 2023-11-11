@@ -104,15 +104,11 @@ const PostListManage = () => {
       body: JSON.stringify({ status: updateStatus }),
     })
       .then((response) => {
-        console.log(response);
         if (!response.ok) {
-          console.log(response.message);
         }
         return response.json();
       })
       .then((data) => {
-        // Xử lý phản hồi từ máy chủ (nếu cần)
-        console.log("Posts updated:", data);
         displayPosts();
         alert("Update successfully");
       })
@@ -135,7 +131,6 @@ const PostListManage = () => {
     })
       .then((response) => {
         if (!response.ok) {
-          console.log(response.message);
         }
         // Nếu xóa thành công, cập nhật lại danh sách posts
         const updatedPost = postList.filter((post) => post.postId !== postId);
@@ -154,7 +149,7 @@ const PostListManage = () => {
       <li className="manage-post-list-element ">
         <div className="row">
           <div className="post-list-element-image col-sm-2">
-            <img src={baseUrl + post.image} alt="Image of the picture" />
+            <img src={post.image} alt="Image of the picture" />
           </div>
 
           <div className="col-sm-8 post-list-element-content">
