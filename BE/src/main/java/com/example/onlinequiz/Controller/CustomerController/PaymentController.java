@@ -74,13 +74,16 @@ public class PaymentController {
             fields.remove("vnp_SecureHash");
         }
         String signValue = VNPayConfig.hashAllFields(fields);
-        System.out.println(signValue);
 
         // Tạo đối tượng TransactionResponse để trả về kết quả giao dịch
 
         TransactionResponse transactionResponse = new TransactionResponse();
         if (signValue.equals(secureHash)) {
             if (responseCode.equals("00")) {
+                Long billId = Long.parseLong(txnRef);
+                if(userPaymentService.updatePayment(billId)){
+
+                }
 
                 transactionResponse.setPrice(price / 100);
                 transactionResponse.setData("You have successfully paid with the payment amount (VND): ");
@@ -148,10 +151,7 @@ public class PaymentController {
         TransactionResponse transactionResponse = new TransactionResponse();
         if (signValue.equals(secureHash)) {
             if (responseCode.equals("00")) {
-                Long billId = Long.parseLong(txnRef);
-                if(userPaymentService.updatePayment(billId)){
-
-                }
+                
                 transactionResponse.setPrice(price / 100);
                 transactionResponse.setData("You have successfully paid with the payment amount (VND): ");
                 transactionResponse.setMessage("The transaction was performed successfully. Thank you for using the service.");

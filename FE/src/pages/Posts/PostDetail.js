@@ -40,17 +40,17 @@ const PostDetail = () => {
             <div className="effect-lily tm-post-link tm-pt-40">
               <div className="tm-post-link-inner align-items-center">
 
-                  <img
+                  {/* <img
                     src={`${post.image}`}
                     alt={post.title}
-                    className="img-fluid custom-image"
-                  />
+                    className="img-fluid custom-image view-post-detail"
+                  /> */}
 
               </div>
 
             </div>
             <div className="blog-entry-detail mt-4">
-              {post.title && <h2 className="post-title">{post.title}</h2>}
+              {post.title && <h1 className="post-title">{post.title}</h1>}
               {post.dateCreate && (
                 <div className="date">
                   {format(new Date(post.dateCreate), "dd-MM-yyyy")}

@@ -97,7 +97,6 @@ const QuizAttempt = () => {
 
   const sendUserAnswersToBackend = () => {
     const data = userAnswers;
-    console.log(data);
     fetch(
       `${BASE_URL}/attempt/quiz/update/result/${quizId}?resultId=${resultId}&userId=${user.userId}`,
       {
@@ -160,6 +159,11 @@ const QuizAttempt = () => {
   };
   if (handle404) {
     return <NotFoundException />;
+  }
+
+  const handleReload = () => {
+    sendUserAnswersToBackend();
+    window.location.reload();
   }
 
   return (
@@ -239,9 +243,7 @@ const QuizAttempt = () => {
                 </button>
                 <button
                   className="btn btn-dark"
-                  onClick={() => {
-                    window.location.reload();
-                  }}
+                  onClick={handleReload}
                 >
                   Check saved
                 </button>

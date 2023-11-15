@@ -11,51 +11,59 @@ const QuizResultPage = () => {
   const user = jwtDecode(token);
   const navigate = useNavigate();
   const [seed, setSeed] = useState(1);
+  const [loading, setLoading] = useState(true);
   
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      // Chờ 5 giây trước khi thực hiện fetch
+      await new Promise((resolve) => setTimeout(resolve, 2000));
 
-    useEffect(() => {
-      fetch(`${BASE_URL}/quiz/result/view/${resultId}`, {
+      const response = await fetch(`${BASE_URL}/quiz/result/view/${resultId}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-      })
-        .then((response) => {
-          if (!response.ok) {
-            console.log(response.message);
-          }
-          return response.json();
-        })
+      });
 
-        .then((dataJson) => {
-          const data = {
-            resultId: dataJson.resultId,
-            score: dataJson.score,
-            dateTaken: dataJson.dateTaken,
-            quizId: dataJson.quizId,
-            correctAnswer: dataJson.correctAnswer,
-            nullAnswer: dataJson.nullAnswer,
-            falseAnswer: dataJson.falseAnswer,
-            isPass: dataJson.isPass,
-          };
+      if (!response.ok) {
+        console.log(response.message);
+        return;
+      }
 
-          return data;
-        })
+      const dataJson = await response.json();
+      const data = {
+        resultId: dataJson.resultId,
+        score: dataJson.score,
+        dateTaken: dataJson.dateTaken,
+        quizId: dataJson.quizId,
+        correctAnswer: dataJson.correctAnswer,
+        nullAnswer: dataJson.nullAnswer,
+        falseAnswer: dataJson.falseAnswer,
+        isPass: dataJson.isPass,
+      };
 
-        .then((result) => {
-          const mockData = result;
-          setQuizInfo(mockData);
-        })
-        .catch((error) => {
-          console.log(error.message);
-        });
-    }, [resultId, quizInfo.resultId]);
+      setQuizInfo(data);
+    } catch (error) {
+      console.log(error.message);
+    } finally {
+       setLoading(false);
+    }
+  };
+
+  fetchData();
+}, [resultId, token, quizInfo.score, quizInfo.resultId]);
 
 
+console.log(quizInfo);
   return (
     <div className="quiz-result-wrap">
       <div className="quiz-result-container ">
-        {quizInfo != null ? (
+        {loading ? (
+          // Hiển thị biểu tượng loading khi đang tải dữ liệu
+          <div>Loading...</div>
+        ) : quizInfo != null ? (
           <div className="row">
             <div className="quiz-result-chart col-md-5">
               <PieChart
@@ -76,8 +84,6 @@ const QuizResultPage = () => {
               <div className="quiz-result-score">Score: {quizInfo.score}%</div>
               <div>Date taken: {quizInfo.dateTaken}</div>
               <div className="quiz-result-review-wrap">
-               
-
                 <button
                   className="quiz-result-review-btn"
                   style={{ marginRight: "10px" }}

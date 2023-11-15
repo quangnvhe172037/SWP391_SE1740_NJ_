@@ -103,9 +103,7 @@ const PostManage = ({
 
       .then((data) => {
         alert("Succesfully");
-        console.log("test alert");
-
-        console.log("test navigate");
+       window.location.reload();
       })
       .catch((error) => {
         console.error("Error updating slider data:", error);
